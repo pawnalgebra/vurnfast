@@ -4,7 +4,7 @@ Pelajari bisnis sebelum menguji teknologi: buka **Target Intelligence** untuk pr
 
 ## Apa Itu Sistem Ini
 
-Aplikasi ini membantu peneliti menyusun riset bug bounty: mencatat izin, memetakan sistem, merumuskan dugaan, mendokumentasikan pengujian manual, dan menghasilkan laporan. Nama yang tampil pada aplikasi saat ini adalah **Universal Research Workspace**. Panduan ini mengikuti implementasi aplikasi versi 0.3.0 dengan schema workspace 2.0.0.
+Aplikasi ini membantu peneliti menyusun riset bug bounty: mencatat izin, memetakan sistem, merumuskan dugaan, mendokumentasikan pengujian manual, dan menghasilkan laporan. Nama yang tampil pada aplikasi saat ini adalah **Universal Research Workspace**. Panduan ini mengikuti implementasi aplikasi versi 1.0.0 dengan schema workspace 2.0.0.
 
 Alur utama:
 

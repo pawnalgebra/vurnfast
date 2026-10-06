@@ -1,6 +1,6 @@
 # Feature Reference
 
-Referensi pengguna untuk aplikasi 0.3.0, schema 2.0.0. Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.
+Referensi pengguna untuk aplikasi 1.0.0, schema 2.0.0. Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.
 
 **Active:** fungsi tersedia dengan prasyarat yang dijelaskan. **Partial:** fungsi tersedia dengan kemampuan terbatas. **Coming Soon:** placeholder belum berfungsi; tidak ada menu placeholder pada versi yang diaudit. AI tanpa konfigurasi berstatus Disabled/Misconfigured, bukan Coming Soon.
 
@@ -2526,7 +2526,7 @@ Otomatis ketika mengubah data; export sebelum pindah browser/origin.
 
 ## Input
 
-Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 0.3.0 dan timestamps.
+Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 1.0.0 dan timestamps.
 
 ## Output
 

@@ -1,4 +1,6 @@
-# Advanced Bug Bounty Research Workspace · v0.3
+# Advanced Bug Bounty Research Workspace · v1.0.0
+
+Rilis aplikasi pertama adalah **v1.0.0**. Schema workspace tetap **2.0.0**, terpisah dari versi rilis aplikasi; backup dan migrasi data existing tetap didukung.
 
 Platform local-first untuk riset bug bounty manual lintas program: target → scope/rules → actors/objects/trust boundaries → techniques → hypotheses → test cases → evidence → findings → laporan Indonesia. **Researcher First · AI Optional · Program Rules First · Evidence Required.**
 
@@ -124,7 +126,7 @@ File System Access tetap opsional: Connect workspace.json → Save to workspace.
 ```json
 {
   "schemaVersion": "2.0.0",
-  "applicationVersion": "0.3.0",
+  "applicationVersion": "1.0.0",
   "updatedAt": "ISO-8601",
   "targets": [],
   "domainPacks": []

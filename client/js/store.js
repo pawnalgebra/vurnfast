@@ -3,7 +3,7 @@ import {DEFAULT_TECHNIQUES} from './technique-data.js';
 import {collections,migrateWorkspace} from './storage.js';
 import {emptyIntelligence,validateDomainPack} from './services/domain-schema.js';
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
-export const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'0.3.0',updatedAt:now(),domainPacks:[],targets:[]});
+export const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'1.0.0',updatedAt:now(),domainPacks:[],targets:[]});
 export function newTarget(values) {
   return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),intelligence:emptyIntelligence(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
 }

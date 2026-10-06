@@ -38,7 +38,7 @@ def build():
     ids = [f['id'] for f in features]
     if len(ids) != len(set(ids)):
         raise ValueError('Duplicate feature id')
-    intro = '# Feature Reference\n\nReferensi pengguna untuk aplikasi 0.3.0, schema 2.0.0. '
+    intro = '# Feature Reference\n\nReferensi pengguna untuk aplikasi 1.0.0, schema 2.0.0. '
     intro += 'Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.\n\n'
     intro += '**Active:** fungsi tersedia dengan prasyarat yang dijelaskan. **Partial:** fungsi tersedia dengan kemampuan terbatas. '
     intro += '**Coming Soon:** placeholder belum berfungsi; tidak ada menu placeholder pada versi yang diaudit. '
@@ -93,7 +93,7 @@ def build():
 <title>{name.replace('_', ' ').title()} — Research Workspace</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/documentation.css"></head>
 <body><header><strong>RESEARCH WORKSPACE / LEARN</strong><nav aria-label="Dokumentasi">{nav}</nav><a href="{name}.md" download>Download Markdown</a></header>
 <main><details class="contents"><summary>Daftar isi</summary><ul>{toc}</ul></details><article>{body}</article></main>
-<footer>Dokumentasi aplikasi 0.3.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>'''
+<footer>Dokumentasi aplikasi 1.0.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>'''
         (output / (name + '.html')).write_text(page, encoding='utf-8', newline='\n')
         (output / (name + '.md')).write_bytes((ROOT / 'docs' / (name + '.md')).read_bytes())
     for name in DOCS:

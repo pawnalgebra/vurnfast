@@ -1,6 +1,6 @@
 {
   "name": "universal-research-workspace",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": { "node": ">=20.19" },
