@@ -1,0 +1,14 @@
+{
+  "name": "universal-research-workspace",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20.19" },
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "python scripts/build.py",
+    "test": "node tests/run.mjs",
+    "test:browser": "python tests/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\""
+  },
+  "dependencies": { "fastify": "^5.12.5", "@fastify/static": "^10.1.5" }
+}

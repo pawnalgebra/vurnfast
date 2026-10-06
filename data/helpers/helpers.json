@@ -1,0 +1,57 @@
+[
+  {
+    "id": "authorization-matrix",
+    "name": "Authorization Matrix Builder",
+    "purpose": "WHO × OBJECT × ACTION expected permissions"
+  },
+  {
+    "id": "state-transition",
+    "name": "State Transition Builder",
+    "purpose": "Catat state asal/tujuan dan authority yang dibutuhkan"
+  },
+  {
+    "id": "trust-boundary",
+    "name": "Trust Boundary Mapper",
+    "purpose": "Catat from/to/channel/authority/trust"
+  },
+  {
+    "id": "evidence-comparator",
+    "name": "Evidence Comparator",
+    "purpose": "Bandingkan dua teks evidence lokal"
+  },
+  {
+    "id": "secret-redactor",
+    "name": "Secret Redactor",
+    "purpose": "Preview redaksi secret dari teks"
+  },
+  {
+    "id": "hypothesis-generator",
+    "name": "Hypothesis Generator",
+    "purpose": "Draft invariant dan hypothesis dari technique"
+  },
+  {
+    "id": "scope-checker",
+    "name": "Scope Checker",
+    "purpose": "Review scope/checklist/rules yang diberikan"
+  },
+  {
+    "id": "finding-checklist",
+    "name": "Finding Checklist",
+    "purpose": "Periksa kelengkapan facts dan evidence"
+  },
+  {
+    "id": "duplicate-comparator",
+    "name": "Duplicate Comparator",
+    "purpose": "Bandingkan root cause/boundary/primitive/component/impact"
+  },
+  {
+    "id": "report-builder",
+    "name": "Report Builder",
+    "purpose": "Laporan Indonesia deterministik"
+  },
+  {
+    "id": "gap-analyzer",
+    "name": "Research Gap Analyzer",
+    "purpose": "Untested actors/objects/states/boundaries/techniques"
+  }
+]

@@ -1,0 +1,590 @@
+{
+  "schemaVersion": "1.0.0",
+  "applicationVersion": "0.1.0",
+  "updatedAt": "2026-10-06T08:00:00.000Z",
+  "targets": [
+    {
+      "id": "6eff2b3c-cef1-4009-a1aa-ab194f8a1553",
+      "createdAt": "2026-10-06T08:00:00.000Z",
+      "updatedAt": "2026-10-06T08:00:00.000Z",
+      "name": "OpenAI Codex",
+      "platform": "Bugcrowd",
+      "programUrl": "",
+      "asset": "Codex Desktop",
+      "environment": "Dummy example only",
+      "version": "",
+      "status": "active",
+      "customNotes": "CONTOH PROFIL FIKTIF; tidak menyatakan scope program sebenarnya.",
+      "scope": {
+        "inScope": "Isi scope yang sebenarnya sebelum testing.",
+        "outOfScope": "Semua aset yang tidak diotorisasi.",
+        "knownIssues": "",
+        "rateLimits": "",
+        "automationRules": "",
+        "safeHarbor": "",
+        "testingRestrictions": "Tidak ada interaksi dengan target dari aplikasi.",
+        "testAccounts": "Alias akun: Owner, Member",
+        "ownedDomains": "",
+        "testWorkspaces": "Workspace dummy B",
+        "dummyMarkers": "OWNED-DUMMY-EXAMPLE",
+        "guard": {}
+      },
+      "actors": [
+        {
+          "id": "218c26cf-d460-4b0e-9095-96da0a603736",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "name": "Owner",
+          "authority": "Pemilik akun dummy",
+          "notes": ""
+        },
+        {
+          "id": "cc618bcd-301f-4888-9182-2e038154359d",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "name": "Member",
+          "authority": "Anggota dummy",
+          "notes": ""
+        }
+      ],
+      "objects": [
+        {
+          "id": "2379081e-a7e0-4cab-b91d-5dabfcf2437f",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "name": "Approval",
+          "type": "Approval",
+          "owner": "Owner",
+          "tenant": "Workspace B",
+          "state": "Used",
+          "sensitivity": "Dummy",
+          "notes": ""
+        }
+      ],
+      "boundaries": [
+        {
+          "id": "5eb1f4cd-e3b1-4976-9f43-c7fa2c6e7430",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "from": "Browser",
+          "to": "Backend",
+          "trust": "restricted",
+          "authority": "Approval dummy",
+          "notes": "Boundary fiktif."
+        }
+      ],
+      "techniques": [
+        {
+          "id": "788706f6-f384-4503-9754-67d480c619eb",
+          "rank": 1,
+          "name": "State-Machine & Context Confusion",
+          "rarity": "very-rare",
+          "difficulty": "advanced",
+          "domain": "state",
+          "description": "Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.",
+          "hypothesisTemplate": "Backend gagal mengikat actor, object, state, dan context sebagai satu keputusan authorization.",
+          "testTemplate": "Ganti satu dimensi: account, session, profile, tenant, origin, destination, lalu kombinasikan dua dimensi.",
+          "signals": [
+            "UI/backend berbeda pendapat tentang user, scope, object, atau authority aktif."
+          ],
+          "stopCondition": "Berhenti setelah protected action/data dummy terbukti melewati boundary.",
+          "libraryId": "tech_01",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "187f0e86-0003-4cf1-8307-e2ad81845745",
+          "rank": 2,
+          "name": "Async Authorization / Queue Revalidation",
+          "rarity": "very-rare",
+          "difficulty": "advanced",
+          "domain": "state",
+          "description": "Authorization valid saat job dibuat belum tentu masih valid saat worker menjalankannya.",
+          "hypothesisTemplate": "Worker menggunakan authorization snapshot lama tanpa re-check state terbaru.",
+          "testTemplate": "Queue action → revoke permission / role / share → tunggu job diproses.",
+          "signals": [
+            "Job tetap membaca, mengubah, mengirim, atau mengeksekusi resource setelah hak dicabut."
+          ],
+          "stopCondition": "Pakai data dummy dan hentikan setelah satu unauthorized outcome terbukti.",
+          "libraryId": "tech_02",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "ad0dc05e-76fc-4869-adb7-45a2a730ca02",
+          "rank": 3,
+          "name": "Approval / Capability Context Confusion",
+          "rarity": "very-rare",
+          "difficulty": "intermediate",
+          "domain": "auth",
+          "description": "Valid approval harus terikat ke actor, action, object, destination, dan context yang tepat.",
+          "hypothesisTemplate": "Capability terlalu luas atau tidak terikat pada seluruh konteks yang relevan.",
+          "testTemplate": "Replay, revoke, expire, switch action, switch origin, switch recipient, switch session.",
+          "signals": [
+            "Approval untuk X berhasil digunakan untuk Y."
+          ],
+          "stopCondition": "Jangan melanjutkan ke aksi destruktif setelah mismatch terbukti.",
+          "libraryId": "tech_03",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "6537c0a2-3f73-475d-85dd-aa9ea5ad5e03",
+          "rank": 4,
+          "name": "Restart / Resume Persistence",
+          "rarity": "very-rare",
+          "difficulty": "intermediate",
+          "domain": "state",
+          "description": "Restart sering membuat state browser, extension, desktop app, dan backend tidak sinkron.",
+          "hypothesisTemplate": "Old authority/capability bertahan melewati restart atau reconnect.",
+          "testTemplate": "Grant → restart/reconnect/re-login → switch account → reuse action.",
+          "signals": [
+            "Old session, approval, profile, atau permission tetap dihormati."
+          ],
+          "stopCondition": "Catat komponen mana yang menyimpan stale state.",
+          "libraryId": "tech_04",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "e46499a5-34c2-480c-bbdd-f303286c7719",
+          "rank": 5,
+          "name": "Differential Multi-Surface Testing",
+          "rarity": "very-rare",
+          "difficulty": "intermediate",
+          "domain": "api",
+          "description": "Operasi yang sama dari UI, API, mobile, desktop, atau extension harus menghasilkan keputusan security yang konsisten.",
+          "hypothesisTemplate": "Salah satu surface memakai middleware, policy, atau validator berbeda.",
+          "testTemplate": "Jalankan object/action yang sama melalui surface berbeda.",
+          "signals": [
+            "Satu surface menolak sementara surface lain menerima request identik secara semantik."
+          ],
+          "stopCondition": "Bandingkan authorization path, bukan sekadar perbedaan UX.",
+          "libraryId": "tech_05",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "842874b9-a8b7-4656-99e3-34f1aad9f9b1",
+          "rank": 6,
+          "name": "Cross-Context / App-Extension-Browser Trust",
+          "rarity": "very-rare",
+          "difficulty": "advanced",
+          "domain": "browser",
+          "description": "Komponen yang saling percaya sering salah memvalidasi sender, origin, profile, tab, atau account.",
+          "hypothesisTemplate": "Restricted component bisa impersonate trusted caller.",
+          "testTemplate": "Uji origin/profile/session mismatch pada message channel yang memang exposed dan in-scope.",
+          "signals": [
+            "Protected data/functionality tersedia untuk caller yang tidak tepat."
+          ],
+          "stopCondition": "Gunakan website/profile milik sendiri.",
+          "libraryId": "tech_06",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "aa594213-a2c0-448d-a1a5-b9300f5d7463",
+          "rank": 7,
+          "name": "Object Lifecycle & Revocation",
+          "rarity": "very-rare",
+          "difficulty": "intermediate",
+          "domain": "business",
+          "description": "Authorization sering benar pada create/read, lalu rusak setelah share, revoke, archive, restore, atau delete.",
+          "hypothesisTemplate": "Secondary endpoint mempertahankan stale access setelah state berubah.",
+          "testTemplate": "Create → share → revoke → preview/download/export/copy/search/history.",
+          "signals": [
+            "Jalur alternatif masih mengakses object yang sudah revoked/deleted/private."
+          ],
+          "stopCondition": "Jangan menyentuh object pengguna lain.",
+          "libraryId": "tech_07",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "390321bf-3780-43d0-9582-8e33a2a93348",
+          "rank": 8,
+          "name": "Race Condition / TOCTOU",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "state",
+          "description": "Uji operasi yang seharusnya atomic, sekali pakai, atau mutually exclusive.",
+          "hypothesisTemplate": "Dua request lolos validasi sebelum state pertama committed.",
+          "testTemplate": "Gunakan concurrency minimal pada resource dummy milik sendiri.",
+          "signals": [
+            "Dua operasi sukses saat hanya satu yang seharusnya boleh."
+          ],
+          "stopCondition": "Hindari traffic besar; jangan berubah menjadi DoS.",
+          "libraryId": "tech_08",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "d31df7b0-7da5-449a-b010-0a2bec547ad8",
+          "rank": 9,
+          "name": "Webhook / Callback Ownership",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "api",
+          "description": "Event delivery harus terikat pada tenant, endpoint, event, dan recipient yang benar.",
+          "hypothesisTemplate": "Callback dapat direplay, diarahkan, atau digunakan lintas tenant.",
+          "testTemplate": "Uji revoke, rotation, duplicate delivery, wrong resource, wrong endpoint pada environment milik sendiri.",
+          "signals": [
+            "Data/event tenant A dikirim ke endpoint yang tidak lagi authorized."
+          ],
+          "stopCondition": "Jangan target endpoint pihak ketiga.",
+          "libraryId": "tech_09",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "1d7f8cbd-f93f-4690-ab57-7d7116d1e049",
+          "rank": 10,
+          "name": "WebSocket / Realtime Stale Authorization",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "api",
+          "description": "Socket yang sudah terhubung kadang tidak kehilangan privilege setelah role atau membership berubah.",
+          "hypothesisTemplate": "Authorization hanya diperiksa saat connect/subscribe.",
+          "testTemplate": "Connect → subscribe → revoke role/share → observe authorized dummy events.",
+          "signals": [
+            "Client tetap menerima event setelah akses dicabut."
+          ],
+          "stopCondition": "Gunakan channel dan data milik akun pengujian.",
+          "libraryId": "tech_10",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "c000787d-eecf-47a2-890e-bac11aa3ed3f",
+          "rank": 11,
+          "name": "Parser Differential",
+          "rarity": "uncommon",
+          "difficulty": "advanced",
+          "domain": "api",
+          "description": "Dua komponen dapat menafsirkan URL, parameter, header, atau body secara berbeda.",
+          "hypothesisTemplate": "Validator melihat representasi A, executor melihat representasi B.",
+          "testTemplate": "Bandingkan duplicate params, body/query mismatch, normalization, case, scalar/array.",
+          "signals": [
+            "Security check dan backend bertindak pada nilai berbeda."
+          ],
+          "stopCondition": "Fokus pada semantic mismatch, bukan fuzzing massal.",
+          "libraryId": "tech_11",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "1d4ec0f3-8f8b-4f5b-8c5a-542620ef8ce7",
+          "rank": 12,
+          "name": "Cache Authorization & Variant Confusion",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "api",
+          "description": "Response private/user-specific harus memiliki cache key dan invalidation yang benar.",
+          "hypothesisTemplate": "Cache mengabaikan actor, tenant, auth state, atau variant penting.",
+          "testTemplate": "Bandingkan akun/profil sendiri dan perubahan permission dengan request yang semantik sama.",
+          "signals": [
+            "Response stale atau milik context lain muncul."
+          ],
+          "stopCondition": "Gunakan marker data dummy agar sumber response jelas.",
+          "libraryId": "tech_12",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "536419cf-a942-49b1-8599-8565bbf7b564",
+          "rank": 13,
+          "name": "OAuth / SSO / Account Linking",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "auth",
+          "description": "Identity, authorization response, session, dan target account harus terikat konsisten.",
+          "hypothesisTemplate": "Identity A dapat terikat atau memberi authority pada Account B.",
+          "testTemplate": "State/session switching, account linking, revoke, re-login, scope changes.",
+          "signals": [
+            "Account misbinding, privilege inheritance salah, atau stale linked authority."
+          ],
+          "stopCondition": "Gunakan seluruh identity/account milik sendiri.",
+          "libraryId": "tech_13",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "b944137f-566b-4b93-88fc-68843ff95e66",
+          "rank": 14,
+          "name": "Cross-Tenant / Workspace Isolation",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "auth",
+          "description": "Object, search, export, job, audit, dan realtime event harus selalu tenant-scoped.",
+          "hypothesisTemplate": "Endpoint tertentu hanya memvalidasi object ID tanpa tenant ownership.",
+          "testTemplate": "Gunakan dua workspace milik sendiri dengan object marker berbeda.",
+          "signals": [
+            "Workspace A membaca atau memodifikasi resource Workspace B."
+          ],
+          "stopCondition": "Minimum proof saja.",
+          "libraryId": "tech_14",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "d0de8f46-8280-42f7-823a-1b09a67225de",
+          "rank": 15,
+          "name": "File / Share / Export Boundary",
+          "rarity": "uncommon",
+          "difficulty": "intermediate",
+          "domain": "business",
+          "description": "Preview, download, export, copy, share, revoke, dan redirect sering punya authorization path berbeda.",
+          "hypothesisTemplate": "Secondary file endpoint kehilangan ownership/share validation.",
+          "testTemplate": "Test setiap operasi setelah perubahan state share/revoke/private.",
+          "signals": [
+            "Satu jalur masih mengizinkan akses saat jalur utama menolak."
+          ],
+          "stopCondition": "Gunakan file dummy, bukan data sensitif nyata.",
+          "libraryId": "tech_15",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "63122fba-1950-4025-ad8d-8f507f460288",
+          "rank": 16,
+          "name": "BFLA / Vertical Privilege Escalation",
+          "rarity": "common",
+          "difficulty": "intermediate",
+          "domain": "auth",
+          "description": "Tombol tersembunyi bukan security control. Backend harus memeriksa capability role.",
+          "hypothesisTemplate": "Member/viewer bisa memanggil fungsi owner/admin.",
+          "testTemplate": "Replay action owner dengan session role lebih rendah milik sendiri.",
+          "signals": [
+            "Protected function berhasil tanpa role yang diperlukan."
+          ],
+          "stopCondition": "Pakai aksi reversible/non-destructive bila tersedia.",
+          "libraryId": "tech_16",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "1b348546-033d-4eb5-8401-39213ed0a982",
+          "rank": 17,
+          "name": "IDOR / BOLA / Object Ownership",
+          "rarity": "common",
+          "difficulty": "easy",
+          "domain": "auth",
+          "description": "Object identifier bukan authorization. Selalu cek ownership pada read/write/delete/share/export.",
+          "hypothesisTemplate": "Backend percaya object ID tanpa memastikan actor berhak.",
+          "testTemplate": "Dua akun sendiri: ganti object A dengan object B pada semua operasi.",
+          "signals": [
+            "Cross-account access atau mutation."
+          ],
+          "stopCondition": "Jangan enumerasi object pihak lain.",
+          "libraryId": "tech_17",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "7ec78d9c-8c87-465f-acc8-f8c4d46f797e",
+          "rank": 18,
+          "name": "Business Logic State Transition",
+          "rarity": "common",
+          "difficulty": "intermediate",
+          "domain": "business",
+          "description": "Sistem sering memvalidasi request, tapi lupa memvalidasi urutan state bisnis.",
+          "hypothesisTemplate": "Step dapat dilewati, diulang, atau dilakukan dalam urutan ilegal.",
+          "testTemplate": "1→2→3, lalu 1→3, 3 langsung, 1(A)→2(B), repeat step.",
+          "signals": [
+            "Final state tercapai tanpa precondition wajib."
+          ],
+          "stopCondition": "Gunakan resource test, jangan transaksi dunia nyata.",
+          "libraryId": "tech_18",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "6cd693d5-5ecc-4ff1-b2b0-449c939b5f0a",
+          "rank": 19,
+          "name": "Authentication & Session Lifecycle",
+          "rarity": "common",
+          "difficulty": "easy",
+          "domain": "auth",
+          "description": "Test perubahan password, logout, revoke, downgrade role, unlink identity, dan session expiration.",
+          "hypothesisTemplate": "Token/session lama mempertahankan privilege yang sudah tidak valid.",
+          "testTemplate": "Before/after logout, revoke, role change, workspace removal.",
+          "signals": [
+            "Old token masih bisa melakukan protected action."
+          ],
+          "stopCondition": "Bedakan behavior yang memang didokumentasikan oleh program.",
+          "libraryId": "tech_19",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        },
+        {
+          "id": "f02ced62-bc14-4591-8029-f5b3e3f488ba",
+          "rank": 20,
+          "name": "Basic Validation & Misconfiguration With Impact",
+          "rarity": "common",
+          "difficulty": "easy",
+          "domain": "api",
+          "description": "Headers, CORS, redirects, version leaks, atau config aneh hanya menarik jika ada exploitability nyata.",
+          "hypothesisTemplate": "Misconfiguration menghasilkan unauthorized data/action, bukan sekadar scanner finding.",
+          "testTemplate": "Validasi dampak konkret dengan resource milik sendiri.",
+          "signals": [
+            "Security boundary benar-benar terlewati."
+          ],
+          "stopCondition": "Jangan report noise tanpa impact.",
+          "libraryId": "tech_20",
+          "enabled": true,
+          "tested": false,
+          "interesting": false,
+          "notes": ""
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "4ddb76e3-05ef-4c6b-af14-863903f713dd",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "title": "Approval yang sudah digunakan mungkin dapat direplay.",
+          "invariant": "Approval yang sudah digunakan MUST NOT dapat digunakan kembali.",
+          "expectedBehavior": "Penggunaan kedua ditolak.",
+          "potentialFailure": "Hipotesis fiktif: capability mungkin tidak divalidasi terhadap state terbaru.",
+          "techniqueId": "ad0dc05e-76fc-4869-adb7-45a2a730ca02",
+          "priority": "medium",
+          "confidence": "low",
+          "status": "planned",
+          "queue": "Next",
+          "notes": "CONTOH FIKTIF, bukan hasil pengujian produk nyata.",
+          "who": "Member",
+          "what": "Approve",
+          "object": "Approval",
+          "state": "Used",
+          "authority": "Approval dummy",
+          "context": "Workspace B"
+        }
+      ],
+      "testCases": [
+        {
+          "id": "3a9853ca-d77b-4b44-a333-189f4cc77703",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "title": "Replay approval dummy (contoh fiktif)",
+          "hypothesisId": "4ddb76e3-05ef-4c6b-af14-863903f713dd",
+          "techniqueId": "ad0dc05e-76fc-4869-adb7-45a2a730ca02",
+          "preconditions": "Hanya environment dummy lokal yang diotorisasi.",
+          "steps": "Buat approval dummy.\nGunakan approval dummy.\nCatat hasil penggunaan kedua.",
+          "expectedResult": "Penggunaan kedua ditolak.",
+          "actualResult": "Contoh observasi fiktif: dummy diterima kembali.",
+          "requestNotes": "Marker: OWNED-DUMMY-EXAMPLE",
+          "responseNotes": "Tidak ada token atau data nyata.",
+          "result": "interesting",
+          "timestamp": "2026-10-06T08:00:00.000Z",
+          "evidenceIds": [
+            "c26b8c9c-c84d-40d3-9180-531d14110fae"
+          ],
+          "who": "Member",
+          "what": "Approve",
+          "object": "Approval",
+          "state": "Used",
+          "authority": "Approval dummy",
+          "context": "Workspace B"
+        }
+      ],
+      "findings": [
+        {
+          "id": "0d62b071-f87e-4e7a-883a-6d04f0a528af",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "title": "Replay approval dummy — contoh draft",
+          "status": "draft",
+          "severity": "Unknown",
+          "testCaseId": "3a9853ca-d77b-4b44-a333-189f4cc77703",
+          "techniqueId": "ad0dc05e-76fc-4869-adb7-45a2a730ca02",
+          "affectedComponent": "Codex Desktop (contoh profil saja)",
+          "affectedVersion": "",
+          "vulnerabilityClass": "Capability lifecycle",
+          "startingAuthority": "Member menggunakan approval dummy milik peneliti.",
+          "securityRestriction": "Approval yang sudah digunakan MUST NOT dapat digunakan kembali.",
+          "protectedResource": "Approval dummy",
+          "unauthorizedOutcome": "Contoh observasi fiktif: dummy diterima kembali.",
+          "rootCause": "Hipotesis fiktif: capability mungkin tidak divalidasi terhadap state terbaru.",
+          "impact": "Impact belum diverifikasi. Ini hanya contoh data.",
+          "preconditions": "Hanya environment dummy lokal yang diotorisasi.",
+          "steps": "Buat approval dummy.\nGunakan approval dummy.\nCatat hasil penggunaan kedua.",
+          "expectedResult": "Penggunaan kedua ditolak.",
+          "actualResult": "Contoh observasi fiktif: dummy diterima kembali.",
+          "evidenceIds": [
+            "c26b8c9c-c84d-40d3-9180-531d14110fae"
+          ],
+          "mitigation": "Contoh rekomendasi: validasi penggunaan capability secara atomik.",
+          "researchNotes": "Seluruh data ini fiktif dan tidak boleh disampaikan sebagai vulnerability nyata.",
+          "who": "Member",
+          "what": "Approve",
+          "object": "Approval",
+          "state": "Used",
+          "authority": "Approval dummy",
+          "context": "Workspace B"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "c26b8c9c-c84d-40d3-9180-531d14110fae",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "type": "manual-note",
+          "label": "Catatan dummy",
+          "path": "",
+          "description": "Fixture untuk mempelajari workflow.",
+          "content": "CONTOH FIKTIF. Tidak ada pengujian terhadap OpenAI atau target eksternal.",
+          "testCaseId": "3a9853ca-d77b-4b44-a333-189f4cc77703",
+          "findingId": ""
+        }
+      ],
+      "notes": [
+        {
+          "id": "2b6a9ac1-76f8-4bbd-a757-cfa92afb35b6",
+          "createdAt": "2026-10-06T08:00:00.000Z",
+          "updatedAt": "2026-10-06T08:00:00.000Z",
+          "type": "scratchpad",
+          "title": "Research Notes",
+          "content": "Contoh fiktif untuk mencoba workspace. Import ini tidak membuktikan adanya vulnerability."
+        }
+      ]
+    }
+  ]
+}

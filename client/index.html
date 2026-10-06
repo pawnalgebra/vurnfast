@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Workspace lokal untuk riset bug bounty manual dan laporan Bahasa Indonesia.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file:; img-src 'self' file: data:; connect-src 'self' http://127.0.0.1:* http://localhost:*; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Universal Research Workspace</title>
+  <meta name="workspace-backend" content="">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="js/loader.js" defer></script>
+</head>
+<body>
+  <!-- MODULE: Persistent workspace shell; view content is built with safe DOM APIs. -->
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard"><span class="brand-icon">U/</span><span>UNIVERSAL<small>RESEARCH WORKSPACE</small></span></a>
+    <div class="side-label">WORKSPACE / 01</div>
+    <nav id="navigation" aria-label="Navigasi utama"></nav>
+    <div class="sidebar-footer"><span class="local-dot"></span> LOCAL FIRST <small>Data tersimpan di browser ini.</small><a href="../universal_bug_bounty_playbook.html" target="_blank" rel="noopener">Buka playbook asli ↗</a></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar">
+      <label class="target-picker"><small>CURRENT TARGET</small><select id="target-select" aria-label="Current Target"></select></label>
+      <div id="save-status" class="save-status" role="status" aria-live="polite"></div>
+      <div class="actions"><button id="export-workspace">↓ Export</button><button id="import-workspace">↑ Import</button></div>
+    </header>
+    <div class="searchbar"><span class="search-icon">⌕</span><input id="global-search" type="search" placeholder="Cari hypotheses, tests, findings, dan notes di seluruh target…" aria-label="Pencarian global"><span class="mono">MANUAL RESEARCH · v0.2</span></div>
+    <main id="view" tabindex="-1"></main>
+    <footer class="main-footer"><span>UNIVERSAL FORMULA</span><span>WHO → WHAT → OBJECT → STATE → AUTHORITY → CONTEXT</span></footer>
+  </div>
+  <input id="json-file" type="file" accept=".json,application/json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript>Aplikasi memerlukan JavaScript lokal untuk menyimpan workspace.</noscript>
+</body>
+</html>

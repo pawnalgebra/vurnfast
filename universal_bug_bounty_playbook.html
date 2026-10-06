@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Universal Bug Bounty Research Playbook</title>
+
+  <!--
+    DOCS-META
+    =========
+    Tujuan:
+    - Playbook universal untuk bug bounty lintas target.
+    - Fokus pada reasoning, trust-boundary, state, authorization, dan business logic.
+    - Urutan teknik: paling jarang digunakan / paling tedious -> paling umum / paling mudah dieksekusi.
+
+    Cara scale:
+    1. Tambah teknik baru di <main id="techniques">.
+    2. Gunakan atribut:
+       data-rarity="rare|uncommon|common"
+       data-difficulty="advanced|intermediate|easy"
+       data-domain="auth|state|browser|api|business|infra"
+    3. Pertahankan struktur:
+       hypothesis -> test -> expected -> signal -> stop condition.
+    4. Jangan masukkan langkah destruktif, brute force, spam, atau eksploitasi data pihak lain.
+  -->
+
+  <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Universal Security Research Playbook</div>
+      <h1>Bug Bounty Formula</h1>
+      <p class="lede">
+        Framework reusable untuk memetakan target, membangun hipotesis, menguji trust boundary,
+        dan mencari vulnerability berbasis state, authorization, context, serta business logic.
+      </p>
+
+      <div class="notice">
+        Gunakan hanya pada aset, akun, data, dan environment yang diizinkan oleh program.
+        Selalu baca scope, known issues, rate limits, safe-harbor, dan stop setelah impact minimum terbukti.
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="#formula">Formula</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#techniques">Techniques</a>
+      <a href="#matrix">Matrix</a>
+      <a href="#target-template">Target Template</a>
+      <a href="#reporting">Reporting</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section id="formula">
+      <h2>01. Formula universal</h2>
+      <p class="section-intro">
+        Jangan mulai dari payload. Mulai dari invariant keamanan lalu ubah satu variabel setiap kali.
+        Formula ini bisa dipakai hampir di semua target.
+      </p>
+
+      <!-- CORE-FORMULA: jangan ubah urutan tanpa alasan, karena dipakai sebagai mental model utama. -->
+      <div class="formula">
+        <div><b>WHO</b>Siapa aktornya? Anonymous, user, member, admin, owner, service.</div>
+        <div><b>WHAT</b>Aksi apa? Read, write, delete, approve, export, share, execute.</div>
+        <div><b>OBJECT</b>Objek apa? File, project, invoice, workspace, token, job, profile.</div>
+        <div><b>STATE</b>State apa? Active, revoked, pending, expired, deleted, archived.</div>
+        <div><b>AUTHORITY</b>Hak berasal dari mana? Session, role, token, approval, invite.</div>
+        <div><b>CONTEXT</b>Konteks apa? Origin, tenant, browser profile, device, destination.</div>
+      </div>
+
+      <pre><code>WHO → can perform WHAT → on WHICH OBJECT
+    → under WHICH STATE
+    → using WHICH AUTHORITY
+    → in WHICH CONTEXT</code></pre>
+
+      <p class="small">
+        Temuan muncul saat satu kombinasi yang seharusnya <strong>MUST NOT</strong> valid ternyata diterima sistem.
+      </p>
+    </section>
+
+    <section id="workflow">
+      <h2>02. Workflow profesional</h2>
+      <p class="section-intro">
+        Ini urutan kerja yang menjaga hunting tetap sistematis. Mengandalkan inspirasi spontan terdengar romantis,
+        sampai tiga jam kemudian browser punya 94 tab dan tidak satu pun punya catatan.
+      </p>
+
+      <!-- WORKFLOW-STAGES: tambahkan stage baru hanya bila benar-benar berbeda dari lima tahap utama. -->
+      <div class="flow">
+        <div><span>Phase 1</span><strong>Scope</strong><br>Rules, assets, exclusions, safe testing, known issues.</div>
+        <div><span>Phase 2</span><strong>Map</strong><br>Users, roles, objects, APIs, states, trust boundaries.</div>
+        <div><span>Phase 3</span><strong>Hypothesis</strong><br>Tulis invariant dan kondisi yang seharusnya ditolak.</div>
+        <div><span>Phase 4</span><strong>Test</strong><br>Ubah satu variabel per percobaan. Catat request dan response.</div>
+        <div><span>Phase 5</span><strong>Validate</strong><br>Reproduce, minimal impact, stop, document root cause.</div>
+      </div>
+    </section>
+
+    <section id="techniques">
+      <h2>03. Teknik: terjarang → termudah</h2>
+      <p class="section-intro">
+        Urutan di bawah bukan ranking severity. Ini ranking berdasarkan seberapa jarang hunter melakukan pengujian
+        tersebut secara disiplin, seberapa tedious matrix-nya, dan seberapa banyak reasoning yang dibutuhkan.
+      </p>
+
+      <div class="grid">
+
+        <!--
+          TECHNIQUE-TEMPLATE
+          Copy card berikut untuk menambah teknik:
+          <article class="card technique" data-rank="XX" data-rarity="rare" data-difficulty="intermediate" data-domain="state">
+            <h3>Nama teknik</h3>
+            <div class="meta">...</div>
+            <p>Ringkasan.</p>
+            <dl>
+              <dt>Hypothesis</dt><dd>...</dd>
+              <dt>Test</dt><dd>...</dd>
+              <dt>Signal</dt><dd>...</dd>
+              <dt>Stop</dt><dd>...</dd>
+            </dl>
+          </article>
+        -->
+
+        <article class="card technique" data-rank="01" data-rarity="rare" data-difficulty="advanced" data-domain="state">
+          <h3>State-Machine & Context Confusion</h3>
+          <div class="meta">
+            <span class="tag rare">Very Rare</span><span class="tag">State</span><span class="tag">High Leverage</span>
+          </div>
+          <p>Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Backend gagal mengikat actor, object, state, dan context sebagai satu keputusan authorization.</dd>
+            <dt>Test</dt><dd>Ganti satu dimensi: account, session, profile, tenant, origin, destination, lalu kombinasikan dua dimensi.</dd>
+            <dt>Signal</dt><dd>UI/backend berbeda pendapat tentang user, scope, object, atau authority aktif.</dd>
+            <dt>Stop</dt><dd>Berhenti setelah protected action/data dummy terbukti melewati boundary.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="02" data-rarity="rare" data-difficulty="advanced" data-domain="state">
+          <h3>Async Authorization / Queue Revalidation</h3>
+          <div class="meta">
+            <span class="tag rare">Very Rare</span><span class="tag">Async</span><span class="tag">TOCTOU</span>
+          </div>
+          <p>Authorization valid saat job dibuat belum tentu masih valid saat worker menjalankannya.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Worker menggunakan authorization snapshot lama tanpa re-check state terbaru.</dd>
+            <dt>Test</dt><dd>Queue action → revoke permission / role / share → tunggu job diproses.</dd>
+            <dt>Signal</dt><dd>Job tetap membaca, mengubah, mengirim, atau mengeksekusi resource setelah hak dicabut.</dd>
+            <dt>Stop</dt><dd>Pakai data dummy dan hentikan setelah satu unauthorized outcome terbukti.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="03" data-rarity="rare" data-difficulty="intermediate" data-domain="auth">
+          <h3>Approval / Capability Context Confusion</h3>
+          <div class="meta">
+            <span class="tag rare">Very Rare</span><span class="tag">Approval</span><span class="tag">Capability</span>
+          </div>
+          <p>Valid approval harus terikat ke actor, action, object, destination, dan context yang tepat.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Capability terlalu luas atau tidak terikat pada seluruh konteks yang relevan.</dd>
+            <dt>Test</dt><dd>Replay, revoke, expire, switch action, switch origin, switch recipient, switch session.</dd>
+            <dt>Signal</dt><dd>Approval untuk X berhasil digunakan untuk Y.</dd>
+            <dt>Stop</dt><dd>Jangan melanjutkan ke aksi destruktif setelah mismatch terbukti.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="04" data-rarity="rare" data-difficulty="intermediate" data-domain="state">
+          <h3>Restart / Resume Persistence</h3>
+          <div class="meta">
+            <span class="tag rare">Rare</span><span class="tag">Persistence</span><span class="tag">Session</span>
+          </div>
+          <p>Restart sering membuat state browser, extension, desktop app, dan backend tidak sinkron.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Old authority/capability bertahan melewati restart atau reconnect.</dd>
+            <dt>Test</dt><dd>Grant → restart/reconnect/re-login → switch account → reuse action.</dd>
+            <dt>Signal</dt><dd>Old session, approval, profile, atau permission tetap dihormati.</dd>
+            <dt>Stop</dt><dd>Catat komponen mana yang menyimpan stale state.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="05" data-rarity="rare" data-difficulty="intermediate" data-domain="api">
+          <h3>Differential Multi-Surface Testing</h3>
+          <div class="meta">
+            <span class="tag rare">Rare</span><span class="tag">API</span><span class="tag">Desktop/Mobile/Web</span>
+          </div>
+          <p>Operasi yang sama dari UI, API, mobile, desktop, atau extension harus menghasilkan keputusan security yang konsisten.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Salah satu surface memakai middleware, policy, atau validator berbeda.</dd>
+            <dt>Test</dt><dd>Jalankan object/action yang sama melalui surface berbeda.</dd>
+            <dt>Signal</dt><dd>Satu surface menolak sementara surface lain menerima request identik secara semantik.</dd>
+            <dt>Stop</dt><dd>Bandingkan authorization path, bukan sekadar perbedaan UX.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="06" data-rarity="rare" data-difficulty="advanced" data-domain="browser">
+          <h3>Cross-Context / App-Extension-Browser Trust</h3>
+          <div class="meta">
+            <span class="tag rare">Rare</span><span class="tag">Browser</span><span class="tag">Trust Boundary</span>
+          </div>
+          <p>Komponen yang saling percaya sering salah memvalidasi sender, origin, profile, tab, atau account.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Restricted component bisa impersonate trusted caller.</dd>
+            <dt>Test</dt><dd>Uji origin/profile/session mismatch pada message channel yang memang exposed dan in-scope.</dd>
+            <dt>Signal</dt><dd>Protected data/functionality tersedia untuk caller yang tidak tepat.</dd>
+            <dt>Stop</dt><dd>Gunakan website/profile milik sendiri.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="07" data-rarity="rare" data-difficulty="intermediate" data-domain="business">
+          <h3>Object Lifecycle & Revocation</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Lifecycle</span><span class="tag">Sharing</span>
+          </div>
+          <p>Authorization sering benar pada create/read, lalu rusak setelah share, revoke, archive, restore, atau delete.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Secondary endpoint mempertahankan stale access setelah state berubah.</dd>
+            <dt>Test</dt><dd>Create → share → revoke → preview/download/export/copy/search/history.</dd>
+            <dt>Signal</dt><dd>Jalur alternatif masih mengakses object yang sudah revoked/deleted/private.</dd>
+            <dt>Stop</dt><dd>Jangan menyentuh object pengguna lain.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="08" data-rarity="uncommon" data-difficulty="intermediate" data-domain="state">
+          <h3>Race Condition / TOCTOU</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Concurrency</span><span class="tag">State</span>
+          </div>
+          <p>Uji operasi yang seharusnya atomic, sekali pakai, atau mutually exclusive.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Dua request lolos validasi sebelum state pertama committed.</dd>
+            <dt>Test</dt><dd>Gunakan concurrency minimal pada resource dummy milik sendiri.</dd>
+            <dt>Signal</dt><dd>Dua operasi sukses saat hanya satu yang seharusnya boleh.</dd>
+            <dt>Stop</dt><dd>Hindari traffic besar; jangan berubah menjadi DoS.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="09" data-rarity="uncommon" data-difficulty="intermediate" data-domain="api">
+          <h3>Webhook / Callback Ownership</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Webhook</span><span class="tag">Tenant</span>
+          </div>
+          <p>Event delivery harus terikat pada tenant, endpoint, event, dan recipient yang benar.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Callback dapat direplay, diarahkan, atau digunakan lintas tenant.</dd>
+            <dt>Test</dt><dd>Uji revoke, rotation, duplicate delivery, wrong resource, wrong endpoint pada environment milik sendiri.</dd>
+            <dt>Signal</dt><dd>Data/event tenant A dikirim ke endpoint yang tidak lagi authorized.</dd>
+            <dt>Stop</dt><dd>Jangan target endpoint pihak ketiga.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="10" data-rarity="uncommon" data-difficulty="intermediate" data-domain="api">
+          <h3>WebSocket / Realtime Stale Authorization</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Realtime</span><span class="tag">Session</span>
+          </div>
+          <p>Socket yang sudah terhubung kadang tidak kehilangan privilege setelah role atau membership berubah.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Authorization hanya diperiksa saat connect/subscribe.</dd>
+            <dt>Test</dt><dd>Connect → subscribe → revoke role/share → observe authorized dummy events.</dd>
+            <dt>Signal</dt><dd>Client tetap menerima event setelah akses dicabut.</dd>
+            <dt>Stop</dt><dd>Gunakan channel dan data milik akun pengujian.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="11" data-rarity="uncommon" data-difficulty="advanced" data-domain="api">
+          <h3>Parser Differential</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Parsing</span><span class="tag">Validation</span>
+          </div>
+          <p>Dua komponen dapat menafsirkan URL, parameter, header, atau body secara berbeda.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Validator melihat representasi A, executor melihat representasi B.</dd>
+            <dt>Test</dt><dd>Bandingkan duplicate params, body/query mismatch, normalization, case, scalar/array.</dd>
+            <dt>Signal</dt><dd>Security check dan backend bertindak pada nilai berbeda.</dd>
+            <dt>Stop</dt><dd>Fokus pada semantic mismatch, bukan fuzzing massal.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="12" data-rarity="uncommon" data-difficulty="intermediate" data-domain="api">
+          <h3>Cache Authorization & Variant Confusion</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Cache</span><span class="tag">Isolation</span>
+          </div>
+          <p>Response private/user-specific harus memiliki cache key dan invalidation yang benar.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Cache mengabaikan actor, tenant, auth state, atau variant penting.</dd>
+            <dt>Test</dt><dd>Bandingkan akun/profil sendiri dan perubahan permission dengan request yang semantik sama.</dd>
+            <dt>Signal</dt><dd>Response stale atau milik context lain muncul.</dd>
+            <dt>Stop</dt><dd>Gunakan marker data dummy agar sumber response jelas.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="13" data-rarity="uncommon" data-difficulty="intermediate" data-domain="auth">
+          <h3>OAuth / SSO / Account Linking</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">OAuth</span><span class="tag">Identity</span>
+          </div>
+          <p>Identity, authorization response, session, dan target account harus terikat konsisten.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Identity A dapat terikat atau memberi authority pada Account B.</dd>
+            <dt>Test</dt><dd>State/session switching, account linking, revoke, re-login, scope changes.</dd>
+            <dt>Signal</dt><dd>Account misbinding, privilege inheritance salah, atau stale linked authority.</dd>
+            <dt>Stop</dt><dd>Gunakan seluruh identity/account milik sendiri.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="14" data-rarity="uncommon" data-difficulty="intermediate" data-domain="auth">
+          <h3>Cross-Tenant / Workspace Isolation</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Tenant</span><span class="tag">Authorization</span>
+          </div>
+          <p>Object, search, export, job, audit, dan realtime event harus selalu tenant-scoped.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Endpoint tertentu hanya memvalidasi object ID tanpa tenant ownership.</dd>
+            <dt>Test</dt><dd>Gunakan dua workspace milik sendiri dengan object marker berbeda.</dd>
+            <dt>Signal</dt><dd>Workspace A membaca atau memodifikasi resource Workspace B.</dd>
+            <dt>Stop</dt><dd>Minimum proof saja.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="15" data-rarity="uncommon" data-difficulty="intermediate" data-domain="business">
+          <h3>File / Share / Export Boundary</h3>
+          <div class="meta">
+            <span class="tag uncommon">Uncommon</span><span class="tag">Files</span><span class="tag">Sharing</span>
+          </div>
+          <p>Preview, download, export, copy, share, revoke, dan redirect sering punya authorization path berbeda.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Secondary file endpoint kehilangan ownership/share validation.</dd>
+            <dt>Test</dt><dd>Test setiap operasi setelah perubahan state share/revoke/private.</dd>
+            <dt>Signal</dt><dd>Satu jalur masih mengizinkan akses saat jalur utama menolak.</dd>
+            <dt>Stop</dt><dd>Gunakan file dummy, bukan data sensitif nyata.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="16" data-rarity="common" data-difficulty="intermediate" data-domain="auth">
+          <h3>BFLA / Vertical Privilege Escalation</h3>
+          <div class="meta">
+            <span class="tag common">Common</span><span class="tag">Roles</span><span class="tag">Authorization</span>
+          </div>
+          <p>Tombol tersembunyi bukan security control. Backend harus memeriksa capability role.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Member/viewer bisa memanggil fungsi owner/admin.</dd>
+            <dt>Test</dt><dd>Replay action owner dengan session role lebih rendah milik sendiri.</dd>
+            <dt>Signal</dt><dd>Protected function berhasil tanpa role yang diperlukan.</dd>
+            <dt>Stop</dt><dd>Pakai aksi reversible/non-destructive bila tersedia.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="17" data-rarity="common" data-difficulty="easy" data-domain="auth">
+          <h3>IDOR / BOLA / Object Ownership</h3>
+          <div class="meta">
+            <span class="tag common">Common</span><span class="tag">Objects</span><span class="tag">API</span>
+          </div>
+          <p>Object identifier bukan authorization. Selalu cek ownership pada read/write/delete/share/export.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Backend percaya object ID tanpa memastikan actor berhak.</dd>
+            <dt>Test</dt><dd>Dua akun sendiri: ganti object A dengan object B pada semua operasi.</dd>
+            <dt>Signal</dt><dd>Cross-account access atau mutation.</dd>
+            <dt>Stop</dt><dd>Jangan enumerasi object pihak lain.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="18" data-rarity="common" data-difficulty="intermediate" data-domain="business">
+          <h3>Business Logic State Transition</h3>
+          <div class="meta">
+            <span class="tag common">Common</span><span class="tag">Workflow</span><span class="tag">Logic</span>
+          </div>
+          <p>Sistem sering memvalidasi request, tapi lupa memvalidasi urutan state bisnis.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Step dapat dilewati, diulang, atau dilakukan dalam urutan ilegal.</dd>
+            <dt>Test</dt><dd>1→2→3, lalu 1→3, 3 langsung, 1(A)→2(B), repeat step.</dd>
+            <dt>Signal</dt><dd>Final state tercapai tanpa precondition wajib.</dd>
+            <dt>Stop</dt><dd>Gunakan resource test, jangan transaksi dunia nyata.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="19" data-rarity="common" data-difficulty="easy" data-domain="auth">
+          <h3>Authentication & Session Lifecycle</h3>
+          <div class="meta">
+            <span class="tag common">Common</span><span class="tag">Session</span><span class="tag">Auth</span>
+          </div>
+          <p>Test perubahan password, logout, revoke, downgrade role, unlink identity, dan session expiration.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Token/session lama mempertahankan privilege yang sudah tidak valid.</dd>
+            <dt>Test</dt><dd>Before/after logout, revoke, role change, workspace removal.</dd>
+            <dt>Signal</dt><dd>Old token masih bisa melakukan protected action.</dd>
+            <dt>Stop</dt><dd>Bedakan behavior yang memang didokumentasikan oleh program.</dd>
+          </dl>
+        </article>
+
+        <article class="card technique" data-rank="20" data-rarity="common" data-difficulty="easy" data-domain="api">
+          <h3>Basic Validation & Misconfiguration With Impact</h3>
+          <div class="meta">
+            <span class="tag common">Common</span><span class="tag">Easy</span><span class="tag">Impact Required</span>
+          </div>
+          <p>Headers, CORS, redirects, version leaks, atau config aneh hanya menarik jika ada exploitability nyata.</p>
+          <dl>
+            <dt>Hypothesis</dt><dd>Misconfiguration menghasilkan unauthorized data/action, bukan sekadar scanner finding.</dd>
+            <dt>Test</dt><dd>Validasi dampak konkret dengan resource milik sendiri.</dd>
+            <dt>Signal</dt><dd>Security boundary benar-benar terlewati.</dd>
+            <dt>Stop</dt><dd>Jangan report noise tanpa impact.</dd>
+          </dl>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="matrix">
+      <h2>04. Universal test matrix</h2>
+      <p class="section-intro">
+        Copy matrix ini untuk setiap object penting. Isi tanda tanya satu per satu.
+      </p>
+
+      <!-- MATRIX-TEMPLATE: clone untuk tiap resource: file, project, invoice, profile, token, dll. -->
+      <div class="matrix">
+<pre><code>OBJECT: ______________________
+
+ACTION       OWNER   MEMBER   OUTSIDER   REVOKED   EXPIRED
+READ           ✅       ?         ?          ?         ?
+UPDATE         ✅       ?         ?          ?         ?
+DELETE         ✅       ?         ?          ?         ?
+SHARE          ✅       ?         ?          ?         ?
+DOWNLOAD       ✅       ?         ?          ?         ?
+EXPORT         ✅       ?         ?          ?         ?
+COPY           ✅       ?         ?          ?         ?
+RESTORE        ✅       ?         ?          ?         ?
+
+CONTEXT DIMENSIONS:
+[ ] account
+[ ] tenant/workspace
+[ ] session
+[ ] browser profile
+[ ] origin
+[ ] device
+[ ] destination
+[ ] approval/capability
+[ ] object state
+[ ] time/expiry
+[ ] async job state</code></pre>
+      </div>
+    </section>
+
+    <section id="target-template">
+      <h2>05. Template per target</h2>
+      <p class="section-intro">
+        Isi bagian ini sebelum hunting. Kalau tidak bisa menjelaskan boundary target, belum waktunya menembakkan payload.
+      </p>
+
+      <!--
+        TARGET-PROFILE
+        Duplicate section ini untuk setiap program/asset.
+        Simpan informasi yang berubah cepat (scope/rules/version) di bagian ini, bukan di teknik universal.
+      -->
+      <div class="grid">
+        <div class="card">
+          <h3>Target Profile</h3>
+<pre><code>Program:
+Asset:
+Version/build:
+Environment:
+In-scope:
+Out-of-scope:
+Known issues:
+Rate limits:
+Allowed automation:
+Safe-harbor notes:
+Test accounts:
+Test tenants/workspaces:
+Owned domains:
+Dummy secret markers:</code></pre>
+        </div>
+
+        <div class="card">
+          <h3>Trust Boundary Map</h3>
+<pre><code>Actors:
+- Anonymous
+- User
+- Member
+- Admin
+- Owner
+- Service
+
+Objects:
+- __________________
+- __________________
+
+Authority:
+- Session
+- Token
+- Role
+- Approval
+- Invitation
+
+Cross-component paths:
+A → B → C → D</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="reporting">
+      <h2>06. Evidence & reporting formula</h2>
+      <p class="section-intro">
+        Report yang bagus menjelaskan security invariant yang gagal, bukan cuma "request ini 200 OK".
+      </p>
+
+      <!-- REPORT-TEMPLATE: compatible dengan mayoritas platform bug bounty. -->
+      <div class="checklist">
+        <div class="check"><strong>1. Starting Authority</strong><br><span class="small">Attacker mulai sebagai siapa dan memiliki privilege apa?</span></div>
+        <div class="check"><strong>2. Expected Security Restriction</strong><br><span class="small">Aturan apa yang seharusnya mencegah tindakan tersebut?</span></div>
+        <div class="check"><strong>3. Protected Resource / Action</strong><br><span class="small">Data, object, capability, tenant, atau aksi apa yang dilindungi?</span></div>
+        <div class="check"><strong>4. Minimal Reproduction</strong><br><span class="small">Langkah sesedikit mungkin, deterministic, hanya menggunakan environment yang diizinkan.</span></div>
+        <div class="check"><strong>5. Unauthorized Outcome</strong><br><span class="small">Apa yang berhasil terjadi padahal seharusnya mustahil?</span></div>
+        <div class="check"><strong>6. Root-Cause Hypothesis</strong><br><span class="small">Contoh: missing ownership check, stale authorization, weak context binding.</span></div>
+        <div class="check"><strong>7. Impact</strong><br><span class="small">Jelaskan capability yang diperoleh, jangan membesar-besarkan severity.</span></div>
+        <div class="check"><strong>8. Stop Condition</strong><br><span class="small">Nyatakan bahwa pengujian dihentikan setelah impact minimum terbukti.</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>07. Rule of thumb</h2>
+      <pre><code>Do not ask:
+"Payload apa yang belum dicoba?"
+
+Ask:
+"Security invariant apa yang harus selalu benar,
+dan kombinasi state/context apa yang mungkin membuatnya gagal?"</code></pre>
+
+      <p class="section-intro">
+        Payload adalah alat. Boundary reasoning adalah metodologi. Yang pertama cepat basi, yang kedua bisa dipakai lintas program.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Universal Bug Bounty Research Playbook</strong><br>
+      <span class="small">Self-contained HTML. Edit komentar <code>DOCS-*</code> untuk memperluas struktur tanpa mengacak dokumen.</span>
+    </div>
+  </footer>
+</body>
+</html>

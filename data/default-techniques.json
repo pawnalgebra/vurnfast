@@ -1,0 +1,342 @@
+[
+  {
+    "id": "tech_01",
+    "rank": 1,
+    "name": "State-Machine & Context Confusion",
+    "rarity": "very-rare",
+    "difficulty": "advanced",
+    "domain": "state",
+    "description": "Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.",
+    "hypothesisTemplate": "Backend gagal mengikat actor, object, state, dan context sebagai satu keputusan authorization.",
+    "testTemplate": "Ganti satu dimensi: account, session, profile, tenant, origin, destination, lalu kombinasikan dua dimensi.",
+    "signals": [
+      "UI/backend berbeda pendapat tentang user, scope, object, atau authority aktif."
+    ],
+    "stopCondition": "Berhenti setelah protected action/data dummy terbukti melewati boundary.",
+    "category": "State Machine",
+    "securityInvariant": "Actor, object, state, authority, dan context harus konsisten pada setiap keputusan authorization."
+  },
+  {
+    "id": "tech_02",
+    "rank": 2,
+    "name": "Async Authorization / Queue Revalidation",
+    "rarity": "very-rare",
+    "difficulty": "advanced",
+    "domain": "state",
+    "description": "Authorization valid saat job dibuat belum tentu masih valid saat worker menjalankannya.",
+    "hypothesisTemplate": "Worker menggunakan authorization snapshot lama tanpa re-check state terbaru.",
+    "testTemplate": "Queue action → revoke permission / role / share → tunggu job diproses.",
+    "signals": [
+      "Job tetap membaca, mengubah, mengirim, atau mengeksekusi resource setelah hak dicabut."
+    ],
+    "stopCondition": "Pakai data dummy dan hentikan setelah satu unauthorized outcome terbukti.",
+    "category": "Async / Queue",
+    "securityInvariant": "Worker harus memvalidasi kembali authority dan state saat job benar-benar dijalankan."
+  },
+  {
+    "id": "tech_03",
+    "rank": 3,
+    "name": "Approval / Capability Context Confusion",
+    "rarity": "very-rare",
+    "difficulty": "intermediate",
+    "domain": "auth",
+    "description": "Valid approval harus terikat ke actor, action, object, destination, dan context yang tepat.",
+    "hypothesisTemplate": "Capability terlalu luas atau tidak terikat pada seluruh konteks yang relevan.",
+    "testTemplate": "Replay, revoke, expire, switch action, switch origin, switch recipient, switch session.",
+    "signals": [
+      "Approval untuk X berhasil digunakan untuk Y."
+    ],
+    "stopCondition": "Jangan melanjutkan ke aksi destruktif setelah mismatch terbukti.",
+    "category": "Approval / Capability",
+    "securityInvariant": "Approval harus terikat pada actor, action, object, destination, context, dan lifecycle penggunaan yang diizinkan."
+  },
+  {
+    "id": "tech_04",
+    "rank": 4,
+    "name": "Restart / Resume Persistence",
+    "rarity": "very-rare",
+    "difficulty": "intermediate",
+    "domain": "state",
+    "description": "Restart sering membuat state browser, extension, desktop app, dan backend tidak sinkron.",
+    "hypothesisTemplate": "Old authority/capability bertahan melewati restart atau reconnect.",
+    "testTemplate": "Grant → restart/reconnect/re-login → switch account → reuse action.",
+    "signals": [
+      "Old session, approval, profile, atau permission tetap dihormati."
+    ],
+    "stopCondition": "Catat komponen mana yang menyimpan stale state.",
+    "category": "Session",
+    "securityInvariant": "Restart/resume tidak boleh mengembalikan permission atau capability yang sudah tidak valid."
+  },
+  {
+    "id": "tech_05",
+    "rank": 5,
+    "name": "Differential Multi-Surface Testing",
+    "rarity": "very-rare",
+    "difficulty": "intermediate",
+    "domain": "api",
+    "description": "Operasi yang sama dari UI, API, mobile, desktop, atau extension harus menghasilkan keputusan security yang konsisten.",
+    "hypothesisTemplate": "Salah satu surface memakai middleware, policy, atau validator berbeda.",
+    "testTemplate": "Jalankan object/action yang sama melalui surface berbeda.",
+    "signals": [
+      "Satu surface menolak sementara surface lain menerima request identik secara semantik."
+    ],
+    "stopCondition": "Bandingkan authorization path, bukan sekadar perbedaan UX.",
+    "category": "API",
+    "securityInvariant": "Semua surface harus menegakkan invariant authorization yang sama."
+  },
+  {
+    "id": "tech_06",
+    "rank": 6,
+    "name": "Cross-Context / App-Extension-Browser Trust",
+    "rarity": "very-rare",
+    "difficulty": "advanced",
+    "domain": "browser",
+    "description": "Komponen yang saling percaya sering salah memvalidasi sender, origin, profile, tab, atau account.",
+    "hypothesisTemplate": "Restricted component bisa impersonate trusted caller.",
+    "testTemplate": "Uji origin/profile/session mismatch pada message channel yang memang exposed dan in-scope.",
+    "signals": [
+      "Protected data/functionality tersedia untuk caller yang tidak tepat."
+    ],
+    "stopCondition": "Gunakan website/profile milik sendiri.",
+    "category": "Browser / Extension",
+    "securityInvariant": "Pesan lintas browser/extension/app harus memvalidasi asal, destination, dan authority sebelum aksi terlindungi."
+  },
+  {
+    "id": "tech_07",
+    "rank": 7,
+    "name": "Object Lifecycle & Revocation",
+    "rarity": "very-rare",
+    "difficulty": "intermediate",
+    "domain": "business",
+    "description": "Authorization sering benar pada create/read, lalu rusak setelah share, revoke, archive, restore, atau delete.",
+    "hypothesisTemplate": "Secondary endpoint mempertahankan stale access setelah state berubah.",
+    "testTemplate": "Create → share → revoke → preview/download/export/copy/search/history.",
+    "signals": [
+      "Jalur alternatif masih mengakses object yang sudah revoked/deleted/private."
+    ],
+    "stopCondition": "Jangan menyentuh object pengguna lain.",
+    "category": "State Machine",
+    "securityInvariant": "Object yang revoked/deleted/expired tidak boleh tetap dapat diakses melalui authority lama."
+  },
+  {
+    "id": "tech_08",
+    "rank": 8,
+    "name": "Race Condition / TOCTOU",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "state",
+    "description": "Uji operasi yang seharusnya atomic, sekali pakai, atau mutually exclusive.",
+    "hypothesisTemplate": "Dua request lolos validasi sebelum state pertama committed.",
+    "testTemplate": "Gunakan concurrency minimal pada resource dummy milik sendiri.",
+    "signals": [
+      "Dua operasi sukses saat hanya satu yang seharusnya boleh."
+    ],
+    "stopCondition": "Hindari traffic besar; jangan berubah menjadi DoS.",
+    "category": "Race Condition",
+    "securityInvariant": "Pemeriksaan authority dan perubahan state harus konsisten terhadap interleaving transaksi."
+  },
+  {
+    "id": "tech_09",
+    "rank": 9,
+    "name": "Webhook / Callback Ownership",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "api",
+    "description": "Event delivery harus terikat pada tenant, endpoint, event, dan recipient yang benar.",
+    "hypothesisTemplate": "Callback dapat direplay, diarahkan, atau digunakan lintas tenant.",
+    "testTemplate": "Uji revoke, rotation, duplicate delivery, wrong resource, wrong endpoint pada environment milik sendiri.",
+    "signals": [
+      "Data/event tenant A dikirim ke endpoint yang tidak lagi authorized."
+    ],
+    "stopCondition": "Jangan target endpoint pihak ketiga.",
+    "category": "Webhook",
+    "securityInvariant": "Callback destination dan webhook harus tetap terikat pada owner dan tenant yang diotorisasi."
+  },
+  {
+    "id": "tech_10",
+    "rank": 10,
+    "name": "WebSocket / Realtime Stale Authorization",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "api",
+    "description": "Socket yang sudah terhubung kadang tidak kehilangan privilege setelah role atau membership berubah.",
+    "hypothesisTemplate": "Authorization hanya diperiksa saat connect/subscribe.",
+    "testTemplate": "Connect → subscribe → revoke role/share → observe authorized dummy events.",
+    "signals": [
+      "Client tetap menerima event setelah akses dicabut."
+    ],
+    "stopCondition": "Gunakan channel dan data milik akun pengujian.",
+    "category": "Realtime / WebSocket",
+    "securityInvariant": "Channel realtime harus memvalidasi authority terbaru setelah role/session/resource berubah."
+  },
+  {
+    "id": "tech_11",
+    "rank": 11,
+    "name": "Parser Differential",
+    "rarity": "uncommon",
+    "difficulty": "advanced",
+    "domain": "api",
+    "description": "Dua komponen dapat menafsirkan URL, parameter, header, atau body secara berbeda.",
+    "hypothesisTemplate": "Validator melihat representasi A, executor melihat representasi B.",
+    "testTemplate": "Bandingkan duplicate params, body/query mismatch, normalization, case, scalar/array.",
+    "signals": [
+      "Security check dan backend bertindak pada nilai berbeda."
+    ],
+    "stopCondition": "Fokus pada semantic mismatch, bukan fuzzing massal.",
+    "category": "Parser Differential",
+    "securityInvariant": "Parser di setiap surface harus menafsirkan object/action/context secara konsisten."
+  },
+  {
+    "id": "tech_12",
+    "rank": 12,
+    "name": "Cache Authorization & Variant Confusion",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "api",
+    "description": "Response private/user-specific harus memiliki cache key dan invalidation yang benar.",
+    "hypothesisTemplate": "Cache mengabaikan actor, tenant, auth state, atau variant penting.",
+    "testTemplate": "Bandingkan akun/profil sendiri dan perubahan permission dengan request yang semantik sama.",
+    "signals": [
+      "Response stale atau milik context lain muncul."
+    ],
+    "stopCondition": "Gunakan marker data dummy agar sumber response jelas.",
+    "category": "Cache",
+    "securityInvariant": "Cache harus memisahkan protected content berdasarkan authority, tenant, dan variant yang relevan."
+  },
+  {
+    "id": "tech_13",
+    "rank": 13,
+    "name": "OAuth / SSO / Account Linking",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "auth",
+    "description": "Identity, authorization response, session, dan target account harus terikat konsisten.",
+    "hypothesisTemplate": "Identity A dapat terikat atau memberi authority pada Account B.",
+    "testTemplate": "State/session switching, account linking, revoke, re-login, scope changes.",
+    "signals": [
+      "Account misbinding, privilege inheritance salah, atau stale linked authority."
+    ],
+    "stopCondition": "Gunakan seluruh identity/account milik sendiri.",
+    "category": "OAuth / SSO",
+    "securityInvariant": "Identitas, issuer, session, dan account linking harus terikat pada akun yang benar."
+  },
+  {
+    "id": "tech_14",
+    "rank": 14,
+    "name": "Cross-Tenant / Workspace Isolation",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "auth",
+    "description": "Object, search, export, job, audit, dan realtime event harus selalu tenant-scoped.",
+    "hypothesisTemplate": "Endpoint tertentu hanya memvalidasi object ID tanpa tenant ownership.",
+    "testTemplate": "Gunakan dua workspace milik sendiri dengan object marker berbeda.",
+    "signals": [
+      "Workspace A membaca atau memodifikasi resource Workspace B."
+    ],
+    "stopCondition": "Minimum proof saja.",
+    "category": "Tenant Isolation",
+    "securityInvariant": "Authority suatu tenant tidak boleh digunakan untuk resource tenant lain."
+  },
+  {
+    "id": "tech_15",
+    "rank": 15,
+    "name": "File / Share / Export Boundary",
+    "rarity": "uncommon",
+    "difficulty": "intermediate",
+    "domain": "business",
+    "description": "Preview, download, export, copy, share, revoke, dan redirect sering punya authorization path berbeda.",
+    "hypothesisTemplate": "Secondary file endpoint kehilangan ownership/share validation.",
+    "testTemplate": "Test setiap operasi setelah perubahan state share/revoke/private.",
+    "signals": [
+      "Satu jalur masih mengizinkan akses saat jalur utama menolak."
+    ],
+    "stopCondition": "Gunakan file dummy, bukan data sensitif nyata.",
+    "category": "File Boundary",
+    "securityInvariant": "File, share, dan export harus menegakkan owner, ACL, expiry, dan revocation secara konsisten."
+  },
+  {
+    "id": "tech_16",
+    "rank": 16,
+    "name": "BFLA / Vertical Privilege Escalation",
+    "rarity": "common",
+    "difficulty": "intermediate",
+    "domain": "auth",
+    "description": "Tombol tersembunyi bukan security control. Backend harus memeriksa capability role.",
+    "hypothesisTemplate": "Member/viewer bisa memanggil fungsi owner/admin.",
+    "testTemplate": "Replay action owner dengan session role lebih rendah milik sendiri.",
+    "signals": [
+      "Protected function berhasil tanpa role yang diperlukan."
+    ],
+    "stopCondition": "Pakai aksi reversible/non-destructive bila tersedia.",
+    "category": "Authorization",
+    "securityInvariant": "Role rendah tidak boleh menjalankan fungsi yang membutuhkan role lebih tinggi."
+  },
+  {
+    "id": "tech_17",
+    "rank": 17,
+    "name": "IDOR / BOLA / Object Ownership",
+    "rarity": "common",
+    "difficulty": "easy",
+    "domain": "auth",
+    "description": "Object identifier bukan authorization. Selalu cek ownership pada read/write/delete/share/export.",
+    "hypothesisTemplate": "Backend percaya object ID tanpa memastikan actor berhak.",
+    "testTemplate": "Dua akun sendiri: ganti object A dengan object B pada semua operasi.",
+    "signals": [
+      "Cross-account access atau mutation."
+    ],
+    "stopCondition": "Jangan enumerasi object pihak lain.",
+    "category": "Authorization",
+    "securityInvariant": "Identifier object tidak boleh menggantikan pemeriksaan kepemilikan dan authorization."
+  },
+  {
+    "id": "tech_18",
+    "rank": 18,
+    "name": "Business Logic State Transition",
+    "rarity": "common",
+    "difficulty": "intermediate",
+    "domain": "business",
+    "description": "Sistem sering memvalidasi request, tapi lupa memvalidasi urutan state bisnis.",
+    "hypothesisTemplate": "Step dapat dilewati, diulang, atau dilakukan dalam urutan ilegal.",
+    "testTemplate": "1→2→3, lalu 1→3, 3 langsung, 1(A)→2(B), repeat step.",
+    "signals": [
+      "Final state tercapai tanpa precondition wajib."
+    ],
+    "stopCondition": "Gunakan resource test, jangan transaksi dunia nyata.",
+    "category": "Business Logic",
+    "securityInvariant": "Transisi business state harus memenuhi prasyarat dan authority yang berlaku."
+  },
+  {
+    "id": "tech_19",
+    "rank": 19,
+    "name": "Authentication & Session Lifecycle",
+    "rarity": "common",
+    "difficulty": "easy",
+    "domain": "auth",
+    "description": "Test perubahan password, logout, revoke, downgrade role, unlink identity, dan session expiration.",
+    "hypothesisTemplate": "Token/session lama mempertahankan privilege yang sudah tidak valid.",
+    "testTemplate": "Before/after logout, revoke, role change, workspace removal.",
+    "signals": [
+      "Old token masih bisa melakukan protected action."
+    ],
+    "stopCondition": "Bedakan behavior yang memang didokumentasikan oleh program.",
+    "category": "Authentication",
+    "securityInvariant": "Session yang expired/revoked/logout tidak boleh tetap memberikan authority aktif."
+  },
+  {
+    "id": "tech_20",
+    "rank": 20,
+    "name": "Basic Validation & Misconfiguration With Impact",
+    "rarity": "common",
+    "difficulty": "easy",
+    "domain": "api",
+    "description": "Headers, CORS, redirects, version leaks, atau config aneh hanya menarik jika ada exploitability nyata.",
+    "hypothesisTemplate": "Misconfiguration menghasilkan unauthorized data/action, bukan sekadar scanner finding.",
+    "testTemplate": "Validasi dampak konkret dengan resource milik sendiri.",
+    "signals": [
+      "Security boundary benar-benar terlewati."
+    ],
+    "stopCondition": "Jangan report noise tanpa impact.",
+    "category": "API",
+    "securityInvariant": "Validasi dan konfigurasi harus menjaga protected outcome sesuai batas authority yang ditentukan."
+  }
+]
