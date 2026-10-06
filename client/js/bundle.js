@@ -681,6 +681,10476 @@ const HELPER_KB=[
   }
 ];
 
+// SOURCE: domain-data
+// Generated from data/domains/*.json by scripts/build-domains.py.
+const DOMAIN_PACKS=[
+  {
+    "id": "ai",
+    "name": "Artificial Intelligence",
+    "description": "Layanan model, aplikasi atau agent; pola generik bukan deskripsi arsitektur perusahaan tertentu.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Model dan inference",
+      "Authority agent/tool",
+      "Data input/output dan context"
+    ],
+    "terminology": [
+      {
+        "id": "ai-term-1",
+        "title": "Inference",
+        "content": "Proses menghasilkan output model dari input/context.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Inference",
+        "definition": "Proses menghasilkan output model dari input/context.",
+        "whyImportant": "Output model bukan fakta yang otomatis terverifikasi.",
+        "relatedTerms": [
+          "Model",
+          "Context"
+        ]
+      },
+      {
+        "id": "ai-term-2",
+        "title": "Agent",
+        "content": "Komponen yang dapat menyusun langkah atau menggunakan kemampuan yang diberikan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Agent",
+        "definition": "Komponen yang dapat menyusun langkah atau menggunakan kemampuan yang diberikan.",
+        "whyImportant": "Authority delegasi perlu dibatasi.",
+        "relatedTerms": [
+          "Tool",
+          "Connector"
+        ]
+      },
+      {
+        "id": "ai-term-3",
+        "title": "Connector",
+        "content": "Integrasi yang mengakses resource pada layanan lain.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Connector",
+        "definition": "Integrasi yang mengakses resource pada layanan lain.",
+        "whyImportant": "Resource dan consent membentuk trust boundary.",
+        "relatedTerms": [
+          "Tool",
+          "Authority"
+        ]
+      },
+      {
+        "id": "ai-term-4",
+        "title": "Model",
+        "content": "Komponen yang menghasilkan prediksi atau output.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Model",
+        "definition": "Komponen yang menghasilkan prediksi atau output.",
+        "whyImportant": "Bedakan model dari sistem yang memberi akses data.",
+        "relatedTerms": [
+          "Inference"
+        ]
+      },
+      {
+        "id": "ai-term-5",
+        "title": "Context",
+        "content": "Informasi yang diberikan untuk pemrosesan model/sistem.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Context",
+        "definition": "Informasi yang diberikan untuk pemrosesan model/sistem.",
+        "whyImportant": "Dapat memuat data sensitif dan instruksi tidak tepercaya.",
+        "relatedTerms": [
+          "Inference",
+          "Connector"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "ai-actor-1",
+        "title": "Consumer User",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-2",
+        "title": "Developer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-3",
+        "title": "Workspace Member",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-4",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-5",
+        "title": "API Client",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-6",
+        "title": "Agent",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-7",
+        "title": "Tool",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-8",
+        "title": "Connector",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-actor-9",
+        "title": "Service",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "ai-object-1",
+        "title": "Account",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-2",
+        "title": "Conversation",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-3",
+        "title": "Project",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-4",
+        "title": "File",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-5",
+        "title": "Model",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-6",
+        "title": "API Key",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-7",
+        "title": "Agent",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-8",
+        "title": "Tool",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-9",
+        "title": "Connector",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-10",
+        "title": "Workspace",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-11",
+        "title": "Organization",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-object-12",
+        "title": "Session",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "ai-flow-1",
+        "title": "Artificial Intelligence — flow generik",
+        "content": "Layanan model, aplikasi atau agent; pola generik bukan deskripsi arsitektur perusahaan tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "User",
+          "Account",
+          "Project",
+          "API Credential",
+          "Request",
+          "Model",
+          "Tool / Connector",
+          "Output"
+        ],
+        "actorIds": [
+          "ai-actor-1",
+          "ai-actor-2",
+          "ai-actor-3",
+          "ai-actor-4",
+          "ai-actor-5",
+          "ai-actor-6",
+          "ai-actor-7",
+          "ai-actor-8",
+          "ai-actor-9"
+        ],
+        "objectIds": [
+          "ai-object-1",
+          "ai-object-2",
+          "ai-object-3",
+          "ai-object-4",
+          "ai-object-5",
+          "ai-object-6",
+          "ai-object-7",
+          "ai-object-8",
+          "ai-object-9",
+          "ai-object-10",
+          "ai-object-11",
+          "ai-object-12"
+        ],
+        "boundaryIds": [
+          "ai-boundary-1"
+        ],
+        "invariantIds": [
+          "ai-invariant-1",
+          "ai-invariant-2",
+          "ai-invariant-3",
+          "ai-invariant-4"
+        ],
+        "transitions": [
+          {
+            "id": "ai-transition-1",
+            "fromState": "User",
+            "toState": "Account",
+            "action": "User → Account",
+            "critical": false,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-2",
+            "fromState": "Account",
+            "toState": "Project",
+            "action": "Account → Project",
+            "critical": false,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-3",
+            "fromState": "Project",
+            "toState": "API Credential",
+            "action": "Project → API Credential",
+            "critical": true,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-4",
+            "fromState": "API Credential",
+            "toState": "Request",
+            "action": "API Credential → Request",
+            "critical": true,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-5",
+            "fromState": "Request",
+            "toState": "Model",
+            "action": "Request → Model",
+            "critical": false,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-6",
+            "fromState": "Model",
+            "toState": "Tool / Connector",
+            "action": "Model → Tool / Connector",
+            "critical": false,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          },
+          {
+            "id": "ai-transition-7",
+            "fromState": "Tool / Connector",
+            "toState": "Output",
+            "action": "Tool / Connector → Output",
+            "critical": false,
+            "invariantIds": [
+              "ai-invariant-1",
+              "ai-invariant-2",
+              "ai-invariant-3",
+              "ai-invariant-4"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "ai-sensitive-1",
+        "title": "Private prompts, conversations and files",
+        "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-sensitive-2",
+        "title": "Workspace and connector resource data",
+        "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-sensitive-3",
+        "title": "API keys and tool credentials",
+        "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "ai-asset-1",
+        "title": "API Key",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-asset-2",
+        "title": "Project",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-asset-3",
+        "title": "File",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-asset-4",
+        "title": "Conversation",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-asset-5",
+        "title": "Connector",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-asset-6",
+        "title": "Workspace",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "ai-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "ai-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "ai-invariant-1",
+        "title": "Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+        "content": "Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "techniqueIds": [
+          "tech_03"
+        ]
+      },
+      {
+        "id": "ai-invariant-2",
+        "title": "Data workspace harus tetap tenant isolated.",
+        "content": "Data workspace harus tetap tenant isolated.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "techniqueIds": [
+          "tech_06"
+        ]
+      },
+      {
+        "id": "ai-invariant-3",
+        "title": "Connector hanya mengakses resource yang diotorisasi.",
+        "content": "Connector hanya mengakses resource yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "techniqueIds": [
+          "tech_14"
+        ]
+      },
+      {
+        "id": "ai-invariant-4",
+        "title": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+        "content": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "ai-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ai-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "ai-mapping-1",
+        "title": "Technique tech_03",
+        "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_03",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "ai-mapping-2",
+        "title": "Technique tech_06",
+        "content": "Cross-context boundary: bandingkan authority yang didelegasikan antar app, agent, tool dan connector. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_06",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "ai-mapping-3",
+        "title": "Technique tech_14",
+        "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_14",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "ai-mapping-4",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-4",
+        "researchPriority": 60
+      },
+      {
+        "id": "ai-mapping-5",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-1",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "ai-question-1",
+        "title": "Bagaimana memastikan: Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+        "content": "Authority tool tidak boleh melebihi hak yang diberikan pengguna. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-1",
+        "techniqueId": "tech_03"
+      },
+      {
+        "id": "ai-question-2",
+        "title": "Bagaimana memastikan: Data workspace harus tetap tenant isolated.",
+        "content": "Data workspace harus tetap tenant isolated. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-2",
+        "techniqueId": "tech_06"
+      },
+      {
+        "id": "ai-question-3",
+        "title": "Bagaimana memastikan: Connector hanya mengakses resource yang diotorisasi.",
+        "content": "Connector hanya mengakses resource yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-3",
+        "techniqueId": "tech_14"
+      },
+      {
+        "id": "ai-question-4",
+        "title": "Bagaimana memastikan: Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+        "content": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ai-flow-1",
+        "invariantId": "ai-invariant-4",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": [
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "notes": "Referensi kerangka istilah AI; contoh agent/tool adalah kurasi riset generik."
+      }
+    ]
+  },
+  {
+    "id": "banking",
+    "name": "Banking",
+    "description": "Produk rekening dan layanan bank; istilah proses dapat berbeda antar penyedia.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Pemilik rekening",
+      "Mandat transaksi",
+      "Instruksi versus finalitas"
+    ],
+    "terminology": [
+      {
+        "id": "banking-term-1",
+        "title": "Mandate",
+        "content": "Aturan atau pemberian authority untuk suatu rekening/aksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Mandate",
+        "definition": "Aturan atau pemberian authority untuk suatu rekening/aksi.",
+        "whyImportant": "Perubahan mandat mengubah siapa boleh bertindak.",
+        "relatedTerms": [
+          "Account",
+          "Authorization"
+        ]
+      },
+      {
+        "id": "banking-term-2",
+        "title": "Statement",
+        "content": "Ringkasan record aktivitas rekening pada periode tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Statement",
+        "definition": "Ringkasan record aktivitas rekening pada periode tertentu.",
+        "whyImportant": "Merupakan resource sensitif yang ownership-nya perlu dijaga.",
+        "relatedTerms": [
+          "Account",
+          "Ledger"
+        ]
+      },
+      {
+        "id": "banking-term-3",
+        "title": "Account",
+        "content": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Account",
+        "definition": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+        "whyImportant": "Ownership account menentukan authority transaksi.",
+        "relatedTerms": [
+          "Balance",
+          "Ledger"
+        ]
+      },
+      {
+        "id": "banking-term-4",
+        "title": "Ledger",
+        "content": "Catatan entri pembukuan yang merekam perubahan posisi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Ledger",
+        "definition": "Catatan entri pembukuan yang merekam perubahan posisi.",
+        "whyImportant": "Kontrol integritas harus mengikuti state transaksi.",
+        "relatedTerms": [
+          "Ledger Entry",
+          "Balance",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "banking-term-5",
+        "title": "Balance",
+        "content": "Posisi saldo berdasarkan catatan pada suatu saat.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Balance",
+        "definition": "Posisi saldo berdasarkan catatan pada suatu saat.",
+        "whyImportant": "Bedakan saldo tercatat dan dana yang dapat digunakan.",
+        "relatedTerms": [
+          "Ledger",
+          "Available Balance"
+        ]
+      },
+      {
+        "id": "banking-term-6",
+        "title": "Available Balance",
+        "content": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Available Balance",
+        "definition": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+        "whyImportant": "Jangan menyamakan dana tersedia dengan saldo keseluruhan.",
+        "relatedTerms": [
+          "Balance",
+          "Authorization"
+        ]
+      },
+      {
+        "id": "banking-term-7",
+        "title": "Settlement",
+        "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Settlement",
+        "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+        "relatedTerms": [
+          "Clearing",
+          "Transaction",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "banking-term-8",
+        "title": "Clearing",
+        "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Clearing",
+        "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+        "relatedTerms": [
+          "Settlement",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "banking-term-9",
+        "title": "Transaction",
+        "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Transaction",
+        "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+        "relatedTerms": [
+          "Transfer",
+          "Ledger"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "banking-actor-1",
+        "title": "Customer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-2",
+        "title": "Account Holder",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-3",
+        "title": "Teller",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-4",
+        "title": "Bank Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-5",
+        "title": "Approver",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-6",
+        "title": "Compliance Officer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-actor-7",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "banking-object-1",
+        "title": "Account",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-2",
+        "title": "Transfer Instruction",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-3",
+        "title": "Beneficiary",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-4",
+        "title": "Statement",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-5",
+        "title": "Mandate",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-6",
+        "title": "Ledger Entry",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-object-7",
+        "title": "Deposit",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "banking-flow-1",
+        "title": "Banking — flow generik",
+        "content": "Produk rekening dan layanan bank; istilah proses dapat berbeda antar penyedia.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Customer",
+          "Create Instruction",
+          "Validate Mandate",
+          "Authorize",
+          "Post Entry",
+          "Settle",
+          "Reconcile"
+        ],
+        "actorIds": [
+          "banking-actor-1",
+          "banking-actor-2",
+          "banking-actor-3",
+          "banking-actor-4",
+          "banking-actor-5",
+          "banking-actor-6",
+          "banking-actor-7"
+        ],
+        "objectIds": [
+          "banking-object-1",
+          "banking-object-2",
+          "banking-object-3",
+          "banking-object-4",
+          "banking-object-5",
+          "banking-object-6",
+          "banking-object-7"
+        ],
+        "boundaryIds": [
+          "banking-boundary-1"
+        ],
+        "invariantIds": [
+          "banking-invariant-1",
+          "banking-invariant-2",
+          "banking-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "banking-transition-1",
+            "fromState": "Customer",
+            "toState": "Create Instruction",
+            "action": "Customer → Create Instruction",
+            "critical": false,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          },
+          {
+            "id": "banking-transition-2",
+            "fromState": "Create Instruction",
+            "toState": "Validate Mandate",
+            "action": "Create Instruction → Validate Mandate",
+            "critical": false,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          },
+          {
+            "id": "banking-transition-3",
+            "fromState": "Validate Mandate",
+            "toState": "Authorize",
+            "action": "Validate Mandate → Authorize",
+            "critical": true,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          },
+          {
+            "id": "banking-transition-4",
+            "fromState": "Authorize",
+            "toState": "Post Entry",
+            "action": "Authorize → Post Entry",
+            "critical": true,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          },
+          {
+            "id": "banking-transition-5",
+            "fromState": "Post Entry",
+            "toState": "Settle",
+            "action": "Post Entry → Settle",
+            "critical": true,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          },
+          {
+            "id": "banking-transition-6",
+            "fromState": "Settle",
+            "toState": "Reconcile",
+            "action": "Settle → Reconcile",
+            "critical": true,
+            "invariantIds": [
+              "banking-invariant-1",
+              "banking-invariant-2",
+              "banking-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "banking-sensitive-1",
+        "title": "Account identity and mandates",
+        "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-sensitive-2",
+        "title": "Statements and transfer instructions",
+        "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-sensitive-3",
+        "title": "Ledger and customer verification records",
+        "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "banking-asset-1",
+        "title": "Account",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-asset-2",
+        "title": "Mandate",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-asset-3",
+        "title": "Transfer Instruction",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-asset-4",
+        "title": "Ledger Entry",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-asset-5",
+        "title": "Statement",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "banking-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "banking-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "banking-invariant-1",
+        "title": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+        "content": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "banking-invariant-2",
+        "title": "Statement tidak boleh terbaca oleh actor tanpa hak.",
+        "content": "Statement tidak boleh terbaca oleh actor tanpa hak.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "techniqueIds": [
+          "tech_03"
+        ]
+      },
+      {
+        "id": "banking-invariant-3",
+        "title": "Approval harus terikat pada instruksi yang disetujui.",
+        "content": "Approval harus terikat pada instruksi yang disetujui.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "techniqueIds": [
+          "tech_02"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "banking-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "banking-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "banking-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "banking-mapping-2",
+        "title": "Technique tech_03",
+        "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_03",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "banking-mapping-3",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "banking-mapping-4",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-1",
+        "researchPriority": 60
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "banking-question-1",
+        "title": "Bagaimana memastikan: Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+        "content": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "banking-question-2",
+        "title": "Bagaimana memastikan: Statement tidak boleh terbaca oleh actor tanpa hak.",
+        "content": "Statement tidak boleh terbaca oleh actor tanpa hak. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-2",
+        "techniqueId": "tech_03"
+      },
+      {
+        "id": "banking-question-3",
+        "title": "Bagaimana memastikan: Approval harus terikat pada instruksi yang disetujui.",
+        "content": "Approval harus terikat pada instruksi yang disetujui. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "banking-flow-1",
+        "invariantId": "banking-invariant-3",
+        "techniqueId": "tech_02"
+      }
+    ],
+    "references": [
+      {
+        "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+        "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+        "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+      }
+    ]
+  },
+  {
+    "id": "cloud",
+    "name": "Cloud",
+    "description": "Layanan komputasi bersama dengan pengelolaan resource, identity, dan control/data plane.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Control plane dan data plane",
+      "Resource isolation",
+      "Credential lifecycle"
+    ],
+    "terminology": [
+      {
+        "id": "cloud-term-1",
+        "title": "Control Plane",
+        "content": "Bagian layanan yang mengatur konfigurasi dan resource.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Control Plane",
+        "definition": "Bagian layanan yang mengatur konfigurasi dan resource.",
+        "whyImportant": "Authority administrasi berbeda dari akses data.",
+        "relatedTerms": [
+          "Data Plane",
+          "Policy"
+        ]
+      },
+      {
+        "id": "cloud-term-2",
+        "title": "Data Plane",
+        "content": "Bagian yang menjalankan atau membawa operasi/data layanan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Data Plane",
+        "definition": "Bagian yang menjalankan atau membawa operasi/data layanan.",
+        "whyImportant": "Akses data tetap membutuhkan izin efektif.",
+        "relatedTerms": [
+          "Control Plane"
+        ]
+      },
+      {
+        "id": "cloud-term-3",
+        "title": "Policy",
+        "content": "Aturan pemberian atau penolakan hak.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Policy",
+        "definition": "Aturan pemberian atau penolakan hak.",
+        "whyImportant": "Policy aktual perlu ditinjau, bukan hanya nama role.",
+        "relatedTerms": [
+          "Credential",
+          "Authority"
+        ]
+      },
+      {
+        "id": "cloud-term-4",
+        "title": "Snapshot",
+        "content": "Salinan state/resource pada waktu tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Snapshot",
+        "definition": "Salinan state/resource pada waktu tertentu.",
+        "whyImportant": "Salinan bisa mempertahankan data sensitif.",
+        "relatedTerms": [
+          "Storage",
+          "Resource"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "cloud-actor-1",
+        "title": "Tenant Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-actor-2",
+        "title": "Developer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-actor-3",
+        "title": "Operator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-actor-4",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-actor-5",
+        "title": "Workload",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-actor-6",
+        "title": "Support",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "cloud-object-1",
+        "title": "Account",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-2",
+        "title": "Project",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-3",
+        "title": "Compute Resource",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-4",
+        "title": "Storage Object",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-5",
+        "title": "Policy",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-6",
+        "title": "Credential",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-7",
+        "title": "Snapshot",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-object-8",
+        "title": "Job",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "cloud-flow-1",
+        "title": "Cloud — flow generik",
+        "content": "Layanan komputasi bersama dengan pengelolaan resource, identity, dan control/data plane.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Tenant",
+          "Project",
+          "Assign Policy",
+          "Provision Resource",
+          "Access Data",
+          "Rotate Credential",
+          "Delete Resource"
+        ],
+        "actorIds": [
+          "cloud-actor-1",
+          "cloud-actor-2",
+          "cloud-actor-3",
+          "cloud-actor-4",
+          "cloud-actor-5",
+          "cloud-actor-6"
+        ],
+        "objectIds": [
+          "cloud-object-1",
+          "cloud-object-2",
+          "cloud-object-3",
+          "cloud-object-4",
+          "cloud-object-5",
+          "cloud-object-6",
+          "cloud-object-7",
+          "cloud-object-8"
+        ],
+        "boundaryIds": [
+          "cloud-boundary-1"
+        ],
+        "invariantIds": [
+          "cloud-invariant-1",
+          "cloud-invariant-2",
+          "cloud-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "cloud-transition-1",
+            "fromState": "Tenant",
+            "toState": "Project",
+            "action": "Tenant → Project",
+            "critical": false,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          },
+          {
+            "id": "cloud-transition-2",
+            "fromState": "Project",
+            "toState": "Assign Policy",
+            "action": "Project → Assign Policy",
+            "critical": false,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          },
+          {
+            "id": "cloud-transition-3",
+            "fromState": "Assign Policy",
+            "toState": "Provision Resource",
+            "action": "Assign Policy → Provision Resource",
+            "critical": false,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          },
+          {
+            "id": "cloud-transition-4",
+            "fromState": "Provision Resource",
+            "toState": "Access Data",
+            "action": "Provision Resource → Access Data",
+            "critical": false,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          },
+          {
+            "id": "cloud-transition-5",
+            "fromState": "Access Data",
+            "toState": "Rotate Credential",
+            "action": "Access Data → Rotate Credential",
+            "critical": true,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          },
+          {
+            "id": "cloud-transition-6",
+            "fromState": "Rotate Credential",
+            "toState": "Delete Resource",
+            "action": "Rotate Credential → Delete Resource",
+            "critical": true,
+            "invariantIds": [
+              "cloud-invariant-1",
+              "cloud-invariant-2",
+              "cloud-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "cloud-sensitive-1",
+        "title": "Storage objects and snapshots",
+        "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-sensitive-2",
+        "title": "IAM policies and workload credentials",
+        "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-sensitive-3",
+        "title": "Tenant usage and audit records",
+        "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "cloud-asset-1",
+        "title": "Storage Object",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-asset-2",
+        "title": "Policy",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-asset-3",
+        "title": "Credential",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-asset-4",
+        "title": "Snapshot",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "cloud-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "cloud-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "cloud-invariant-1",
+        "title": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+        "content": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "techniqueIds": [
+          "tech_14"
+        ]
+      },
+      {
+        "id": "cloud-invariant-2",
+        "title": "Policy dicabut harus dihormati pada operasi terlindungi.",
+        "content": "Policy dicabut harus dihormati pada operasi terlindungi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "cloud-invariant-3",
+        "title": "Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+        "content": "Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "cloud-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "cloud-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "cloud-mapping-1",
+        "title": "Technique tech_14",
+        "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_14",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "cloud-mapping-2",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "cloud-mapping-3",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "cloud-mapping-4",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "cloud-mapping-5",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "cloud-question-1",
+        "title": "Bagaimana memastikan: Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+        "content": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-1",
+        "techniqueId": "tech_14"
+      },
+      {
+        "id": "cloud-question-2",
+        "title": "Bagaimana memastikan: Policy dicabut harus dihormati pada operasi terlindungi.",
+        "content": "Policy dicabut harus dihormati pada operasi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-2",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "cloud-question-3",
+        "title": "Bagaimana memastikan: Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+        "content": "Snapshot/storage harus mempertahankan ownership dan sensitivitas. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "cloud-flow-1",
+        "invariantId": "cloud-invariant-3",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": [
+      {
+        "title": "NIST SP 800-145 — cloud service models",
+        "url": "https://www.nist.gov/publications/nist-definition-cloud-computing",
+        "notes": "Referensi model layanan; mapping kontrol adalah pola riset generik."
+      }
+    ]
+  },
+  {
+    "id": "developer-platform",
+    "name": "Developer Platform",
+    "description": "Layanan untuk proyek developer, API, build, release, dan integrasi.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Credential project",
+      "Delegasi integrasi",
+      "Lifecycle build/release"
+    ],
+    "terminology": [
+      {
+        "id": "developer-platform-term-1",
+        "title": "Artifact",
+        "content": "Output build/proses yang disimpan untuk penggunaan berikutnya.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Artifact",
+        "definition": "Output build/proses yang disimpan untuk penggunaan berikutnya.",
+        "whyImportant": "Ownership/lifecycle berbeda dari request awal.",
+        "relatedTerms": [
+          "Build",
+          "Release"
+        ]
+      },
+      {
+        "id": "developer-platform-term-2",
+        "title": "API Credential",
+        "content": "Credential yang dipakai client untuk akses API.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "API Credential",
+        "definition": "Credential yang dipakai client untuk akses API.",
+        "whyImportant": "Scope dan revoke harus ditegakkan.",
+        "relatedTerms": [
+          "Project",
+          "API Client"
+        ]
+      },
+      {
+        "id": "developer-platform-term-3",
+        "title": "Build",
+        "content": "Proses menghasilkan artifact dari input.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Build",
+        "definition": "Proses menghasilkan artifact dari input.",
+        "whyImportant": "Worker dan input membentuk boundary.",
+        "relatedTerms": [
+          "Artifact",
+          "Worker"
+        ]
+      },
+      {
+        "id": "developer-platform-term-4",
+        "title": "Webhook",
+        "content": "Pengiriman event ke destination yang dikonfigurasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Webhook",
+        "definition": "Pengiriman event ke destination yang dikonfigurasi.",
+        "whyImportant": "Destination harus terikat pada owner sah.",
+        "relatedTerms": [
+          "Integration",
+          "Event"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "developer-platform-actor-1",
+        "title": "Developer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-actor-2",
+        "title": "Maintainer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-actor-3",
+        "title": "Organization Owner",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-actor-4",
+        "title": "CI Worker",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-actor-5",
+        "title": "API Client",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-actor-6",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "developer-platform-object-1",
+        "title": "Project",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-2",
+        "title": "Repository",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-3",
+        "title": "API Credential",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-4",
+        "title": "Build",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-5",
+        "title": "Artifact",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-6",
+        "title": "Release",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-7",
+        "title": "Webhook",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-object-8",
+        "title": "Integration",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "developer-platform-flow-1",
+        "title": "Developer Platform — flow generik",
+        "content": "Layanan untuk proyek developer, API, build, release, dan integrasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Developer",
+          "Project",
+          "Credential",
+          "Request / Build",
+          "Artifact",
+          "Release",
+          "Webhook"
+        ],
+        "actorIds": [
+          "developer-platform-actor-1",
+          "developer-platform-actor-2",
+          "developer-platform-actor-3",
+          "developer-platform-actor-4",
+          "developer-platform-actor-5",
+          "developer-platform-actor-6"
+        ],
+        "objectIds": [
+          "developer-platform-object-1",
+          "developer-platform-object-2",
+          "developer-platform-object-3",
+          "developer-platform-object-4",
+          "developer-platform-object-5",
+          "developer-platform-object-6",
+          "developer-platform-object-7",
+          "developer-platform-object-8"
+        ],
+        "boundaryIds": [
+          "developer-platform-boundary-1"
+        ],
+        "invariantIds": [
+          "developer-platform-invariant-1",
+          "developer-platform-invariant-2",
+          "developer-platform-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "developer-platform-transition-1",
+            "fromState": "Developer",
+            "toState": "Project",
+            "action": "Developer → Project",
+            "critical": false,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          },
+          {
+            "id": "developer-platform-transition-2",
+            "fromState": "Project",
+            "toState": "Credential",
+            "action": "Project → Credential",
+            "critical": true,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          },
+          {
+            "id": "developer-platform-transition-3",
+            "fromState": "Credential",
+            "toState": "Request / Build",
+            "action": "Credential → Request / Build",
+            "critical": true,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          },
+          {
+            "id": "developer-platform-transition-4",
+            "fromState": "Request / Build",
+            "toState": "Artifact",
+            "action": "Request / Build → Artifact",
+            "critical": false,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          },
+          {
+            "id": "developer-platform-transition-5",
+            "fromState": "Artifact",
+            "toState": "Release",
+            "action": "Artifact → Release",
+            "critical": false,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          },
+          {
+            "id": "developer-platform-transition-6",
+            "fromState": "Release",
+            "toState": "Webhook",
+            "action": "Release → Webhook",
+            "critical": false,
+            "invariantIds": [
+              "developer-platform-invariant-1",
+              "developer-platform-invariant-2",
+              "developer-platform-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "developer-platform-sensitive-1",
+        "title": "Source code and private artifacts",
+        "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-sensitive-2",
+        "title": "Build secrets and API credentials",
+        "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-sensitive-3",
+        "title": "Webhook and release configuration",
+        "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "developer-platform-asset-1",
+        "title": "API Credential",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-asset-2",
+        "title": "Repository",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-asset-3",
+        "title": "Artifact",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-asset-4",
+        "title": "Release",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-asset-5",
+        "title": "Integration",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "developer-platform-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "developer-platform-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "developer-platform-invariant-1",
+        "title": "Credential harus terikat pada project dan capability yang diberikan.",
+        "content": "Credential harus terikat pada project dan capability yang diberikan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "developer-platform-invariant-2",
+        "title": "Worker build tidak boleh memakai authority yang tidak berlaku.",
+        "content": "Worker build tidak boleh memakai authority yang tidak berlaku.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "techniqueIds": [
+          "tech_03"
+        ]
+      },
+      {
+        "id": "developer-platform-invariant-3",
+        "title": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+        "content": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "techniqueIds": [
+          "tech_02"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "developer-platform-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "developer-platform-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "developer-platform-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "developer-platform-mapping-2",
+        "title": "Technique tech_03",
+        "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_03",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "developer-platform-mapping-3",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "developer-platform-mapping-4",
+        "title": "Technique tech_09",
+        "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_09",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "developer-platform-mapping-5",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "developer-platform-question-1",
+        "title": "Bagaimana memastikan: Credential harus terikat pada project dan capability yang diberikan.",
+        "content": "Credential harus terikat pada project dan capability yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "developer-platform-question-2",
+        "title": "Bagaimana memastikan: Worker build tidak boleh memakai authority yang tidak berlaku.",
+        "content": "Worker build tidak boleh memakai authority yang tidak berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-2",
+        "techniqueId": "tech_03"
+      },
+      {
+        "id": "developer-platform-question-3",
+        "title": "Bagaimana memastikan: Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+        "content": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "developer-platform-flow-1",
+        "invariantId": "developer-platform-invariant-3",
+        "techniqueId": "tech_02"
+      }
+    ],
+    "references": []
+  },
+  {
+    "id": "ecommerce",
+    "name": "E-Commerce",
+    "description": "Penjualan dan pemenuhan barang/jasa dengan checkout, order, dan refund.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Ownership order",
+      "State order/payment",
+      "Inventory dan fulfillment"
+    ],
+    "terminology": [
+      {
+        "id": "ecommerce-term-1",
+        "title": "Fulfillment",
+        "content": "Proses memenuhi order hingga siap dikirim/diserahkan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Fulfillment",
+        "definition": "Proses memenuhi order hingga siap dikirim/diserahkan.",
+        "whyImportant": "State ini dapat mengubah aksi pembatalan/refund yang tersedia.",
+        "relatedTerms": [
+          "Order",
+          "Shipment"
+        ]
+      },
+      {
+        "id": "ecommerce-term-2",
+        "title": "Inventory",
+        "content": "Catatan ketersediaan resource/barang.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Inventory",
+        "definition": "Catatan ketersediaan resource/barang.",
+        "whyImportant": "Konsistensi perubahan state perlu dijaga.",
+        "relatedTerms": [
+          "Order",
+          "Product"
+        ]
+      },
+      {
+        "id": "ecommerce-term-3",
+        "title": "Checkout",
+        "content": "Tahap memfinalkan pilihan dan informasi order.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Checkout",
+        "definition": "Tahap memfinalkan pilihan dan informasi order.",
+        "whyImportant": "Harga/pemilik/context perlu konsisten.",
+        "relatedTerms": [
+          "Cart",
+          "Payment"
+        ]
+      },
+      {
+        "id": "ecommerce-term-4",
+        "title": "Coupon",
+        "content": "Aturan manfaat/potongan untuk kondisi tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Coupon",
+        "definition": "Aturan manfaat/potongan untuk kondisi tertentu.",
+        "whyImportant": "Prasyarat dan penggunaan perlu sesuai aturan.",
+        "relatedTerms": [
+          "Cart",
+          "Order"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "ecommerce-actor-1",
+        "title": "Customer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-2",
+        "title": "Seller",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-3",
+        "title": "Buyer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-4",
+        "title": "Merchant",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-5",
+        "title": "Warehouse Operator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-6",
+        "title": "Support",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-actor-7",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "ecommerce-object-1",
+        "title": "Product",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-2",
+        "title": "Cart",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-3",
+        "title": "Order",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-4",
+        "title": "Payment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-5",
+        "title": "Coupon",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-6",
+        "title": "Inventory",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-7",
+        "title": "Shipment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-8",
+        "title": "Refund",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-9",
+        "title": "Seller",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-object-10",
+        "title": "Buyer",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "ecommerce-flow-1",
+        "title": "E-Commerce — flow generik",
+        "content": "Penjualan dan pemenuhan barang/jasa dengan checkout, order, dan refund.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Customer",
+          "Cart",
+          "Checkout",
+          "Payment",
+          "Order",
+          "Inventory",
+          "Fulfillment",
+          "Delivery",
+          "Refund"
+        ],
+        "actorIds": [
+          "ecommerce-actor-1",
+          "ecommerce-actor-2",
+          "ecommerce-actor-3",
+          "ecommerce-actor-4",
+          "ecommerce-actor-5",
+          "ecommerce-actor-6",
+          "ecommerce-actor-7"
+        ],
+        "objectIds": [
+          "ecommerce-object-1",
+          "ecommerce-object-2",
+          "ecommerce-object-3",
+          "ecommerce-object-4",
+          "ecommerce-object-5",
+          "ecommerce-object-6",
+          "ecommerce-object-7",
+          "ecommerce-object-8",
+          "ecommerce-object-9",
+          "ecommerce-object-10"
+        ],
+        "boundaryIds": [
+          "ecommerce-boundary-1"
+        ],
+        "invariantIds": [
+          "ecommerce-invariant-1",
+          "ecommerce-invariant-2",
+          "ecommerce-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "ecommerce-transition-1",
+            "fromState": "Customer",
+            "toState": "Cart",
+            "action": "Customer → Cart",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-2",
+            "fromState": "Cart",
+            "toState": "Checkout",
+            "action": "Cart → Checkout",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-3",
+            "fromState": "Checkout",
+            "toState": "Payment",
+            "action": "Checkout → Payment",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-4",
+            "fromState": "Payment",
+            "toState": "Order",
+            "action": "Payment → Order",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-5",
+            "fromState": "Order",
+            "toState": "Inventory",
+            "action": "Order → Inventory",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-6",
+            "fromState": "Inventory",
+            "toState": "Fulfillment",
+            "action": "Inventory → Fulfillment",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-7",
+            "fromState": "Fulfillment",
+            "toState": "Delivery",
+            "action": "Fulfillment → Delivery",
+            "critical": false,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          },
+          {
+            "id": "ecommerce-transition-8",
+            "fromState": "Delivery",
+            "toState": "Refund",
+            "action": "Delivery → Refund",
+            "critical": true,
+            "invariantIds": [
+              "ecommerce-invariant-1",
+              "ecommerce-invariant-2",
+              "ecommerce-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "ecommerce-sensitive-1",
+        "title": "Buyer addresses and contact details",
+        "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-sensitive-2",
+        "title": "Orders and payment references",
+        "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-sensitive-3",
+        "title": "Seller financial and inventory records",
+        "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "ecommerce-asset-1",
+        "title": "Order",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-asset-2",
+        "title": "Payment",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-asset-3",
+        "title": "Inventory",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-asset-4",
+        "title": "Shipment",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-asset-5",
+        "title": "Refund",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "ecommerce-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "ecommerce-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "ecommerce-invariant-1",
+        "title": "Order harus terikat pada customer dan merchant yang benar.",
+        "content": "Order harus terikat pada customer dan merchant yang benar.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "ecommerce-invariant-2",
+        "title": "Transisi refund harus memenuhi state serta hak yang berlaku.",
+        "content": "Transisi refund harus memenuhi state serta hak yang berlaku.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "techniqueIds": [
+          "tech_18"
+        ]
+      },
+      {
+        "id": "ecommerce-invariant-3",
+        "title": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+        "content": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "techniqueIds": [
+          "tech_08"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "ecommerce-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "ecommerce-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "ecommerce-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "ecommerce-mapping-2",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "ecommerce-mapping-3",
+        "title": "Technique tech_08",
+        "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_08",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "ecommerce-mapping-4",
+        "title": "Technique tech_09",
+        "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_09",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-1",
+        "researchPriority": 60
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "ecommerce-question-1",
+        "title": "Bagaimana memastikan: Order harus terikat pada customer dan merchant yang benar.",
+        "content": "Order harus terikat pada customer dan merchant yang benar. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "ecommerce-question-2",
+        "title": "Bagaimana memastikan: Transisi refund harus memenuhi state serta hak yang berlaku.",
+        "content": "Transisi refund harus memenuhi state serta hak yang berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-2",
+        "techniqueId": "tech_18"
+      },
+      {
+        "id": "ecommerce-question-3",
+        "title": "Bagaimana memastikan: Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+        "content": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "ecommerce-flow-1",
+        "invariantId": "ecommerce-invariant-3",
+        "techniqueId": "tech_08"
+      }
+    ],
+    "references": []
+  },
+  {
+    "id": "education",
+    "name": "Education",
+    "description": "Platform pembelajaran, enrollment, assessment, dan resource kelas.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Role pada kelas",
+      "State enrollment",
+      "Integritas assessment"
+    ],
+    "terminology": [
+      {
+        "id": "education-term-1",
+        "title": "Enrollment",
+        "content": "Keanggotaan/pendaftaran pada course atau institusi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Enrollment",
+        "definition": "Keanggotaan/pendaftaran pada course atau institusi.",
+        "whyImportant": "Lifecycle-nya menentukan akses resource.",
+        "relatedTerms": [
+          "Course",
+          "Student"
+        ]
+      },
+      {
+        "id": "education-term-2",
+        "title": "Assessment",
+        "content": "Proses penilaian pekerjaan/kompetensi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Assessment",
+        "definition": "Proses penilaian pekerjaan/kompetensi.",
+        "whyImportant": "Authority dan state perubahan perlu dipahami.",
+        "relatedTerms": [
+          "Grade",
+          "Submission"
+        ]
+      },
+      {
+        "id": "education-term-3",
+        "title": "Roster",
+        "content": "Daftar participant dalam suatu context kelas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Roster",
+        "definition": "Daftar participant dalam suatu context kelas.",
+        "whyImportant": "Merupakan resource identitas yang dapat sensitif.",
+        "relatedTerms": [
+          "Course",
+          "Enrollment"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "education-actor-1",
+        "title": "Student",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-actor-2",
+        "title": "Teacher",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-actor-3",
+        "title": "Guardian",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-actor-4",
+        "title": "Course Owner",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-actor-5",
+        "title": "Institution Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-actor-6",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "education-object-1",
+        "title": "Course",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-2",
+        "title": "Enrollment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-3",
+        "title": "Assignment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-4",
+        "title": "Submission",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-5",
+        "title": "Grade",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-6",
+        "title": "Roster",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-7",
+        "title": "Certificate",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-object-8",
+        "title": "File",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "education-flow-1",
+        "title": "Education — flow generik",
+        "content": "Platform pembelajaran, enrollment, assessment, dan resource kelas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Student",
+          "Enrollment",
+          "Course Access",
+          "Assignment",
+          "Submission",
+          "Assessment",
+          "Grade",
+          "Completion"
+        ],
+        "actorIds": [
+          "education-actor-1",
+          "education-actor-2",
+          "education-actor-3",
+          "education-actor-4",
+          "education-actor-5",
+          "education-actor-6"
+        ],
+        "objectIds": [
+          "education-object-1",
+          "education-object-2",
+          "education-object-3",
+          "education-object-4",
+          "education-object-5",
+          "education-object-6",
+          "education-object-7",
+          "education-object-8"
+        ],
+        "boundaryIds": [
+          "education-boundary-1"
+        ],
+        "invariantIds": [
+          "education-invariant-1",
+          "education-invariant-2",
+          "education-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "education-transition-1",
+            "fromState": "Student",
+            "toState": "Enrollment",
+            "action": "Student → Enrollment",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-2",
+            "fromState": "Enrollment",
+            "toState": "Course Access",
+            "action": "Enrollment → Course Access",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-3",
+            "fromState": "Course Access",
+            "toState": "Assignment",
+            "action": "Course Access → Assignment",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-4",
+            "fromState": "Assignment",
+            "toState": "Submission",
+            "action": "Assignment → Submission",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-5",
+            "fromState": "Submission",
+            "toState": "Assessment",
+            "action": "Submission → Assessment",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-6",
+            "fromState": "Assessment",
+            "toState": "Grade",
+            "action": "Assessment → Grade",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          },
+          {
+            "id": "education-transition-7",
+            "fromState": "Grade",
+            "toState": "Completion",
+            "action": "Grade → Completion",
+            "critical": false,
+            "invariantIds": [
+              "education-invariant-1",
+              "education-invariant-2",
+              "education-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "education-sensitive-1",
+        "title": "Student identity and class rosters",
+        "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-sensitive-2",
+        "title": "Submissions, grades and assessment records",
+        "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-sensitive-3",
+        "title": "Guardian and enrollment details",
+        "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "education-asset-1",
+        "title": "Submission",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-asset-2",
+        "title": "Grade",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-asset-3",
+        "title": "Roster",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-asset-4",
+        "title": "Certificate",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "education-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "education-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "education-invariant-1",
+        "title": "Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+        "content": "Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "education-invariant-2",
+        "title": "Resource kelas mengikuti enrollment terkini.",
+        "content": "Resource kelas mengikuti enrollment terkini.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "education-invariant-3",
+        "title": "Submission/record tidak boleh berpindah pemilik tanpa izin.",
+        "content": "Submission/record tidak boleh berpindah pemilik tanpa izin.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "education-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "education-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "education-mapping-1",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "education-mapping-2",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "education-mapping-3",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "education-mapping-4",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "education-mapping-5",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "education-question-1",
+        "title": "Bagaimana memastikan: Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+        "content": "Student tidak boleh mengubah grade tanpa authority yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-1",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "education-question-2",
+        "title": "Bagaimana memastikan: Resource kelas mengikuti enrollment terkini.",
+        "content": "Resource kelas mengikuti enrollment terkini. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-2",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "education-question-3",
+        "title": "Bagaimana memastikan: Submission/record tidak boleh berpindah pemilik tanpa izin.",
+        "content": "Submission/record tidak boleh berpindah pemilik tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "education-flow-1",
+        "invariantId": "education-invariant-3",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": []
+  },
+  {
+    "id": "enterprise-software",
+    "name": "Enterprise Software",
+    "description": "Aplikasi proses organisasi dengan workflow, approval dan integrasi.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Authority berbasis organisasi",
+      "Approval workflow",
+      "Integrasi dan data export"
+    ],
+    "terminology": [
+      {
+        "id": "enterprise-software-term-1",
+        "title": "Workflow",
+        "content": "Urutan state/aksi bisnis yang mempunyai prasyarat.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Workflow",
+        "definition": "Urutan state/aksi bisnis yang mempunyai prasyarat.",
+        "whyImportant": "Kontrol perlu mengikuti transisi aktual.",
+        "relatedTerms": [
+          "Approval",
+          "Record"
+        ]
+      },
+      {
+        "id": "enterprise-software-term-2",
+        "title": "Approval",
+        "content": "Keputusan izin untuk actor/action/resource tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Approval",
+        "definition": "Keputusan izin untuk actor/action/resource tertentu.",
+        "whyImportant": "Replay atau context berubah perlu dipertimbangkan.",
+        "relatedTerms": [
+          "Workflow",
+          "Authority"
+        ]
+      },
+      {
+        "id": "enterprise-software-term-3",
+        "title": "Audit Trail",
+        "content": "Record aktivitas untuk meninjau proses.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Audit Trail",
+        "definition": "Record aktivitas untuk meninjau proses.",
+        "whyImportant": "Catatan bukan bukti bahwa seluruh kontrol efektif.",
+        "relatedTerms": [
+          "Workflow",
+          "Record"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "enterprise-software-actor-1",
+        "title": "Employee",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-actor-2",
+        "title": "Manager",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-actor-3",
+        "title": "Approver",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-actor-4",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-actor-5",
+        "title": "Auditor",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-actor-6",
+        "title": "Integration Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "enterprise-software-object-1",
+        "title": "Organization",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-2",
+        "title": "Record",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-3",
+        "title": "Approval",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-4",
+        "title": "Document",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-5",
+        "title": "Workflow",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-6",
+        "title": "Export",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-7",
+        "title": "Role",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-object-8",
+        "title": "Integration",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "enterprise-software-flow-1",
+        "title": "Enterprise Software — flow generik",
+        "content": "Aplikasi proses organisasi dengan workflow, approval dan integrasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Employee",
+          "Create Record",
+          "Request Approval",
+          "Manager Review",
+          "Authorize",
+          "Execute",
+          "Audit",
+          "Export"
+        ],
+        "actorIds": [
+          "enterprise-software-actor-1",
+          "enterprise-software-actor-2",
+          "enterprise-software-actor-3",
+          "enterprise-software-actor-4",
+          "enterprise-software-actor-5",
+          "enterprise-software-actor-6"
+        ],
+        "objectIds": [
+          "enterprise-software-object-1",
+          "enterprise-software-object-2",
+          "enterprise-software-object-3",
+          "enterprise-software-object-4",
+          "enterprise-software-object-5",
+          "enterprise-software-object-6",
+          "enterprise-software-object-7",
+          "enterprise-software-object-8"
+        ],
+        "boundaryIds": [
+          "enterprise-software-boundary-1"
+        ],
+        "invariantIds": [
+          "enterprise-software-invariant-1",
+          "enterprise-software-invariant-2",
+          "enterprise-software-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "enterprise-software-transition-1",
+            "fromState": "Employee",
+            "toState": "Create Record",
+            "action": "Employee → Create Record",
+            "critical": false,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-2",
+            "fromState": "Create Record",
+            "toState": "Request Approval",
+            "action": "Create Record → Request Approval",
+            "critical": true,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-3",
+            "fromState": "Request Approval",
+            "toState": "Manager Review",
+            "action": "Request Approval → Manager Review",
+            "critical": true,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-4",
+            "fromState": "Manager Review",
+            "toState": "Authorize",
+            "action": "Manager Review → Authorize",
+            "critical": true,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-5",
+            "fromState": "Authorize",
+            "toState": "Execute",
+            "action": "Authorize → Execute",
+            "critical": true,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-6",
+            "fromState": "Execute",
+            "toState": "Audit",
+            "action": "Execute → Audit",
+            "critical": true,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          },
+          {
+            "id": "enterprise-software-transition-7",
+            "fromState": "Audit",
+            "toState": "Export",
+            "action": "Audit → Export",
+            "critical": false,
+            "invariantIds": [
+              "enterprise-software-invariant-1",
+              "enterprise-software-invariant-2",
+              "enterprise-software-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "enterprise-software-sensitive-1",
+        "title": "Confidential documents and exports",
+        "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-sensitive-2",
+        "title": "Approval and organizational records",
+        "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-sensitive-3",
+        "title": "Integration credentials",
+        "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "enterprise-software-asset-1",
+        "title": "Approval",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-asset-2",
+        "title": "Document",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-asset-3",
+        "title": "Workflow",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-asset-4",
+        "title": "Export",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-asset-5",
+        "title": "Integration",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "enterprise-software-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "enterprise-software-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "enterprise-software-invariant-1",
+        "title": "Approval harus terikat pada record/action/context yang disetujui.",
+        "content": "Approval harus terikat pada record/action/context yang disetujui.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "techniqueIds": [
+          "tech_03"
+        ]
+      },
+      {
+        "id": "enterprise-software-invariant-2",
+        "title": "Employee tidak boleh memakai operasi administrator di luar authority.",
+        "content": "Employee tidak boleh memakai operasi administrator di luar authority.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "enterprise-software-invariant-3",
+        "title": "Export dan integrasi hanya membawa data yang diotorisasi.",
+        "content": "Export dan integrasi hanya membawa data yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "techniqueIds": [
+          "tech_02"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "enterprise-software-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "enterprise-software-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "enterprise-software-mapping-1",
+        "title": "Technique tech_03",
+        "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_03",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "enterprise-software-mapping-2",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "enterprise-software-mapping-3",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "enterprise-software-mapping-4",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "enterprise-software-mapping-5",
+        "title": "Technique tech_14",
+        "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_14",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "enterprise-software-question-1",
+        "title": "Bagaimana memastikan: Approval harus terikat pada record/action/context yang disetujui.",
+        "content": "Approval harus terikat pada record/action/context yang disetujui. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-1",
+        "techniqueId": "tech_03"
+      },
+      {
+        "id": "enterprise-software-question-2",
+        "title": "Bagaimana memastikan: Employee tidak boleh memakai operasi administrator di luar authority.",
+        "content": "Employee tidak boleh memakai operasi administrator di luar authority. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-2",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "enterprise-software-question-3",
+        "title": "Bagaimana memastikan: Export dan integrasi hanya membawa data yang diotorisasi.",
+        "content": "Export dan integrasi hanya membawa data yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "enterprise-software-flow-1",
+        "invariantId": "enterprise-software-invariant-3",
+        "techniqueId": "tech_02"
+      }
+    ],
+    "references": []
+  },
+  {
+    "id": "finance",
+    "name": "Finance",
+    "description": "Layanan untuk mencatat atau memindahkan nilai; flow generik perlu dicocokkan dengan produk aktual.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Ownership rekening",
+      "Integritas pembukuan",
+      "Finalitas dan state transaksi"
+    ],
+    "terminology": [
+      {
+        "id": "finance-term-1",
+        "title": "Account",
+        "content": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Account",
+        "definition": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+        "whyImportant": "Ownership account menentukan authority transaksi.",
+        "relatedTerms": [
+          "Balance",
+          "Ledger"
+        ]
+      },
+      {
+        "id": "finance-term-2",
+        "title": "Ledger",
+        "content": "Catatan entri pembukuan yang merekam perubahan posisi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Ledger",
+        "definition": "Catatan entri pembukuan yang merekam perubahan posisi.",
+        "whyImportant": "Kontrol integritas harus mengikuti state transaksi.",
+        "relatedTerms": [
+          "Ledger Entry",
+          "Balance",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "finance-term-3",
+        "title": "Balance",
+        "content": "Posisi saldo berdasarkan catatan pada suatu saat.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Balance",
+        "definition": "Posisi saldo berdasarkan catatan pada suatu saat.",
+        "whyImportant": "Bedakan saldo tercatat dan dana yang dapat digunakan.",
+        "relatedTerms": [
+          "Ledger",
+          "Available Balance"
+        ]
+      },
+      {
+        "id": "finance-term-4",
+        "title": "Available Balance",
+        "content": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Available Balance",
+        "definition": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+        "whyImportant": "Jangan menyamakan dana tersedia dengan saldo keseluruhan.",
+        "relatedTerms": [
+          "Balance",
+          "Authorization"
+        ]
+      },
+      {
+        "id": "finance-term-5",
+        "title": "Settlement",
+        "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Settlement",
+        "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+        "relatedTerms": [
+          "Clearing",
+          "Transaction",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "finance-term-6",
+        "title": "Clearing",
+        "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Clearing",
+        "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+        "relatedTerms": [
+          "Settlement",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "finance-term-7",
+        "title": "Transaction",
+        "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Transaction",
+        "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+        "relatedTerms": [
+          "Transfer",
+          "Ledger"
+        ]
+      },
+      {
+        "id": "finance-term-8",
+        "title": "Transfer",
+        "content": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Transfer",
+        "definition": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+        "whyImportant": "Sumber dana, beneficiary dan authority harus konsisten.",
+        "relatedTerms": [
+          "Account",
+          "Beneficiary",
+          "Transaction"
+        ]
+      },
+      {
+        "id": "finance-term-9",
+        "title": "Beneficiary",
+        "content": "Penerima yang dituju oleh transfer.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Beneficiary",
+        "definition": "Penerima yang dituju oleh transfer.",
+        "whyImportant": "Perubahan penerima dapat mengubah context authorization.",
+        "relatedTerms": [
+          "Transfer",
+          "Account"
+        ]
+      },
+      {
+        "id": "finance-term-10",
+        "title": "Merchant",
+        "content": "Pihak yang menerima pembayaran atas barang/jasa.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Merchant",
+        "definition": "Pihak yang menerima pembayaran atas barang/jasa.",
+        "whyImportant": "Merchant mempunyai hak dan resource berbeda dari customer.",
+        "relatedTerms": [
+          "Payment",
+          "Settlement"
+        ]
+      },
+      {
+        "id": "finance-term-11",
+        "title": "Payment",
+        "content": "Aktivitas pembayaran beserta proses dan record terkait.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Payment",
+        "definition": "Aktivitas pembayaran beserta proses dan record terkait.",
+        "whyImportant": "Bedakan request, authorization dan penyelesaiannya.",
+        "relatedTerms": [
+          "Authorization",
+          "Capture",
+          "Refund"
+        ]
+      },
+      {
+        "id": "finance-term-12",
+        "title": "Authorization",
+        "content": "Persetujuan atau keputusan izin untuk aksi pembayaran tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Authorization",
+        "definition": "Persetujuan atau keputusan izin untuk aksi pembayaran tertentu.",
+        "whyImportant": "Persetujuan perlu terikat pada actor, jumlah dan tujuan yang sesuai.",
+        "relatedTerms": [
+          "Capture",
+          "Payment"
+        ]
+      },
+      {
+        "id": "finance-term-13",
+        "title": "Capture",
+        "content": "Tahap menindaklanjuti pembayaran yang telah diotorisasi sesuai proses produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Capture",
+        "definition": "Tahap menindaklanjuti pembayaran yang telah diotorisasi sesuai proses produk.",
+        "whyImportant": "Jangan menganggap authorization sama dengan dana sudah terselesaikan.",
+        "relatedTerms": [
+          "Authorization",
+          "Settlement"
+        ]
+      },
+      {
+        "id": "finance-term-14",
+        "title": "Refund",
+        "content": "Pengembalian nilai berdasarkan pembayaran/ketentuan yang relevan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Refund",
+        "definition": "Pengembalian nilai berdasarkan pembayaran/ketentuan yang relevan.",
+        "whyImportant": "Hak dan penggunaan ulang aksi harus ditinjau.",
+        "relatedTerms": [
+          "Payment",
+          "Reversal"
+        ]
+      },
+      {
+        "id": "finance-term-15",
+        "title": "Reversal",
+        "content": "Pembalikan operasi atau entri sesuai mekanisme produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Reversal",
+        "definition": "Pembalikan operasi atau entri sesuai mekanisme produk.",
+        "whyImportant": "Bedakan pembalikan dari refund dan retry.",
+        "relatedTerms": [
+          "Transaction",
+          "Refund"
+        ]
+      },
+      {
+        "id": "finance-term-16",
+        "title": "Reconciliation",
+        "content": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Reconciliation",
+        "definition": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+        "whyImportant": "Perbedaan state ledger dan settlement perlu penjelasan, bukan langsung vulnerability.",
+        "relatedTerms": [
+          "Ledger",
+          "Settlement",
+          "Clearing"
+        ]
+      },
+      {
+        "id": "finance-term-17",
+        "title": "Chargeback",
+        "content": "Proses sengketa atau pengembalian melalui mekanisme pembayaran yang berlaku.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Chargeback",
+        "definition": "Proses sengketa atau pengembalian melalui mekanisme pembayaran yang berlaku.",
+        "whyImportant": "Authority dan state dispute berbeda dari refund biasa.",
+        "relatedTerms": [
+          "Payment",
+          "Refund"
+        ]
+      },
+      {
+        "id": "finance-term-18",
+        "title": "Withdrawal",
+        "content": "Penarikan nilai dari account menurut aturan produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Withdrawal",
+        "definition": "Penarikan nilai dari account menurut aturan produk.",
+        "whyImportant": "Periksa ownership dan prasyarat aksi pada data dummy.",
+        "relatedTerms": [
+          "Account",
+          "Limit"
+        ]
+      },
+      {
+        "id": "finance-term-19",
+        "title": "Deposit",
+        "content": "Penambahan dana/record masuk menurut proses produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Deposit",
+        "definition": "Penambahan dana/record masuk menurut proses produk.",
+        "whyImportant": "Jangan menyimpulkan saldo final hanya dari request sukses.",
+        "relatedTerms": [
+          "Account",
+          "Settlement"
+        ]
+      },
+      {
+        "id": "finance-term-20",
+        "title": "Limit",
+        "content": "Batas aktivitas atau jumlah yang ditentukan produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Limit",
+        "definition": "Batas aktivitas atau jumlah yang ditentukan produk.",
+        "whyImportant": "Batas dapat bergantung actor, state atau periode.",
+        "relatedTerms": [
+          "Transfer",
+          "Withdrawal"
+        ]
+      },
+      {
+        "id": "finance-term-21",
+        "title": "KYC",
+        "content": "Proses mengenali customer sesuai kebijakan penyedia.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "KYC",
+        "definition": "Proses mengenali customer sesuai kebijakan penyedia.",
+        "whyImportant": "Status verifikasi adalah data dan authority sensitif.",
+        "relatedTerms": [
+          "Customer",
+          "Account"
+        ]
+      },
+      {
+        "id": "finance-term-22",
+        "title": "AML",
+        "content": "Kebijakan/proses untuk mengendalikan penyalahgunaan keuangan menurut penyedia.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "AML",
+        "definition": "Kebijakan/proses untuk mengendalikan penyalahgunaan keuangan menurut penyedia.",
+        "whyImportant": "Ini konteks domain, bukan panduan kepatuhan atau izin testing.",
+        "relatedTerms": [
+          "KYC",
+          "Transaction"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "finance-actor-1",
+        "title": "Customer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-2",
+        "title": "Merchant",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-3",
+        "title": "Beneficiary",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-4",
+        "title": "Bank",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-5",
+        "title": "Payment Processor",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-6",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-7",
+        "title": "Compliance Officer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-actor-8",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "finance-object-1",
+        "title": "Account",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-2",
+        "title": "Wallet",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-3",
+        "title": "Transaction",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-4",
+        "title": "Ledger Entry",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-5",
+        "title": "Beneficiary",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-6",
+        "title": "Payment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-7",
+        "title": "Refund",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-8",
+        "title": "Settlement",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-9",
+        "title": "Invoice",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-object-10",
+        "title": "API Credential",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "finance-flow-1",
+        "title": "Finance — flow generik",
+        "content": "Layanan untuk mencatat atau memindahkan nilai; flow generik perlu dicocokkan dengan produk aktual.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "User",
+          "Create Transfer",
+          "Validate Account",
+          "Authorization",
+          "Balance Check",
+          "Transaction Created",
+          "Ledger Update",
+          "Settlement",
+          "Reconciliation"
+        ],
+        "actorIds": [
+          "finance-actor-1",
+          "finance-actor-2",
+          "finance-actor-3",
+          "finance-actor-4",
+          "finance-actor-5",
+          "finance-actor-6",
+          "finance-actor-7",
+          "finance-actor-8"
+        ],
+        "objectIds": [
+          "finance-object-1",
+          "finance-object-2",
+          "finance-object-3",
+          "finance-object-4",
+          "finance-object-5",
+          "finance-object-6",
+          "finance-object-7",
+          "finance-object-8",
+          "finance-object-9",
+          "finance-object-10"
+        ],
+        "boundaryIds": [
+          "finance-boundary-1"
+        ],
+        "invariantIds": [
+          "finance-invariant-1",
+          "finance-invariant-3",
+          "finance-invariant-4"
+        ],
+        "transitions": [
+          {
+            "id": "finance-transition-1",
+            "fromState": "User",
+            "toState": "Create Transfer",
+            "action": "User → Create Transfer",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-2",
+            "fromState": "Create Transfer",
+            "toState": "Validate Account",
+            "action": "Create Transfer → Validate Account",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-3",
+            "fromState": "Validate Account",
+            "toState": "Authorization",
+            "action": "Validate Account → Authorization",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-4",
+            "fromState": "Authorization",
+            "toState": "Balance Check",
+            "action": "Authorization → Balance Check",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-5",
+            "fromState": "Balance Check",
+            "toState": "Transaction Created",
+            "action": "Balance Check → Transaction Created",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-6",
+            "fromState": "Transaction Created",
+            "toState": "Ledger Update",
+            "action": "Transaction Created → Ledger Update",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-7",
+            "fromState": "Ledger Update",
+            "toState": "Settlement",
+            "action": "Ledger Update → Settlement",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-transition-8",
+            "fromState": "Settlement",
+            "toState": "Reconciliation",
+            "action": "Settlement → Reconciliation",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-1",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "finance-flow-2",
+        "title": "Finance — refund generik",
+        "content": "Flow pengembalian nilai; prasyarat aktual harus dikonfirmasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Merchant",
+          "Select Payment",
+          "Authorize Refund",
+          "Validate Refund State",
+          "Execute Refund",
+          "Ledger Update",
+          "Refund Completed",
+          "Reconciliation"
+        ],
+        "actorIds": [
+          "finance-actor-1",
+          "finance-actor-2",
+          "finance-actor-3",
+          "finance-actor-4",
+          "finance-actor-5",
+          "finance-actor-6",
+          "finance-actor-7",
+          "finance-actor-8"
+        ],
+        "objectIds": [
+          "finance-object-1",
+          "finance-object-2",
+          "finance-object-3",
+          "finance-object-4",
+          "finance-object-5",
+          "finance-object-6",
+          "finance-object-7",
+          "finance-object-8",
+          "finance-object-9",
+          "finance-object-10"
+        ],
+        "boundaryIds": [
+          "finance-boundary-1"
+        ],
+        "invariantIds": [
+          "finance-invariant-2",
+          "finance-invariant-3",
+          "finance-invariant-4"
+        ],
+        "transitions": [
+          {
+            "id": "finance-refund-transition-1",
+            "fromState": "Merchant",
+            "toState": "Select Payment",
+            "action": "Merchant → Select Payment",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-2",
+            "fromState": "Select Payment",
+            "toState": "Authorize Refund",
+            "action": "Select Payment → Authorize Refund",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-3",
+            "fromState": "Authorize Refund",
+            "toState": "Validate Refund State",
+            "action": "Authorize Refund → Validate Refund State",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-4",
+            "fromState": "Validate Refund State",
+            "toState": "Execute Refund",
+            "action": "Validate Refund State → Execute Refund",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-5",
+            "fromState": "Execute Refund",
+            "toState": "Ledger Update",
+            "action": "Execute Refund → Ledger Update",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-6",
+            "fromState": "Ledger Update",
+            "toState": "Refund Completed",
+            "action": "Ledger Update → Refund Completed",
+            "critical": true,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          },
+          {
+            "id": "finance-refund-transition-7",
+            "fromState": "Refund Completed",
+            "toState": "Reconciliation",
+            "action": "Refund Completed → Reconciliation",
+            "critical": false,
+            "invariantIds": [
+              "finance-invariant-2",
+              "finance-invariant-3",
+              "finance-invariant-4"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "finance-sensitive-1",
+        "title": "Account identity and beneficiary details",
+        "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-sensitive-2",
+        "title": "Payment instructions and transaction history",
+        "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-sensitive-3",
+        "title": "Ledger and settlement records",
+        "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-sensitive-4",
+        "title": "Payment/API credentials",
+        "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "finance-asset-1",
+        "title": "Account",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-2",
+        "title": "Transaction",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-3",
+        "title": "Ledger Entry",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-4",
+        "title": "Payment",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-5",
+        "title": "Refund",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-6",
+        "title": "Settlement",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-asset-7",
+        "title": "API Credential",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "finance-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "finance-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "finance-invariant-1",
+        "title": "Transaksi harus terikat pada account yang diotorisasi.",
+        "content": "Transaksi harus terikat pada account yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "finance-invariant-2",
+        "title": "Refund yang selesai tidak boleh dieksekusi dua kali.",
+        "content": "Refund yang selesai tidak boleh dieksekusi dua kali.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-2",
+        "techniqueIds": [
+          "tech_08",
+          "tech_18"
+        ]
+      },
+      {
+        "id": "finance-invariant-3",
+        "title": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+        "content": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "techniqueIds": [
+          "tech_18"
+        ]
+      },
+      {
+        "id": "finance-invariant-4",
+        "title": "Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+        "content": "Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "techniqueIds": [
+          "tech_02"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "finance-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "finance-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "finance-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "finance-mapping-2",
+        "title": "Technique tech_08",
+        "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_08",
+        "flowId": "finance-flow-2",
+        "invariantId": "finance-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "finance-mapping-3",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "finance-mapping-4",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-4",
+        "researchPriority": 60
+      },
+      {
+        "id": "finance-mapping-5",
+        "title": "Technique tech_03",
+        "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_03",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-1",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "finance-question-1",
+        "title": "Bagaimana memastikan: Transaksi harus terikat pada account yang diotorisasi.",
+        "content": "Transaksi harus terikat pada account yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "finance-question-2",
+        "title": "Bagaimana memastikan: Refund yang selesai tidak boleh dieksekusi dua kali.",
+        "content": "Refund yang selesai tidak boleh dieksekusi dua kali. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-2",
+        "invariantId": "finance-invariant-2",
+        "techniqueId": "tech_08"
+      },
+      {
+        "id": "finance-question-3",
+        "title": "Bagaimana memastikan: Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+        "content": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-3",
+        "techniqueId": "tech_18"
+      },
+      {
+        "id": "finance-question-4",
+        "title": "Bagaimana memastikan: Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+        "content": "Ledger harus konsisten dengan transisi transaksi yang diizinkan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "finance-flow-1",
+        "invariantId": "finance-invariant-4",
+        "techniqueId": "tech_02"
+      }
+    ],
+    "references": [
+      {
+        "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+        "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+        "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+      }
+    ]
+  },
+  {
+    "id": "fintech",
+    "name": "Fintech",
+    "description": "Produk teknologi untuk layanan nilai/pembayaran; pola ini tidak mengasumsikan lisensi atau mekanisme perusahaan.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Wallet dan account",
+      "Retry versus duplikasi",
+      "Proses async pembayaran"
+    ],
+    "terminology": [
+      {
+        "id": "fintech-term-1",
+        "title": "Idempotency",
+        "content": "Properti bahwa pengulangan operasi yang sama tidak menambah efek yang tidak diinginkan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Idempotency",
+        "definition": "Properti bahwa pengulangan operasi yang sama tidak menambah efek yang tidak diinginkan.",
+        "whyImportant": "Penting ketika retry terjadi.",
+        "relatedTerms": [
+          "Retry",
+          "Payment"
+        ]
+      },
+      {
+        "id": "fintech-term-2",
+        "title": "Wallet",
+        "content": "Resource penyimpanan/representasi nilai sesuai model produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Wallet",
+        "definition": "Resource penyimpanan/representasi nilai sesuai model produk.",
+        "whyImportant": "Ownership wallet menentukan authority.",
+        "relatedTerms": [
+          "Account",
+          "Transfer"
+        ]
+      },
+      {
+        "id": "fintech-term-3",
+        "title": "Settlement",
+        "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Settlement",
+        "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+        "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+        "relatedTerms": [
+          "Clearing",
+          "Transaction",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "fintech-term-4",
+        "title": "Clearing",
+        "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Clearing",
+        "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+        "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+        "relatedTerms": [
+          "Settlement",
+          "Reconciliation"
+        ]
+      },
+      {
+        "id": "fintech-term-5",
+        "title": "Transaction",
+        "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Transaction",
+        "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+        "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+        "relatedTerms": [
+          "Transfer",
+          "Ledger"
+        ]
+      },
+      {
+        "id": "fintech-term-6",
+        "title": "Transfer",
+        "content": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Transfer",
+        "definition": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+        "whyImportant": "Sumber dana, beneficiary dan authority harus konsisten.",
+        "relatedTerms": [
+          "Account",
+          "Beneficiary",
+          "Transaction"
+        ]
+      },
+      {
+        "id": "fintech-term-7",
+        "title": "Reconciliation",
+        "content": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Reconciliation",
+        "definition": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+        "whyImportant": "Perbedaan state ledger dan settlement perlu penjelasan, bukan langsung vulnerability.",
+        "relatedTerms": [
+          "Ledger",
+          "Settlement",
+          "Clearing"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "fintech-actor-1",
+        "title": "Customer",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-actor-2",
+        "title": "Merchant",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-actor-3",
+        "title": "Beneficiary",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-actor-4",
+        "title": "Payment Processor",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-actor-5",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-actor-6",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "fintech-object-1",
+        "title": "Wallet",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-2",
+        "title": "Payment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-3",
+        "title": "Refund",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-4",
+        "title": "Settlement",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-5",
+        "title": "API Credential",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-6",
+        "title": "Webhook Event",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-object-7",
+        "title": "Transaction",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "fintech-flow-1",
+        "title": "Fintech — flow generik",
+        "content": "Produk teknologi untuk layanan nilai/pembayaran; pola ini tidak mengasumsikan lisensi atau mekanisme perusahaan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Customer",
+          "Create Payment",
+          "Authorize",
+          "Submit",
+          "Process",
+          "Webhook",
+          "Reconciliation"
+        ],
+        "actorIds": [
+          "fintech-actor-1",
+          "fintech-actor-2",
+          "fintech-actor-3",
+          "fintech-actor-4",
+          "fintech-actor-5",
+          "fintech-actor-6"
+        ],
+        "objectIds": [
+          "fintech-object-1",
+          "fintech-object-2",
+          "fintech-object-3",
+          "fintech-object-4",
+          "fintech-object-5",
+          "fintech-object-6",
+          "fintech-object-7"
+        ],
+        "boundaryIds": [
+          "fintech-boundary-1"
+        ],
+        "invariantIds": [
+          "fintech-invariant-1",
+          "fintech-invariant-2",
+          "fintech-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "fintech-transition-1",
+            "fromState": "Customer",
+            "toState": "Create Payment",
+            "action": "Customer → Create Payment",
+            "critical": false,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          },
+          {
+            "id": "fintech-transition-2",
+            "fromState": "Create Payment",
+            "toState": "Authorize",
+            "action": "Create Payment → Authorize",
+            "critical": true,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          },
+          {
+            "id": "fintech-transition-3",
+            "fromState": "Authorize",
+            "toState": "Submit",
+            "action": "Authorize → Submit",
+            "critical": true,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          },
+          {
+            "id": "fintech-transition-4",
+            "fromState": "Submit",
+            "toState": "Process",
+            "action": "Submit → Process",
+            "critical": false,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          },
+          {
+            "id": "fintech-transition-5",
+            "fromState": "Process",
+            "toState": "Webhook",
+            "action": "Process → Webhook",
+            "critical": false,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          },
+          {
+            "id": "fintech-transition-6",
+            "fromState": "Webhook",
+            "toState": "Reconciliation",
+            "action": "Webhook → Reconciliation",
+            "critical": false,
+            "invariantIds": [
+              "fintech-invariant-1",
+              "fintech-invariant-2",
+              "fintech-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "fintech-sensitive-1",
+        "title": "Wallet and merchant identity",
+        "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-sensitive-2",
+        "title": "Payment/refund events",
+        "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-sensitive-3",
+        "title": "API credentials and webhook secrets",
+        "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "fintech-asset-1",
+        "title": "Wallet",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-asset-2",
+        "title": "Payment",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-asset-3",
+        "title": "Refund",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-asset-4",
+        "title": "Settlement",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-asset-5",
+        "title": "API Credential",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-asset-6",
+        "title": "Webhook Event",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "fintech-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "fintech-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "fintech-invariant-1",
+        "title": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+        "content": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "techniqueIds": [
+          "tech_18"
+        ]
+      },
+      {
+        "id": "fintech-invariant-2",
+        "title": "Webhook harus terikat pada owner/merchant yang sah.",
+        "content": "Webhook harus terikat pada owner/merchant yang sah.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "techniqueIds": [
+          "tech_08"
+        ]
+      },
+      {
+        "id": "fintech-invariant-3",
+        "title": "Worker memeriksa authority/state ketika menjalankan aksi.",
+        "content": "Worker memeriksa authority/state ketika menjalankan aksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "techniqueIds": [
+          "tech_09"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "fintech-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "fintech-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "fintech-mapping-1",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "fintech-mapping-2",
+        "title": "Technique tech_08",
+        "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_08",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "fintech-mapping-3",
+        "title": "Technique tech_09",
+        "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_09",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "fintech-mapping-4",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-1",
+        "researchPriority": 60
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "fintech-question-1",
+        "title": "Bagaimana memastikan: Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+        "content": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-1",
+        "techniqueId": "tech_18"
+      },
+      {
+        "id": "fintech-question-2",
+        "title": "Bagaimana memastikan: Webhook harus terikat pada owner/merchant yang sah.",
+        "content": "Webhook harus terikat pada owner/merchant yang sah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-2",
+        "techniqueId": "tech_08"
+      },
+      {
+        "id": "fintech-question-3",
+        "title": "Bagaimana memastikan: Worker memeriksa authority/state ketika menjalankan aksi.",
+        "content": "Worker memeriksa authority/state ketika menjalankan aksi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "fintech-flow-1",
+        "invariantId": "fintech-invariant-3",
+        "techniqueId": "tech_09"
+      }
+    ],
+    "references": [
+      {
+        "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+        "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+        "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+      }
+    ]
+  },
+  {
+    "id": "healthcare",
+    "name": "Healthcare",
+    "description": "Platform informasi dan pelayanan kesehatan; gunakan data sintetis dan batas izin yang ditentukan pemilik.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Consent dan purpose",
+      "Keterkaitan patient/resource",
+      "Role klinis dan administratif"
+    ],
+    "terminology": [
+      {
+        "id": "healthcare-term-1",
+        "title": "Consent",
+        "content": "Catatan pilihan izin untuk aksi, penerima dan context tertentu.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Consent",
+        "definition": "Catatan pilihan izin untuk aksi, penerima dan context tertentu.",
+        "whyImportant": "Consent bukan izin universal untuk seluruh data.",
+        "relatedTerms": [
+          "Patient",
+          "Sharing"
+        ]
+      },
+      {
+        "id": "healthcare-term-2",
+        "title": "Encounter",
+        "content": "Context pertemuan/layanan kesehatan pada model informasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Encounter",
+        "definition": "Context pertemuan/layanan kesehatan pada model informasi.",
+        "whyImportant": "Menentukan hubungan resource dan role.",
+        "relatedTerms": [
+          "Patient",
+          "Observation"
+        ]
+      },
+      {
+        "id": "healthcare-term-3",
+        "title": "Observation",
+        "content": "Record pengamatan/hasil dalam model informasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Observation",
+        "definition": "Record pengamatan/hasil dalam model informasi.",
+        "whyImportant": "Dapat mengandung data sensitif.",
+        "relatedTerms": [
+          "Patient",
+          "Encounter"
+        ]
+      },
+      {
+        "id": "healthcare-term-4",
+        "title": "FHIR Resource",
+        "content": "Unit struktur data pada model FHIR.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "FHIR Resource",
+        "definition": "Unit struktur data pada model FHIR.",
+        "whyImportant": "Reference dan akses tetap harus diotorisasi.",
+        "relatedTerms": [
+          "Patient",
+          "Consent"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "healthcare-actor-1",
+        "title": "Patient",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-2",
+        "title": "Clinician",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-3",
+        "title": "Caregiver",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-4",
+        "title": "Receptionist",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-5",
+        "title": "Lab Operator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-6",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-actor-7",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "healthcare-object-1",
+        "title": "Patient Record",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-2",
+        "title": "Encounter",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-3",
+        "title": "Observation",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-4",
+        "title": "Appointment",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-5",
+        "title": "Consent",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-6",
+        "title": "Prescription",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-object-7",
+        "title": "Document",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "healthcare-flow-1",
+        "title": "Healthcare — flow generik",
+        "content": "Platform informasi dan pelayanan kesehatan; gunakan data sintetis dan batas izin yang ditentukan pemilik.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Patient",
+          "Appointment",
+          "Encounter",
+          "Observation",
+          "Review",
+          "Authorized Sharing",
+          "Consent Update"
+        ],
+        "actorIds": [
+          "healthcare-actor-1",
+          "healthcare-actor-2",
+          "healthcare-actor-3",
+          "healthcare-actor-4",
+          "healthcare-actor-5",
+          "healthcare-actor-6",
+          "healthcare-actor-7"
+        ],
+        "objectIds": [
+          "healthcare-object-1",
+          "healthcare-object-2",
+          "healthcare-object-3",
+          "healthcare-object-4",
+          "healthcare-object-5",
+          "healthcare-object-6",
+          "healthcare-object-7"
+        ],
+        "boundaryIds": [
+          "healthcare-boundary-1"
+        ],
+        "invariantIds": [
+          "healthcare-invariant-1",
+          "healthcare-invariant-2",
+          "healthcare-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "healthcare-transition-1",
+            "fromState": "Patient",
+            "toState": "Appointment",
+            "action": "Patient → Appointment",
+            "critical": false,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          },
+          {
+            "id": "healthcare-transition-2",
+            "fromState": "Appointment",
+            "toState": "Encounter",
+            "action": "Appointment → Encounter",
+            "critical": false,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          },
+          {
+            "id": "healthcare-transition-3",
+            "fromState": "Encounter",
+            "toState": "Observation",
+            "action": "Encounter → Observation",
+            "critical": false,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          },
+          {
+            "id": "healthcare-transition-4",
+            "fromState": "Observation",
+            "toState": "Review",
+            "action": "Observation → Review",
+            "critical": false,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          },
+          {
+            "id": "healthcare-transition-5",
+            "fromState": "Review",
+            "toState": "Authorized Sharing",
+            "action": "Review → Authorized Sharing",
+            "critical": true,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          },
+          {
+            "id": "healthcare-transition-6",
+            "fromState": "Authorized Sharing",
+            "toState": "Consent Update",
+            "action": "Authorized Sharing → Consent Update",
+            "critical": true,
+            "invariantIds": [
+              "healthcare-invariant-1",
+              "healthcare-invariant-2",
+              "healthcare-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "healthcare-sensitive-1",
+        "title": "Patient identity and clinical observations",
+        "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-sensitive-2",
+        "title": "Prescriptions and encounter documents",
+        "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-sensitive-3",
+        "title": "Consent and recipient records",
+        "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "healthcare-asset-1",
+        "title": "Patient Record",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-asset-2",
+        "title": "Observation",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-asset-3",
+        "title": "Consent",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-asset-4",
+        "title": "Prescription",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "healthcare-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "healthcare-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "healthcare-invariant-1",
+        "title": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+        "content": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "healthcare-invariant-2",
+        "title": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+        "content": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "healthcare-invariant-3",
+        "title": "Resource tidak boleh tertaut pada identitas pasien yang salah.",
+        "content": "Resource tidak boleh tertaut pada identitas pasien yang salah.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "healthcare-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "healthcare-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "healthcare-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "healthcare-mapping-2",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "healthcare-mapping-3",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "healthcare-mapping-4",
+        "title": "Technique tech_13",
+        "content": "Account linking: identitas dan consent harus terikat pada akun serta recipient yang benar. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_13",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "healthcare-mapping-5",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "healthcare-question-1",
+        "title": "Bagaimana memastikan: Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+        "content": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "healthcare-question-2",
+        "title": "Bagaimana memastikan: Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+        "content": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-2",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "healthcare-question-3",
+        "title": "Bagaimana memastikan: Resource tidak boleh tertaut pada identitas pasien yang salah.",
+        "content": "Resource tidak boleh tertaut pada identitas pasien yang salah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "healthcare-flow-1",
+        "invariantId": "healthcare-invariant-3",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": [
+      {
+        "title": "HL7 FHIR R4 — Consent",
+        "url": "https://hl7.org/fhir/R4/consent.html",
+        "notes": "Referensi representasi consent; bukan panduan hukum/klinis atau klaim sistem target."
+      }
+    ]
+  },
+  {
+    "id": "saas",
+    "name": "SaaS",
+    "description": "Aplikasi sebagai layanan dengan organisasi, workspace dan resource; bentuk tenancy harus dikonfirmasi pada target.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Tenancy",
+      "Lifecycle membership",
+      "Role dan capability"
+    ],
+    "terminology": [
+      {
+        "id": "saas-term-1",
+        "title": "Tenant",
+        "content": "Unit pemisahan customer/organisasi dalam layanan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Tenant",
+        "definition": "Unit pemisahan customer/organisasi dalam layanan.",
+        "whyImportant": "Context tenant harus ikut keputusan akses.",
+        "relatedTerms": [
+          "Workspace",
+          "Organization"
+        ]
+      },
+      {
+        "id": "saas-term-2",
+        "title": "Workspace",
+        "content": "Area resource dan membership yang dikelola bersama.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Workspace",
+        "definition": "Area resource dan membership yang dikelola bersama.",
+        "whyImportant": "Ownership dan role menentukan akses.",
+        "relatedTerms": [
+          "Tenant",
+          "Role"
+        ]
+      },
+      {
+        "id": "saas-term-3",
+        "title": "Role",
+        "content": "Kelompok hak yang diberikan pada actor.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Role",
+        "definition": "Kelompok hak yang diberikan pada actor.",
+        "whyImportant": "Nama role belum membuktikan permission efektif.",
+        "relatedTerms": [
+          "Authority",
+          "Member"
+        ]
+      },
+      {
+        "id": "saas-term-4",
+        "title": "Revocation",
+        "content": "Pencabutan hak atau capability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Revocation",
+        "definition": "Pencabutan hak atau capability.",
+        "whyImportant": "Perubahan harus diperiksa pada surface yang relevan.",
+        "relatedTerms": [
+          "Role",
+          "Session"
+        ]
+      },
+      {
+        "id": "saas-term-5",
+        "title": "Export",
+        "content": "Hasil pengambilan data untuk suatu context.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Export",
+        "definition": "Hasil pengambilan data untuk suatu context.",
+        "whyImportant": "File/worker bisa memiliki lifecycle sendiri.",
+        "relatedTerms": [
+          "Resource",
+          "Revocation"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "saas-actor-1",
+        "title": "Guest",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-2",
+        "title": "User",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-3",
+        "title": "Member",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-4",
+        "title": "Manager",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-5",
+        "title": "Admin",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-6",
+        "title": "Owner",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-7",
+        "title": "Organization",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-actor-8",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "saas-object-1",
+        "title": "Workspace",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-2",
+        "title": "Organization",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-3",
+        "title": "Project",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-4",
+        "title": "Resource",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-5",
+        "title": "Invitation",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-6",
+        "title": "Role",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-7",
+        "title": "Export",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-object-8",
+        "title": "Session",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "saas-flow-1",
+        "title": "SaaS — flow generik",
+        "content": "Aplikasi sebagai layanan dengan organisasi, workspace dan resource; bentuk tenancy harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "User",
+          "Organization",
+          "Workspace",
+          "Resource",
+          "Invite Member",
+          "Assign Role",
+          "Share Resource",
+          "Revoke Access"
+        ],
+        "actorIds": [
+          "saas-actor-1",
+          "saas-actor-2",
+          "saas-actor-3",
+          "saas-actor-4",
+          "saas-actor-5",
+          "saas-actor-6",
+          "saas-actor-7",
+          "saas-actor-8"
+        ],
+        "objectIds": [
+          "saas-object-1",
+          "saas-object-2",
+          "saas-object-3",
+          "saas-object-4",
+          "saas-object-5",
+          "saas-object-6",
+          "saas-object-7",
+          "saas-object-8"
+        ],
+        "boundaryIds": [
+          "saas-boundary-1"
+        ],
+        "invariantIds": [
+          "saas-invariant-1",
+          "saas-invariant-2",
+          "saas-invariant-3",
+          "saas-invariant-4"
+        ],
+        "transitions": [
+          {
+            "id": "saas-transition-1",
+            "fromState": "User",
+            "toState": "Organization",
+            "action": "User → Organization",
+            "critical": false,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-2",
+            "fromState": "Organization",
+            "toState": "Workspace",
+            "action": "Organization → Workspace",
+            "critical": false,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-3",
+            "fromState": "Workspace",
+            "toState": "Resource",
+            "action": "Workspace → Resource",
+            "critical": false,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-4",
+            "fromState": "Resource",
+            "toState": "Invite Member",
+            "action": "Resource → Invite Member",
+            "critical": false,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-5",
+            "fromState": "Invite Member",
+            "toState": "Assign Role",
+            "action": "Invite Member → Assign Role",
+            "critical": false,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-6",
+            "fromState": "Assign Role",
+            "toState": "Share Resource",
+            "action": "Assign Role → Share Resource",
+            "critical": true,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          },
+          {
+            "id": "saas-transition-7",
+            "fromState": "Share Resource",
+            "toState": "Revoke Access",
+            "action": "Share Resource → Revoke Access",
+            "critical": true,
+            "invariantIds": [
+              "saas-invariant-1",
+              "saas-invariant-2",
+              "saas-invariant-3",
+              "saas-invariant-4"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "saas-sensitive-1",
+        "title": "Private workspace resources",
+        "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-sensitive-2",
+        "title": "Membership and role assignments",
+        "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-sensitive-3",
+        "title": "Exports and session credentials",
+        "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "saas-asset-1",
+        "title": "Workspace",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-asset-2",
+        "title": "Resource",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-asset-3",
+        "title": "Role",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-asset-4",
+        "title": "Export",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-asset-5",
+        "title": "Session",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "saas-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "saas-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "saas-invariant-1",
+        "title": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+        "content": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "techniqueIds": [
+          "tech_14"
+        ]
+      },
+      {
+        "id": "saas-invariant-2",
+        "title": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+        "content": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "saas-invariant-3",
+        "title": "Viewer tidak boleh menjalankan operasi Owner.",
+        "content": "Viewer tidak boleh menjalankan operasi Owner.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "saas-invariant-4",
+        "title": "Resource privat harus mengikuti perubahan state sharing.",
+        "content": "Resource privat harus mengikuti perubahan state sharing.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "saas-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "saas-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "saas-mapping-1",
+        "title": "Technique tech_14",
+        "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_14",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "saas-mapping-2",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "saas-mapping-3",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "saas-mapping-4",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-4",
+        "researchPriority": 60
+      },
+      {
+        "id": "saas-mapping-5",
+        "title": "Technique tech_15",
+        "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_15",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-1",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "saas-question-1",
+        "title": "Bagaimana memastikan: Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+        "content": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-1",
+        "techniqueId": "tech_14"
+      },
+      {
+        "id": "saas-question-2",
+        "title": "Bagaimana memastikan: Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+        "content": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-2",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "saas-question-3",
+        "title": "Bagaimana memastikan: Viewer tidak boleh menjalankan operasi Owner.",
+        "content": "Viewer tidak boleh menjalankan operasi Owner. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-3",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "saas-question-4",
+        "title": "Bagaimana memastikan: Resource privat harus mengikuti perubahan state sharing.",
+        "content": "Resource privat harus mengikuti perubahan state sharing. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "saas-flow-1",
+        "invariantId": "saas-invariant-4",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": [
+      {
+        "title": "NIST SP 800-145 — cloud service models",
+        "url": "https://www.nist.gov/publications/nist-definition-cloud-computing",
+        "notes": "Referensi model layanan; mapping kontrol adalah pola riset generik."
+      }
+    ]
+  },
+  {
+    "id": "social-media",
+    "name": "Social Platform",
+    "description": "Interaksi pengguna, posting, sharing, moderasi, dan pesan.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Visibility resource",
+      "Membership dan moderasi",
+      "Identitas dan relasi pengguna"
+    ],
+    "terminology": [
+      {
+        "id": "social-media-term-1",
+        "title": "Visibility",
+        "content": "Aturan siapa dapat melihat suatu resource.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Visibility",
+        "definition": "Aturan siapa dapat melihat suatu resource.",
+        "whyImportant": "Perubahan sharing bukan sekadar state UI.",
+        "relatedTerms": [
+          "Post",
+          "Group"
+        ]
+      },
+      {
+        "id": "social-media-term-2",
+        "title": "Moderation",
+        "content": "Aksi mengatur konten/pengguna dalam context komunitas.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Moderation",
+        "definition": "Aksi mengatur konten/pengguna dalam context komunitas.",
+        "whyImportant": "Authority moderator perlu terikat context.",
+        "relatedTerms": [
+          "Role",
+          "Group"
+        ]
+      },
+      {
+        "id": "social-media-term-3",
+        "title": "Direct Message",
+        "content": "Pesan dengan penerima dan akses terbatas menurut produk.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Direct Message",
+        "definition": "Pesan dengan penerima dan akses terbatas menurut produk.",
+        "whyImportant": "Ownership/penerima harus jelas.",
+        "relatedTerms": [
+          "User",
+          "Message"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "social-media-actor-1",
+        "title": "User",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-2",
+        "title": "Follower",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-3",
+        "title": "Group Member",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-4",
+        "title": "Moderator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-5",
+        "title": "Creator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-6",
+        "title": "Administrator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-actor-7",
+        "title": "API Client",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "social-media-object-1",
+        "title": "Profile",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-2",
+        "title": "Post",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-3",
+        "title": "Message",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-4",
+        "title": "Group",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-5",
+        "title": "Media",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-6",
+        "title": "Invitation",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-7",
+        "title": "Moderation Action",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-object-8",
+        "title": "Session",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "social-media-flow-1",
+        "title": "Social Platform — flow generik",
+        "content": "Interaksi pengguna, posting, sharing, moderasi, dan pesan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "User",
+          "Create Content",
+          "Set Visibility",
+          "Share",
+          "Join Group",
+          "Moderate",
+          "Remove Access"
+        ],
+        "actorIds": [
+          "social-media-actor-1",
+          "social-media-actor-2",
+          "social-media-actor-3",
+          "social-media-actor-4",
+          "social-media-actor-5",
+          "social-media-actor-6",
+          "social-media-actor-7"
+        ],
+        "objectIds": [
+          "social-media-object-1",
+          "social-media-object-2",
+          "social-media-object-3",
+          "social-media-object-4",
+          "social-media-object-5",
+          "social-media-object-6",
+          "social-media-object-7",
+          "social-media-object-8"
+        ],
+        "boundaryIds": [
+          "social-media-boundary-1"
+        ],
+        "invariantIds": [
+          "social-media-invariant-1",
+          "social-media-invariant-2",
+          "social-media-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "social-media-transition-1",
+            "fromState": "User",
+            "toState": "Create Content",
+            "action": "User → Create Content",
+            "critical": false,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          },
+          {
+            "id": "social-media-transition-2",
+            "fromState": "Create Content",
+            "toState": "Set Visibility",
+            "action": "Create Content → Set Visibility",
+            "critical": false,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          },
+          {
+            "id": "social-media-transition-3",
+            "fromState": "Set Visibility",
+            "toState": "Share",
+            "action": "Set Visibility → Share",
+            "critical": true,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          },
+          {
+            "id": "social-media-transition-4",
+            "fromState": "Share",
+            "toState": "Join Group",
+            "action": "Share → Join Group",
+            "critical": true,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          },
+          {
+            "id": "social-media-transition-5",
+            "fromState": "Join Group",
+            "toState": "Moderate",
+            "action": "Join Group → Moderate",
+            "critical": false,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          },
+          {
+            "id": "social-media-transition-6",
+            "fromState": "Moderate",
+            "toState": "Remove Access",
+            "action": "Moderate → Remove Access",
+            "critical": false,
+            "invariantIds": [
+              "social-media-invariant-1",
+              "social-media-invariant-2",
+              "social-media-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "social-media-sensitive-1",
+        "title": "Private messages and restricted media",
+        "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-sensitive-2",
+        "title": "Identity and account-linking records",
+        "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-sensitive-3",
+        "title": "Group membership and moderation records",
+        "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "social-media-asset-1",
+        "title": "Message",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-asset-2",
+        "title": "Media",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-asset-3",
+        "title": "Group",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-asset-4",
+        "title": "Moderation Action",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-asset-5",
+        "title": "Session",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "social-media-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "social-media-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "social-media-invariant-1",
+        "title": "Konten privat harus mengikuti visibility dan membership terkini.",
+        "content": "Konten privat harus mengikuti visibility dan membership terkini.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "social-media-invariant-2",
+        "title": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+        "content": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "social-media-invariant-3",
+        "title": "Identity/account linking harus tetap terikat pada akun yang benar.",
+        "content": "Identity/account linking harus tetap terikat pada akun yang benar.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "techniqueIds": [
+          "tech_07"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "social-media-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "social-media-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "social-media-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "social-media-mapping-2",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "social-media-mapping-3",
+        "title": "Technique tech_07",
+        "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_07",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "social-media-mapping-4",
+        "title": "Technique tech_10",
+        "content": "Realtime authorization: subscription/socket perlu mengikuti perubahan visibility, membership dan authority. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_10",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "social-media-mapping-5",
+        "title": "Technique tech_13",
+        "content": "Account linking: identitas dan consent harus terikat pada akun serta recipient yang benar. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_13",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-2",
+        "researchPriority": 70
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "social-media-question-1",
+        "title": "Bagaimana memastikan: Konten privat harus mengikuti visibility dan membership terkini.",
+        "content": "Konten privat harus mengikuti visibility dan membership terkini. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "social-media-question-2",
+        "title": "Bagaimana memastikan: Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+        "content": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-2",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "social-media-question-3",
+        "title": "Bagaimana memastikan: Identity/account linking harus tetap terikat pada akun yang benar.",
+        "content": "Identity/account linking harus tetap terikat pada akun yang benar. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "social-media-flow-1",
+        "invariantId": "social-media-invariant-3",
+        "techniqueId": "tech_07"
+      }
+    ],
+    "references": []
+  },
+  {
+    "id": "telecommunication",
+    "name": "Telecommunication",
+    "description": "Pengelolaan subscriber, layanan konektivitas dan provisioning.",
+    "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+    "provenance": {
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    "coreConcepts": [
+      "Subscriber identity",
+      "Provisioning state",
+      "Delegasi operator"
+    ],
+    "terminology": [
+      {
+        "id": "telecommunication-term-1",
+        "title": "Provisioning",
+        "content": "Proses mengonfigurasi atau menyediakan layanan/resource.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Provisioning",
+        "definition": "Proses mengonfigurasi atau menyediakan layanan/resource.",
+        "whyImportant": "Job dapat berjalan setelah keputusan izin awal.",
+        "relatedTerms": [
+          "Subscription",
+          "Activation"
+        ]
+      },
+      {
+        "id": "telecommunication-term-2",
+        "title": "Subscriber",
+        "content": "Identitas pelanggan yang memperoleh layanan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Subscriber",
+        "definition": "Identitas pelanggan yang memperoleh layanan.",
+        "whyImportant": "Bedakan subscriber, pengguna dan owner account.",
+        "relatedTerms": [
+          "Account",
+          "Subscription"
+        ]
+      },
+      {
+        "id": "telecommunication-term-3",
+        "title": "Usage Record",
+        "content": "Catatan penggunaan layanan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "term": "Usage Record",
+        "definition": "Catatan penggunaan layanan.",
+        "whyImportant": "Dapat mengandung metadata sensitif.",
+        "relatedTerms": [
+          "Billing",
+          "Subscriber"
+        ]
+      }
+    ],
+    "actors": [
+      {
+        "id": "telecommunication-actor-1",
+        "title": "Subscriber",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-actor-2",
+        "title": "Account Owner",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-actor-3",
+        "title": "Operator",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-actor-4",
+        "title": "Support Agent",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-actor-5",
+        "title": "Partner",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-actor-6",
+        "title": "Service Account",
+        "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessObjects": [
+      {
+        "id": "telecommunication-object-1",
+        "title": "Subscriber Account",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-2",
+        "title": "Subscription",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-3",
+        "title": "Service Profile",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-4",
+        "title": "Provisioning Job",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-5",
+        "title": "Usage Record",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-6",
+        "title": "Invoice",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-object-7",
+        "title": "Credential",
+        "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "businessFlows": [
+      {
+        "id": "telecommunication-flow-1",
+        "title": "Telecommunication — flow generik",
+        "content": "Pengelolaan subscriber, layanan konektivitas dan provisioning.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "steps": [
+          "Subscriber",
+          "Subscription",
+          "Validate Identity",
+          "Authorize Change",
+          "Provision",
+          "Activate",
+          "Usage",
+          "Billing"
+        ],
+        "actorIds": [
+          "telecommunication-actor-1",
+          "telecommunication-actor-2",
+          "telecommunication-actor-3",
+          "telecommunication-actor-4",
+          "telecommunication-actor-5",
+          "telecommunication-actor-6"
+        ],
+        "objectIds": [
+          "telecommunication-object-1",
+          "telecommunication-object-2",
+          "telecommunication-object-3",
+          "telecommunication-object-4",
+          "telecommunication-object-5",
+          "telecommunication-object-6",
+          "telecommunication-object-7"
+        ],
+        "boundaryIds": [
+          "telecommunication-boundary-1"
+        ],
+        "invariantIds": [
+          "telecommunication-invariant-1",
+          "telecommunication-invariant-2",
+          "telecommunication-invariant-3"
+        ],
+        "transitions": [
+          {
+            "id": "telecommunication-transition-1",
+            "fromState": "Subscriber",
+            "toState": "Subscription",
+            "action": "Subscriber → Subscription",
+            "critical": false,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-2",
+            "fromState": "Subscription",
+            "toState": "Validate Identity",
+            "action": "Subscription → Validate Identity",
+            "critical": false,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-3",
+            "fromState": "Validate Identity",
+            "toState": "Authorize Change",
+            "action": "Validate Identity → Authorize Change",
+            "critical": true,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-4",
+            "fromState": "Authorize Change",
+            "toState": "Provision",
+            "action": "Authorize Change → Provision",
+            "critical": true,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-5",
+            "fromState": "Provision",
+            "toState": "Activate",
+            "action": "Provision → Activate",
+            "critical": false,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-6",
+            "fromState": "Activate",
+            "toState": "Usage",
+            "action": "Activate → Usage",
+            "critical": false,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          },
+          {
+            "id": "telecommunication-transition-7",
+            "fromState": "Usage",
+            "toState": "Billing",
+            "action": "Usage → Billing",
+            "critical": false,
+            "invariantIds": [
+              "telecommunication-invariant-1",
+              "telecommunication-invariant-2",
+              "telecommunication-invariant-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "sensitiveData": [
+      {
+        "id": "telecommunication-sensitive-1",
+        "title": "Subscriber identity and service details",
+        "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-sensitive-2",
+        "title": "Usage and billing records",
+        "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-sensitive-3",
+        "title": "Provisioning credentials",
+        "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "criticalAssets": [
+      {
+        "id": "telecommunication-asset-1",
+        "title": "Subscriber Account",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-asset-2",
+        "title": "Service Profile",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-asset-3",
+        "title": "Provisioning Job",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-asset-4",
+        "title": "Usage Record",
+        "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "commonTrustBoundaries": [
+      {
+        "id": "telecommunication-boundary-1",
+        "title": "Authorization → Execution",
+        "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "fromComponent": "User / Client",
+        "toComponent": "Backend / Worker",
+        "channel": "request / job",
+        "authority": "Izin actor untuk object dan state yang berlaku",
+        "flowId": "telecommunication-flow-1"
+      }
+    ],
+    "securityInvariants": [
+      {
+        "id": "telecommunication-invariant-1",
+        "title": "Perubahan layanan harus terikat pada subscriber dan authority sah.",
+        "content": "Perubahan layanan harus terikat pada subscriber dan authority sah.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "techniqueIds": [
+          "tech_17"
+        ]
+      },
+      {
+        "id": "telecommunication-invariant-2",
+        "title": "Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+        "content": "Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "techniqueIds": [
+          "tech_16"
+        ]
+      },
+      {
+        "id": "telecommunication-invariant-3",
+        "title": "Usage record harus tetap terisolasi berdasarkan pemilik.",
+        "content": "Usage record harus tetap terisolasi berdasarkan pemilik.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "techniqueIds": [
+          "tech_02"
+        ]
+      }
+    ],
+    "commonFailurePatterns": [
+      {
+        "id": "telecommunication-pattern-1",
+        "title": "Authorization mismatch",
+        "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-pattern-2",
+        "title": "Stale authorization",
+        "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      },
+      {
+        "id": "telecommunication-pattern-3",
+        "title": "State desynchronization",
+        "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+      }
+    ],
+    "relevantTechniques": [
+      {
+        "id": "telecommunication-mapping-1",
+        "title": "Technique tech_17",
+        "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_17",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-1",
+        "researchPriority": 60
+      },
+      {
+        "id": "telecommunication-mapping-2",
+        "title": "Technique tech_16",
+        "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_16",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-2",
+        "researchPriority": 70
+      },
+      {
+        "id": "telecommunication-mapping-3",
+        "title": "Technique tech_02",
+        "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_02",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-3",
+        "researchPriority": 80
+      },
+      {
+        "id": "telecommunication-mapping-4",
+        "title": "Technique tech_18",
+        "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "techniqueId": "tech_18",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-1",
+        "researchPriority": 60
+      }
+    ],
+    "researchQuestions": [
+      {
+        "id": "telecommunication-question-1",
+        "title": "Bagaimana memastikan: Perubahan layanan harus terikat pada subscriber dan authority sah.",
+        "content": "Perubahan layanan harus terikat pada subscriber dan authority sah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-1",
+        "techniqueId": "tech_17"
+      },
+      {
+        "id": "telecommunication-question-2",
+        "title": "Bagaimana memastikan: Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+        "content": "Job provisioning memvalidasi ulang state/izin ketika berjalan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-2",
+        "techniqueId": "tech_16"
+      },
+      {
+        "id": "telecommunication-question-3",
+        "title": "Bagaimana memastikan: Usage record harus tetap terisolasi berdasarkan pemilik.",
+        "content": "Usage record harus tetap terisolasi berdasarkan pemilik. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+        "sourceType": "domain",
+        "source": "Pack riset generik lokal; bukan fakta perusahaan",
+        "confidence": 0.8,
+        "verified": false,
+        "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+        "flowId": "telecommunication-flow-1",
+        "invariantId": "telecommunication-invariant-3",
+        "techniqueId": "tech_02"
+      }
+    ],
+    "references": []
+  }
+];
+
+// SOURCE: feature-registry
+// Generated by scripts/build-docs.py from scripts/feature_catalog.py and the technique catalog.
+const featureRegistry=[
+  {
+    "id": "dashboard",
+    "name": "Dashboard",
+    "description": "Ringkasan jumlah catatan, progress teknik, coverage, dan antrean target aktif.",
+    "purpose": "Membantu memilih pekerjaan berikutnya berdasarkan riset yang sudah dicatat.",
+    "status": "Active",
+    "routes": [
+      "dashboard"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#dashboard"
+  },
+  {
+    "id": "targets",
+    "name": "Target Management",
+    "description": "Membuat, memilih, mengedit, dan menghapus profil engagement beserta konteks aset.",
+    "purpose": "Memisahkan riset tiap program dan menyediakan identitas target untuk laporan.",
+    "status": "Active",
+    "routes": [
+      "targets"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#targets"
+  },
+  {
+    "id": "scope",
+    "name": "Scope Management",
+    "description": "Catatan batas aset, aturan, known issues, dan resource pengujian yang diotorisasi.",
+    "purpose": "Menentukan pertanyaan yang boleh diuji sebelum merencanakan tindakan.",
+    "status": "Active",
+    "routes": [
+      "scope"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#scope"
+  },
+  {
+    "id": "engagement-guard",
+    "name": "Engagement Guard",
+    "description": "Tujuh checklist konfirmasi manual sebelum menjalankan pengujian.",
+    "purpose": "Mengurangi lupa memeriksa izin, data, rate limit dan pembatasan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#engagement-guard"
+  },
+  {
+    "id": "rules-engine",
+    "name": "Hard Program Rules dan Rules Engine",
+    "description": "Program rules membatasi kandidat dan rekomendasi AI melalui policy filter.",
+    "purpose": "Menjaga rekomendasi mengikuti aturan engagement yang dicatat peneliti.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#rules-engine"
+  },
+  {
+    "id": "actors",
+    "name": "Actors",
+    "description": "Daftar pelaku/peran dan authority yang relevan untuk pengujian.",
+    "purpose": "Membuat perbedaan hak antarrole terlihat ketika menilai authorization.",
+    "status": "Active",
+    "routes": [
+      "actors"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#actors"
+  },
+  {
+    "id": "objects",
+    "name": "Objects",
+    "description": "Daftar protected resource, ownership, tenant, state, dan sensitivitasnya.",
+    "purpose": "Membantu membedakan object yang memang boleh diakses dari akses tidak sah.",
+    "status": "Active",
+    "routes": [
+      "objects"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#objects"
+  },
+  {
+    "id": "attack-surface",
+    "name": "Attack Surface Mapping",
+    "description": "Tampilan gabungan Actors, Objects, dan Trust Boundary Map untuk mapping manual.",
+    "purpose": "Menghubungkan pelaku, resource, komponen dan perpindahan authority.",
+    "status": "Partial",
+    "routes": [
+      "attack-surface"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#attack-surface"
+  },
+  {
+    "id": "boundaries",
+    "name": "Trust Boundaries",
+    "description": "Hubungan komponen dengan trust atau privilege berbeda, beserta aturan authority.",
+    "purpose": "Mengidentifikasi titik ketika izin/context dapat berubah atau hilang.",
+    "status": "Active",
+    "routes": [
+      "boundaries"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#boundaries"
+  },
+  {
+    "id": "technique-library",
+    "name": "Technique Library",
+    "description": "20 teknik bawaan dan custom technique dengan invariant, template, signals, dan stop condition.",
+    "purpose": "Memberi kerangka memilih pertanyaan keamanan yang sesuai arsitektur dan scope.",
+    "status": "Active",
+    "routes": [
+      "techniques"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#technique-library"
+  },
+  {
+    "id": "hypotheses",
+    "name": "Hypotheses",
+    "description": "Dugaan kegagalan security invariant yang dipisahkan dari observasi pengujian.",
+    "purpose": "Mencegah asumsi root cause atau impact dianggap sebagai fakta terlalu dini.",
+    "status": "Active",
+    "routes": [
+      "hypotheses"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#hypotheses"
+  },
+  {
+    "id": "tests",
+    "name": "Test Cases",
+    "description": "Rencana dan hasil pengujian manual dengan expected/actual, formula, serta evidence.",
+    "purpose": "Memungkinkan review dan reproduksi dengan kondisi pengujian yang jelas.",
+    "status": "Active",
+    "routes": [
+      "tests"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tests"
+  },
+  {
+    "id": "queue",
+    "name": "Research Queue",
+    "description": "Antrean hypothesis dalam lima tahap pekerjaan yang dipilih manual.",
+    "purpose": "Memisahkan rencana prioritas berikutnya dari status kebenaran dugaan.",
+    "status": "Active",
+    "routes": [
+      "queue"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#queue"
+  },
+  {
+    "id": "evidence",
+    "name": "Evidence",
+    "description": "Menyimpan teks observasi dan metadata referensi file yang terkait test/finding.",
+    "purpose": "Mendukung reproduksi serta membatasi laporan pada bukti yang tersedia.",
+    "status": "Active",
+    "routes": [
+      "evidence"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#evidence"
+  },
+  {
+    "id": "findings",
+    "name": "Findings dan Promotion",
+    "description": "Kandidat temuan dengan authority, restriction, resource, observasi, impact, dan evidence.",
+    "purpose": "Menyusun hasil test menjadi materi review dan laporan tanpa mencampur dugaan dengan fakta.",
+    "status": "Active",
+    "routes": [
+      "findings"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#findings"
+  },
+  {
+    "id": "reports",
+    "name": "Report Generator",
+    "description": "Template laporan Indonesia yang dapat diedit, dipreview, disalin, diekspor, dan dicetak.",
+    "purpose": "Menyajikan fakta dan evidence dalam struktur review yang konsisten.",
+    "status": "Active",
+    "routes": [
+      "reports"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#reports"
+  },
+  {
+    "id": "notes",
+    "name": "Research Notes",
+    "description": "Scratchpad target dan catatan tambahan hasil import, redaksi, atau review AI.",
+    "purpose": "Menyimpan observasi sementara, pertanyaan dan alasan keputusan tanpa memaksanya menjadi finding.",
+    "status": "Active",
+    "routes": [
+      "notes"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#notes"
+  },
+  {
+    "id": "knowledge",
+    "name": "Knowledge Base",
+    "description": "Catatan terstruktur untuk pola riset, false positive, disclosed report, dan lessons per target.",
+    "purpose": "Menghindari pengulangan investigasi serta menyimpan alasan kontrol bekerja atau gagal.",
+    "status": "Active",
+    "routes": [
+      "knowledge"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge"
+  },
+  {
+    "id": "tools",
+    "name": "Tool Knowledge dan Offline Tool Recommendation",
+    "description": "Rekomendasi katalog tools manual berdasarkan technique dan hard scope filter, tanpa AI.",
+    "purpose": "Menghubungkan kebutuhan observasi dengan alat yang relevan dalam batas izin.",
+    "status": "Active",
+    "routes": [
+      "tools"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tools"
+  },
+  {
+    "id": "helpers",
+    "name": "Internal Helpers",
+    "description": "Sebelas alat internal lokal untuk menyusun, membandingkan, dan meninjau catatan.",
+    "purpose": "Menyediakan dukungan praktis riset tanpa membutuhkan provider AI.",
+    "status": "Active",
+    "routes": [
+      "helpers"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#helpers"
+  },
+  {
+    "id": "helper-authorization-matrix",
+    "name": "Authorization Matrix Builder",
+    "description": "Menyimpan row manual actor × object × action dengan expected permission.",
+    "purpose": "Membuat kontrol permission yang diharapkan eksplisit sebelum membandingkan role.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "authorization-matrix",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-authorization-matrix"
+  },
+  {
+    "id": "helper-state-transition",
+    "name": "State Transition Builder",
+    "description": "Menyimpan row state asal/tujuan, action, authority, dan invariant.",
+    "purpose": "Mengidentifikasi kapan hak harus berubah sepanjang lifecycle.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "state-transition",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-state-transition"
+  },
+  {
+    "id": "helper-trust-boundary",
+    "name": "Trust Boundary Mapper",
+    "description": "Membuka modul Trust Boundaries untuk mencatat perpindahan trust/authority.",
+    "purpose": "Menggunakan satu tempat penyimpanan boundary agar mapping tetap konsisten.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": "trust-boundary",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-trust-boundary"
+  },
+  {
+    "id": "helper-evidence-comparator",
+    "name": "Evidence Comparator",
+    "description": "Membandingkan keberadaan baris unik pada dua teks evidence lokal.",
+    "purpose": "Membantu melihat perbedaan respons kontrol dan percobaan tanpa mengirim data ke AI.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "evidence-comparator",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-evidence-comparator"
+  },
+  {
+    "id": "helper-secret-redactor",
+    "name": "Secret Redactor",
+    "description": "Preview redaksi pola kredensial, header sensitif, JWT, dan email pada teks.",
+    "purpose": "Mengurangi data sensitif pada evidence, note, report, atau context AI yang Anda review.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "secret-redactor",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-secret-redactor"
+  },
+  {
+    "id": "helper-hypothesis-generator",
+    "name": "Hypothesis Generator — Offline Template",
+    "description": "Membuka editor hypothesis yang diprefill dari teknik tanpa AI.",
+    "purpose": "Mempercepat penulisan dugaan sambil mempertahankan review peneliti.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": "hypothesis-generator",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-hypothesis-generator"
+  },
+  {
+    "id": "helper-scope-checker",
+    "name": "Scope Checker",
+    "description": "Menampilkan assessment dan restrictions dari scope/guard/rules yang dicatat.",
+    "purpose": "Membantu melihat data izin yang masih kurang sebelum meminta rekomendasi.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": "scope-checker",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-scope-checker"
+  },
+  {
+    "id": "helper-finding-checklist",
+    "name": "Finding Checklist",
+    "description": "Checklist kelengkapan delapan unsur finding dan evidence.",
+    "purpose": "Menunjukkan informasi dasar yang belum disediakan sebelum review/report.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": "finding-checklist",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-finding-checklist"
+  },
+  {
+    "id": "helper-duplicate-comparator",
+    "name": "Duplicate Comparator",
+    "description": "Membandingkan kemiripan teks lima unsur finding dengan kandidat lokal/manual.",
+    "purpose": "Memberi petunjuk risiko issue sama sambil menampilkan ketidakpastian.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "duplicate-comparator",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-duplicate-comparator"
+  },
+  {
+    "id": "helper-report-builder",
+    "name": "Report Builder",
+    "description": "Membuka Reports untuk menyusun laporan Indonesia dari finding.",
+    "purpose": "Memberi akses langsung dari helper workflow ke generator deterministik.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": "report-builder",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-report-builder"
+  },
+  {
+    "id": "helper-gap-analyzer",
+    "name": "Research Gap Analyzer — Helper",
+    "description": "Menampilkan panel coverage dan lifecycle/surface gaps lokal.",
+    "purpose": "Membantu mencari catatan pengujian berikutnya dari entri yang belum tercakup.",
+    "status": "Partial",
+    "routes": [],
+    "operation": null,
+    "helper": "gap-analyzer",
+    "documentation": "docs/FEATURE_REFERENCE.html#helper-gap-analyzer"
+  },
+  {
+    "id": "coverage",
+    "name": "Research Gaps dan Research Coverage",
+    "description": "Rasio dan daftar actor/object/state/boundary/technique yang belum mempunyai hasil test.",
+    "purpose": "Mengubah backlog riset menjadi prioritas berbasis catatan yang tersedia.",
+    "status": "Partial",
+    "routes": [
+      "coverage"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#coverage"
+  },
+  {
+    "id": "research-priority",
+    "name": "Research Priority",
+    "description": "Skor prioritas riset 0–100 dan urutan teknik untuk membantu menentukan tindak lanjut.",
+    "purpose": "Mempertimbangkan nilai pembelajaran, biaya, scope, bukti dan duplicate risk.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#research-priority"
+  },
+  {
+    "id": "settings",
+    "name": "Settings dan System Health",
+    "description": "Ringkasan storage/autosave/schema/AI dan akses konfigurasi serta backup.",
+    "purpose": "Membantu melihat apakah catatan tersimpan dan backend opsional siap.",
+    "status": "Active",
+    "routes": [
+      "settings"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#settings"
+  },
+  {
+    "id": "ai-provider",
+    "name": "AI Configuration dan Connection",
+    "description": "Menghubungkan frontend ke backend lokal dengan provider/model yang dikonfigurasi server.",
+    "purpose": "Mempertahankan workflow manual sekaligus memberi opsi AI tanpa menaruh key di browser.",
+    "status": "Active",
+    "routes": [
+      "ai-provider"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-provider"
+  },
+  {
+    "id": "ai-privacy",
+    "name": "AI Privacy Modes dan Context Preview",
+    "description": "Mengatur provider lokal/cloud, redaksi pola, dan persetujuan payload sebelum request.",
+    "purpose": "Membuat peneliti melihat data yang akan meninggalkan browser.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-privacy"
+  },
+  {
+    "id": "ai",
+    "name": "Research Assistant",
+    "description": "Saran terstruktur tentang riset target berdasarkan context yang direview peneliti.",
+    "purpose": "Membantu merumuskan pertanyaan, missing context dan langkah aman tanpa eksekusi pengujian.",
+    "status": "Active",
+    "routes": [
+      "ai"
+    ],
+    "operation": "research_advice",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai"
+  },
+  {
+    "id": "ai-analyze-scope",
+    "name": "AI Analyze Scope",
+    "description": "Saran review scope dan konteks izin berdasarkan catatan yang supplied.",
+    "purpose": "Mengidentifikasi informasi scope/rules yang masih kurang sebelum menyusun test.",
+    "status": "Active",
+    "routes": [],
+    "operation": "analyze_scope",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-analyze-scope"
+  },
+  {
+    "id": "ai-techniques",
+    "name": "AI Technique Advisor",
+    "description": "Meranking teknik enabled yang tersedia berdasarkan context dan hard policy.",
+    "purpose": "Membantu memilih invariant relevan tanpa menciptakan teknik di luar katalog target.",
+    "status": "Active",
+    "routes": [
+      "ai-techniques"
+    ],
+    "operation": "recommend_techniques",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-techniques"
+  },
+  {
+    "id": "ai-tools",
+    "name": "AI Tool Advisor",
+    "description": "Saran tools manual dari Tool KB yang sudah difilter policy dan technique relevance.",
+    "purpose": "Menghubungkan pertanyaan pengujian dengan alat observasi yang sesuai.",
+    "status": "Active",
+    "routes": [
+      "ai-tools"
+    ],
+    "operation": "recommend_tools",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-tools"
+  },
+  {
+    "id": "ai-helper-advisor",
+    "name": "AI Helper Advisor",
+    "description": "Merekomendasikan helper internal dari katalog yang sudah tersedia.",
+    "purpose": "Mengarahkan peneliti ke fitur pencatatan atau review yang sesuai kebutuhan.",
+    "status": "Active",
+    "routes": [],
+    "operation": "recommend_helpers",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-helper-advisor"
+  },
+  {
+    "id": "ai-questions",
+    "name": "AI Research Questions",
+    "description": "Menghasilkan pertanyaan riset dari mapping, invariant, dan missing context.",
+    "purpose": "Membantu mengurai ketidakjelasan sebelum mengubahnya menjadi hypothesis.",
+    "status": "Active",
+    "routes": [],
+    "operation": "research_questions",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-questions"
+  },
+  {
+    "id": "ai-hypothesis-generator",
+    "name": "AI Hypothesis Generator",
+    "description": "Menghasilkan draft hypothesis dari context dan technique kandidat.",
+    "purpose": "Mempercepat ide pengujian yang tetap harus disesuaikan dengan scope dan fakta.",
+    "status": "Active",
+    "routes": [],
+    "operation": "generate_hypotheses",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-hypothesis-generator"
+  },
+  {
+    "id": "ai-findings",
+    "name": "AI Finding Analyzer",
+    "description": "Saran analisis invariant, class, root cause, impact, missing evidence dan safe validation.",
+    "purpose": "Membantu mereview kelemahan argumen finding sebelum menyimpulkan atau melapor.",
+    "status": "Active",
+    "routes": [
+      "ai-findings"
+    ],
+    "operation": "analyze_finding",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-findings"
+  },
+  {
+    "id": "ai-false-positive",
+    "name": "AI False Positive Analyzer",
+    "description": "Mengusulkan alasan perilaku mungkin sah dan kontrol pembanding yang masih diperlukan.",
+    "purpose": "Menguji penjelasan alternatif sebelum menganggap observasi sebagai vulnerability.",
+    "status": "Partial",
+    "routes": [],
+    "operation": "false_positive_analysis",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-false-positive"
+  },
+  {
+    "id": "ai-duplicate",
+    "name": "AI Duplicate Analyzer",
+    "description": "Estimasi duplicate dari finding dan pembanding dalam context yang supplied.",
+    "purpose": "Membantu meninjau kesamaan akar masalah dengan issue yang diketahui.",
+    "status": "Partial",
+    "routes": [],
+    "operation": "duplicate_analysis",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-duplicate"
+  },
+  {
+    "id": "ai-gaps",
+    "name": "AI Gap Analyzer",
+    "description": "Saran gap riset dari mapping dan test yang supplied ke model.",
+    "purpose": "Membantu menanyakan actor/object/state/boundary atau lifecycle yang belum jelas.",
+    "status": "Active",
+    "routes": [
+      "ai-gaps"
+    ],
+    "operation": "gap_analysis",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-gaps"
+  },
+  {
+    "id": "ai-report-assistant",
+    "name": "AI Report Assistant",
+    "description": "Draft perbaikan report yang dipreview dan diedit sebelum mengganti Markdown tersimpan.",
+    "purpose": "Membantu kejelasan tulisan tanpa mengubah keputusan faktual peneliti secara otomatis.",
+    "status": "Active",
+    "routes": [],
+    "operation": "improve_report",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-report-assistant"
+  },
+  {
+    "id": "ai-evidence-summary",
+    "name": "AI Evidence Summarizer",
+    "description": "Ringkasan/analisis evidence yang disertakan melalui context opt-in.",
+    "purpose": "Membantu merangkum observasi panjang menjadi note yang bisa direview.",
+    "status": "Active",
+    "routes": [],
+    "operation": "evidence_summary",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-evidence-summary"
+  },
+  {
+    "id": "ai-safe-next-steps",
+    "name": "AI Safe Next Steps",
+    "description": "Draft tindakan tindak lanjut yang dibatasi scope/rules dan stop conditions.",
+    "purpose": "Membantu memperjelas langkah review berikutnya tanpa eksekusi target.",
+    "status": "Active",
+    "routes": [],
+    "operation": "safe_next_steps",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-safe-next-steps"
+  },
+  {
+    "id": "ai-restrictions",
+    "name": "AI Restrictions",
+    "description": "Saran review pembatasan dari program rules dan scope yang dicatat.",
+    "purpose": "Membantu memeriksa batas yang mungkin terlupakan ketika menyusun test.",
+    "status": "Active",
+    "routes": [],
+    "operation": "identify_restrictions",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-restrictions"
+  },
+  {
+    "id": "ai-review",
+    "name": "AI Suggestions — Preview, Accept, Edit, Reject",
+    "description": "Review eksplisit suggestion pending sebelum diterapkan sebagai note, hypothesis, atau report.",
+    "purpose": "Memisahkan draft model dari keputusan dan fakta yang disimpan peneliti.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#ai-review"
+  },
+  {
+    "id": "search",
+    "name": "Global Search dan List Filters",
+    "description": "Pencarian lintas target dan domain untuk research, profil bisnis, terminology, business flows, invariants, failure patterns, related techniques, KB dan lessons.",
+    "purpose": "Menemukan catatan lama dan menyempitkan review tanpa mengganti data.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#search"
+  },
+  {
+    "id": "workspace-storage",
+    "name": "Workspace Storage dan Autosave",
+    "description": "IndexedDB sebagai autosave utama, journal recovery opsional, dan JSON portabel schema v2.",
+    "purpose": "Mempertahankan catatan lokal serta mendukung recovery/migrasi dan perpindahan origin.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#workspace-storage"
+  },
+  {
+    "id": "backup",
+    "name": "Backup / Restore",
+    "description": "Export/import seluruh workspace JSON dengan validasi dan konfirmasi penggantian.",
+    "purpose": "Menghindari kehilangan data browser dan membuat riset dapat dipindahkan.",
+    "status": "Active",
+    "routes": [
+      "backup"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#backup"
+  },
+  {
+    "id": "connected-file",
+    "name": "Connect workspace.json — Optional File Save",
+    "description": "Menghubungkan file pilihan browser dan menulis workspace saat action Save eksplisit.",
+    "purpose": "Menyediakan backup ke file yang sama tanpa menganggap autosave browser sebagai filesystem save.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#connected-file"
+  },
+  {
+    "id": "reset",
+    "name": "Reset Workspace",
+    "description": "Mengosongkan seluruh target dan riset workspace browser aktif setelah konfirmasi.",
+    "purpose": "Memulai workspace baru ketika peneliti sudah menyimpan backup yang diperlukan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#reset"
+  },
+  {
+    "id": "in-app-help",
+    "name": "Contextual Help dan Documentation",
+    "description": "Tombol ? dengan tooltip singkat, penjelasan purpose/status, dan View Documentation.",
+    "purpose": "Membantu pengguna belajar fitur dari tempat mereka sedang bekerja.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#in-app-help"
+  },
+  {
+    "id": "target-intelligence",
+    "name": "Target Intelligence",
+    "description": "Profil bisnis target, klasifikasi sektor multi-domain, knowledge provenance, dan review saran.",
+    "purpose": "Membantu memahami bisnis sebelum menyusun pengujian teknologi.",
+    "status": "Active",
+    "routes": [
+      "target-intelligence"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#target-intelligence"
+  },
+  {
+    "id": "domain-knowledge",
+    "name": "Domain Knowledge Packs dan Learning Mode",
+    "description": "13 pack generik lokal, custom/override packs, dan materi Beginner/Intermediate/Advanced.",
+    "purpose": "Menghubungkan istilah, pelaku, resource, flow, invariant, dan teknik secara terstruktur.",
+    "status": "Active",
+    "routes": [
+      "domain-knowledge"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#domain-knowledge"
+  },
+  {
+    "id": "terminology",
+    "name": "Domain Terminology",
+    "description": "Glossary domain dengan definition, whyImportant, related terms dan provenance.",
+    "purpose": "Mencegah salah menafsirkan proses bisnis sebelum merancang test.",
+    "status": "Active",
+    "routes": [
+      "terminology"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#terminology"
+  },
+  {
+    "id": "business-flows",
+    "name": "Business Flows dan Critical Transitions",
+    "description": "Flow bisnis terstruktur dengan actor/object/boundary/invariant relationships dan transisi kritis.",
+    "purpose": "Mengubah proses bisnis menjadi pertanyaan keamanan yang mempunyai konteks.",
+    "status": "Active",
+    "routes": [
+      "business-flows"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#business-flows"
+  },
+  {
+    "id": "critical-assets",
+    "name": "Critical Assets dan Sensitive Data",
+    "description": "Asset/data bernilai tinggi dari pola domain dan knowledge target yang direview.",
+    "purpose": "Membantu menjelaskan resource terlindungi serta dampak yang perlu dibuktikan.",
+    "status": "Active",
+    "routes": [
+      "critical-assets"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#critical-assets"
+  },
+  {
+    "id": "research-questions",
+    "name": "Domain Research Questions dan Invariant Conversion",
+    "description": "Pertanyaan domain/target yang dapat direview lalu dikonversi menjadi hypothesis.",
+    "purpose": "Mengubah pemahaman bisnis menjadi rencana investigasi yang terarah.",
+    "status": "Active",
+    "routes": [
+      "research-questions"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#research-questions"
+  },
+  {
+    "id": "knowledge-provenance",
+    "name": "Knowledge Provenance dan Verification",
+    "description": "Memisahkan TARGET FACT, DOMAIN KNOWLEDGE, RESEARCHER INPUT, AI INFERENCE dan UNKNOWN.",
+    "purpose": "Mencegah inferensi perusahaan menjadi fakta hanya karena diterima ke workspace.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-provenance"
+  },
+  {
+    "id": "knowledge-ai",
+    "name": "AI Knowledge Assistant",
+    "description": "11 operasi knowledge opsional dengan context pilihan, preview/redaksi, output JSON dan review per item.",
+    "purpose": "Membantu memahami bisnis tanpa mengarang fakta atau menjalankan pengujian.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-ai"
+  },
+  {
+    "id": "knowledge-op-generate_target_knowledge",
+    "name": "Generate Target Knowledge",
+    "description": "Menyusun draft overview, actors/objects/flows/invariants/questions dari context.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "generate_target_knowledge",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-generate_target_knowledge"
+  },
+  {
+    "id": "knowledge-op-analyze_target",
+    "name": "Analyze Target",
+    "description": "Menganalisis hubungan bisnis dan context target yang supplied.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "analyze_target",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-analyze_target"
+  },
+  {
+    "id": "knowledge-op-suggest_domains",
+    "name": "Suggest Domain",
+    "description": "Menyarankan klasifikasi dari label domain yang tersedia.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "suggest_domains",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-suggest_domains"
+  },
+  {
+    "id": "knowledge-op-explain_domain",
+    "name": "Explain Domain",
+    "description": "Menjelaskan domain menurut kedalaman belajar.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "explain_domain",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-explain_domain"
+  },
+  {
+    "id": "knowledge-op-explain_terminology",
+    "name": "Explain Terminology",
+    "description": "Menjelaskan term pilihan dan kaitan bisnis/keamanannya.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "explain_terminology",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-explain_terminology"
+  },
+  {
+    "id": "knowledge-op-ask_about_target",
+    "name": "Ask About Target",
+    "description": "Menjawab question dari target knowledge, domain dan context riset.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "ask_about_target",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-ask_about_target"
+  },
+  {
+    "id": "knowledge-op-analyze_business_flow",
+    "name": "Analyze Business Flow",
+    "description": "Menganalisis flow pilihan dan critical transitions.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "analyze_business_flow",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-analyze_business_flow"
+  },
+  {
+    "id": "knowledge-op-identify_critical_assets",
+    "name": "Identify Critical Assets",
+    "description": "Menyarankan resource dan data sensitif yang perlu dipetakan.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "identify_critical_assets",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-identify_critical_assets"
+  },
+  {
+    "id": "knowledge-op-generate_security_invariants",
+    "name": "Generate Security Invariants",
+    "description": "Mengubah context flow/authority menjadi aturan keamanan kandidat.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "generate_security_invariants",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-generate_security_invariants"
+  },
+  {
+    "id": "knowledge-op-generate_domain_questions",
+    "name": "Generate Research Questions",
+    "description": "Membuat pertanyaan riset berdasarkan domain/invariant.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "generate_domain_questions",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-generate_domain_questions"
+  },
+  {
+    "id": "knowledge-op-recommend_domain_techniques",
+    "name": "Recommend Techniques — Domain",
+    "description": "Memetakan business context ke teknik yang tersedia dan scope policy.",
+    "purpose": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+    "status": "Active",
+    "routes": [],
+    "operation": "recommend_domain_techniques",
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-recommend_domain_techniques"
+  },
+  {
+    "id": "tech_01",
+    "name": "State-Machine & Context Confusion",
+    "description": "Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.",
+    "purpose": "Menguji invariant berikut: Actor, object, state, authority, dan context harus konsisten pada setiap keputusan authorization.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_01"
+  },
+  {
+    "id": "tech_02",
+    "name": "Async Authorization / Queue Revalidation",
+    "description": "Authorization valid saat job dibuat belum tentu masih valid saat worker menjalankannya.",
+    "purpose": "Menguji invariant berikut: Worker harus memvalidasi kembali authority dan state saat job benar-benar dijalankan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_02"
+  },
+  {
+    "id": "tech_03",
+    "name": "Approval / Capability Context Confusion",
+    "description": "Valid approval harus terikat ke actor, action, object, destination, dan context yang tepat.",
+    "purpose": "Menguji invariant berikut: Approval harus terikat pada actor, action, object, destination, context, dan lifecycle penggunaan yang diizinkan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_03"
+  },
+  {
+    "id": "tech_04",
+    "name": "Restart / Resume Persistence",
+    "description": "Restart sering membuat state browser, extension, desktop app, dan backend tidak sinkron.",
+    "purpose": "Menguji invariant berikut: Restart/resume tidak boleh mengembalikan permission atau capability yang sudah tidak valid.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_04"
+  },
+  {
+    "id": "tech_05",
+    "name": "Differential Multi-Surface Testing",
+    "description": "Operasi yang sama dari UI, API, mobile, desktop, atau extension harus menghasilkan keputusan security yang konsisten.",
+    "purpose": "Menguji invariant berikut: Semua surface harus menegakkan invariant authorization yang sama.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_05"
+  },
+  {
+    "id": "tech_06",
+    "name": "Cross-Context / App-Extension-Browser Trust",
+    "description": "Komponen yang saling percaya sering salah memvalidasi sender, origin, profile, tab, atau account.",
+    "purpose": "Menguji invariant berikut: Pesan lintas browser/extension/app harus memvalidasi asal, destination, dan authority sebelum aksi terlindungi.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_06"
+  },
+  {
+    "id": "tech_07",
+    "name": "Object Lifecycle & Revocation",
+    "description": "Authorization sering benar pada create/read, lalu rusak setelah share, revoke, archive, restore, atau delete.",
+    "purpose": "Menguji invariant berikut: Object yang revoked/deleted/expired tidak boleh tetap dapat diakses melalui authority lama.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_07"
+  },
+  {
+    "id": "tech_08",
+    "name": "Race Condition / TOCTOU",
+    "description": "Uji operasi yang seharusnya atomic, sekali pakai, atau mutually exclusive.",
+    "purpose": "Menguji invariant berikut: Pemeriksaan authority dan perubahan state harus konsisten terhadap interleaving transaksi.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_08"
+  },
+  {
+    "id": "tech_09",
+    "name": "Webhook / Callback Ownership",
+    "description": "Event delivery harus terikat pada tenant, endpoint, event, dan recipient yang benar.",
+    "purpose": "Menguji invariant berikut: Callback destination dan webhook harus tetap terikat pada owner dan tenant yang diotorisasi.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_09"
+  },
+  {
+    "id": "tech_10",
+    "name": "WebSocket / Realtime Stale Authorization",
+    "description": "Socket yang sudah terhubung kadang tidak kehilangan privilege setelah role atau membership berubah.",
+    "purpose": "Menguji invariant berikut: Channel realtime harus memvalidasi authority terbaru setelah role/session/resource berubah.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_10"
+  },
+  {
+    "id": "tech_11",
+    "name": "Parser Differential",
+    "description": "Dua komponen dapat menafsirkan URL, parameter, header, atau body secara berbeda.",
+    "purpose": "Menguji invariant berikut: Parser di setiap surface harus menafsirkan object/action/context secara konsisten.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_11"
+  },
+  {
+    "id": "tech_12",
+    "name": "Cache Authorization & Variant Confusion",
+    "description": "Response private/user-specific harus memiliki cache key dan invalidation yang benar.",
+    "purpose": "Menguji invariant berikut: Cache harus memisahkan protected content berdasarkan authority, tenant, dan variant yang relevan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_12"
+  },
+  {
+    "id": "tech_13",
+    "name": "OAuth / SSO / Account Linking",
+    "description": "Identity, authorization response, session, dan target account harus terikat konsisten.",
+    "purpose": "Menguji invariant berikut: Identitas, issuer, session, dan account linking harus terikat pada akun yang benar.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_13"
+  },
+  {
+    "id": "tech_14",
+    "name": "Cross-Tenant / Workspace Isolation",
+    "description": "Object, search, export, job, audit, dan realtime event harus selalu tenant-scoped.",
+    "purpose": "Menguji invariant berikut: Authority suatu tenant tidak boleh digunakan untuk resource tenant lain.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_14"
+  },
+  {
+    "id": "tech_15",
+    "name": "File / Share / Export Boundary",
+    "description": "Preview, download, export, copy, share, revoke, dan redirect sering punya authorization path berbeda.",
+    "purpose": "Menguji invariant berikut: File, share, dan export harus menegakkan owner, ACL, expiry, dan revocation secara konsisten.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_15"
+  },
+  {
+    "id": "tech_16",
+    "name": "BFLA / Vertical Privilege Escalation",
+    "description": "Tombol tersembunyi bukan security control. Backend harus memeriksa capability role.",
+    "purpose": "Menguji invariant berikut: Role rendah tidak boleh menjalankan fungsi yang membutuhkan role lebih tinggi.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_16"
+  },
+  {
+    "id": "tech_17",
+    "name": "IDOR / BOLA / Object Ownership",
+    "description": "Object identifier bukan authorization. Selalu cek ownership pada read/write/delete/share/export.",
+    "purpose": "Menguji invariant berikut: Identifier object tidak boleh menggantikan pemeriksaan kepemilikan dan authorization.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_17"
+  },
+  {
+    "id": "tech_18",
+    "name": "Business Logic State Transition",
+    "description": "Sistem sering memvalidasi request, tapi lupa memvalidasi urutan state bisnis.",
+    "purpose": "Menguji invariant berikut: Transisi business state harus memenuhi prasyarat dan authority yang berlaku.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_18"
+  },
+  {
+    "id": "tech_19",
+    "name": "Authentication & Session Lifecycle",
+    "description": "Test perubahan password, logout, revoke, downgrade role, unlink identity, dan session expiration.",
+    "purpose": "Menguji invariant berikut: Session yang expired/revoked/logout tidak boleh tetap memberikan authority aktif.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_19"
+  },
+  {
+    "id": "tech_20",
+    "name": "Basic Validation & Misconfiguration With Impact",
+    "description": "Headers, CORS, redirects, version leaks, atau config aneh hanya menarik jika ada exploitability nyata.",
+    "purpose": "Menguji invariant berikut: Validasi dan konfigurasi harus menjaga protected outcome sesuai batas authority yang ditentukan.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tech_20"
+  }
+];
+const routeFeatures=Object.fromEntries(featureRegistry.flatMap(feature=>feature.routes.map(route=>[route,feature.id])));
+const operationFeatures=Object.fromEntries(featureRegistry.filter(feature=>feature.operation).map(feature=>[feature.operation,feature.id]));
+const helperFeatures=Object.fromEntries(featureRegistry.filter(feature=>feature.helper).map(feature=>[feature.helper,feature.id]));
+
+// SOURCE: help
+
+
+// Documentation paths resolve from the loader: works for both root/client file shells and HTTP.
+function documentationURL(feature) {
+  const loader=document.querySelector('script[src$="loader.js"]');
+  return new URL('../'+feature.documentation,loader.src).href;
+}
+function featureHelp(id) {
+  const feature=featureRegistry.find(item=>item.id===id);
+  if(!feature)return null;
+  const href=documentationURL(feature);
+  const open=()=>{
+    const dialog=el('dialog',{class:'feature-help-dialog','aria-label':'Bantuan '+feature.name});
+    dialog.append(el('div',{class:'dialog-heading'},el('h2',{},feature.name),button('×',()=>dialog.close(),'close')),
+      badge('Status: '+feature.status),el('p',{},feature.description),el('p',{class:'muted'},feature.purpose),
+      el('a',{href,target:'_blank',rel:'noopener'},'View Documentation'));
+    dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();
+  };
+  return el('span',{class:'feature-help'},el('button',{type:'button',class:'help-button',title:feature.description,'aria-label':'Bantuan '+feature.name,onclick:open},'?'),
+    el('a',{class:'documentation-link',href,target:'_blank',rel:'noopener'},'View Documentation'));
+}
+function routeHelp(route){return featureHelp(routeFeatures[route]);}
+
 // SOURCE: services/ai-schema
 // MODULE: Shared strict JSON contract; optional sections use empty values, never arbitrary HTML/code.
 const aiText={type:'string',maxLength:30000};
@@ -715,6 +11185,112 @@ function validateAIOutput(value) {
     if(schema.enum && !schema.enum.includes(item))throw new Error(path+' nilai tidak diizinkan.');
   }
   validate(value,AI_RESPONSE_SCHEMA,'response');return value;
+}
+
+// SOURCE: services/domain-schema
+// Shared validation for shipped packs, user modifications and workspace imports.
+const provenanceTypes=['researcher','target','domain','ai','external','unknown'];
+const domainCollections=['terminology','actors','businessObjects','businessFlows','sensitiveData','criticalAssets','commonTrustBoundaries','securityInvariants','commonFailurePatterns','relevantTechniques','researchQuestions'];
+const intelligenceKinds=['company-overview','business-model','actor','object','asset','sensitive-data','flow','terminology','boundary','invariant','question','explanation','unknown'];
+function checkProvenance(item){
+  if(!item||!provenanceTypes.includes(item.sourceType)||typeof item.source!=='string'||typeof item.notes!=='string'||typeof item.verified!=='boolean'||!Number.isFinite(item.confidence)||item.confidence<0||item.confidence>1)throw new Error('Knowledge provenance tidak valid.');
+  if(item.sourceType==='target'&&(!item.verified||!item.source.trim()))throw new Error('TARGET FACT membutuhkan source dan verifikasi peneliti.');
+}
+function validateKnowledgeItem(item){
+  checkProvenance(item);
+  for(const key of ['id','kind','title','content','domainId','flowId','invariantId','techniqueId'])if(typeof item[key]!=='string'||item[key].length>30000)throw new Error('Knowledge item '+key+' tidak valid.');
+  if(!item.id||!intelligenceKinds.includes(item.kind)||!Array.isArray(item.steps)||item.steps.some(s=>typeof s!=='string'||s.length>8000)||item.steps.length>60)throw new Error('Knowledge item tidak valid.');
+  if(item.sourceType==='ai'&&item.verified)throw new Error('AI inference tidak dapat menjadi verified otomatis. Gunakan verifikasi eksplisit sebagai TARGET FACT dengan source.');
+  return item;
+}
+function validateDomainPack(pack){
+  let nodes=0;
+  const safe=(value,depth=0)=>{if(++nodes>100000||depth>30)throw new Error('Domain pack terlalu besar/dalam.');if(typeof value==='string'&&value.length>30000)throw new Error('Field domain terlalu panjang.');if(value&&typeof value==='object')for(const [key,child] of Object.entries(value)){if(['__proto__','prototype','constructor'].includes(key))throw new Error('Key knowledge tidak aman.');safe(child,depth+1);}};
+  safe(pack);
+  if(!pack||typeof pack!=='object'||Array.isArray(pack)||typeof pack.id!=='string'||!pack.id||pack.id.length>150||typeof pack.name!=='string'||!pack.name.trim()||typeof pack.description!=='string'||typeof pack.notes!=='string')throw new Error('Profil domain pack tidak valid.');
+  checkProvenance(pack.provenance);
+  if(!Array.isArray(pack.coreConcepts)||pack.coreConcepts.length>100||pack.coreConcepts.some(s=>typeof s!=='string'))throw new Error('Core concepts harus daftar teks.');
+  const ids=new Set();
+  for(const key of domainCollections){
+    if(!Array.isArray(pack[key])||pack[key].length>250)throw new Error('Domain collection '+key+' tidak valid.');
+    for(const row of pack[key]){
+      checkProvenance(row);
+      if(typeof row.id!=='string'||!row.id||ids.has(row.id)||typeof row.title!=='string'||typeof row.content!=='string')throw new Error('Domain item/ID tidak valid.');ids.add(row.id);
+      for(const [name,value] of Object.entries(row))if(['__proto__','prototype','constructor'].includes(name)||typeof value==='function')throw new Error('Key knowledge tidak aman.');
+      if(key==='terminology'&&(['term','definition','whyImportant'].some(k=>typeof row[k]!=='string')||!Array.isArray(row.relatedTerms)||row.relatedTerms.some(t=>typeof t!=='string')))throw new Error('Terminology tidak valid.');
+      if(key==='businessFlows'){
+        for(const list of ['steps','actorIds','objectIds','boundaryIds','invariantIds'])if(!Array.isArray(row[list])||row[list].some(s=>typeof s!=='string'))throw new Error('Business flow '+list+' tidak valid.');
+        if(!Array.isArray(row.transitions)||row.transitions.length>60||row.transitions.some(t=>!t||['id','fromState','toState','action'].some(k=>typeof t[k]!=='string')||typeof t.critical!=='boolean'||!Array.isArray(t.invariantIds)||t.invariantIds.some(v=>typeof v!=='string')))throw new Error('Critical transition tidak valid.');
+      }
+      if(key==='relevantTechniques'&&(typeof row.techniqueId!=='string'||typeof row.flowId!=='string'||typeof row.invariantId!=='string'||!Number.isFinite(row.researchPriority)||row.researchPriority<0||row.researchPriority>100))throw new Error('Technique mapping tidak valid.');
+      if(key==='securityInvariants'&&(!Array.isArray(row.techniqueIds)||row.techniqueIds.some(t=>typeof t!=='string')||typeof row.flowId!=='string'))throw new Error('Invariant mapping tidak valid.');
+      if(key==='commonTrustBoundaries'&&['fromComponent','toComponent','channel','authority','flowId'].some(k=>typeof row[k]!=='string'))throw new Error('Domain boundary tidak valid.');
+      if(key==='researchQuestions'&&['flowId','invariantId','techniqueId'].some(k=>typeof row[k]!=='string'))throw new Error('Question relationship tidak valid.');
+    }
+  }
+  const ref=(id,collection)=>{if(id&&!pack[collection].some(r=>r.id===id))throw new Error('Domain relationship tidak ditemukan: '+id);};
+  for(const flow of pack.businessFlows){for(const [key,collection] of [['actorIds','actors'],['objectIds','businessObjects'],['boundaryIds','commonTrustBoundaries'],['invariantIds','securityInvariants']])for(const id of flow[key])ref(id,collection);for(const t of flow.transitions)for(const id of t.invariantIds)ref(id,'securityInvariants');}
+  for(const row of [...pack.securityInvariants,...pack.commonTrustBoundaries,...pack.relevantTechniques,...pack.researchQuestions]){ref(row.flowId,'businessFlows');if(row.invariantId)ref(row.invariantId,'securityInvariants');}
+  if(!Array.isArray(pack.references)||pack.references.some(r=>!r||typeof r.title!=='string'||typeof r.url!=='string'||typeof r.notes!=='string'||!/^https?:\/\//.test(r.url)))throw new Error('Domain references tidak valid.');
+  return pack;
+}
+const emptyIntelligence=()=>({profile:{},primaryDomainId:'',secondaryDomainIds:[],items:[],suggestions:[]});
+function validateIntelligence(intelligence){
+  if(!intelligence||typeof intelligence!=='object'||Array.isArray(intelligence)||!intelligence.profile||typeof intelligence.profile!=='object'||Array.isArray(intelligence.profile)||typeof intelligence.primaryDomainId!=='string'||!Array.isArray(intelligence.secondaryDomainIds)||intelligence.secondaryDomainIds.some(id=>typeof id!=='string')||!Array.isArray(intelligence.items)||!Array.isArray(intelligence.suggestions))throw new Error('Target intelligence tidak valid.');
+  for(const [key,field] of Object.entries(intelligence.profile)){if(!field||typeof field.value!=='string'||field.value.length>30000)throw new Error('Intelligence profile '+key+' tidak valid.');checkProvenance(field);}
+  if(intelligence.classificationProvenance)checkProvenance(intelligence.classificationProvenance);
+  const ids=new Set();for(const item of intelligence.items){validateKnowledgeItem(item);if(ids.has(item.id)||!['accepted','rejected'].includes(item.status))throw new Error('Knowledge ID/status tidak valid.');ids.add(item.id);}
+  return intelligence;
+}
+
+// SOURCE: services/knowledge-schema
+
+const knowledgeOperations=[['generate_target_knowledge','Generate Target Knowledge'],['analyze_target','Analyze Target'],['suggest_domains','Suggest Domain'],['explain_domain','Explain Domain'],['explain_terminology','Explain Terminology'],['ask_about_target','Ask About Target'],['analyze_business_flow','Analyze Business Flow'],['identify_critical_assets','Identify Critical Assets'],['generate_security_invariants','Generate Security Invariants'],['generate_domain_questions','Generate Research Questions'],['recommend_domain_techniques','Recommend Techniques']];
+const kText={type:'string',maxLength:30000};
+const kObject=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+const kList=items=>({type:'array',maxItems:40,items});
+const KNOWLEDGE_ITEM_SCHEMA=kObject({id:kText,kind:{type:'string',enum:['company-overview','business-model','actor','object','asset','sensitive-data','flow','terminology','boundary','invariant','question','explanation','unknown']},title:kText,content:kText,sourceType:{type:'string',enum:['ai','unknown']},source:kText,confidence:{type:'number',minimum:0,maximum:1},verified:{type:'boolean',enum:[false]},notes:kText,domainId:kText,flowId:kText,invariantId:kText,techniqueId:kText,steps:{type:'array',maxItems:60,items:{type:'string',maxLength:8000}}});
+const KNOWLEDGE_RESPONSE_SCHEMA=kObject({items:kList(KNOWLEDGE_ITEM_SCHEMA),suggestedDomains:kList(kObject({id:kText,reason:kText,sourceType:{type:'string',enum:['ai']},source:kText,confidence:{type:'number',minimum:0,maximum:1},verified:{type:'boolean',enum:[false]},notes:kText})),unknownInformation:kList(KNOWLEDGE_ITEM_SCHEMA)});
+function validateKnowledgeResponse(value){
+  let nodes=0;
+  const walk=(item,schema)=>{
+    if(++nodes>10000)throw new Error('Knowledge output terlalu besar.');
+    if(schema.type==='object'){if(!item||typeof item!=='object'||Array.isArray(item)||schema.required.some(k=>!Object.hasOwn(item,k))||Object.keys(item).some(k=>!Object.hasOwn(schema.properties,k)))throw new Error('Knowledge output object tidak valid.');for(const [key,child] of Object.entries(item))walk(child,schema.properties[key]);}
+    else if(schema.type==='array'){if(!Array.isArray(item)||item.length>schema.maxItems)throw new Error('Knowledge array tidak valid.');for(const child of item)walk(child,schema.items);}
+    else if(typeof item!==schema.type||(schema.type==='string'&&item.length>schema.maxLength)||(schema.type==='number'&&(!Number.isFinite(item)||item<schema.minimum||item>schema.maximum)))throw new Error('Knowledge output type tidak valid.');
+    if(schema.enum&&!schema.enum.includes(item))throw new Error('Knowledge enum tidak valid.');
+  };
+  walk(value,KNOWLEDGE_RESPONSE_SCHEMA);const ids=new Set();
+  for(const item of [...value.items,...value.unknownInformation]){validateKnowledgeItem(item);if(ids.has(item.id))throw new Error('Knowledge output ID duplikat.');ids.add(item.id);}
+  return value;
+}
+// Bounded context: selected knowledge only; no evidence, credentials, or full workspace object.
+const scalarRecord={type:'object',maxProperties:30,additionalProperties:{type:['string','number','boolean']}};
+const domainLists=['terminology','actors','businessObjects','businessFlows','securityInvariants','commonTrustBoundaries','criticalAssets','sensitiveData','commonFailurePatterns','relevantTechniques','researchQuestions'];
+const selectedDomain=kObject({id:kText,name:kText,description:kText,coreConcepts:{type:'array',maxItems:5,items:kText},...Object.fromEntries(domainLists.map(key=>[key,{type:'array',maxItems:key==='relevantTechniques'?10:key==='actors'||key==='businessObjects'?8:key==='businessFlows'?2:6,items:{type:'object',maxProperties:25}}]))});
+const KNOWLEDGE_REQUEST_SCHEMA=kObject({
+  privacyMode:{type:'string',enum:['LOCAL_ONLY','REDACTED_CLOUD','CLOUD']},
+  context:kObject({
+    operation:{type:'string',enum:knowledgeOperations.map(o=>o[0])},
+    target:scalarRecord,authorization:scalarRecord,programRules:scalarRecord,
+    scope:{type:'object',maxProperties:10,additionalProperties:{anyOf:[kText,{type:'array',maxItems:100,items:kText}]}},
+    research:scalarRecord,
+    targetKnowledge:{type:'array',maxItems:30,items:{type:'object',maxProperties:20,additionalProperties:{type:['string','number','boolean','array'],maxLength:30000,maxItems:60,items:kText}}},
+    domainCatalog:{type:'array',maxItems:50,items:scalarRecord},
+    domains:{type:'array',maxItems:3,items:selectedDomain},
+    actors:{type:'array',maxItems:8,items:scalarRecord},objects:{type:'array',maxItems:8,items:scalarRecord},boundaries:{type:'array',maxItems:8,items:scalarRecord},
+    hypothesis:{anyOf:[{type:'null'},scalarRecord]},techniques:{type:'array',maxItems:20,items:scalarRecord}
+  })
+});
+function validateKnowledgeContext(context){
+  let nodes=0;
+  const walk=(value,depth=0)=>{if(++nodes>30000||depth>20)throw new Error('Knowledge context terlalu besar.');if(typeof value==='string'&&value.length>30000)throw new Error('Knowledge context field terlalu panjang.');if(value&&typeof value==='object')for(const [key,child] of Object.entries(value)){if(['__proto__','prototype','constructor'].includes(key))throw new Error('Knowledge context key tidak aman.');walk(child,depth+1);}};
+  walk(context);
+  if(!context||!Array.isArray(context.domains)||!Array.isArray(context.domainCatalog)||!Array.isArray(context.targetKnowledge)||!Array.isArray(context.techniques))throw new Error('Knowledge context tidak valid.');
+  for(const row of context.targetKnowledge)validateKnowledgeItem(row);
+  for(const domain of context.domains)for(const key of domainLists){if(!Array.isArray(domain[key]))throw new Error('Domain context tidak lengkap.');for(const row of domain[key]){checkProvenance(row);if(typeof row.id!=='string'||!row.id||typeof row.title!=='string'||typeof row.content!=='string')throw new Error('Domain context item tidak valid.');}}
+  if(context.domainCatalog.some(row=>typeof row.id!=='string'||typeof row.name!=='string'))throw new Error('Domain catalog tidak valid.');
+  return context;
 }
 
 // SOURCE: services/redactor
@@ -797,7 +11373,11 @@ function buildResearchContext(target,options={}) {
     findings:target.findings.map(row=>choose(row,['id','title','affectedComponent','rootCause','securityRestriction','vulnerabilityClass','impact','status'])),
     finding:options.findingId?(()=>{const f=target.findings.find(row=>row.id===options.findingId);return f?choose(f,['title','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','preconditions','steps','expectedResult','actualResult','researchNotes','severity','testCaseId','who','what','object','state','authority','context']):null;})():null,
     evidence:options.includeEvidence?target.evidence.filter(e=>!options.findingId || target.findings.find(f=>f.id===options.findingId)?.evidenceIds?.includes(e.id)).map(row=>choose(row,['type','label','description','content'])):[],
-    knowledge:options.includeKnowledge?target.knowledgeBase.map(row=>choose(row,['category','title','content','source','rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'])):[],
+    knowledge:options.includeKnowledge?[
+      ...target.knowledgeBase.map(row=>choose(row,['category','title','content','source','rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'])),
+      ...(target.intelligence?.items||[]).filter(i=>i.status==='accepted').slice(0,12).map(row=>({category:'Target Intelligence · '+row.sourceType,title:row.title,content:row.content,source:row.source,sourceType:row.sourceType,confidence:row.confidence,verified:row.verified,notes:row.notes})),
+      ...(options.domainKnowledge||[]).slice(0,3).flatMap(pack=>[...pack.securityInvariants.slice(0,4),...pack.businessFlows.slice(0,2)].map(row=>({category:'DOMAIN KNOWLEDGE · '+pack.name,title:row.title,content:row.content+(row.steps?'\nFlow: '+row.steps.join(' → '):''),source:row.source,sourceType:'domain',confidence:row.confidence,verified:false,notes:'Pola generik; bukan fakta perusahaan.'})))
+    ]:[],
     report:options.report||''
   };
 }
@@ -827,7 +11407,112 @@ function findingChecklist(finding) {
   return [['Expected result',!!finding.expectedResult],['Actual observation',!!finding.actualResult],['Starting authority',!!finding.startingAuthority],['Protected resource',!!finding.protectedResource],['Security restriction',!!finding.securityRestriction],['Reproduction steps',!!finding.steps],['Evidence attached',(finding.evidenceIds||[]).length>0],['Impact documented',!!finding.impact]].map(([label,present])=>({label,present}));
 }
 
+// SOURCE: services/domain-knowledge
+
+
+
+const profileFields=[['company','Company / Organization'],['sector','Sector'],['industry','Industry'],['businessModel','Business Model'],['companyType','Company Type'],['products','Primary Products'],['services','Primary Services'],['users','Primary Users'],['customers','Customer Types'],['revenueModel','Revenue Model'],['assets','Important Assets'],['sensitiveData','Sensitive Data'],['operations','Critical Operations'],['dependencies','Third-party Dependencies'],['surfaces','Technical Surfaces'],['notes','Notes']];
+const researcherProvenance=()=>({sourceType:'researcher',source:'Researcher input',confidence:.5,verified:false,notes:'Belum diverifikasi sebagai fakta target.'});
+const DomainPackRepository={
+  all(workspace){const merged=new Map(DOMAIN_PACKS.map(pack=>[pack.id,pack]));for(const pack of workspace.domainPacks||[])merged.set(pack.id,pack);return [...merged.values()];},
+  get(workspace,id){return this.all(workspace).find(pack=>pack.id===id);},
+  save(store,pack){validateDomainPack(pack);store.saveDomainPack(structuredClone(pack));return pack;},
+  import(store,text){if(new Blob([text]).size>1000000)throw new Error('Domain pack melebihi 1 MB.');const pack=JSON.parse(text);validateDomainPack(pack);return this.save(store,pack);}
+};
+const TargetIntelligenceService={
+  get:target=>target?.intelligence||emptyIntelligence(),
+  update(store,target,values){store.updateTarget(target.id,{intelligence:{...this.get(target),...values}});},
+  saveProfile(store,target,values){const previous=this.get(target).profile;const profile={...previous};for(const [key] of profileFields)if(values[key]!==undefined&&values[key]!==previous[key]?.value)profile[key]={value:values[key],...researcherProvenance()};this.update(store,target,{profile});},
+  accept(store,target,item,edited={}){const intelligence=this.get(target);const record={...item,...edited,id:uuid(),status:'accepted',createdAt:now(),originId:item.id,generatedBy:item.sourceType==='ai'?'ai':'manual'};this.update(store,target,{items:[...intelligence.items,record]});return record;},
+  remove(store,target,id){this.update(store,target,{items:this.get(target).items.filter(i=>i.id!==id)});}
+};
+const TerminologyService={search:(packs,query)=>packs.flatMap(pack=>pack.terminology.filter(t=>JSON.stringify(t).toLowerCase().includes(query.toLowerCase())).map(item=>({pack,item})))};
+const DomainKnowledgeService={
+  selected(workspace,target){const intelligence=TargetIntelligenceService.get(target);return [intelligence.primaryDomainId,...intelligence.secondaryDomainIds].filter(Boolean).map(id=>DomainPackRepository.get(workspace,id)).filter(Boolean);},
+  techniques(target,pack,flowId=''){return pack.relevantTechniques.filter(m=>!flowId||m.flowId===flowId).map(mapping=>({...mapping,technique:target?.techniques.find(t=>(t.libraryId||t.id)===mapping.techniqueId)}));},
+  asItem(row,kind,pack){return {id:row.id,kind,title:row.title,content:row.content,sourceType:row.sourceType,source:row.source,confidence:row.confidence,verified:row.verified,notes:row.notes,domainId:pack.id,flowId:row.flowId||'',invariantId:row.invariantId||'',techniqueId:row.techniqueId||row.techniqueIds?.[0]||'',steps:row.steps||[]};}
+};
+const BusinessFlowService={
+  researchCandidates(pack,flow,transitionId){const transition=flow.transitions.find(t=>t.id===transitionId)||flow.transitions.find(t=>t.critical)||flow.transitions[0];const invariant=pack.securityInvariants.find(i=>transition?.invariantIds.includes(i.id))||pack.securityInvariants.find(i=>flow.invariantIds.includes(i.id));return {transition,invariant,question:invariant?{...DomainKnowledgeService.asItem(invariant,'question',pack),id:uuid(),title:'Apa yang terjadi jika authority/state berubah?',content:`Pada ${transition?.action||flow.title}, bagaimana aturan ini ditegakkan: ${invariant.content}`,flowId:flow.id,invariantId:invariant.id,transitionId:transition?.id||''}:null};}
+};
+const KnowledgeGraphService={
+  edges(pack){const edges=[];for(const flow of pack.businessFlows){edges.push({from:pack.id,to:flow.id,type:'business-flow'});for(const [key,type] of [['actorIds','actor'],['objectIds','object'],['boundaryIds','boundary'],['invariantIds','invariant']])for(const id of flow[key])edges.push({from:flow.id,to:id,type});}for(const mapping of pack.relevantTechniques){edges.push({from:mapping.invariantId,to:mapping.techniqueId,type:'technique'});}return edges;},
+  hypothesisDefaults(target,pack,item){
+    const intelligence=TargetIntelligenceService.get(target);
+    const flow=item.kind==='flow'?item:pack?.businessFlows.find(f=>f.id===item.flowId)||intelligence.items.find(i=>i.kind==='flow'&&(i.id===item.flowId||i.originId===item.flowId));
+    const invariant=pack?.securityInvariants.find(i=>i.id===item.invariantId||i.id===item.originId||i.id===item.id)||intelligence.items.find(i=>i.kind==='invariant'&&(i.id===item.invariantId||i.originId===item.invariantId))||pack?.securityInvariants.find(i=>flow?.invariantIds?.includes(i.id));
+    const techniqueKey=item.techniqueId||invariant?.techniqueIds?.[0]||invariant?.techniqueId;
+    const technique=target.techniques.find(t=>(t.libraryId||t.id)===techniqueKey);
+    const transition=flow?.transitions?.find(t=>t.id===item.transitionId)||flow?.transitions?.find(t=>t.critical);
+    return {title:item.kind==='invariant'?'Uji invariant: '+item.title:item.title,invariant:item.kind==='invariant'?item.content:invariant?.content||'',expectedBehavior:item.kind==='invariant'?item.content:invariant?.content||'',potentialFailure:item.kind==='question'?item.content:'Hipotesis: aturan ini mungkin tidak ditegakkan pada critical transition; perlu evidence.',techniqueId:technique?.id||'',who:target.actors[0]?.name||'',what:transition?.action||(flow?.steps?.length>1?flow.steps.slice(0,2).join(' → '):''),object:target.objects[0]?.name||'',context:[pack?.name,flow?.title].filter(Boolean).join(' / '),notes:'Sumber '+item.sourceType+': '+item.source+'. Ini draft riset, bukan vulnerability target.',knowledgeLinks:{domainId:item.domainId,flowId:item.kind==='flow'?(item.originId||item.id):item.flowId,transitionId:item.transitionId||'',invariantId:item.kind==='invariant'?(item.originId||item.id):item.invariantId||invariant?.id||'',questionId:item.kind==='question'?(item.originId||item.id):'',sourceType:item.sourceType}};
+  }
+};
+function createManualPack(values,previous){
+  const id=previous?.id||'custom-'+uuid(),provenance=researcherProvenance();
+  const rows=(key,kind)=>String(values[key]||'').split('\n').map(s=>s.trim()).filter(Boolean).map((s,index)=>({id:`${id}-${kind}-${index+1}`,title:s,content:s,...provenance}));
+  const actors=rows('actorsText','actor'),businessObjects=rows('objectsText','object'),securityInvariants=rows('invariantsText','invariant').map(row=>({...row,flowId:'',techniqueIds:[]}));
+  const businessFlows=rows('flowsText','flow').map(row=>({...row,steps:row.title.split(/→|->/).map(s=>s.trim()).filter(Boolean),actorIds:[],objectIds:[],boundaryIds:[],invariantIds:[],transitions:[]}));
+  for(const flow of businessFlows)flow.transitions=flow.steps.slice(1).map((step,i)=>({id:flow.id+'-transition-'+i,fromState:flow.steps[i],toState:step,action:flow.steps[i]+' → '+step,critical:false,invariantIds:[]}));
+  const terminology=rows('termsText','term').map(row=>{const [term,definition='',whyImportant='',related='']=row.title.split('|').map(v=>v.trim());return {...row,title:term,content:definition,term,definition,whyImportant,relatedTerms:related.split(',').map(s=>s.trim()).filter(Boolean)};});
+  return {id,name:values.name,description:values.description||'',notes:values.notes||'',provenance,coreConcepts:String(values.conceptsText||'').split('\n').filter(Boolean),terminology,actors,businessObjects,businessFlows,securityInvariants,sensitiveData:rows('sensitiveText','sensitive'),criticalAssets:rows('assetsText','asset'),commonTrustBoundaries:[],commonFailurePatterns:rows('patternsText','pattern'),relevantTechniques:[],researchQuestions:[],references:[]};
+}
+
+// SOURCE: services/knowledge-context
+
+
+// Context is deliberately selected and capped; unrelated targets, evidence and config never enter it.
+function buildKnowledgeContext(workspace,target,options={}){
+  const basic=buildResearchContext(target),intelligence=TargetIntelligenceService.get(target);
+  const pack=DomainPackRepository.get(workspace,options.domainId||intelligence.primaryDomainId);
+  const choose=(row,keys)=>Object.fromEntries(keys.map(k=>[k,row[k]??'']));
+  const fields=profileFields.map(([key,label])=>intelligence.profile[key]?.value?{id:'profile-'+key,kind:key==='businessModel'?'business-model':'company-overview',title:label,content:intelligence.profile[key].value,...choose(intelligence.profile[key],['sourceType','source','confidence','verified','notes']),domainId:pack?.id||'',flowId:'',invariantId:'',techniqueId:'',steps:[]}:null).filter(Boolean);
+  const flow=pack?.businessFlows.find(f=>f.id===options.flowId);
+  const selection=pack?{
+    id:pack.id,name:pack.name,description:pack.description,coreConcepts:pack.coreConcepts.slice(0,5),
+    terminology:(options.term?pack.terminology.filter(t=>t.term===options.term):pack.terminology.slice(0,6)),
+    actors:pack.actors.slice(0,8),businessObjects:pack.businessObjects.slice(0,8),
+    businessFlows:(flow?[flow]:pack.businessFlows.slice(0,2)),
+    securityInvariants:pack.securityInvariants.filter(i=>!flow||i.flowId===flow.id).slice(0,6),
+    commonTrustBoundaries:pack.commonTrustBoundaries.filter(b=>!flow||b.flowId===flow.id).slice(0,6),
+    criticalAssets:pack.criticalAssets.slice(0,6),sensitiveData:pack.sensitiveData.slice(0,6),
+    commonFailurePatterns:pack.commonFailurePatterns.slice(0,6),relevantTechniques:pack.relevantTechniques.filter(m=>!flow||m.flowId===flow.id).slice(0,10),researchQuestions:pack.researchQuestions.filter(q=>!flow||q.flowId===flow.id).slice(0,6)
+  }:null;
+  const allowedTechniques=new Set(selection?.relevantTechniques.map(m=>m.techniqueId)||[]);
+  const accepted=intelligence.items.filter(i=>i.status==='accepted'&&(!pack||i.domainId===pack.id||!i.domainId)&&(!options.flowId||i.flowId===options.flowId||!i.flowId)).slice(0,Math.max(0,30-fields.length));
+  const hypothesis=target.hypotheses.find(h=>h.id===options.hypothesisId);
+  return {operation:options.operation||'generate_target_knowledge',target:basic.target,authorization:basic.authorization,programRules:basic.programRules,scope:basic.scope,
+    research:{question:options.question||'',notes:options.notes||'',level:options.level||'Beginner',domainId:pack?.id||'',flowId:options.flowId||'',term:options.term||''},
+    targetKnowledge:[...fields,...accepted.map(i=>choose(i,['id','kind','title','content','sourceType','source','confidence','verified','notes','domainId','flowId','invariantId','techniqueId','steps']))],
+    domainCatalog:DomainPackRepository.all(workspace).map(p=>({id:p.id,name:p.name})).slice(0,50),domains:selection?[selection]:[],
+    actors:target.actors.slice(0,8).map(a=>choose(a,['name','authority','notes'])),objects:target.objects.slice(0,8).map(o=>choose(o,['name','type','owner','tenant','state','sensitivity','notes'])),boundaries:target.boundaries.slice(0,8).map(b=>choose(b,['id','from','to','channel','authority','trust','notes'])),
+    hypothesis:hypothesis?choose(hypothesis,['title','invariant','potentialFailure','who','what','object','state','authority','context','status']):null,
+    techniques:target.techniques.filter(t=>t.enabled&&allowedTechniques.has(t.libraryId||t.id)).slice(0,20).map(t=>choose(t,['id','libraryId','name','securityInvariant']))};
+}
+
+// SOURCE: services/knowledge-search
+
+// Search indexes related flow text so terminology can lead to invariants and techniques.
+function knowledgeSearch(workspace,query,targetId=''){
+  const text=query.trim().toLowerCase();if(!text)return [];
+  const results=[],match=value=>JSON.stringify(value).toLowerCase().includes(text);
+  const add=(title,category,route,extra={})=>results.push({title,category,route,...extra});
+  for(const target of workspace.targets.filter(t=>!targetId||t.id===targetId)){
+    if(match({name:target.name,asset:target.asset,intelligence:target.intelligence?.profile}))add(target.name,'Target','target-intelligence',{targetId:target.id});
+    for(const [collection,route,category] of [['hypotheses','hypotheses','Hypothesis'],['testCases','tests','Test Case'],['findings','findings','Finding'],['notes','notes','Research Notes'],['techniques','techniques','Technique'],['knowledgeBase','knowledge','Research Pattern / Lesson']])for(const row of target[collection])if(match(row))add(row.title||row.name||'Research Notes',category,route,{targetId:target.id,itemId:row.id});
+    for(const item of target.intelligence?.items||[])if(match(item))add(item.title,'Target Knowledge · '+item.kind,'target-intelligence',{targetId:target.id,itemId:item.id,domainId:item.domainId});
+  }
+  for(const pack of DomainPackRepository.all(workspace)){
+    if(match({name:pack.name,description:pack.description,concepts:pack.coreConcepts}))add(pack.name,'Domain Knowledge','domain-knowledge',{domainId:pack.id});
+    for(const term of pack.terminology)if(match(term))add(term.term,pack.name+' Terminology','terminology',{domainId:pack.id,itemId:term.id});
+    for(const flow of pack.businessFlows)if(match(flow))add(flow.title,pack.name+' Business Flow','business-flows',{domainId:pack.id,itemId:flow.id});
+    for(const [collection,section,category] of [['securityInvariants','invariants','Security Invariant'],['commonFailurePatterns','patterns','Research Pattern'],['researchQuestions','questions','Research Question'],['relevantTechniques','techniques','Related Technique']])for(const item of pack[collection]){
+      const flow=pack.businessFlows.find(f=>f.id===item.flowId);if(match({item,relatedFlow:flow?.steps,relatedFlowTitle:flow?.title}))add(item.title,pack.name+' '+category,collection==='researchQuestions'?'research-questions':'domain-knowledge',{domainId:pack.id,itemId:item.id,section});
+    }
+  }return results.slice(0,200);
+}
+
 // SOURCE: services/ai-client
+
 
 // MODULE: Optional localhost bridge. Config and request token remain session-memory only.
 const aiConnection={baseURL:'',token:'',status:'Disabled',enabled:false,configured:false,provider:'',model:'',privacyMode:'REDACTED_CLOUD',redactSecrets:true};
@@ -849,8 +11534,14 @@ async function requestAdvice(context,privacyMode) {
     aiConnection.status='Connected';return validateAIOutput(data.response);
   }catch(error){if(!['Disabled','Misconfigured'].includes(aiConnection.status))aiConnection.status='Provider Error';throw error;}
 }
+async function requestKnowledge(context,privacyMode){
+  if(!aiConnection.enabled||!aiConnection.configured)throw new Error('AI disabled atau misconfigured.');
+  try{const response=await fetch(aiConnection.baseURL+'/api/knowledge',{method:'POST',headers:{'Content-Type':'application/json','X-Workspace-Token':aiConnection.token},body:JSON.stringify({context,privacyMode}),signal:AbortSignal.timeout(65000),credentials:'omit'});const data=await response.json();if(!response.ok){aiConnection.status=data.status||'Provider Error';throw new Error(data.error||'Provider Error');}aiConnection.status='Connected';return validateKnowledgeResponse(data.response);}catch(error){if(!['Disabled','Misconfigured'].includes(aiConnection.status))aiConnection.status='Provider Error';throw error;}
+}
 
 // SOURCE: storage
+
+
 
 
 // MODULE: Persistence and migration boundary.
@@ -878,6 +11569,9 @@ function migrateWorkspace(input) {
   walk(input);
   if(typeof input.applicationVersion!=='string' || typeof input.updatedAt!=='string' || !Array.isArray(input.targets)) fail('Metadata/root workspace tidak valid.');
   const data=JSON.parse(JSON.stringify(input));
+  data.domainPacks??=[];
+  if(!Array.isArray(data.domainPacks))fail('Domain packs tidak valid.');
+  const packIds=new Set();for(const pack of data.domainPacks){validateDomainPack(pack);if(packIds.has(pack.id))fail('Domain pack ID duplikat.');packIds.add(pack.id);}
   if(data.schemaVersion==='1.0.0') {
     data.schemaVersion=SCHEMA_VERSION;data.applicationVersion='0.2.0';
     for(const target of data.targets) {
@@ -900,6 +11594,8 @@ function migrateWorkspace(input) {
   const textFields=['name','title','platform','programUrl','asset','environment','version','status','owner','tenant','state','sensitivity','from','to','trust','authority','description','hypothesisTemplate','testTemplate','stopCondition','rarity','difficulty','domain','invariant','expectedBehavior','potentialFailure','who','what','object','context','priority','confidence','queue','preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes','result','timestamp','severity','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','mitigation','researchNotes','type','label','path','content','createdAt','updatedAt','techniqueId','hypothesisId','testCaseId'];
   for(const target of data.targets) {
     entity(target,'Target');
+    target.intelligence??=emptyIntelligence();validateIntelligence(target.intelligence);
+    for(const suggestion of target.intelligence.suggestions){entity(suggestion,'Knowledge suggestion');if(!['pending','accepted','rejected'].includes(suggestion.status)||!knowledgeOperations.some(o=>o[0]===suggestion.operation))fail('Knowledge suggestion tidak valid.');validateKnowledgeResponse(suggestion.response);}
     if(typeof target.name!=='string' || !target.name.trim() || !plain(target.scope)) fail('Nama/scope target tidak valid.');
     if(!plain(target.programRules) || ['automationAllowed','dosAllowed','thirdPartyTesting'].some(key=>typeof target.programRules[key]!=='boolean'))fail('Program rules tidak valid.');
     for(const [key,value] of Object.entries(target.scope)) if(key==='guard') {
@@ -911,6 +11607,8 @@ function migrateWorkspace(input) {
       if(!Array.isArray(target[key])) fail('Collection '+key+' tidak valid.');
       for(const row of target[key]) {
         entity(row,key);
+        if(row.knowledgeLinks!==undefined&&(!plain(row.knowledgeLinks)||Object.values(row.knowledgeLinks).some(v=>typeof v!=='string')))fail('Knowledge relationship harus berupa referensi teks.');
+        if(row.knowledgeProvenance!==undefined)validateIntelligence({profile:{source:{value:'',...row.knowledgeProvenance}},primaryDomainId:'',secondaryDomainIds:[],items:[],suggestions:[]});
         if(key==='aiSuggestions') {
           if(!['pending','accepted','rejected'].includes(row.status))fail('Status AI suggestion tidak valid.');
           validateAIOutput(row.response);
@@ -998,10 +11696,11 @@ async function saveConnected(workspace) {
 
 
 
+
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
-const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'0.2.0',updatedAt:now(),targets:[]});
+const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'0.3.0',updatedAt:now(),domainPacks:[],targets:[]});
 function newTarget(values) {
-  return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
+  return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),intelligence:emptyIntelligence(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
 }
 function createStore(initial=freshWorkspace()) {
   let state=migrateWorkspace(initial); const listeners=new Set();
@@ -1013,6 +11712,8 @@ function createStore(initial=freshWorkspace()) {
     addTarget(values){const target=newTarget(values);state.targets.push(target);touch(target);return target;},
     updateTarget(id,values){const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target);},
     deleteTarget(id){state.targets=state.targets.filter(t=>t.id!==id);touch();},
+    saveDomainPack(pack){validateDomainPack(pack);const index=state.domainPacks.findIndex(p=>p.id===pack.id);if(index<0)state.domainPacks.push(pack);else state.domainPacks[index]=pack;touch();},
+    removeDomainPack(id){state.domainPacks=state.domainPacks.filter(p=>p.id!==id);touch();},
     upsert(targetId,collection,values){
       if(!collections.includes(collection)) throw new Error('Collection tidak dikenal.');
       const target=this.target(targetId);let row=target[collection].find(v=>v.id===values.id);
@@ -1038,8 +11739,8 @@ function createStore(initial=freshWorkspace()) {
 
 // SOURCE: router
 // MODULE: Hash navigation works on HTTP and file:// without a server router.
-const routes=[['dashboard','Dashboard'],['targets','Target'],['scope','Scope'],['attack-surface','Attack Surface'],['boundaries','Trust Boundaries'],['actors','Actors'],['objects','Objects'],['techniques','Techniques'],['hypotheses','Hypotheses'],['tests','Test Cases'],['queue','Research Queue'],['findings','Findings'],['evidence','Evidence'],['reports','Reports'],['ai','Research Assistant'],['ai-techniques','Technique Advisor'],['ai-tools','Tool Advisor'],['ai-gaps','AI Gap Analyzer'],['ai-findings','Finding Analyzer'],['notes','Research Notes'],['knowledge','Knowledge Base'],['tools','Tool Knowledge'],['helpers','Internal Helpers'],['coverage','Research Gaps'],['settings','Settings'],['ai-provider','AI Provider'],['backup','Backup']];
-const navigationGroups=[['Workspace',['dashboard']],['Research',['targets','scope','attack-surface','boundaries','actors','objects']],['Testing',['techniques','hypotheses','tests','queue']],['Results',['findings','evidence','reports']],['AI',['ai','ai-techniques','ai-tools','ai-gaps','ai-findings']],['Knowledge',['notes','knowledge','tools','helpers','coverage']],['System',['settings','ai-provider','backup']]];
+const routes=[['dashboard','Dashboard'],['targets','Target'],['scope','Scope'],['attack-surface','Attack Surface'],['boundaries','Trust Boundaries'],['actors','Actors'],['objects','Objects'],['target-intelligence','Target Intelligence'],['domain-knowledge','Domain Knowledge'],['terminology','Terminology'],['business-flows','Business Flows'],['critical-assets','Critical Assets'],['research-questions','Research Questions'],['techniques','Techniques'],['hypotheses','Hypotheses'],['tests','Test Cases'],['queue','Research Queue'],['findings','Findings'],['evidence','Evidence'],['reports','Reports'],['ai','Research Assistant'],['ai-techniques','Technique Advisor'],['ai-tools','Tool Advisor'],['ai-gaps','AI Gap Analyzer'],['ai-findings','Finding Analyzer'],['notes','Research Notes'],['knowledge','Knowledge Base'],['tools','Tool Knowledge'],['helpers','Internal Helpers'],['coverage','Research Gaps'],['settings','Settings'],['ai-provider','AI Provider'],['backup','Backup']];
+const navigationGroups=[['Workspace',['dashboard']],['Research',['targets','scope','attack-surface','boundaries','actors','objects']],['Intelligence',['target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions']],['Testing',['techniques','hypotheses','tests','queue']],['Results',['findings','evidence','reports']],['AI',['ai','ai-techniques','ai-tools','ai-gaps','ai-findings']],['Knowledge',['notes','knowledge','tools','helpers','coverage']],['System',['settings','ai-provider','backup']]];
 const currentRoute=()=>{const key=location.hash.slice(1).split('?')[0];return routes.some(r=>r[0]===key)?key:'dashboard';};
 function routeTo(key) {if(currentRoute()===key) window.dispatchEvent(new Event('hashchange'));else location.hash=key;}
 
@@ -1053,6 +11754,7 @@ function field(form,definition,value='') {
   if(type==='select') {input=el('select',{name,id});for(const option of options) {const [key,text]=Array.isArray(option)?option:[option,option];input.append(el('option',{value:key},text));}}
   else if(type==='textarea') input=el('textarea',{name,id,rows:4});
   else input=el('input',{name,id,type:type==='required'?'text':type,required:type==='required',maxlength: type==='required'?240:4000});
+  if(type==='number') input.step='any';
   input.value=value??'';
   const wrapper=el('label',{class:'field '+(type==='textarea'?'wide':''),for:id},el('span',{},label),input);
   form.append(wrapper);return input;
@@ -1079,6 +11781,7 @@ function formulaSuggestions(form,target) {
 // SOURCE: modules/targets
 
 
+
 const targetFields=[['name','Program Name','required'],['platform','Platform','select',['Bugcrowd','HackerOne','Intigriti','Private','Other']],['programUrl','Program URL'],['asset','Target / Asset'],['environment','Environment'],['version','Version / Build'],['status','Status','select',['active','paused','archived']],['customNotes','Custom Notes','textarea']];
 function editTarget(ctx,target) {editDialog(target?'Edit Target':'Create Target',targetFields,target||{},values=>{if(target)ctx.store.updateTarget(target.id,values);else ctx.selectTarget(ctx.store.addTarget(values).id);ctx.render();});}
 function renderTargets(ctx) {
@@ -1086,6 +11789,11 @@ function renderTargets(ctx) {
   const list=ctx.store.get().targets;
   if(!list.length)root.append(empty('Belum ada target. Buat target pertama untuk mulai menyusun riset.'));
   for(const target of list)root.append(panel(target.name,el('div',{class:'badges'},badge(target.platform),badge(target.status)),el('p',{},target.asset||'Asset belum diisi'),el('p',{class:'muted'},'Environment: '+(target.environment||'—')+' · Build: '+(target.version||'—')),el('p',{class:'muted'},target.programUrl||''),el('p',{class:'muted'},target.customNotes||''),el('div',{class:'actions'},button(target.id===ctx.targetId?'Target aktif':'Pilih target',()=>{ctx.selectTarget(target.id);ctx.render();}),button('Edit',()=>editTarget(ctx,target)),button('Hapus',()=>{if(confirm('Hapus target "'+target.name+'" beserta seluruh research dan evidence? Ekspor backup sebelum melanjutkan.')){ctx.store.deleteTarget(target.id);ctx.selectTarget(ctx.store.get().targets[0]?.id||'');ctx.render();}},'danger'))));
+  for(const target of list){
+    const areas=[['scope','Research'],['target-intelligence','Intelligence'],['tests','Testing'],['findings','Findings']];
+    const controls=areas.map(([route,label])=>button(label,()=>{ctx.selectTarget(target.id);routeTo(route);ctx.render();}));
+    root.append(panel(target.name+' — Target Areas',el('div',{class:'actions'},controls)));
+  }
   return root;
 }
 
@@ -1098,10 +11806,10 @@ function renderScope(ctx,target) {
   const root=el('div',{},ctx.heading('Scope & Engagement Guard','Catat batas engagement sebelum menjalankan pengujian manual.'));
   const checks=el('div',{class:'checklist'});
   for(const [key,label] of guards) {const input=el('input',{type:'checkbox','aria-label':label});input.checked=!!target.scope.guard?.[key];input.addEventListener('change',()=>ctx.store.updateTarget(target.id,{scope:{...target.scope,guard:{...target.scope.guard,[key]:input.checked}}}));checks.append(el('label',{},input,label));}
-  root.append(panel('Engagement Guard',el('p',{class:'muted'},'Checklist dokumentasi manual. Catatan ini tidak memvalidasi target secara otomatis.'),checks));
+  root.append(panel('Engagement Guard',ctx.help('engagement-guard'),el('p',{class:'muted'},'Checklist dokumentasi manual. Catatan ini tidak memvalidasi target secara otomatis.'),checks));
   const rules=el('div',{class:'checklist'});
   for(const [key,label] of [['automationAllowed','Program secara eksplisit mengizinkan automation'],['dosAllowed','Program secara eksplisit mengizinkan DoS testing'],['thirdPartyTesting','Program secara eksplisit mengizinkan testing pihak ketiga']]){const input=el('input',{type:'checkbox','aria-label':label});input.checked=target.programRules[key];input.addEventListener('change',()=>ctx.store.updateTarget(target.id,{programRules:{...target.programRules,[key]:input.checked}}));rules.append(el('label',{},input,label));}
-  root.append(panel('Hard Program Rules',el('p',{class:'notice'},'Default: tidak diizinkan. Centang hanya jika rules program menyatakan izin. AI tidak dapat mengubah flags ini. Aplikasi tetap hanya membantu riset manual.'),rules));
+  root.append(panel('Hard Program Rules',ctx.help('rules-engine'),el('p',{class:'notice'},'Default: tidak diizinkan. Centang hanya jika rules program menyatakan izin. AI tidak dapat mengubah flags ini. Aplikasi tetap hanya membantu riset manual.'),rules));
   const form=el('form',{class:'form-grid'});
   for(const definition of scopeFields) {const input=field(form,definition,target.scope[definition[0]]);input.addEventListener('input',()=>ctx.store.updateTarget(target.id,{scope:{...target.scope,[definition[0]]:input.value}}));}
   form.addEventListener('submit',e=>e.preventDefault());root.append(panel('Scope & testing resources',form));return root;
@@ -1147,7 +11855,7 @@ function renderTechniques(ctx,target) {
   for(const row of rows) {
     const toggles=el('div',{class:'actions'});
     for(const [key,label] of [['enabled','Enabled'],['tested','Tested'],['interesting','Interesting']]) {const input=el('input',{type:'checkbox','aria-label':label+' '+row.name});input.checked=!!row[key];input.addEventListener('change',()=>{ctx.store.upsert(target.id,'techniques',{id:row.id,[key]:input.checked});ctx.render();});toggles.append(el('label',{class:'actions'},input,label));}
-    const detail=el('details',{class:'technique-details'},el('summary',{},'Invariant / hypothesis / test / signals / false positives / stop'),el('dl',{class:'details'},['securityInvariant','hypothesisTemplate','testTemplate','signals','falsePositiveIndicators','stopCondition','notes'].map(key=>[el('dt',{},({securityInvariant:'Security Invariant',hypothesisTemplate:'Hypothesis',testTemplate:'Test',signals:'Signal',falsePositiveIndicators:'False Positive Indicators',stopCondition:'Stop Condition',notes:'Notes'})[key]),el('dd',{},Array.isArray(row[key])?row[key].join('\n'):row[key]||'—')])));
+    const detail=el('details',{class:'technique-details'},el('summary',{},'Invariant / hypothesis / test / signals / false positives / stop'),ctx.help(row.libraryId||'technique-library'),el('dl',{class:'details'},['securityInvariant','hypothesisTemplate','testTemplate','signals','falsePositiveIndicators','stopCondition','notes'].map(key=>[el('dt',{},({securityInvariant:'Security Invariant',hypothesisTemplate:'Hypothesis',testTemplate:'Test',signals:'Signal',falsePositiveIndicators:'False Positive Indicators',stopCondition:'Stop Condition',notes:'Notes'})[key]),el('dd',{},Array.isArray(row[key])?row[key].join('\n'):row[key]||'—')])));
     root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
   }
   return root;
@@ -1162,7 +11870,7 @@ const queueStages=['Backlog','Next','Testing','Interesting','Done'];
 const techniqueOptions=target=>[['','— Pilih technique —'],...target.techniques.map(t=>[t.id,t.name])];
 function editHypothesis(ctx,target,row,defaults={}) {
   const fields=[['title','Title','required'],['techniqueId','Technique','select',techniqueOptions(target)],['invariant','Security Invariant','textarea'],['expectedBehavior','Expected Behavior','textarea'],['potentialFailure','Potential Failure / Hypothesis','textarea'],...formulaFields(target),['priority','Priority','select',['high','medium','low']],['confidence','Confidence','select',['low','medium','high']],['status','Status','select',hypothesisStatuses],['queue','Research Queue','select',queueStages],['notes','Notes','textarea']];
-  editDialog(row?'Edit Hypothesis':'Create Hypothesis',fields,{priority:'medium',confidence:'low',status:'idea',queue:'Backlog',...defaults,...row},values=>{ctx.store.upsert(target.id,'hypotheses',{...row,...values});ctx.render();},form=>formulaSuggestions(form,target));
+  editDialog(row?'Edit Hypothesis':'Create Hypothesis',fields,{priority:'medium',confidence:'low',status:'idea',queue:'Backlog',...defaults,...row},values=>{ctx.store.upsert(target.id,'hypotheses',{...(defaults.knowledgeLinks?{knowledgeLinks:defaults.knowledgeLinks}:{}),...row,...values});ctx.render();},form=>formulaSuggestions(form,target));
 }
 function researchFilters(ctx,target,key,statuses,extra=[]) {
   return ctx.filters(key,[['techniqueId','Technique',target.techniques.map(t=>[t.id,t.name])],['status','Status',statuses],['who','Actor',target.actors.map(a=>a.name)],['object','Object',target.objects.map(o=>o.name)],...extra]);
@@ -1197,7 +11905,7 @@ function editTest(ctx,target,row,hypothesis) {
   const defaults={result:'not-tested',timestamp:now()};
   fields.push(['boundaryId','Trust Boundary','select',[['','— Tanpa boundary —'],...target.boundaries.map(b=>[b.id,b.from+' → '+b.to])]],['notes','Research Notes','textarea']);
   if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
-  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);});
+  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);});
 }
 function renderTests(ctx,target) {
   const root=el('div',{},ctx.heading('Test Cases','Catat langkah dan hasil pengujian manual. FAIL berarti security invariant gagal.',button('+ Create Test Case',()=>editTest(ctx,target),'primary')));
@@ -1336,12 +12044,12 @@ const severities=['Unknown','P1','P2','P3','P4','P5'];
 function editFinding(ctx,target,row,defaults={}) {
   const fields=[['title','Title','required'],['status','Status','select',findingStatuses],['severity','Severity · Researcher Estimate','select',severities],['affectedComponent','Affected Component'],['affectedVersion','Affected Version'],['vulnerabilityClass','Vulnerability Class'],['techniqueId','Technique','select',techniqueOptions(target)],['testCaseId','Source Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['startingAuthority','Starting Authority','textarea'],['securityRestriction','Security Restriction','textarea'],['protectedResource','Protected Resource'],['unauthorizedOutcome','Unauthorized Outcome','textarea'],['rootCause','Root Cause Hypothesis (belum terverifikasi)','textarea'],['impact','Impact (faktual; jangan melebihkan)','textarea'],['preconditions','Preconditions','textarea'],['steps','Steps to Reproduce (satu per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],['mitigation','Mitigation Suggestion','textarea'],['researchNotes','Research Notes','textarea']];
   fields.splice(8,0,...formulaFields(target));
-  editDialog(row?'Edit Finding':'Create Finding',fields,{status:'draft',severity:'Unknown',affectedComponent:target.asset,affectedVersion:target.version,...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'findings',{...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||defaults.evidenceIds||[]);});
+  editDialog(row?'Edit Finding':'Create Finding',fields,{status:'draft',severity:'Unknown',affectedComponent:target.asset,affectedVersion:target.version,...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'findings',{...(defaults.knowledgeLinks?{knowledgeLinks:defaults.knowledgeLinks}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||defaults.evidenceIds||[]);});
 }
 function promoteTest(ctx,target,test) {
   const hypothesis=target.hypotheses.find(h=>h.id===test.hypothesisId);
   // PURPOSE: Promotion opens an editable draft; status and severity are never claimed automatically.
-  editFinding(ctx,target,null,{title:test.title,testCaseId:test.id,techniqueId:test.techniqueId||hypothesis?.techniqueId||'',who:test.who,what:test.what,object:test.object,state:test.state,authority:test.authority,context:test.context,startingAuthority:[test.who,test.authority,test.context].filter(Boolean).join(' / '),securityRestriction:hypothesis?.invariant||'',protectedResource:test.object,preconditions:test.preconditions,steps:test.steps,expectedResult:test.expectedResult,actualResult:test.actualResult,unauthorizedOutcome:test.actualResult,evidenceIds:[...(test.evidenceIds||[])],rootCause:hypothesis?.potentialFailure||'',researchNotes:'Dipromosikan dari pengujian manual. Result: '+test.result+'. Verifikasi temuan sebelum menetapkan status confirmed.'});
+  editFinding(ctx,target,null,{...(test.knowledgeLinks?{knowledgeLinks:{...test.knowledgeLinks}}:{}),title:test.title,testCaseId:test.id,techniqueId:test.techniqueId||hypothesis?.techniqueId||'',who:test.who,what:test.what,object:test.object,state:test.state,authority:test.authority,context:test.context,startingAuthority:[test.who,test.authority,test.context].filter(Boolean).join(' / '),securityRestriction:hypothesis?.invariant||'',protectedResource:test.object,preconditions:test.preconditions,steps:test.steps,expectedResult:test.expectedResult,actualResult:test.actualResult,unauthorizedOutcome:test.actualResult,evidenceIds:[...(test.evidenceIds||[])],rootCause:hypothesis?.potentialFailure||'',researchNotes:'Dipromosikan dari pengujian manual. Result: '+test.result+'. Verifikasi temuan sebelum menetapkan status confirmed.'});
 }
 function renderFindings(ctx,target) {
   const root=el('div',{},ctx.heading('Findings','Temuan yang dapat ditinjau, dilengkapi evidence, lalu disusun menjadi laporan.',button('+ Create Finding',()=>editFinding(ctx,target),'primary')));
@@ -1423,7 +12131,7 @@ function renderSettings(ctx) {
   const filePanel=panel('Optional · Connect workspace.json',el('p',{class:'muted'},'File ditulis hanya saat Anda menekan Save to workspace.json. Browser meminta izin native. Hubungan file perlu dibuat kembali setelah reload.'));
   if(window.showSaveFilePicker)filePanel.append(el('p',{},connectedFile.handle?'Terhubung: '+connectedFile.handle.name:'Belum ada file terhubung.'),el('div',{class:'actions'},button('Connect workspace.json',async()=>{try {await connectFile();ctx.render();}catch(error){if(error.name!=='AbortError')ctx.toast(error.message);}}),connectedFile.handle?button('Save to workspace.json',async()=>{try{await saveConnected(ctx.store.get());ctx.toast('Workspace ditulis ke '+connectedFile.handle.name);}catch(error){ctx.toast('Gagal menulis file: '+error.message);}}):null));
   else filePanel.append(el('p',{class:'notice'},'File System Access API tidak tersedia di browser/context ini. Local persistence dan JSON export tetap tersedia.'));
-  root.append(filePanel,panel('Data & privacy',el('p',{},'schemaVersion: 2.0.0 · applicationVersion: 0.2.0'),el('p',{class:'muted'},'IndexedDB menyimpan data tanpa enkripsi. Journal localStorage opsional membantu recovery ketika tab ditutup. Backup rutin; storage browser dapat dihapus atau penuh.'),el('p',{class:'muted'},'Aplikasi tidak membaca file evidence dari path dan tidak menghubungi aset target. Context AI hanya dikirim setelah Preview dan Send; secrets dire­daksi pada mode REDACTED_CLOUD.'),el('a',{href:ctx.playbookUrl,target:'_blank',rel:'noopener'},'Buka dokumentasi playbook asli ↗')),panel('Reset Workspace',el('p',{class:'muted'},'Menghapus seluruh target dan research dari workspace aktif browser ini. File backup yang sudah diunduh tetap tersedia. Salinan legacy v1 dipertahankan sebagai sumber recovery.'),button('Reset Workspace',()=>{if(confirm('Reset seluruh workspace lokal? Semua target, hypothesis, test, finding, evidence, knowledge, AI suggestion, dan draft laporan akan dihapus. Export Backup sebelum melanjutkan.')){ctx.store.reset();ctx.selectTarget('');ctx.render();}},'danger')));
+  root.append(filePanel,panel('Data & privacy',el('p',{},'schemaVersion: 2.0.0 · workspace applicationVersion: '+ctx.store.get().applicationVersion+' / running application: 0.3.0'),el('p',{class:'muted'},'IndexedDB menyimpan data tanpa enkripsi. Journal localStorage opsional membantu recovery ketika tab ditutup. Backup rutin; storage browser dapat dihapus atau penuh.'),el('p',{class:'muted'},'Aplikasi tidak membaca file evidence dari path dan tidak menghubungi aset target. Context AI hanya dikirim setelah Preview dan Send; secrets dire­daksi pada mode REDACTED_CLOUD.'),el('a',{href:ctx.playbookUrl,target:'_blank',rel:'noopener'},'Buka dokumentasi playbook asli ↗')),panel('Reset Workspace',el('p',{class:'muted'},'Menghapus seluruh target dan research dari workspace aktif browser ini. File backup yang sudah diunduh tetap tersedia. Salinan legacy v1 dipertahankan sebagai sumber recovery.'),button('Reset Workspace',()=>{if(confirm('Reset seluruh workspace lokal? Semua target, hypothesis, test, finding, evidence, knowledge, AI suggestion, dan draft laporan akan dihapus. Export Backup sebelum melanjutkan.')){ctx.store.reset();ctx.selectTarget('');ctx.render();}},'danger')));
   return root;
 }
 
@@ -1483,11 +12191,13 @@ function coveragePanels(target) {
 
 
 
+
 // MODULE: Local manual helper tools. Inputs never produce network requests or target actions.
 function renderHelpers(ctx,target) {
   const root=el('div',{},ctx.heading('Internal Research Helpers','Bangun catatan dan bandingkan observasi secara lokal.'));
   const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
   const kind=select.value;
+  root.append(ctx.help(helperFeatures[kind]));
   if(kind==='authorization-matrix'||kind==='state-transition') {
     const definitions=kind==='authorization-matrix'?[['who','Actor','required'],['object','Object','required'],['what','Action','required'],['authority','Required Authority'],['expectedResult','Expected permission / invariant','textarea']]:[['from','From State','required'],['to','To State','required'],['what','Action'],['authority','Required Authority'],['invariant','Security Invariant','textarea'],['notes','Notes','textarea']];
     const edit=row=>editDialog('Manual '+(kind==='authorization-matrix'?'Authorization Matrix':'State Transition'),definitions,row||{},values=>{ctx.store.upsert(target.id,'helperRecords',{...row,...values,type:kind});ctx.render();});
@@ -1534,6 +12244,8 @@ function renderHelpers(ctx,target) {
 
 
 
+
+
 const aiOperations=[['research_advice','Research Assistant'],['analyze_scope','Analyze Scope'],['recommend_techniques','Technique Advisor'],['recommend_tools','Tool Advisor'],['recommend_helpers','Helper Advisor'],['research_questions','Research Questions'],['generate_hypotheses','Hypothesis Generator'],['analyze_finding','Finding Analyzer'],['false_positive_analysis','False Positive Analyzer'],['duplicate_analysis','Duplicate Analyzer'],['gap_analysis','Gap Analyzer'],['improve_report','Report Assistant'],['evidence_summary','Evidence Summarizer'],['safe_next_steps','Safe Next Steps'],['identify_restrictions','Restrictions']];
 const routeOperations={'ai-techniques':'recommend_techniques','ai-tools':'recommend_tools','ai-gaps':'gap_analysis','ai-findings':'analyze_finding'};
 function renderAI(ctx,target) {
@@ -1541,6 +12253,9 @@ function renderAI(ctx,target) {
   if(!aiConnection.enabled||!aiConnection.configured){root.append(panel('AI: '+aiConnection.status,el('p',{class:'muted'},'Workflow manual tetap tersedia. Konfigurasi provider dan model di .env backend, lalu hubungkan dari AI Provider Settings.'),button('AI Provider Settings',()=>routeTo('ai-provider'))));return root;}
   const form=el('form',{class:'form-grid'});
   field(form,['operation','Operation','select',aiOperations],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
+  const operationHelp=el('div',{class:'wide operation-help'});
+  const updateOperationHelp=()=>operationHelp.replaceChildren(ctx.help(operationFeatures[form.elements.operation.value]));
+  updateOperationHelp();form.elements.operation.addEventListener('change',updateOperationHelp);form.append(operationHelp);
   field(form,['privacyMode','Privacy Mode','select',['LOCAL_ONLY','REDACTED_CLOUD','CLOUD']],aiConnection.privacyMode||'REDACTED_CLOUD');
   field(form,['techniqueId','Technique context','select',[['','— Semua teknik enabled —'],...target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name])]],ctx.toolTechniqueId||'');
   field(form,['findingId','Finding context','select',[['','— Tidak ada finding —'],...target.findings.map(f=>[f.id,f.title])]],ctx.reportFindingId||'');
@@ -1552,6 +12267,7 @@ function renderAI(ctx,target) {
     if(['analyze_finding','false_positive_analysis','duplicate_analysis','improve_report'].includes(options.operation)&&!options.findingId){ctx.toast('Pilih finding untuk operasi ini.');return;}
     const finding=target.findings.find(f=>f.id===options.findingId);if(options.operation==='improve_report')options.report=finding?.reportMarkdown||generateIndonesianReport(target,finding);
     if(options.privacyMode==='LOCAL_ONLY'&&aiConnection.provider!=='ollama'){ctx.toast('LOCAL_ONLY memerlukan provider Ollama localhost.');return;}
+    options.domainKnowledge=DomainKnowledgeService.selected(ctx.store.get(),target);
     const context=buildResearchContext(target,options),redact=options.privacyMode==='REDACTED_CLOUD'||aiConnection.redactSecrets;
     const prepared=redact?SecretRedactor.context(context):context;
     const dialog=el('dialog',{class:'editor'},el('h2',{},'Review AI Context · '+options.privacyMode),el('p',{class:'notice'},options.privacyMode==='LOCAL_ONLY'?'Context dikirim melalui backend localhost ke Ollama localhost.':'Context ini akan dikirim ke '+aiConnection.provider+' melalui backend. Review redaksi, scope, dan evidence sebelum melanjutkan.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send for Analysis',async()=>{
@@ -1583,7 +12299,240 @@ function renderAI(ctx,target) {
   return root;
 }
 
+// SOURCE: modules/intelligence
+
+
+
+
+
+
+
+
+
+
+function knowledgeBadges(item){
+  const names={researcher:'RESEARCHER INPUT · Researcher Provided',target:'TARGET FACT',domain:'DOMAIN KNOWLEDGE',ai:'AI INFERENCE · AI GENERATED',external:'External · belum menjadi target fact',unknown:'UNKNOWN'};
+  return el('div',{class:'badges'},badge(names[item.sourceType]||'UNKNOWN'),item.verified?badge('Verified by researcher'):badge('Unverified'),badge('Confidence: '+Math.round((item.confidence||0)*100)+'%'),item.generatedBy==='ai'&&item.sourceType!=='ai'?badge('Origin: AI GENERATED'):null);
+}
+function knowledgeDetails(item){return [knowledgeBadges(item),el('p',{},item.content||item.definition||''),el('p',{class:'muted'},'Source: '+(item.source||'Unknown')),item.notes?el('p',{class:'muted'},item.notes):null];}
+function saveIntelligence(ctx,target,values){TargetIntelligenceService.update(ctx.store,target,values);ctx.render();}
+function finishDecision(ctx,target,suggestion,id,status){
+  const intelligence=target.intelligence,decisions={...(suggestion.decisions||{}),[id]:status};
+  const ids=[...suggestion.response.items,...suggestion.response.unknownInformation,...suggestion.response.suggestedDomains].map(i=>i.id);
+  const settled=ids.every(i=>decisions[i]);const next={...suggestion,decisions,status:settled?(ids.some(i=>decisions[i]==='accepted')?'accepted':'rejected'):'pending'};
+  TargetIntelligenceService.update(ctx.store,target,{suggestions:intelligence.suggestions.map(s=>s.id===suggestion.id?next:s)});ctx.render();
+}
+function reviewKnowledge(ctx,target,item,onAccepted){
+  editDialog('Review Knowledge — '+item.sourceType,[['title','Title','required'],['content','Content','textarea'],['confidence','Confidence 0–1','number'],['notes','Review Notes','textarea']],item,values=>{
+    const confidence=Number(values.confidence),modified=item.sourceType==='domain'&&(values.title!==item.title||values.content!==item.content);
+    const reviewed={...item,...values,confidence,verified:false,...(modified?{sourceType:'researcher',source:'Researcher edit of '+item.source,notes:values.notes+' · Diadaptasi dari DOMAIN KNOWLEDGE; belum diverifikasi sebagai fakta target.'}:{})};validateKnowledgeItem(reviewed);
+    TargetIntelligenceService.accept(ctx.store,target,reviewed);onAccepted?.();ctx.render();
+  });
+}
+function manualKnowledge(ctx,target){
+  const defaults={id:uuid(),kind:'company-overview',title:'',content:'',...researcherProvenance(),domainId:target.intelligence.primaryDomainId,flowId:'',invariantId:'',techniqueId:'',steps:[]};
+  editDialog('Add Target Knowledge',[['kind','Kind','select',['company-overview','business-model','actor','object','asset','sensitive-data','flow','terminology','boundary','invariant','question','explanation','unknown']],['title','Title','required'],['content','Content','textarea'],['sourceType','Source Type','select',['researcher','target','external','unknown']],['source','Source / reference'],['confidence','Confidence 0–1','number'],['verification','Verified by researcher','select',[['no','Belum'],['yes','Ya — sudah diperiksa']]],['notes','Notes','textarea']],{...defaults,verification:'no'},values=>{
+    const {verification,...fields}=values;const item={...defaults,...fields,confidence:Number(fields.confidence),verified:verification==='yes'};validateKnowledgeItem(item);TargetIntelligenceService.accept(ctx.store,target,item);ctx.render();
+  });
+}
+function acceptedCard(ctx,target,item){
+  const card=panel(item.title,...knowledgeDetails(item));
+  if(item.steps?.length)card.append(el('pre',{class:'business-flow'},item.steps.join(' → ')));
+  const pack=DomainPackRepository.get(ctx.store.get(),item.domainId);
+  card.append(el('div',{class:'actions'},...itemActions(ctx,target,item,pack),button('Edit Knowledge',()=>editDialog('Edit Target Knowledge',[['title','Title','required'],['content','Content','textarea'],['notes','Notes','textarea']],item,values=>{const updated={...item,...values,verified:false,sourceType:item.sourceType==='target'?'researcher':item.sourceType,notes:values.notes+' · Isi diubah; verifikasi perlu ditinjau ulang.'};saveIntelligence(ctx,target,{items:target.intelligence.items.map(i=>i.id===item.id?updated:i)});})),button('Verify as Target Fact',()=>editDialog('Verify as Target Fact',[['source','Source / reference','required'],['notes','Verification Notes','textarea'],['confirmation','Saya sudah memverifikasi isi ini','select',[['no','Belum — jangan ubah menjadi fakta'],['yes','Ya — saya telah memeriksa sumber']]]],{source:item.sourceType==='ai'?'':item.source,notes:item.notes,confirmation:'no'},values=>{if(values.confirmation!=='yes')throw new Error('Konfirmasi verifikasi diperlukan.');saveIntelligence(ctx,target,{items:target.intelligence.items.map(i=>i.id===item.id?{...i,sourceType:'target',source:values.source,notes:values.notes,verified:true,verifiedAt:now()}:i)});})),button('Remove Knowledge',()=>{if(confirm('Hapus knowledge ini? Referensi hypothesis lama tetap menjadi snapshot.')){TargetIntelligenceService.remove(ctx.store,target,item.id);ctx.render();}},'danger')));
+  return card;
+}
+function importResearch(ctx,target,item,kind,domainRow){
+  const provenance={sourceType:item.sourceType,source:item.source,confidence:item.confidence,verified:item.verified,notes:item.notes};
+  const links={domainId:item.domainId,flowId:item.flowId,invariantId:item.invariantId,knowledgeItemId:item.originId||item.id,sourceType:item.sourceType};
+  if(kind==='actor')editDialog('Review Actor Suggestion',[['name','Actor / Role','required'],['authority','Authority'],['notes','Notes','textarea']],{name:item.title,notes:item.content},values=>{ctx.store.upsert(target.id,'actors',{...values,knowledgeProvenance:provenance,knowledgeLinks:links});ctx.render();});
+  if(kind==='object')editDialog('Review Object Suggestion',[['name','Object Name','required'],['type','Object Type','select',['Custom','Account','File','Project','Workspace','Token','Invitation','Approval','Invoice','Webhook','Job','API Resource']],['owner','Owner'],['tenant','Tenant'],['state','State'],['sensitivity','Sensitivity'],['notes','Notes','textarea']],{name:item.title,type:'Custom',notes:item.content},values=>{ctx.store.upsert(target.id,'objects',{...values,knowledgeProvenance:provenance,knowledgeLinks:links});ctx.render();});
+  if(kind==='boundary')editDialog('Review Boundary Suggestion',[['from','From','required'],['to','To','required'],['channel','Channel'],['trust','Trust','select',['restricted','trusted','untrusted']],['authority','Authority'],['notes','Notes','textarea']],{from:domainRow?.fromComponent||'',to:domainRow?.toComponent||'',channel:domainRow?.channel||'',authority:domainRow?.authority||'',notes:item.content},values=>{ctx.store.upsert(target.id,'boundaries',{...values,knowledgeProvenance:provenance,knowledgeLinks:links});ctx.render();});
+}
+function itemActions(ctx,target,item,pack,row){
+  if(!target)return [];
+  const actions=[];
+  if(['actor','object','boundary'].includes(item.kind))actions.push(button('Review / Import '+item.kind,()=>importResearch(ctx,target,item,item.kind,row)));
+  if(['question','invariant'].includes(item.kind))actions.push(button('Convert to Hypothesis',()=>editHypothesis(ctx,target,null,KnowledgeGraphService.hypothesisDefaults(target,pack,item)),'primary'));
+  if(item.kind==='flow')actions.push(button('Flow → Hypothesis',()=>editHypothesis(ctx,target,null,{...KnowledgeGraphService.hypothesisDefaults(target,pack,item),title:'Uji critical transition: '+item.title,potentialFailure:'Apa yang terjadi jika authority/state berubah antara langkah flow ini?',notes:'Review critical transition dan isi invariant sebelum test. Sumber flow: '+item.sourceType+' · '+item.source}),'primary'));
+  return actions;
+}
+function domainCard(ctx,target,pack,row,kind){
+  const item=DomainKnowledgeService.asItem(row,kind,pack);
+  return panel(row.title,...knowledgeDetails(item),el('div',{class:'actions'},target?button('Review / Save Knowledge',()=>reviewKnowledge(ctx,target,item)):null,...itemActions(ctx,target,item,pack,row)));
+}
+function profilePanel(ctx,target){
+  const intelligence=target.intelligence,profile=intelligence.profile;
+  const edit=()=>editDialog('Edit Target Intelligence Profile',profileFields.map(([key,label])=>[key,label,'textarea']),Object.fromEntries(profileFields.map(([key])=>[key,profile[key]?.value||''])),values=>{TargetIntelligenceService.saveProfile(ctx.store,target,values);ctx.render();});
+  const body=panel('Company Overview',el('p',{class:'muted'},'Nilai kosong tetap Unknown. Edit profil menghasilkan RESEARCHER INPUT, bukan fakta perusahaan terverifikasi.'),button('Edit Intelligence Profile',edit,'primary'),button('+ Add Target Knowledge',()=>manualKnowledge(ctx,target)));
+  for(const key of ['company','businessModel','products','users']){const value=profile[key],label=profileFields.find(f=>f[0]===key)[1];body.append(el('div',{class:'record'},el('strong',{},label),el('p',{},value?.value||'Unknown'),value?knowledgeBadges(value):badge('UNKNOWN')));}
+  const details=el('div',{class:'intelligence-profile'});
+  for(const [key,label] of profileFields){const value=profile[key];details.append(el('div',{class:'record'},el('h3',{},label),el('p',{},value?.value||'Unknown'),value?knowledgeBadges(value):badge('UNKNOWN')));}
+  body.append(el('details',{},el('summary',{},'View Profile Fields (16)'),details));return body;
+}
+function classificationPanel(ctx,target,packs){
+  const intelligence=target.intelligence,form=el('form',{class:'form-grid'});
+  field(form,['primaryDomain','Primary Sector','select',[['','Unknown — belum diklasifikasikan'],...packs.map(p=>[p.id,p.name])]],intelligence.primaryDomainId);
+  const secondary=el('fieldset',{class:'wide'},el('legend',{},'Secondary Domains — pilih lebih dari satu bila relevan'));
+  for(const pack of packs){const check=el('input',{type:'checkbox',name:'secondary',value:pack.id});check.checked=intelligence.secondaryDomainIds.includes(pack.id);secondary.append(el('label',{class:'actions'},check,pack.name));}
+  form.append(secondary,el('button',{type:'submit',class:'primary wide'},'Save Domain Classification'));
+  form.addEventListener('submit',event=>{event.preventDefault();const primary=form.elements.primaryDomain.value,secondaries=[...secondary.querySelectorAll('input:checked')].map(i=>i.value).filter(id=>id!==primary);saveIntelligence(ctx,target,{primaryDomainId:primary,secondaryDomainIds:secondaries,classificationProvenance:researcherProvenance()});});
+  return panel('Primary Sector & Secondary Domains',el('p',{class:'muted'},'Classification dipilih peneliti. Domain pack menggambarkan pola bisnis umum, bukan arsitektur aktual target.'),form);
+}
+function techniquePanel(ctx,target,pack,flowId=''){
+  const body=panel('Domain → Technique Mapping',el('p',{class:'muted'},'Research Priority adalah prioritas riset, bukan vulnerability severity. Teknik dipakai hanya jika relevan dan diotorisasi.'));
+  for(const mapping of DomainKnowledgeService.techniques(target,pack,flowId)){
+    const invariant=pack.securityInvariants.find(i=>i.id===mapping.invariantId),flow=pack.businessFlows.find(f=>f.id===mapping.flowId);
+    body.append(el('div',{class:'record'},el('h3',{},mapping.technique?.name||mapping.techniqueId),badge('Research Priority '+mapping.researchPriority+'/100'),el('p',{},mapping.content),el('p',{class:'muted'},'Related Flow: '+(flow?.title||'Unknown')),el('p',{},'Invariant: '+(invariant?.content||'Unknown')),knowledgeBadges(mapping),target&&invariant?button('Create Mapped Hypothesis',()=>{const item=DomainKnowledgeService.asItem(invariant,'invariant',pack);item.techniqueId=mapping.techniqueId;editHypothesis(ctx,target,null,KnowledgeGraphService.hypothesisDefaults(target,pack,item));}):null));
+  }
+  if(!pack.relevantTechniques.length)body.append(empty('Belum ada mapping. Tambahkan mapping pada Domain Knowledge.'));
+  return body;
+}
+function flowCard(ctx,target,pack,flow){
+  const section=panel(flow.title,...knowledgeDetails(flow),el('pre',{class:'business-flow'},flow.steps.join(' → ')));
+  const graphNames=new Map([[pack.id,pack.name],...pack.actors.map(i=>[i.id,i.title]),...pack.businessObjects.map(i=>[i.id,i.title]),...pack.commonTrustBoundaries.map(i=>[i.id,i.title]),...pack.securityInvariants.map(i=>[i.id,i.title]),[flow.id,flow.title]]);
+  section.append(el('details',{},el('summary',{},'Knowledge relationships'),el('ul',{},KnowledgeGraphService.edges(pack).filter(e=>e.from===flow.id||e.to===flow.id).map(e=>el('li',{},(graphNames.get(e.from)||e.from)+' → '+e.type+' → '+(graphNames.get(e.to)||e.to))))));
+  const transition=el('select',{'aria-label':'Critical Transition '+flow.id},flow.transitions.map(t=>el('option',{value:t.id},(t.critical?'CRITICAL · ':'')+t.action)));
+  transition.value=flow.transitions.find(t=>t.critical)?.id||flow.transitions[0]?.id||'';
+  section.append(el('label',{},'Transition untuk review ',transition));
+  section.append(el('div',{class:'actions'},button('Mark / Unmark Critical',()=>{const next=structuredClone(pack),updated=next.businessFlows.find(f=>f.id===flow.id),selected=updated.transitions.find(t=>t.id===transition.value);if(!selected)return;selected.critical=!selected.critical;Object.assign(updated,researcherProvenance(),{source:'Researcher transition classification; original source: '+flow.source});DomainPackRepository.save(ctx.store,next);ctx.render();}),button('Edit Flow Relationships',()=>editFlowRelations(ctx,pack,flow)),target?button('Review / Save Business Flow',()=>reviewKnowledge(ctx,target,DomainKnowledgeService.asItem(flow,'flow',pack))):null,target?button('Flow → Invariant → Question',()=>{
+    const candidates=BusinessFlowService.researchCandidates(pack,flow,transition.value);
+    if(!candidates.question){ctx.toast('Hubungkan invariant ke flow/transition dahulu lewat Edit Flow Relationships.');return;}
+    reviewKnowledge(ctx,target,candidates.question);
+  },'primary'):null,target?button('Flow → Hypothesis',()=>{const c=BusinessFlowService.researchCandidates(pack,flow,transition.value);if(!c.question){ctx.toast('Hubungkan invariant ke flow dahulu.');return;}editHypothesis(ctx,target,null,{...KnowledgeGraphService.hypothesisDefaults(target,pack,c.question),what:c.transition?.action||''});}):null));
+  return section;
+}
+function editFlowRelations(ctx,pack,flow){
+  editDialog('Edit Business Flow Relationships',[['title','Title','required'],['stepsText','Flow steps (satu per baris)','textarea']],{title:flow.title,stepsText:flow.steps.join('\n')},values=>{
+    const next=structuredClone(pack),updated=next.businessFlows.find(f=>f.id===flow.id),steps=values.stepsText.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(steps.length<2)throw new Error('Flow membutuhkan minimal dua langkah.');
+    updated.title=values.title;updated.steps=steps;
+    for(const [key,collection] of [['actorIds','actors'],['objectIds','businessObjects'],['boundaryIds','commonTrustBoundaries'],['invariantIds','securityInvariants']])updated[key]=next[collection].filter(row=>values['rel:'+row.id]==='on').map(row=>row.id);
+    updated.transitions=steps.slice(1).map((step,i)=>{const original=flow.transitions.find(t=>t.fromState===steps[i]&&t.toState===step);return {id:original?.id||updated.id+'-transition-'+uuid(),fromState:steps[i],toState:step,action:steps[i]+' → '+step,critical:original?.critical||false,invariantIds:[...updated.invariantIds]};});
+    if(JSON.stringify(updated)!==JSON.stringify(flow))Object.assign(updated,researcherProvenance(),{source:'Researcher flow edit; original source: '+flow.source,notes:'Flow/relationships diubah peneliti; bukan fakta target terverifikasi.'});
+    DomainPackRepository.save(ctx.store,next);ctx.render();
+  },form=>{for(const [key,collection] of [['actorIds','actors'],['objectIds','businessObjects'],['boundaryIds','commonTrustBoundaries'],['invariantIds','securityInvariants']]){const group=el('fieldset',{class:'wide'},el('legend',{},collection));for(const row of pack[collection]){const input=el('input',{type:'checkbox',name:'rel:'+row.id});input.checked=flow[key].includes(row.id);group.append(el('label',{class:'actions'},input,row.title));}form.append(group);}});
+}
+function editPack(ctx,previous){
+  if(previous){editDialog('Edit Domain Pack JSON',[['json','Pack JSON — preserves relationships','textarea']],{json:JSON.stringify(previous,null,2)},values=>{DomainPackRepository.import(ctx.store,values.json);ctx.render();});return;}
+  const fields=[['name','Name','required'],['description','Description','textarea'],['conceptsText','Core Concepts (satu per baris)','textarea'],['termsText','Terminology: term | definition | whyImportant | related,terms','textarea'],['actorsText','Actors (satu per baris)','textarea'],['objectsText','Objects (satu per baris)','textarea'],['flowsText','Business Flows (satu flow per baris, pisahkan langkah dengan →)','textarea'],['sensitiveText','Sensitive Data (satu per baris)','textarea'],['assetsText','Critical Assets (satu per baris)','textarea'],['invariantsText','Security Invariants (satu per baris)','textarea'],['patternsText','Research Patterns (satu per baris)','textarea'],['notes','Notes','textarea']];
+  editDialog('Custom Domain Knowledge Pack',fields,{},values=>{const pack=createManualPack(values);DomainPackRepository.save(ctx.store,pack);ctx.domainId=pack.id;ctx.render();});
+}
+function addMapping(ctx,target,pack){
+  editDialog('Add Domain Technique Mapping',[['title','Title / Reason','required'],['content','Reason','textarea'],['techniqueId','Technique','select',target.techniques.map(t=>[t.libraryId||t.id,t.name])],['flowId','Related Business Flow','select',[['','Unknown'],...pack.businessFlows.map(f=>[f.id,f.title])]],['invariantId','Security Invariant','select',[['','Unknown'],...pack.securityInvariants.map(i=>[i.id,i.title])]],['researchPriority','Research Priority 0–100','number']],{researchPriority:50},values=>{const next=structuredClone(pack);next.relevantTechniques.push({...values,id:uuid(),researchPriority:Number(values.researchPriority),...researcherProvenance()});DomainPackRepository.save(ctx.store,next);ctx.render();});
+}
+function packControls(ctx,target,pack){
+  const file=el('input',{type:'file',accept:'.json,application/json',hidden:true});
+  file.addEventListener('change',async()=>{const picked=file.files[0];if(!picked)return;try{if(picked.size>1000000)throw new Error('Domain pack maksimal 1 MB.');const data=JSON.parse(await picked.text());validateDomainPack(data);if(DomainPackRepository.get(ctx.store.get(),data.id)&&!confirm('Ganti override domain pack '+data.name+'? Backup workspace dahulu.'))return;DomainPackRepository.save(ctx.store,data);ctx.domainId=data.id;ctx.render();}catch(error){ctx.toast('Domain import ditolak: '+error.message);}});
+  return el('div',{class:'actions knowledge-controls'},button('Browse Full Pack',()=>{ctx.domainLearning=false;ctx.render();}),button('+ Custom Domain Pack',()=>editPack(ctx),'primary'),button('Edit Pack JSON',()=>editPack(ctx,pack)),button('Export Domain Pack',()=>download(pack.id+'.json',JSON.stringify(pack,null,2),'application/json')),button('Import Domain Pack',()=>file.click()),target?button('+ Technique Mapping',()=>addMapping(ctx,target,pack)):null,ctx.store.get().domainPacks.some(p=>p.id===pack.id)?button('Remove Custom / Restore Default',()=>{if(confirm('Hapus custom/override pack ini? Knowledge dan snapshot riset yang sudah diimpor tetap tersedia.')){ctx.store.removeDomainPack(pack.id);ctx.domainId='';ctx.render();}},'danger'):null,file);
+}
+function renderLearning(ctx,target,pack){
+  const root=el('div'),level=ctx.domainLevel||'Beginner';
+  const select=el('select',{'aria-label':'Learning Depth'},['Beginner','Intermediate','Advanced'].map(l=>el('option',{value:l},l)));select.value=level;select.addEventListener('change',()=>{ctx.domainLevel=select.value;ctx.render();});
+  root.append(panel('Learn This Domain — '+pack.name,select,el('p',{class:'muted'},'Materi berikut adalah DOMAIN KNOWLEDGE. Gunakan kartu ringkas sebelum membuka daftar lengkap.'),el('p',{},pack.description),el('ul',{},pack.coreConcepts.map(c=>el('li',{},c)))));
+  const limit=level==='Beginner'?3:level==='Intermediate'?6:12;
+  for(const term of pack.terminology.slice(0,limit))root.append(panel(term.term,knowledgeBadges(term),el('p',{},term.definition),el('p',{class:'muted'},term.whyImportant)));
+  for(const flow of pack.businessFlows.slice(0,2))root.append(flowCard(ctx,target,pack,flow));
+  if(level!=='Beginner'){
+    root.append(panel('Typical Actors & Objects',el('p',{},pack.actors.map(a=>a.title).join(' · ')),el('p',{},pack.businessObjects.map(o=>o.title).join(' · '))),panel('Sensitive Data & Critical Operations',el('ul',{},pack.sensitiveData.map(s=>el('li',{},s.title+': '+s.content))),el('ul',{},pack.businessFlows.flatMap(f=>f.transitions.filter(t=>t.critical)).map(t=>el('li',{},t.action)))));
+    for(const invariant of pack.securityInvariants.slice(0,limit))root.append(domainCard(ctx,target,pack,invariant,'invariant'));
+  }
+  if(level==='Advanced'){for(const pattern of pack.commonFailurePatterns)root.append(domainCard(ctx,target,pack,pattern,'explanation'));root.append(techniquePanel(ctx,target,pack));}
+  root.append(el('div',{class:'actions'},button('See Full Terminology',()=>routeTo('terminology')),button('See Business Flows',()=>routeTo('business-flows')),button('See Research Questions',()=>routeTo('research-questions'))));
+  return root;
+}
+function intelligenceAI(ctx,target,pack){
+  const section=panel('AI Knowledge Assistant',ctx.help('knowledge-ai'));
+  if(!aiConnection.enabled||!aiConnection.configured){section.append(el('p',{class:'muted'},'AI '+aiConnection.status+'. Profil, domain packs, learning, import suggestions dan konversi hypothesis tetap tersedia manual.'),button('AI Provider Settings',()=>routeTo('ai-provider')));return section;}
+  const form=el('form',{class:'form-grid'});
+  field(form,['knowledgeOperation','Operation','select',knowledgeOperations],ctx.knowledgeOperation||'generate_target_knowledge');
+  field(form,['knowledgePrivacy','Privacy Mode','select',['LOCAL_ONLY','REDACTED_CLOUD','CLOUD']],aiConnection.privacyMode);
+  field(form,['knowledgeQuestion','Question / Goal','textarea'],ctx.knowledgeQuestion||'');field(form,['knowledgeNotes','Researcher / Architecture Notes','textarea']);
+  field(form,['knowledgeTerm','Selected Terminology','select',[['','Tidak memilih term'],...pack.terminology.map(t=>[t.term,t.term])]],ctx.knowledgeTerm||'');
+  field(form,['knowledgeFlow','Selected Business Flow','select',[['','Ringkasan maksimal dua flow'],...pack.businessFlows.map(f=>[f.id,f.title])]],ctx.knowledgeFlow||'');
+  field(form,['knowledgeHypothesis','Current Hypothesis','select',[['','Tidak menyertakan hypothesis'],...target.hypotheses.map(h=>[h.id,h.title])]]);
+  const submit=el('button',{type:'submit',class:'primary wide'},ctx.knowledgeBusy?'Analysis sedang berjalan…':'Preview Knowledge Context');submit.disabled=!!ctx.knowledgeBusy;form.append(submit);
+  form.addEventListener('submit',event=>{
+    event.preventDefault();const values=Object.fromEntries(new FormData(form));ctx.knowledgeOperation=values.knowledgeOperation;ctx.knowledgeQuestion=values.knowledgeQuestion;
+    if(values.knowledgePrivacy==='LOCAL_ONLY'&&aiConnection.provider!=='ollama'){ctx.toast('LOCAL_ONLY memerlukan Ollama localhost.');return;}
+    const context=buildKnowledgeContext(ctx.store.get(),target,{operation:values.knowledgeOperation,question:values.knowledgeQuestion,notes:values.knowledgeNotes,domainId:pack.id,term:values.knowledgeTerm,flowId:values.knowledgeFlow,hypothesisId:values.knowledgeHypothesis,level:ctx.domainLevel||'Beginner'});
+    const prepared=values.knowledgePrivacy==='REDACTED_CLOUD'||aiConnection.redactSecrets?SecretRedactor.context(context):context;
+    const dialog=el('dialog',{class:'editor'},el('h2',{},'Review Target Knowledge Context'),el('p',{class:'notice'},'Hanya selected target/domain/flow/term dan capped context ditampilkan. Tidak ada browsing perusahaan otomatis. Review semua data sebelum Send.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send Knowledge Analysis',async()=>{
+      dialog.close();ctx.knowledgeBusy=true;ctx.render();
+      try{const response=await requestKnowledge(prepared,values.knowledgePrivacy);TargetIntelligenceService.update(ctx.store,target,{suggestions:[...target.intelligence.suggestions,{id:uuid(),operation:values.knowledgeOperation,status:'pending',provider:aiConnection.provider,model:aiConnection.model,privacyMode:values.knowledgePrivacy,response,createdAt:now(),decisions:{}}]});ctx.toast('AI knowledge pending. Review sebelum menerima; belum ada model riset yang diubah.');}catch(error){ctx.toast(error.message);}finally{ctx.knowledgeBusy=false;ctx.render();}
+    },'primary')));dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();
+  });section.append(form);return section;
+}
+function suggestionPanels(ctx,target){
+  const root=el('div');
+  for(const suggestion of target.intelligence.suggestions.slice().reverse()){
+    const section=panel('AI GENERATED — '+(knowledgeOperations.find(o=>o[0]===suggestion.operation)?.[1]||suggestion.operation),badge(suggestion.status),badge(suggestion.provider),badge(suggestion.privacyMode));
+    for(const item of [...suggestion.response.items,...suggestion.response.unknownInformation]){
+      const decision=suggestion.decisions?.[item.id],card=panel(item.title,...knowledgeDetails(item),decision?badge('Review: '+decision):null);
+      if(suggestion.status==='pending'&&!decision)card.append(el('div',{class:'actions'},button('Accept / Edit Knowledge',()=>reviewKnowledge(ctx,target,item,()=>finishDecision(ctx,target,suggestion,item.id,'accepted')),'primary'),button('Reject Item',()=>finishDecision(ctx,target,suggestion,item.id,'rejected'),'danger')));
+      section.append(card);
+    }
+    for(const domain of suggestion.response.suggestedDomains){
+      const known=DomainPackRepository.get(ctx.store.get(),domain.id),decision=suggestion.decisions?.[domain.id];
+      const card=panel('Suggested Domain: '+(known?.name||domain.id),knowledgeBadges(domain),el('p',{},domain.reason),el('p',{class:'muted'},domain.notes));
+      if(suggestion.status==='pending'&&!decision)card.append(button('Review Sector Classification',()=>editDialog('Review Domain Classification',[['choice','Classify as','select',[['primary','Primary Sector'],['secondary','Secondary Domain']]],['notes','Review Notes','textarea']],{choice:'secondary',notes:domain.reason},values=>{const intelligence=target.intelligence;TargetIntelligenceService.update(ctx.store,target,{...(values.choice==='primary'?{primaryDomainId:domain.id,secondaryDomainIds:intelligence.secondaryDomainIds.filter(id=>id!==domain.id)}:{secondaryDomainIds:[...new Set([...intelligence.secondaryDomainIds,domain.id])].filter(id=>id!==intelligence.primaryDomainId)}),classificationProvenance:{...domain,notes:values.notes,verified:false}});finishDecision(ctx,target,suggestion,domain.id,'accepted');})),button('Reject Sector',()=>finishDecision(ctx,target,suggestion,domain.id,'rejected')));
+      else if(decision)card.append(badge('Review: '+decision));section.append(card);
+    }
+    if(suggestion.status==='pending')section.append(button('Reject Suggestion',()=>saveIntelligence(ctx,target,{suggestions:target.intelligence.suggestions.map(s=>s.id===suggestion.id?{...s,status:'rejected'}:s)}),'danger'));
+    root.append(section);
+  }return root;
+}
+function renderIntelligence(ctx,target){
+  const titles={'target-intelligence':'Target Intelligence','domain-knowledge':'Domain Knowledge','terminology':'Terminology','business-flows':'Business Flows','critical-assets':'Critical Assets','research-questions':'Research Questions'};
+  const root=el('div',{},ctx.heading(titles[ctx.route]||'Target Intelligence','Understand the business before testing the technology. Knowledge dan inference belum merupakan vulnerability target.'));
+  const packs=DomainPackRepository.all(ctx.store.get()),intelligence=TargetIntelligenceService.get(target);
+  const pack=DomainPackRepository.get(ctx.store.get(),ctx.domainId)||DomainPackRepository.get(ctx.store.get(),intelligence.primaryDomainId)||packs.find(p=>p.id==='finance')||packs[0];
+  if(!pack){root.append(empty('Buat atau import domain pack untuk mulai.'));return root;}
+  const picker=el('select',{'aria-label':'Knowledge Domain'},packs.map(p=>el('option',{value:p.id},p.name)));picker.value=pack.id;picker.addEventListener('change',()=>{ctx.domainId=picker.value;ctx.knowledgeTerm='';ctx.knowledgeFlow='';ctx.render();});
+  root.append(panel('Selected Knowledge Pack',picker,el('p',{class:'muted'},'Memilih pack di sini mengganti materi yang dibaca. Simpan klasifikasi target secara eksplisit pada Target Intelligence.'),button('Learn This Domain',()=>{ctx.domainLearning=true;routeTo('domain-knowledge');ctx.render();},'primary')));
+  if(ctx.route==='target-intelligence'){
+    root.append(classificationPanel(ctx,target,packs),profilePanel(ctx,target));
+    const generate=button('Generate Target Knowledge',()=>{ctx.knowledgeOperation='generate_target_knowledge';ctx.render();ctx.toast('Pilih goal lalu Preview Knowledge Context pada form AI di bawah.');});generate.disabled=!aiConnection.enabled||!aiConnection.configured;
+    root.append(panel('Knowledge Actions',generate,button('Generate Security Invariants',()=>{ctx.intelligenceSection='invariants';ctx.domainLearning=false;routeTo('domain-knowledge');ctx.render();}),button('Generate Research Questions',()=>routeTo('research-questions'))));
+    const overview=el('div',{class:'grid'});
+    for(const [title,collection,section] of [['Typical Users / Actors','actors','actors'],['Critical Objects','businessObjects','objects'],['Sensitive Data','sensitiveData','assets'],['Trust Boundaries','commonTrustBoundaries','boundaries'],['Security Invariants','securityInvariants','invariants'],['Research Questions','researchQuestions','questions']])overview.append(panel(title,badge('DOMAIN KNOWLEDGE · '+pack.name),el('ul',{},pack[collection].slice(0,3).map(row=>el('li',{},row.title))),button('Review '+title,()=>{ctx.intelligenceSection=section;ctx.domainLearning=false;routeTo(section==='questions'?'research-questions':'domain-knowledge');ctx.render();})));
+    root.append(overview,techniquePanel(ctx,target,pack),panel('Target Knowledge',target.intelligence.items.length?target.intelligence.items.map(item=>acceptedCard(ctx,target,item)):empty('Belum ada knowledge yang direview. Isi profil atau review domain/AI suggestions.')));
+    root.append(panel('Business Flow & Terminology',el('p',{},pack.businessFlows.map(f=>f.title).join(' · ')),el('p',{},pack.terminology.slice(0,6).map(t=>t.term).join(' · ')),button('See Business Flows',()=>routeTo('business-flows')),button('See Terminology',()=>routeTo('terminology'))));
+  }else if(ctx.route==='terminology'){
+    const query=el('input',{type:'search','aria-label':'Search Terminology',placeholder:'Cari term, definition, related terms…'}),results=el('div');
+    const render=()=>{results.replaceChildren(...TerminologyService.search([pack],query.value).map(({item})=>panel(item.term,knowledgeBadges(item),el('p',{},item.definition),el('p',{class:'muted'},'Why important: '+item.whyImportant),el('p',{class:'muted'},'Related: '+item.relatedTerms.join(' · ')),button('Ask / Explain Term',()=>{ctx.knowledgeTerm=item.term;ctx.knowledgeOperation='explain_terminology';ctx.render();ctx.toast('Term dipilih pada form AI. Gunakan Preview Knowledge Context.');}))));};query.addEventListener('input',render);render();root.append(query,results);
+  }else if(ctx.route==='business-flows'){
+    for(const flow of pack.businessFlows)root.append(flowCard(ctx,target,pack,flow),techniquePanel(ctx,target,pack,flow.id));
+    for(const item of intelligence.items.filter(i=>i.kind==='flow'))root.append(acceptedCard(ctx,target,item));
+  }else if(ctx.route==='critical-assets'){
+    for(const row of pack.criticalAssets)root.append(domainCard(ctx,target,pack,row,'asset'));
+    for(const row of pack.sensitiveData)root.append(domainCard(ctx,target,pack,row,'sensitive-data'));
+    for(const item of intelligence.items.filter(i=>['asset','sensitive-data'].includes(i.kind)))root.append(acceptedCard(ctx,target,item));
+  }else if(ctx.route==='research-questions'){
+    root.append(el('p',{class:'notice'},'Pertanyaan generik, bukan finding. Review invariant/scope sebelum Convert to Hypothesis.'));
+    for(const row of pack.researchQuestions)root.append(domainCard(ctx,target,pack,row,'question'));
+    for(const item of intelligence.items.filter(i=>['question','invariant'].includes(i.kind)))root.append(acceptedCard(ctx,target,item));
+  }else{
+    root.append(packControls(ctx,target,pack));
+    if(ctx.domainLearning)root.append(renderLearning(ctx,target,pack));
+    else{
+      const sections=[['overview','Overview'],['terminology','Terminology'],['actors','Actors'],['objects','Objects'],['flows','Business Flows'],['assets','Critical Assets'],['boundaries','Trust Boundaries'],['invariants','Security Invariants'],['patterns','Research Patterns'],['techniques','Technique Mapping']];
+      const tabs=el('div',{class:'actions knowledge-tabs'});for(const [key,label] of sections)tabs.append(button(label,()=>{ctx.intelligenceSection=key;ctx.domainLearning=false;ctx.render();},ctx.intelligenceSection===key?'primary':''));root.append(tabs);
+      const section=ctx.intelligenceSection||'overview';
+      if(section==='overview')root.append(panel(pack.name,knowledgeBadges(pack.provenance),el('p',{},pack.description),el('ul',{},pack.coreConcepts.map(c=>el('li',{},c))),el('p',{class:'muted'},pack.notes),pack.references.map(r=>el('p',{},el('a',{href:r.url,target:'_blank',rel:'noopener'},r.title),el('small',{},' · '+r.notes)))));
+      else if(section==='terminology')for(const term of pack.terminology)root.append(panel(term.term,knowledgeBadges(term),el('p',{},term.definition),el('p',{},term.whyImportant),el('p',{class:'muted'},term.relatedTerms.join(' · '))));
+      else if(section==='flows')for(const flow of pack.businessFlows)root.append(flowCard(ctx,target,pack,flow));
+      else if(section==='techniques')root.append(techniquePanel(ctx,target,pack));
+      else{const map={actors:['actors','actor'],objects:['businessObjects','object'],assets:['criticalAssets','asset'],boundaries:['commonTrustBoundaries','boundary'],invariants:['securityInvariants','invariant'],patterns:['commonFailurePatterns','explanation']};const [collection,kind]=map[section]||['securityInvariants','invariant'];for(const row of pack[collection])root.append(domainCard(ctx,target,pack,row,kind));}
+    }
+  }
+  root.append(intelligenceAI(ctx,target,pack),suggestionPanels(ctx,target));return root;
+}
+
 // SOURCE: app
+
+
+
 
 
 
@@ -1615,8 +12564,9 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
   aiConnection,persistence,storageHealthy:!startupError,
   playbookUrl:location.pathname.replace(/\\/g,'/').includes('/client/')?'../universal_bug_bounty_playbook.html':'universal_bug_bounty_playbook.html',
   async connectBackend(url){try{await connectBackend(url);renderNavigation();ctx.render();ctx.toast('Backend terhubung · AI: '+aiConnection.status);}catch(error){ctx.toast(error.message);}},
-  selectTarget(id){ctx.targetId=id;ctx.reportFindingId='';ctx.search='';ctx.searchTarget='';ctx.filterState={};searchInput.value='';},
-  heading(title,description,action){return el('div',{class:'page-heading'},el('div',{},el('div',{class:'eyebrow'},'UNIVERSAL / '+currentRoute().toUpperCase()),el('h1',{},title),el('p',{},description)),action||null);},
+  selectTarget(id){ctx.targetId=id;ctx.reportFindingId='';ctx.search='';ctx.searchTarget='';ctx.filterState={};ctx.domainId='';ctx.knowledgeQuestion='';ctx.knowledgeTerm='';ctx.knowledgeFlow='';searchInput.value='';},
+  help:featureHelp,
+  heading(title,description,action){return el('div',{class:'page-heading'},el('div',{},el('div',{class:'eyebrow'},'UNIVERSAL / '+currentRoute().toUpperCase()),el('h1',{},title),el('p',{},description),routeHelp(currentRoute())),action||null);},
   toast(message){const toast=document.getElementById('toast');toast.textContent=message;toast.hidden=false;clearTimeout(ctx.toastTimer);ctx.toastTimer=setTimeout(()=>toast.hidden=true,6500);},
   deleteButton(target,collection,row){return button('Hapus',()=>{if(confirm('Hapus "'+(row.title||row.name||row.label||'catatan')+'"? Referensi terkait akan dilepas.')){store.remove(target.id,collection,row.id);ctx.render();}},'danger');},
   filters(key,definitions){const container=el('div',{class:'filters'});const state=ctx.filterState[key]||{};
@@ -1636,17 +12586,17 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     else if(route==='targets')content=renderTargets(ctx);
     else if(['settings','ai-provider','backup'].includes(route))content=renderSettings(ctx);
     else if(!target)content=el('div',{},ctx.heading(routes.find(r=>r[0]===route)[1],'Buat atau pilih target terlebih dahulu.',button('+ Create Target',()=>editTarget(ctx),'primary')),empty('Tidak ada target aktif.'));
-    else {const renders={'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
+    else {const renders={'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
     view.replaceChildren(content);
     if(startupError)view.prepend(el('div',{class:'notice',role:'alert'},startupError));
   }
 };
 function renderSearch() {
-  const query=ctx.search.trim().toLowerCase();const root=el('div',{},ctx.heading('Search Results','Pencarian global hypotheses, test cases, findings, dan research notes.'));
+  const query=ctx.search.trim().toLowerCase();const root=el('div',{},ctx.heading('Search Results','Pencarian targets, terminology, business flows, techniques, invariants, patterns, lessons, dan riset.'));
   const picker=el('select',{'aria-label':'Filter target pencarian'},el('option',{value:''},'Semua target'),store.get().targets.map(t=>el('option',{value:t.id},t.name)));picker.value=ctx.searchTarget||'';picker.addEventListener('change',()=>{ctx.searchTarget=picker.value;ctx.render();});root.append(picker);
-  let count=0;
-  for(const target of store.get().targets.filter(t=>!ctx.searchTarget||t.id===ctx.searchTarget))for(const [collection,route,label] of [['hypotheses','hypotheses','Hypothesis'],['testCases','tests','Test Case'],['findings','findings','Finding'],['notes','notes','Notes']])for(const row of target[collection])if(JSON.stringify(row).toLowerCase().includes(query)) {count++;root.append(button(el('span',{},row.title||'Research Notes',el('small',{},target.name+' / '+label+' / '+(row.status||row.result||''))),()=>{ctx.selectTarget(target.id);routeTo(route);ctx.render();},'search-result'));}
-  if(!count)root.append(empty('Tidak ada hasil yang cocok.'));return root;
+  const results=knowledgeSearch(store.get(),query,ctx.searchTarget||'');
+  for(const result of results)root.append(button(el('span',{},result.title,el('small',{},(result.targetId?store.target(result.targetId)?.name+' / ':'')+result.category)),()=>{if(result.targetId)ctx.selectTarget(result.targetId);else {ctx.search='';searchInput.value='';}ctx.domainId=result.domainId||'';ctx.domainLearning=false;ctx.intelligenceSection=result.section||'overview';routeTo(result.route);ctx.render();},'search-result'));
+  if(!results.length)root.append(empty('Tidak ada hasil yang cocok.'));return root;
 }
 function renderNavigation() {
   const nav=document.getElementById('navigation');nav.replaceChildren();

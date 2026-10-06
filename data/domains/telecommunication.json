@@ -1,0 +1,605 @@
+{
+  "id": "telecommunication",
+  "name": "Telecommunication",
+  "description": "Pengelolaan subscriber, layanan konektivitas dan provisioning.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Subscriber identity",
+    "Provisioning state",
+    "Delegasi operator"
+  ],
+  "terminology": [
+    {
+      "id": "telecommunication-term-1",
+      "title": "Provisioning",
+      "content": "Proses mengonfigurasi atau menyediakan layanan/resource.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Provisioning",
+      "definition": "Proses mengonfigurasi atau menyediakan layanan/resource.",
+      "whyImportant": "Job dapat berjalan setelah keputusan izin awal.",
+      "relatedTerms": [
+        "Subscription",
+        "Activation"
+      ]
+    },
+    {
+      "id": "telecommunication-term-2",
+      "title": "Subscriber",
+      "content": "Identitas pelanggan yang memperoleh layanan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Subscriber",
+      "definition": "Identitas pelanggan yang memperoleh layanan.",
+      "whyImportant": "Bedakan subscriber, pengguna dan owner account.",
+      "relatedTerms": [
+        "Account",
+        "Subscription"
+      ]
+    },
+    {
+      "id": "telecommunication-term-3",
+      "title": "Usage Record",
+      "content": "Catatan penggunaan layanan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Usage Record",
+      "definition": "Catatan penggunaan layanan.",
+      "whyImportant": "Dapat mengandung metadata sensitif.",
+      "relatedTerms": [
+        "Billing",
+        "Subscriber"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "telecommunication-actor-1",
+      "title": "Subscriber",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-actor-2",
+      "title": "Account Owner",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-actor-3",
+      "title": "Operator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-actor-4",
+      "title": "Support Agent",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-actor-5",
+      "title": "Partner",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-actor-6",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "telecommunication-object-1",
+      "title": "Subscriber Account",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-2",
+      "title": "Subscription",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-3",
+      "title": "Service Profile",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-4",
+      "title": "Provisioning Job",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-5",
+      "title": "Usage Record",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-6",
+      "title": "Invoice",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-object-7",
+      "title": "Credential",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "telecommunication-flow-1",
+      "title": "Telecommunication — flow generik",
+      "content": "Pengelolaan subscriber, layanan konektivitas dan provisioning.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Subscriber",
+        "Subscription",
+        "Validate Identity",
+        "Authorize Change",
+        "Provision",
+        "Activate",
+        "Usage",
+        "Billing"
+      ],
+      "actorIds": [
+        "telecommunication-actor-1",
+        "telecommunication-actor-2",
+        "telecommunication-actor-3",
+        "telecommunication-actor-4",
+        "telecommunication-actor-5",
+        "telecommunication-actor-6"
+      ],
+      "objectIds": [
+        "telecommunication-object-1",
+        "telecommunication-object-2",
+        "telecommunication-object-3",
+        "telecommunication-object-4",
+        "telecommunication-object-5",
+        "telecommunication-object-6",
+        "telecommunication-object-7"
+      ],
+      "boundaryIds": [
+        "telecommunication-boundary-1"
+      ],
+      "invariantIds": [
+        "telecommunication-invariant-1",
+        "telecommunication-invariant-2",
+        "telecommunication-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "telecommunication-transition-1",
+          "fromState": "Subscriber",
+          "toState": "Subscription",
+          "action": "Subscriber → Subscription",
+          "critical": false,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-2",
+          "fromState": "Subscription",
+          "toState": "Validate Identity",
+          "action": "Subscription → Validate Identity",
+          "critical": false,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-3",
+          "fromState": "Validate Identity",
+          "toState": "Authorize Change",
+          "action": "Validate Identity → Authorize Change",
+          "critical": true,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-4",
+          "fromState": "Authorize Change",
+          "toState": "Provision",
+          "action": "Authorize Change → Provision",
+          "critical": true,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-5",
+          "fromState": "Provision",
+          "toState": "Activate",
+          "action": "Provision → Activate",
+          "critical": false,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-6",
+          "fromState": "Activate",
+          "toState": "Usage",
+          "action": "Activate → Usage",
+          "critical": false,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        },
+        {
+          "id": "telecommunication-transition-7",
+          "fromState": "Usage",
+          "toState": "Billing",
+          "action": "Usage → Billing",
+          "critical": false,
+          "invariantIds": [
+            "telecommunication-invariant-1",
+            "telecommunication-invariant-2",
+            "telecommunication-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "telecommunication-sensitive-1",
+      "title": "Subscriber identity and service details",
+      "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-sensitive-2",
+      "title": "Usage and billing records",
+      "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-sensitive-3",
+      "title": "Provisioning credentials",
+      "content": "Kategori data generik Telecommunication; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "telecommunication-asset-1",
+      "title": "Subscriber Account",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-asset-2",
+      "title": "Service Profile",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-asset-3",
+      "title": "Provisioning Job",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-asset-4",
+      "title": "Usage Record",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Telecommunication flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "telecommunication-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "telecommunication-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "telecommunication-invariant-1",
+      "title": "Perubahan layanan harus terikat pada subscriber dan authority sah.",
+      "content": "Perubahan layanan harus terikat pada subscriber dan authority sah.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "telecommunication-invariant-2",
+      "title": "Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+      "content": "Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "telecommunication-invariant-3",
+      "title": "Usage record harus tetap terisolasi berdasarkan pemilik.",
+      "content": "Usage record harus tetap terisolasi berdasarkan pemilik.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "techniqueIds": [
+        "tech_02"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "telecommunication-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "telecommunication-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "telecommunication-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "telecommunication-mapping-2",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "telecommunication-mapping-3",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "telecommunication-mapping-4",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Telecommunication flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-1",
+      "researchPriority": 60
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "telecommunication-question-1",
+      "title": "Bagaimana memastikan: Perubahan layanan harus terikat pada subscriber dan authority sah.",
+      "content": "Perubahan layanan harus terikat pada subscriber dan authority sah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "telecommunication-question-2",
+      "title": "Bagaimana memastikan: Job provisioning memvalidasi ulang state/izin ketika berjalan.",
+      "content": "Job provisioning memvalidasi ulang state/izin ketika berjalan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-2",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "telecommunication-question-3",
+      "title": "Bagaimana memastikan: Usage record harus tetap terisolasi berdasarkan pemilik.",
+      "content": "Usage record harus tetap terisolasi berdasarkan pemilik. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "telecommunication-flow-1",
+      "invariantId": "telecommunication-invariant-3",
+      "techniqueId": "tech_02"
+    }
+  ],
+  "references": []
+}

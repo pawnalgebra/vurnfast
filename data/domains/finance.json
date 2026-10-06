@@ -1,0 +1,1225 @@
+{
+  "id": "finance",
+  "name": "Finance",
+  "description": "Layanan untuk mencatat atau memindahkan nilai; flow generik perlu dicocokkan dengan produk aktual.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Ownership rekening",
+    "Integritas pembukuan",
+    "Finalitas dan state transaksi"
+  ],
+  "terminology": [
+    {
+      "id": "finance-term-1",
+      "title": "Account",
+      "content": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Account",
+      "definition": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+      "whyImportant": "Ownership account menentukan authority transaksi.",
+      "relatedTerms": [
+        "Balance",
+        "Ledger"
+      ]
+    },
+    {
+      "id": "finance-term-2",
+      "title": "Ledger",
+      "content": "Catatan entri pembukuan yang merekam perubahan posisi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Ledger",
+      "definition": "Catatan entri pembukuan yang merekam perubahan posisi.",
+      "whyImportant": "Kontrol integritas harus mengikuti state transaksi.",
+      "relatedTerms": [
+        "Ledger Entry",
+        "Balance",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "finance-term-3",
+      "title": "Balance",
+      "content": "Posisi saldo berdasarkan catatan pada suatu saat.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Balance",
+      "definition": "Posisi saldo berdasarkan catatan pada suatu saat.",
+      "whyImportant": "Bedakan saldo tercatat dan dana yang dapat digunakan.",
+      "relatedTerms": [
+        "Ledger",
+        "Available Balance"
+      ]
+    },
+    {
+      "id": "finance-term-4",
+      "title": "Available Balance",
+      "content": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Available Balance",
+      "definition": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+      "whyImportant": "Jangan menyamakan dana tersedia dengan saldo keseluruhan.",
+      "relatedTerms": [
+        "Balance",
+        "Authorization"
+      ]
+    },
+    {
+      "id": "finance-term-5",
+      "title": "Settlement",
+      "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Settlement",
+      "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+      "relatedTerms": [
+        "Clearing",
+        "Transaction",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "finance-term-6",
+      "title": "Clearing",
+      "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Clearing",
+      "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+      "relatedTerms": [
+        "Settlement",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "finance-term-7",
+      "title": "Transaction",
+      "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Transaction",
+      "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+      "relatedTerms": [
+        "Transfer",
+        "Ledger"
+      ]
+    },
+    {
+      "id": "finance-term-8",
+      "title": "Transfer",
+      "content": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Transfer",
+      "definition": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+      "whyImportant": "Sumber dana, beneficiary dan authority harus konsisten.",
+      "relatedTerms": [
+        "Account",
+        "Beneficiary",
+        "Transaction"
+      ]
+    },
+    {
+      "id": "finance-term-9",
+      "title": "Beneficiary",
+      "content": "Penerima yang dituju oleh transfer.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Beneficiary",
+      "definition": "Penerima yang dituju oleh transfer.",
+      "whyImportant": "Perubahan penerima dapat mengubah context authorization.",
+      "relatedTerms": [
+        "Transfer",
+        "Account"
+      ]
+    },
+    {
+      "id": "finance-term-10",
+      "title": "Merchant",
+      "content": "Pihak yang menerima pembayaran atas barang/jasa.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Merchant",
+      "definition": "Pihak yang menerima pembayaran atas barang/jasa.",
+      "whyImportant": "Merchant mempunyai hak dan resource berbeda dari customer.",
+      "relatedTerms": [
+        "Payment",
+        "Settlement"
+      ]
+    },
+    {
+      "id": "finance-term-11",
+      "title": "Payment",
+      "content": "Aktivitas pembayaran beserta proses dan record terkait.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Payment",
+      "definition": "Aktivitas pembayaran beserta proses dan record terkait.",
+      "whyImportant": "Bedakan request, authorization dan penyelesaiannya.",
+      "relatedTerms": [
+        "Authorization",
+        "Capture",
+        "Refund"
+      ]
+    },
+    {
+      "id": "finance-term-12",
+      "title": "Authorization",
+      "content": "Persetujuan atau keputusan izin untuk aksi pembayaran tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Authorization",
+      "definition": "Persetujuan atau keputusan izin untuk aksi pembayaran tertentu.",
+      "whyImportant": "Persetujuan perlu terikat pada actor, jumlah dan tujuan yang sesuai.",
+      "relatedTerms": [
+        "Capture",
+        "Payment"
+      ]
+    },
+    {
+      "id": "finance-term-13",
+      "title": "Capture",
+      "content": "Tahap menindaklanjuti pembayaran yang telah diotorisasi sesuai proses produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Capture",
+      "definition": "Tahap menindaklanjuti pembayaran yang telah diotorisasi sesuai proses produk.",
+      "whyImportant": "Jangan menganggap authorization sama dengan dana sudah terselesaikan.",
+      "relatedTerms": [
+        "Authorization",
+        "Settlement"
+      ]
+    },
+    {
+      "id": "finance-term-14",
+      "title": "Refund",
+      "content": "Pengembalian nilai berdasarkan pembayaran/ketentuan yang relevan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Refund",
+      "definition": "Pengembalian nilai berdasarkan pembayaran/ketentuan yang relevan.",
+      "whyImportant": "Hak dan penggunaan ulang aksi harus ditinjau.",
+      "relatedTerms": [
+        "Payment",
+        "Reversal"
+      ]
+    },
+    {
+      "id": "finance-term-15",
+      "title": "Reversal",
+      "content": "Pembalikan operasi atau entri sesuai mekanisme produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Reversal",
+      "definition": "Pembalikan operasi atau entri sesuai mekanisme produk.",
+      "whyImportant": "Bedakan pembalikan dari refund dan retry.",
+      "relatedTerms": [
+        "Transaction",
+        "Refund"
+      ]
+    },
+    {
+      "id": "finance-term-16",
+      "title": "Reconciliation",
+      "content": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Reconciliation",
+      "definition": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+      "whyImportant": "Perbedaan state ledger dan settlement perlu penjelasan, bukan langsung vulnerability.",
+      "relatedTerms": [
+        "Ledger",
+        "Settlement",
+        "Clearing"
+      ]
+    },
+    {
+      "id": "finance-term-17",
+      "title": "Chargeback",
+      "content": "Proses sengketa atau pengembalian melalui mekanisme pembayaran yang berlaku.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Chargeback",
+      "definition": "Proses sengketa atau pengembalian melalui mekanisme pembayaran yang berlaku.",
+      "whyImportant": "Authority dan state dispute berbeda dari refund biasa.",
+      "relatedTerms": [
+        "Payment",
+        "Refund"
+      ]
+    },
+    {
+      "id": "finance-term-18",
+      "title": "Withdrawal",
+      "content": "Penarikan nilai dari account menurut aturan produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Withdrawal",
+      "definition": "Penarikan nilai dari account menurut aturan produk.",
+      "whyImportant": "Periksa ownership dan prasyarat aksi pada data dummy.",
+      "relatedTerms": [
+        "Account",
+        "Limit"
+      ]
+    },
+    {
+      "id": "finance-term-19",
+      "title": "Deposit",
+      "content": "Penambahan dana/record masuk menurut proses produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Deposit",
+      "definition": "Penambahan dana/record masuk menurut proses produk.",
+      "whyImportant": "Jangan menyimpulkan saldo final hanya dari request sukses.",
+      "relatedTerms": [
+        "Account",
+        "Settlement"
+      ]
+    },
+    {
+      "id": "finance-term-20",
+      "title": "Limit",
+      "content": "Batas aktivitas atau jumlah yang ditentukan produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Limit",
+      "definition": "Batas aktivitas atau jumlah yang ditentukan produk.",
+      "whyImportant": "Batas dapat bergantung actor, state atau periode.",
+      "relatedTerms": [
+        "Transfer",
+        "Withdrawal"
+      ]
+    },
+    {
+      "id": "finance-term-21",
+      "title": "KYC",
+      "content": "Proses mengenali customer sesuai kebijakan penyedia.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "KYC",
+      "definition": "Proses mengenali customer sesuai kebijakan penyedia.",
+      "whyImportant": "Status verifikasi adalah data dan authority sensitif.",
+      "relatedTerms": [
+        "Customer",
+        "Account"
+      ]
+    },
+    {
+      "id": "finance-term-22",
+      "title": "AML",
+      "content": "Kebijakan/proses untuk mengendalikan penyalahgunaan keuangan menurut penyedia.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "AML",
+      "definition": "Kebijakan/proses untuk mengendalikan penyalahgunaan keuangan menurut penyedia.",
+      "whyImportant": "Ini konteks domain, bukan panduan kepatuhan atau izin testing.",
+      "relatedTerms": [
+        "KYC",
+        "Transaction"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "finance-actor-1",
+      "title": "Customer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-2",
+      "title": "Merchant",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-3",
+      "title": "Beneficiary",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-4",
+      "title": "Bank",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-5",
+      "title": "Payment Processor",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-6",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-7",
+      "title": "Compliance Officer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-actor-8",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "finance-object-1",
+      "title": "Account",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-2",
+      "title": "Wallet",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-3",
+      "title": "Transaction",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-4",
+      "title": "Ledger Entry",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-5",
+      "title": "Beneficiary",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-6",
+      "title": "Payment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-7",
+      "title": "Refund",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-8",
+      "title": "Settlement",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-9",
+      "title": "Invoice",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-object-10",
+      "title": "API Credential",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "finance-flow-1",
+      "title": "Finance — flow generik",
+      "content": "Layanan untuk mencatat atau memindahkan nilai; flow generik perlu dicocokkan dengan produk aktual.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "User",
+        "Create Transfer",
+        "Validate Account",
+        "Authorization",
+        "Balance Check",
+        "Transaction Created",
+        "Ledger Update",
+        "Settlement",
+        "Reconciliation"
+      ],
+      "actorIds": [
+        "finance-actor-1",
+        "finance-actor-2",
+        "finance-actor-3",
+        "finance-actor-4",
+        "finance-actor-5",
+        "finance-actor-6",
+        "finance-actor-7",
+        "finance-actor-8"
+      ],
+      "objectIds": [
+        "finance-object-1",
+        "finance-object-2",
+        "finance-object-3",
+        "finance-object-4",
+        "finance-object-5",
+        "finance-object-6",
+        "finance-object-7",
+        "finance-object-8",
+        "finance-object-9",
+        "finance-object-10"
+      ],
+      "boundaryIds": [
+        "finance-boundary-1"
+      ],
+      "invariantIds": [
+        "finance-invariant-1",
+        "finance-invariant-3",
+        "finance-invariant-4"
+      ],
+      "transitions": [
+        {
+          "id": "finance-transition-1",
+          "fromState": "User",
+          "toState": "Create Transfer",
+          "action": "User → Create Transfer",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-2",
+          "fromState": "Create Transfer",
+          "toState": "Validate Account",
+          "action": "Create Transfer → Validate Account",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-3",
+          "fromState": "Validate Account",
+          "toState": "Authorization",
+          "action": "Validate Account → Authorization",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-4",
+          "fromState": "Authorization",
+          "toState": "Balance Check",
+          "action": "Authorization → Balance Check",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-5",
+          "fromState": "Balance Check",
+          "toState": "Transaction Created",
+          "action": "Balance Check → Transaction Created",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-6",
+          "fromState": "Transaction Created",
+          "toState": "Ledger Update",
+          "action": "Transaction Created → Ledger Update",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-7",
+          "fromState": "Ledger Update",
+          "toState": "Settlement",
+          "action": "Ledger Update → Settlement",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-transition-8",
+          "fromState": "Settlement",
+          "toState": "Reconciliation",
+          "action": "Settlement → Reconciliation",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-1",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finance-flow-2",
+      "title": "Finance — refund generik",
+      "content": "Flow pengembalian nilai; prasyarat aktual harus dikonfirmasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Merchant",
+        "Select Payment",
+        "Authorize Refund",
+        "Validate Refund State",
+        "Execute Refund",
+        "Ledger Update",
+        "Refund Completed",
+        "Reconciliation"
+      ],
+      "actorIds": [
+        "finance-actor-1",
+        "finance-actor-2",
+        "finance-actor-3",
+        "finance-actor-4",
+        "finance-actor-5",
+        "finance-actor-6",
+        "finance-actor-7",
+        "finance-actor-8"
+      ],
+      "objectIds": [
+        "finance-object-1",
+        "finance-object-2",
+        "finance-object-3",
+        "finance-object-4",
+        "finance-object-5",
+        "finance-object-6",
+        "finance-object-7",
+        "finance-object-8",
+        "finance-object-9",
+        "finance-object-10"
+      ],
+      "boundaryIds": [
+        "finance-boundary-1"
+      ],
+      "invariantIds": [
+        "finance-invariant-2",
+        "finance-invariant-3",
+        "finance-invariant-4"
+      ],
+      "transitions": [
+        {
+          "id": "finance-refund-transition-1",
+          "fromState": "Merchant",
+          "toState": "Select Payment",
+          "action": "Merchant → Select Payment",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-2",
+          "fromState": "Select Payment",
+          "toState": "Authorize Refund",
+          "action": "Select Payment → Authorize Refund",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-3",
+          "fromState": "Authorize Refund",
+          "toState": "Validate Refund State",
+          "action": "Authorize Refund → Validate Refund State",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-4",
+          "fromState": "Validate Refund State",
+          "toState": "Execute Refund",
+          "action": "Validate Refund State → Execute Refund",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-5",
+          "fromState": "Execute Refund",
+          "toState": "Ledger Update",
+          "action": "Execute Refund → Ledger Update",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-6",
+          "fromState": "Ledger Update",
+          "toState": "Refund Completed",
+          "action": "Ledger Update → Refund Completed",
+          "critical": true,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        },
+        {
+          "id": "finance-refund-transition-7",
+          "fromState": "Refund Completed",
+          "toState": "Reconciliation",
+          "action": "Refund Completed → Reconciliation",
+          "critical": false,
+          "invariantIds": [
+            "finance-invariant-2",
+            "finance-invariant-3",
+            "finance-invariant-4"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "finance-sensitive-1",
+      "title": "Account identity and beneficiary details",
+      "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-sensitive-2",
+      "title": "Payment instructions and transaction history",
+      "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-sensitive-3",
+      "title": "Ledger and settlement records",
+      "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-sensitive-4",
+      "title": "Payment/API credentials",
+      "content": "Kategori data generik Finance; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "finance-asset-1",
+      "title": "Account",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-2",
+      "title": "Transaction",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-3",
+      "title": "Ledger Entry",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-4",
+      "title": "Payment",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-5",
+      "title": "Refund",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-6",
+      "title": "Settlement",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-asset-7",
+      "title": "API Credential",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Finance flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "finance-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "finance-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "finance-invariant-1",
+      "title": "Transaksi harus terikat pada account yang diotorisasi.",
+      "content": "Transaksi harus terikat pada account yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "finance-invariant-2",
+      "title": "Refund yang selesai tidak boleh dieksekusi dua kali.",
+      "content": "Refund yang selesai tidak boleh dieksekusi dua kali.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-2",
+      "techniqueIds": [
+        "tech_08",
+        "tech_18"
+      ]
+    },
+    {
+      "id": "finance-invariant-3",
+      "title": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+      "content": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "techniqueIds": [
+        "tech_18"
+      ]
+    },
+    {
+      "id": "finance-invariant-4",
+      "title": "Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+      "content": "Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "techniqueIds": [
+        "tech_02"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "finance-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "finance-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "finance-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "finance-mapping-2",
+      "title": "Technique tech_08",
+      "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_08",
+      "flowId": "finance-flow-2",
+      "invariantId": "finance-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "finance-mapping-3",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "finance-mapping-4",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-4",
+      "researchPriority": 60
+    },
+    {
+      "id": "finance-mapping-5",
+      "title": "Technique tech_03",
+      "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Finance flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_03",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-1",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "finance-question-1",
+      "title": "Bagaimana memastikan: Transaksi harus terikat pada account yang diotorisasi.",
+      "content": "Transaksi harus terikat pada account yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "finance-question-2",
+      "title": "Bagaimana memastikan: Refund yang selesai tidak boleh dieksekusi dua kali.",
+      "content": "Refund yang selesai tidak boleh dieksekusi dua kali. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-2",
+      "invariantId": "finance-invariant-2",
+      "techniqueId": "tech_08"
+    },
+    {
+      "id": "finance-question-3",
+      "title": "Bagaimana memastikan: Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi.",
+      "content": "Authority yang dicabut tidak boleh mengizinkan eksekusi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-3",
+      "techniqueId": "tech_18"
+    },
+    {
+      "id": "finance-question-4",
+      "title": "Bagaimana memastikan: Ledger harus konsisten dengan transisi transaksi yang diizinkan.",
+      "content": "Ledger harus konsisten dengan transisi transaksi yang diizinkan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "finance-flow-1",
+      "invariantId": "finance-invariant-4",
+      "techniqueId": "tech_02"
+    }
+  ],
+  "references": [
+    {
+      "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+      "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+      "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 import {validateAIOutput} from './services/ai-schema.js';
 import {DEFAULT_TECHNIQUES} from './technique-data.js';
+import {validateDomainPack,validateIntelligence,emptyIntelligence} from './services/domain-schema.js';
+import {validateKnowledgeResponse,knowledgeOperations} from './services/knowledge-schema.js';
 // MODULE: Persistence and migration boundary.
 // DATA CONTRACT: v1 -> v2 migration preserves IDs, research content, timestamps and extensions.
 export const SCHEMA_VERSION='2.0.0';
@@ -25,6 +27,9 @@ export function migrateWorkspace(input) {
   walk(input);
   if(typeof input.applicationVersion!=='string' || typeof input.updatedAt!=='string' || !Array.isArray(input.targets)) fail('Metadata/root workspace tidak valid.');
   const data=JSON.parse(JSON.stringify(input));
+  data.domainPacks??=[];
+  if(!Array.isArray(data.domainPacks))fail('Domain packs tidak valid.');
+  const packIds=new Set();for(const pack of data.domainPacks){validateDomainPack(pack);if(packIds.has(pack.id))fail('Domain pack ID duplikat.');packIds.add(pack.id);}
   if(data.schemaVersion==='1.0.0') {
     data.schemaVersion=SCHEMA_VERSION;data.applicationVersion='0.2.0';
     for(const target of data.targets) {
@@ -47,6 +52,8 @@ export function migrateWorkspace(input) {
   const textFields=['name','title','platform','programUrl','asset','environment','version','status','owner','tenant','state','sensitivity','from','to','trust','authority','description','hypothesisTemplate','testTemplate','stopCondition','rarity','difficulty','domain','invariant','expectedBehavior','potentialFailure','who','what','object','context','priority','confidence','queue','preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes','result','timestamp','severity','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','mitigation','researchNotes','type','label','path','content','createdAt','updatedAt','techniqueId','hypothesisId','testCaseId'];
   for(const target of data.targets) {
     entity(target,'Target');
+    target.intelligence??=emptyIntelligence();validateIntelligence(target.intelligence);
+    for(const suggestion of target.intelligence.suggestions){entity(suggestion,'Knowledge suggestion');if(!['pending','accepted','rejected'].includes(suggestion.status)||!knowledgeOperations.some(o=>o[0]===suggestion.operation))fail('Knowledge suggestion tidak valid.');validateKnowledgeResponse(suggestion.response);}
     if(typeof target.name!=='string' || !target.name.trim() || !plain(target.scope)) fail('Nama/scope target tidak valid.');
     if(!plain(target.programRules) || ['automationAllowed','dosAllowed','thirdPartyTesting'].some(key=>typeof target.programRules[key]!=='boolean'))fail('Program rules tidak valid.');
     for(const [key,value] of Object.entries(target.scope)) if(key==='guard') {
@@ -58,6 +65,8 @@ export function migrateWorkspace(input) {
       if(!Array.isArray(target[key])) fail('Collection '+key+' tidak valid.');
       for(const row of target[key]) {
         entity(row,key);
+        if(row.knowledgeLinks!==undefined&&(!plain(row.knowledgeLinks)||Object.values(row.knowledgeLinks).some(v=>typeof v!=='string')))fail('Knowledge relationship harus berupa referensi teks.');
+        if(row.knowledgeProvenance!==undefined)validateIntelligence({profile:{source:{value:'',...row.knowledgeProvenance}},primaryDomainId:'',secondaryDomainIds:[],items:[],suggestions:[]});
         if(key==='aiSuggestions') {
           if(!['pending','accepted','rejected'].includes(row.status))fail('Status AI suggestion tidak valid.');
           validateAIOutput(row.response);

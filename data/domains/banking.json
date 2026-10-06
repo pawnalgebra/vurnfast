@@ -1,0 +1,723 @@
+{
+  "id": "banking",
+  "name": "Banking",
+  "description": "Produk rekening dan layanan bank; istilah proses dapat berbeda antar penyedia.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Pemilik rekening",
+    "Mandat transaksi",
+    "Instruksi versus finalitas"
+  ],
+  "terminology": [
+    {
+      "id": "banking-term-1",
+      "title": "Mandate",
+      "content": "Aturan atau pemberian authority untuk suatu rekening/aksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Mandate",
+      "definition": "Aturan atau pemberian authority untuk suatu rekening/aksi.",
+      "whyImportant": "Perubahan mandat mengubah siapa boleh bertindak.",
+      "relatedTerms": [
+        "Account",
+        "Authorization"
+      ]
+    },
+    {
+      "id": "banking-term-2",
+      "title": "Statement",
+      "content": "Ringkasan record aktivitas rekening pada periode tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Statement",
+      "definition": "Ringkasan record aktivitas rekening pada periode tertentu.",
+      "whyImportant": "Merupakan resource sensitif yang ownership-nya perlu dijaga.",
+      "relatedTerms": [
+        "Account",
+        "Ledger"
+      ]
+    },
+    {
+      "id": "banking-term-3",
+      "title": "Account",
+      "content": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Account",
+      "definition": "Rekening atau identitas pembukuan untuk pemilik dana/aktivitas.",
+      "whyImportant": "Ownership account menentukan authority transaksi.",
+      "relatedTerms": [
+        "Balance",
+        "Ledger"
+      ]
+    },
+    {
+      "id": "banking-term-4",
+      "title": "Ledger",
+      "content": "Catatan entri pembukuan yang merekam perubahan posisi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Ledger",
+      "definition": "Catatan entri pembukuan yang merekam perubahan posisi.",
+      "whyImportant": "Kontrol integritas harus mengikuti state transaksi.",
+      "relatedTerms": [
+        "Ledger Entry",
+        "Balance",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "banking-term-5",
+      "title": "Balance",
+      "content": "Posisi saldo berdasarkan catatan pada suatu saat.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Balance",
+      "definition": "Posisi saldo berdasarkan catatan pada suatu saat.",
+      "whyImportant": "Bedakan saldo tercatat dan dana yang dapat digunakan.",
+      "relatedTerms": [
+        "Ledger",
+        "Available Balance"
+      ]
+    },
+    {
+      "id": "banking-term-6",
+      "title": "Available Balance",
+      "content": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Available Balance",
+      "definition": "Bagian saldo yang tersedia untuk digunakan setelah pembatasan/hold.",
+      "whyImportant": "Jangan menyamakan dana tersedia dengan saldo keseluruhan.",
+      "relatedTerms": [
+        "Balance",
+        "Authorization"
+      ]
+    },
+    {
+      "id": "banking-term-7",
+      "title": "Settlement",
+      "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Settlement",
+      "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+      "relatedTerms": [
+        "Clearing",
+        "Transaction",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "banking-term-8",
+      "title": "Clearing",
+      "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Clearing",
+      "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+      "relatedTerms": [
+        "Settlement",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "banking-term-9",
+      "title": "Transaction",
+      "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Transaction",
+      "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+      "relatedTerms": [
+        "Transfer",
+        "Ledger"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "banking-actor-1",
+      "title": "Customer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-2",
+      "title": "Account Holder",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-3",
+      "title": "Teller",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-4",
+      "title": "Bank Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-5",
+      "title": "Approver",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-6",
+      "title": "Compliance Officer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-actor-7",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "banking-object-1",
+      "title": "Account",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-2",
+      "title": "Transfer Instruction",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-3",
+      "title": "Beneficiary",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-4",
+      "title": "Statement",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-5",
+      "title": "Mandate",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-6",
+      "title": "Ledger Entry",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-object-7",
+      "title": "Deposit",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "banking-flow-1",
+      "title": "Banking — flow generik",
+      "content": "Produk rekening dan layanan bank; istilah proses dapat berbeda antar penyedia.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Customer",
+        "Create Instruction",
+        "Validate Mandate",
+        "Authorize",
+        "Post Entry",
+        "Settle",
+        "Reconcile"
+      ],
+      "actorIds": [
+        "banking-actor-1",
+        "banking-actor-2",
+        "banking-actor-3",
+        "banking-actor-4",
+        "banking-actor-5",
+        "banking-actor-6",
+        "banking-actor-7"
+      ],
+      "objectIds": [
+        "banking-object-1",
+        "banking-object-2",
+        "banking-object-3",
+        "banking-object-4",
+        "banking-object-5",
+        "banking-object-6",
+        "banking-object-7"
+      ],
+      "boundaryIds": [
+        "banking-boundary-1"
+      ],
+      "invariantIds": [
+        "banking-invariant-1",
+        "banking-invariant-2",
+        "banking-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "banking-transition-1",
+          "fromState": "Customer",
+          "toState": "Create Instruction",
+          "action": "Customer → Create Instruction",
+          "critical": false,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        },
+        {
+          "id": "banking-transition-2",
+          "fromState": "Create Instruction",
+          "toState": "Validate Mandate",
+          "action": "Create Instruction → Validate Mandate",
+          "critical": false,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        },
+        {
+          "id": "banking-transition-3",
+          "fromState": "Validate Mandate",
+          "toState": "Authorize",
+          "action": "Validate Mandate → Authorize",
+          "critical": true,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        },
+        {
+          "id": "banking-transition-4",
+          "fromState": "Authorize",
+          "toState": "Post Entry",
+          "action": "Authorize → Post Entry",
+          "critical": true,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        },
+        {
+          "id": "banking-transition-5",
+          "fromState": "Post Entry",
+          "toState": "Settle",
+          "action": "Post Entry → Settle",
+          "critical": true,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        },
+        {
+          "id": "banking-transition-6",
+          "fromState": "Settle",
+          "toState": "Reconcile",
+          "action": "Settle → Reconcile",
+          "critical": true,
+          "invariantIds": [
+            "banking-invariant-1",
+            "banking-invariant-2",
+            "banking-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "banking-sensitive-1",
+      "title": "Account identity and mandates",
+      "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-sensitive-2",
+      "title": "Statements and transfer instructions",
+      "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-sensitive-3",
+      "title": "Ledger and customer verification records",
+      "content": "Kategori data generik Banking; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "banking-asset-1",
+      "title": "Account",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-asset-2",
+      "title": "Mandate",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-asset-3",
+      "title": "Transfer Instruction",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-asset-4",
+      "title": "Ledger Entry",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-asset-5",
+      "title": "Statement",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Banking flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "banking-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "banking-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "banking-invariant-1",
+      "title": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+      "content": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "banking-invariant-2",
+      "title": "Statement tidak boleh terbaca oleh actor tanpa hak.",
+      "content": "Statement tidak boleh terbaca oleh actor tanpa hak.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "techniqueIds": [
+        "tech_03"
+      ]
+    },
+    {
+      "id": "banking-invariant-3",
+      "title": "Approval harus terikat pada instruksi yang disetujui.",
+      "content": "Approval harus terikat pada instruksi yang disetujui.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "techniqueIds": [
+        "tech_02"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "banking-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "banking-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "banking-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "banking-mapping-2",
+      "title": "Technique tech_03",
+      "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_03",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "banking-mapping-3",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "banking-mapping-4",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Banking flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-1",
+      "researchPriority": 60
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "banking-question-1",
+      "title": "Bagaimana memastikan: Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku.",
+      "content": "Instruksi hanya dijalankan dengan mandat pemilik yang masih berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "banking-question-2",
+      "title": "Bagaimana memastikan: Statement tidak boleh terbaca oleh actor tanpa hak.",
+      "content": "Statement tidak boleh terbaca oleh actor tanpa hak. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-2",
+      "techniqueId": "tech_03"
+    },
+    {
+      "id": "banking-question-3",
+      "title": "Bagaimana memastikan: Approval harus terikat pada instruksi yang disetujui.",
+      "content": "Approval harus terikat pada instruksi yang disetujui. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "banking-flow-1",
+      "invariantId": "banking-invariant-3",
+      "techniqueId": "tech_02"
+    }
+  ],
+  "references": [
+    {
+      "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+      "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+      "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+    }
+  ]
+}

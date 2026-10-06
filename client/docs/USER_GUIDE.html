@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'none'; style-src 'self' file:; img-src 'self' file: data:; object-src 'none'; base-uri 'none'">
+<title>User Guide — Research Workspace</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/documentation.css"></head>
+<body><header><strong>RESEARCH WORKSPACE / LEARN</strong><nav aria-label="Dokumentasi"><a href="USER_GUIDE.html">User Guide</a> <a href="FEATURE_REFERENCE.html">Feature Reference</a> <a href="WORKFLOW_GUIDE.html">Workflow Guide</a> <a href="TARGET_INTELLIGENCE_GUIDE.html">Intelligence Guide</a></nav><a href="USER_GUIDE.md" download>Download Markdown</a></header>
+<main><details class="contents"><summary>Daftar isi</summary><ul><li><a href="#advanced-bug-bounty-research-workspace">Advanced Bug Bounty Research Workspace</a></li><li><a href="#apa-itu-sistem-ini">Apa Itu Sistem Ini</a></li><li><a href="#konsep-dasar">Konsep Dasar</a></li><li><a href="#cara-menjalankan-aplikasi">Cara Menjalankan Aplikasi</a></li><li><a href="#cara-membuat-target-pertama">Cara Membuat Target Pertama</a></li><li><a href="#cara-memasukkan-scope-dan-rules">Cara Memasukkan Scope dan Rules</a></li><li><a href="#cara-mapping-attack-surface">Cara Mapping Attack Surface</a></li><li><a href="#cara-membuat-actor">Cara Membuat Actor</a></li><li><a href="#cara-membuat-object">Cara Membuat Object</a></li><li><a href="#cara-membuat-trust-boundary">Cara Membuat Trust Boundary</a></li><li><a href="#cara-memilih-technique">Cara Memilih Technique</a></li><li><a href="#cara-membuat-hypothesis">Cara Membuat Hypothesis</a></li><li><a href="#cara-membuat-test-case">Cara Membuat Test Case</a></li><li><a href="#cara-menyimpan-evidence">Cara Menyimpan Evidence</a></li><li><a href="#cara-membuat-finding">Cara Membuat Finding</a></li><li><a href="#cara-generate-report">Cara Generate Report</a></li><li><a href="#cara-menggunakan-ai">Cara Menggunakan AI</a></li><li><a href="#cara-menggunakan-tool-advisor">Cara Menggunakan Tool Advisor</a></li><li><a href="#cara-menggunakan-helper-advisor">Cara Menggunakan Helper Advisor</a></li><li><a href="#cara-membaca-research-coverage">Cara Membaca Research Coverage</a></li><li><a href="#cara-menggunakan-knowledge-base">Cara Menggunakan Knowledge Base</a></li><li><a href="#backup-dan-restore-workspace">Backup dan Restore Workspace</a></li></ul></details><article><h1 id="advanced-bug-bounty-research-workspace">Advanced Bug Bounty Research Workspace</h1>
+<p>Pelajari bisnis sebelum menguji teknologi: buka <strong>Target Intelligence</strong> untuk profil dan klasifikasi sektor, lalu <strong>Domain Knowledge</strong>, <strong>Terminology</strong>, dan <strong>Business Flows</strong>. Panduan <a href="TARGET_INTELLIGENCE_GUIDE.html">Target Intelligence &amp; Domain Knowledge</a> menyediakan latihan Finance manual, provenance, custom packs, serta 11 operasi AI knowledge yang terpisah dari Research Assistant. Semua pembelajaran domain bekerja tanpa AI.</p>
+<h2 id="apa-itu-sistem-ini">Apa Itu Sistem Ini</h2>
+<p>Aplikasi ini membantu peneliti menyusun riset bug bounty: mencatat izin, memetakan sistem, merumuskan dugaan, mendokumentasikan pengujian manual, dan menghasilkan laporan. Nama yang tampil pada aplikasi saat ini adalah <strong>Universal Research Workspace</strong>. Panduan ini mengikuti implementasi aplikasi versi 0.3.0 dengan schema workspace 2.0.0.</p>
+<p>Alur utama:</p>
+<pre><code>Target → Scope → Actors &amp; Objects → Trust Boundaries
+       → Technique → Hypothesis → Test Case → Evidence → Finding → Report</code></pre>
+<p>Peneliti menjalankan pengujian sendiri di lingkungan yang diotorisasi. Aplikasi menyimpan catatan; aplikasi tidak menghubungi aset target, menjalankan scanner, atau mengirim laporan ke program. Backend opsional mengirim context yang Anda setujui ke provider AI.</p>
+<p>Mulailah dengan membaca panduan ini, kemudian jalankan <a href="WORKFLOW_GUIDE.html">contoh lengkap Example SaaS</a>. Gunakan <a href="FEATURE_REFERENCE.html">Feature Reference</a> untuk mempelajari input, output, batasan, serta hubungan tiap fitur. Tombol <code>?</code> pada aplikasi membuka penjelasan singkat dan <strong>View Documentation</strong> menuju bagian terkait.</p>
+<p><strong>Active</strong> berarti fungsi sudah tersedia, dengan prasyarat yang dijelaskan. <strong>Partial</strong> berarti fungsi sudah tersedia tetapi kemampuannya terbatas. <strong>Coming Soon</strong> dipakai untuk placeholder yang belum berfungsi; saat audit ini tidak ada menu placeholder yang perlu diberi status tersebut. AI yang belum dikonfigurasi berstatus Disabled atau Misconfigured, bukan Coming Soon.</p>
+<h2 id="konsep-dasar">Konsep Dasar</h2>
+<p>Security invariant adalah aturan keamanan yang seharusnya selalu berlaku. Contoh: <strong>Member yang sudah dicabut tidak boleh memperoleh export baru dari Project milik tenant yang sama</strong>. Dugaan kegagalan aturan disebut hypothesis; fakta hasil pengujian dicatat sebagai actual result dan evidence.</p>
+<p>Enam dimensi membantu menjelaskan kondisi pengujian secara lengkap:</p>
+<div class="table-scroll"><table>
+<tr><th>Dimensi</th><th>Artinya</th><th>Contoh Example SaaS</th></tr>
+<tr><td>WHO</td><td>Actor atau peran yang melakukan aksi</td><td>Member dengan akun uji B</td></tr>
+<tr><td>WHAT</td><td>Aksi yang diminta</td><td>Mengunduh export</td></tr>
+<tr><td>OBJECT</td><td>Resource yang dilindungi</td><td>Export dari Project Demo</td></tr>
+<tr><td>STATE</td><td>Kondisi lifecycle saat aksi terjadi</td><td>Membership revoked</td></tr>
+<tr><td>AUTHORITY</td><td>Hak atau capability yang dimiliki</td><td>Session Member yang belum logout</td></tr>
+<tr><td>CONTEXT</td><td>Lingkungan keputusan tersebut</td><td>Tenant Demo, API → Worker</td></tr>
+</table></div>
+<p>Actor berbeda dari authority: actor adalah pelaku, authority adalah hak yang sedang dibawanya. Object berbeda dari state: export adalah resource, sedangkan queued atau ready adalah kondisinya. Context menjelaskan tenant, origin, surface, atau hubungan komponen yang relevan.</p>
+<p>Isilah WHO dan OBJECT dengan nama yang konsisten dengan daftar Actors dan Objects. Form memberi saran nama, tetapi nilai tersebut merupakan snapshot teks. Mengganti nama actor tidak otomatis mengganti semua test lama.</p>
+<h2 id="cara-menjalankan-aplikasi">Cara Menjalankan Aplikasi</h2>
+<h3 id="mode-manual-tanpa-backend">Mode manual tanpa backend</h3>
+<p>Buka <code>index.html</code> di root project menggunakan browser modern. Bundle lokal sudah disertakan, sehingga mode <code>file://</code> bisa dipakai tanpa instalasi Node. AI tidak tersedia melalui mode ini.</p>
+<p>Alternatif HTTP statis dari folder project, jika Python tersedia:</p>
+<pre><code>python -m http.server 8000 --bind 127.0.0.1 --directory client</code></pre>
+<p>Buka <code>http://127.0.0.1:8000</code>. Dokumentasi tersedia dari bantuan aplikasi. File playbook asli berada di root project; tautan playbook tersebut tidak tersedia apabila server statis hanya menyajikan folder client. Backend di bawah menyajikan playbook asli melalui rute khusus.</p>
+<h3 id="mode-dengan-backend-opsional">Mode dengan backend opsional</h3>
+<p>Diperlukan Node minimal 20.19, npm, dan dependensi project. Dari folder project:</p>
+<pre><code>npm install
+npm start</code></pre>
+<p>Buka <code>http://127.0.0.1:3001</code>. Pada Windows, jika Node default terlalu lama tetapi versi modern sudah terpasang melalui nvm, gunakan:</p>
+<pre><code>powershell -NoProfile -File scripts/workspace.ps1 -Action install
+powershell -NoProfile -File scripts/workspace.ps1 -Action start</code></pre>
+<p>Gunakan <code>.env.example</code> sebagai acuan konfigurasi <code>.env</code>; jangan menimpa <code>.env</code> yang sudah berisi konfigurasi Anda. <code>AI_ENABLED=false</code> mempertahankan seluruh alur manual. Mengaktifkan AI dijelaskan di bagian AI. Jika port diubah melalui <code>SERVER_PORT</code>, gunakan URL dengan port tersebut.</p>
+<p>Data browser terpisah menurut origin/profil browser. <code>file://</code>, <code>localhost</code>, <code>127.0.0.1</code>, atau port yang berbeda dapat memiliki workspace berbeda. <strong>Export Workspace</strong> sebelum pindah cara menjalankan, lalu <strong>Import Workspace</strong> pada origin baru. Browser tidak membaca <code>workspace.json</code> root secara otomatis.</p>
+<h2 id="cara-membuat-target-pertama">Cara Membuat Target Pertama</h2>
+<ol>
+<li>Buka <strong>Target</strong> dan tekan <strong>+ Create Target</strong>.</li>
+<li>Isi Program Name <code>Example SaaS</code>, Platform <code>Private</code>, Target / Asset <code>https://app.example.test</code>, Environment <code>Laboratorium sendiri</code>, Version / Build <code>demo-1</code>, dan Status <code>active</code>.</li>
+<li>Program URL boleh dikosongkan untuk contoh. Untuk engagement nyata, isi referensi halaman program; aplikasi tidak mengambil rules dari URL tersebut.</li>
+<li>Simpan, lalu pastikan <strong>CURRENT TARGET</strong> menunjukkan Example SaaS.</li>
+</ol>
+<p>Program Name wajib; field lain membantu konteks dan laporan. Setiap target memiliki riset, knowledge, dan 20 teknik awal sendiri. Status <code>paused</code> atau <code>archived</code> merupakan label; status tersebut tidak mengunci editor. Menghapus target menghapus seluruh catatan target tersebut.</p>
+<h2 id="cara-memasukkan-scope-dan-rules">Cara Memasukkan Scope dan Rules</h2>
+<p>Buka <strong>Scope</strong> sebelum memilih saran tools atau mulai menguji. Form disimpan saat diketik. Untuk latihan:</p>
+<div class="table-scroll"><table>
+<tr><th>Field</th><th>Contoh isi</th></tr>
+<tr><td>In Scope</td><td><code>https://app.example.test</code> — hanya laboratorium sendiri</td></tr>
+<tr><td>Out of Scope</td><td>Integrasi pembayaran dan seluruh layanan pihak ketiga</td></tr>
+<tr><td>Known Issues</td><td>Tidak ada untuk skenario dummy ini</td></tr>
+<tr><td>Rate Limits</td><td>Maksimal satu aksi manual setiap lima detik, sesuai aturan laboratorium</td></tr>
+<tr><td>Automation Rules</td><td>Hanya manual; tanpa scanner atau loop otomatis</td></tr>
+<tr><td>Testing Restrictions</td><td>Gunakan dua akun sendiri dan resource dummy; hentikan jika data asing muncul</td></tr>
+<tr><td>Safe Harbor Notes</td><td>Catatan izin pemilik laboratorium; bukan kesimpulan hukum aplikasi</td></tr>
+<tr><td>Test Accounts</td><td><code>A = Owner</code>, <code>B = Member</code>; gunakan alias, bukan password</td></tr>
+<tr><td>Owned Domains / Test Workspaces</td><td>Domain <code>.test</code> dan Tenant Demo yang Anda kelola</td></tr>
+<tr><td>Dummy Markers</td><td><code>SECRET_ACCOUNT_A_123</code> dan <code>SECRET_ACCOUNT_B_456</code></td></tr>
+</table></div>
+<p>Engagement Guard memiliki tujuh checklist: target in-scope, akun authorized, data owned, aturan automation dipahami, rate limits dipahami, restrictions/destructive testing dipahami, known issues ditinjau. Centang setelah benar-benar memeriksanya. Checklist merupakan catatan konfirmasi Anda, bukan pemeriksaan otomatis.</p>
+<p><strong>Hard Program Rules</strong> mempunyai tiga izin eksplisit: automation, DoS, dan testing pihak ketiga. Semuanya default false. Memahami aturan automation tidak berarti automation diizinkan. AI tidak dapat mengubah flags ini. Rules program tetap menentukan tindakan yang boleh dilakukan.</p>
+<p>Scope Checker dan advisor memakai asset, daftar scope, serta tiga konfirmasi pertama untuk gating. Pemeriksaan out-of-scope hanya mencocokkan entri teks asset secara utuh setelah normalisasi huruf/spasi; tidak memahami wildcard, path, atau semua kondisi program. Status <code>within_supplied_scope</code> berarti sesuai catatan yang diberikan, bukan validasi izin independen. Review ketujuh checklist tetap diperlukan.</p>
+<h2 id="cara-mapping-attack-surface">Cara Mapping Attack Surface</h2>
+<p><strong>Attack Surface</strong> menampilkan Actors, Objects, dan Trust Boundary Map bersama-sama. Tidak ada discovery otomatis, inventaris endpoint terpisah, atau diagram arsitektur interaktif.</p>
+<p>Tuliskan arsitektur di Custom Notes target atau Notes pada boundary. Misalnya <code>Web/API → Worker → Storage</code>. Untuk Web, API, Desktop, Mobile, Browser Extension, WebSocket, Worker, Storage, atau OAuth, gunakan nama komponen pada <strong>From/To</strong>, lalu jelaskan protokol pada <strong>Channel</strong>. Hanya petakan surface yang benar-benar ada pada sistem Anda.</p>
+<p>Untuk Example SaaS, cukup petakan browser, backend API, worker export, dan storage. Catat endpoint dummy yang relevan sebagai channel/notes, bukan seolah aplikasi telah menemukannya.</p>
+<h2 id="cara-membuat-actor">Cara Membuat Actor</h2>
+<p>Buka <strong>Actors</strong>, tekan <strong>+ Tambah</strong>, isi nama, authority, dan notes. Buat:</p>
+<ul>
+<li><code>Owner</code>: berhak mengelola Project Demo dan mencabut Member.</li>
+<li><code>Member</code>: hak export selama membership aktif; akun uji milik peneliti.</li>
+</ul>
+<p>Nama actor bebas. Anonymous, User, Viewer, Member, Editor, Admin, Owner, atau Service Account dapat dipakai sesuai peran aktual. Ini bukan pembuatan akun pada target. Actor membantu membandingkan hak antarperan dan melengkapi WHO pada hypothesis/test.</p>
+<h2 id="cara-membuat-object">Cara Membuat Object</h2>
+<p>Buka <strong>Objects</strong>, tekan <strong>+ Tambah</strong>, isi name, type, owner, tenant, state, sensitivity, dan notes. Buat <code>Project Demo</code> bertipe Project, owner <code>Owner</code>, tenant <code>Tenant Demo</code>, state <code>active</code>. Buat <code>Export Demo</code> bertipe File, state <code>queued</code>, dengan notes bahwa file dibuat worker dari Project Demo.</p>
+<p>Jenis Export tidak ada pada dropdown; gunakan File, Job, API Resource, atau Custom sesuai resource yang dimaksud. Owner dan tenant adalah catatan teks, bukan koneksi ke akun target. Gunakan label sensitivitas seperti <code>dummy data only</code>.</p>
+<h2 id="cara-membuat-trust-boundary">Cara Membuat Trust Boundary</h2>
+<p>Trust boundary adalah hubungan komponen yang mempunyai tingkat kepercayaan atau hak berbeda. Buka <strong>Trust Boundaries</strong>, tekan <strong>+ Tambah</strong>, lalu isi:</p>
+<pre><code>From: Backend API
+To: Export Worker
+Channel: queue export-job
+Authority: Member aktif pada Project Demo saat worker berjalan
+Trust: restricted
+Notes: Worker harus mengecek membership terbaru, bukan hanya izin saat enqueue.</code></pre>
+<p>Boundary tidak otomatis diwariskan ke test. Pilih <strong>Trust Boundary</strong> pada editor Test Case agar coverage boundary terhitung. Jika arsitektur memiliki Browser → Extension → Backend → Worker → Storage, catat setiap hubungan relevan sebagai row terpisah.</p>
+<h2 id="cara-memilih-technique">Cara Memilih Technique</h2>
+<p>Buka <strong>Techniques</strong>. Gunakan pencarian/filter rarity, difficulty, domain, category, atau sorting berdasarkan priority/risk/cost. Buka detail invariant, hypothesis, test, signals, false positives, dan stop condition.</p>
+<p>Untuk skenario ini pilih <strong>Async Authorization / Queue Revalidation</strong>. Pelajari invariant: worker harus memvalidasi authority dan state ketika job benar-benar dijalankan. Gunakan <strong>Enabled</strong> untuk daftar kandidat AI/coverage. <strong>Tested</strong> dan <strong>Interesting</strong> pada kartu adalah penanda manual; coverage dihitung dari Test Cases, bukan checkbox ini.</p>
+<p>Semua 20 teknik awal didokumentasikan pada <a href="FEATURE_REFERENCE.html#technique-library">referensi teknik</a>. Kategori Sandbox tersedia untuk custom technique, tetapi belum mempunyai teknik bawaan tersendiri. <strong>+ Custom Technique</strong> membuat catatan teknik target ini; tidak mengubah library target lain.</p>
+<h2 id="cara-membuat-hypothesis">Cara Membuat Hypothesis</h2>
+<p>Tekan <strong>Buat hypothesis</strong> pada technique, atau <strong>+ Create Hypothesis</strong> pada Hypotheses. Isi judul, invariant, expected behavior, potential failure, technique, enam dimensi, priority, confidence, status, queue, dan notes.</p>
+<pre><code>Title: Member revoked tidak boleh memperoleh Export Demo
+Invariant: Member yang sudah dicabut tidak boleh menerima hasil export baru.
+Expected Behavior: Worker menolak job atau menolak akses hasil bagi Member revoked.
+Potential Failure: Worker masih memakai snapshot authorization saat enqueue.
+WHO: Member
+WHAT: Memperoleh export
+OBJECT: Export Demo
+STATE: revoked
+AUTHORITY: Session akun uji B
+CONTEXT: Tenant Demo; Backend API → Export Worker
+Priority: medium | Confidence: low | Status: idea | Queue: Backlog</code></pre>
+<p>Tombol dari library mengisi technique, potential failure, dan notes template; isilah invariant sendiri. <strong>Internal Helpers → Hypothesis Generator</strong> juga mengisi invariant template sebelum Anda review. Satu hypothesis bisa mempunyai beberapa test case. Dugaan worker memakai snapshot izin belum merupakan root cause yang terbukti.</p>
+<h2 id="cara-membuat-test-case">Cara Membuat Test Case</h2>
+<p>Dari hypothesis tekan <strong>Buat Test Case</strong>. Periksa field yang diwariskan: technique, enam dimensi, judul, expected result, dan steps template. Sesuaikan preconditions, steps, expected result, boundary, request/response notes, timestamp, dan notes.</p>
+<p>Gunakan langkah sesuai laboratorium: Owner dan Member aktif; buat job dummy; Owner mencabut Member; catat apakah worker atau akses hasil menolak Member. Jangan menganggap langkah ini dibolehkan pada setiap program nyata. Aplikasi tidak menjalankan langkah tersebut.</p>
+<p>Setelah menguji, isi actual result dan pilih hasil:</p>
+<div class="table-scroll"><table>
+<tr><th>Label</th><th>Makna</th></tr>
+<tr><td>NOT TESTED</td><td>Belum ada pengujian yang dicatat</td></tr>
+<tr><td>PASS</td><td>Kontrol keamanan bekerja; invariant bertahan pada kondisi ini</td></tr>
+<tr><td>FAIL</td><td>Invariant keamanan gagal pada observasi ini</td></tr>
+<tr><td>INCONCLUSIVE</td><td>Hasil menarik atau belum cukup jelas; perlu investigasi</td></tr>
+<tr><td>VULNERABILITY</td><td>Opsi tambahan untuk hasil yang dinyatakan terkonfirmasi oleh peneliti</td></tr>
+</table></div>
+<p>FAIL bukan error pada aplikasi workspace. Status hasil tidak otomatis mengonfirmasi finding, mengubah queue, atau menetapkan severity. Simpan waktu dan kondisi yang cukup agar observasi dapat diulang.</p>
+<h2 id="cara-menyimpan-evidence">Cara Menyimpan Evidence</h2>
+<p>Pada test tekan <strong>Attach Evidence</strong> atau gunakan <strong>Evidence → + Attach Evidence</strong>. Pilih jenis, isi label, path/reference opsional, description, teks redacted, dan relasi Test Case/Finding.</p>
+<p>Jenis tersedia: screenshot, HTTP request, HTTP response, console output, log, video reference, file reference, manual note. Path screenshot/video hanya metadata; workspace tidak membuka, mengunggah, atau membackup binary file tersebut. Simpan file aslinya secara terpisah.</p>
+<p>Marker <code>SECRET_ACCOUNT_A_123</code> dan <code>SECRET_ACCOUNT_B_456</code> adalah <strong>label dummy</strong>, bukan secret asli. Isi resource dummy akun A/B dengan label berbeda untuk melacak asal data yang tampak dalam respons. Aplikasi tidak menyisipkan atau mendeteksi marker secara otomatis.</p>
+<p>Warning sensitif pada editor tidak otomatis meredaksi teks yang disimpan. Gunakan <strong>Internal Helpers → Secret Redactor → Redact Preview</strong>, periksa hasil, lalu salin hasil aman ke evidence. Save Redacted Note menyimpan ke Notes; tidak mengganti evidence asli. Redaksi berbasis pola bisa melewatkan secret yang formatnya tidak dikenal.</p>
+<h2 id="cara-membuat-finding">Cara Membuat Finding</h2>
+<p>Setelah meninjau observasi, tekan <strong>Promote to Finding</strong> pada test. Editor membuka draft dengan data test, invariant hypothesis, dan evidence terkait. Status awal <code>draft</code>, severity <code>Unknown</code>. Promosi dapat dilakukan dari hasil apa pun; Anda harus menentukan apakah hasil cukup untuk menjadi temuan.</p>
+<p>Lengkapi affected component/version, vulnerability class, starting authority, security restriction, protected resource, unauthorized outcome, root cause hypothesis, impact faktual, preconditions, steps, expected/actual result, mitigation, research notes, dan evidence. Target terdampak berasal dari CURRENT TARGET.</p>
+<p>Misalnya actual result dummy menunjukkan akun B memperoleh Export Demo sesudah dicabut. Catat observasi tersebut dan marker yang ditemukan; jangan menyatakan seluruh tenant dapat diakses tanpa bukti. Gunakan <strong>Finding Checklist</strong>, review false positive dan duplicate, lalu tentukan status sendiri. P1–P5 adalah estimasi peneliti, bukan CVSS atau keputusan final program.</p>
+<h2 id="cara-generate-report">Cara Generate Report</h2>
+<p>Tekan <strong>Generate Report</strong> pada finding untuk membuka <strong>Reports</strong>. Pilih finding, tekan <strong>Generate Report</strong> di halaman Reports untuk menyimpan template, baca preview, lalu edit Markdown bila diperlukan. Heading laporan default berbahasa Indonesia; teks user tidak diterjemahkan otomatis.</p>
+<p>Template memuat target, severity estimate, prasyarat, authority, restriction, langkah, expected/actual, impact, root cause hypothesis, evidence, mitigation, dan catatan pengujian. Field kosong ditandai belum dicatat. Evidence teks ikut masuk laporan; review redaksi sekali lagi.</p>
+<p>Gunakan <strong>Copy Markdown</strong>, <strong>Download .md</strong>, <strong>Download .txt</strong>, <strong>Download .html</strong>, atau <strong>Print</strong>. HTML berisi teks Markdown yang sudah di-escape dalam blok preformatted. Preview mendukung heading sederhana, bukan seluruh sintaks Markdown. Perubahan finding/evidence tidak otomatis memperbarui draft yang sudah tersimpan; Generate ulang meminta konfirmasi jika ada draft.</p>
+<h2 id="cara-menggunakan-ai">Cara Menggunakan AI</h2>
+<p>AI opsional memerlukan backend lokal. Isi <code>.env</code> di server dengan <code>AI_ENABLED=true</code>, provider dan model yang benar-benar tersedia untuk Anda. Adapter yang diimplementasikan: <code>openai</code>, <code>anthropic</code>, <code>gemini</code>, dan <code>ollama</code>. Cloud membutuhkan API key; Ollama membutuhkan server lokal dan model lokal. Tidak ada nama model default.</p>
+<pre><code>AI_ENABLED=true
+AI_PROVIDER=ollama
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=nama-model-lokal-yang-sudah-terpasang
+AI_PRIVACY_MODE=LOCAL_ONLY
+AI_REDACT_SECRETS=true</code></pre>
+<p>Nama model di atas adalah placeholder konfigurasi, bukan model yang dibundel aplikasi. Restart backend sesudah mengubah <code>.env</code>, buka URL backend, lalu periksa <strong>AI Provider</strong>. <code>Connected</code> mula-mula berarti konfigurasi siap, bukan bukti key/model telah berhasil dipanggil. <code>Provider Error</code> muncul jika request gagal; alur manual tetap tersedia.</p>
+<p>Pilih Operation pada <strong>Research Assistant</strong>, isi goal/context, pilih technique/finding bila relevan. Evidence dan KB tidak dikirim kecuali opsi terkait dicentang. Expected/actual dan ringkasan riset tetap termasuk context biasa, jadi periksa seluruh preview, bukan hanya evidence.</p>
+<ol>
+<li>Pilih privacy mode.</li>
+<li>Tekan <strong>Preview AI Context</strong> dan baca seluruh payload yang akan dikirim.</li>
+<li>Tekan <strong>Send for Analysis</strong> bila context sudah tepat.</li>
+<li>Baca structured recommendation, missing context, stop conditions, confidence, dan priority.</li>
+<li>Pilih Reject, Accept as Research Note, atau Edit / Accept Note. Review Hypothesis membuka form yang harus Anda simpan. Report Draft harus direview dan disimpan secara eksplisit.</li>
+</ol>
+<p>Hasil AI disimpan sebagai suggestion pending. Menyimpan hypothesis dari suggestion tidak otomatis mengubah status seluruh suggestion menjadi accepted; terima note/report atau reject batch sesuai hasil review. AI tidak mengubah facts, severity, rules, atau status confirmed secara otomatis.</p>
+<div class="table-scroll"><table>
+<tr><th>Mode</th><th>Perilaku</th></tr>
+<tr><td>LOCAL_ONLY</td><td>Hanya Ollama localhost; context tidak dikirim melalui adapter cloud</td></tr>
+<tr><td>REDACTED_CLOUD</td><td>Context dan output melewati redaksi pola; cloud menerima context hasil redaksi jika provider cloud dipilih</td></tr>
+<tr><td>CLOUD</td><td>Memungkinkan context tanpa redaksi jika <code>AI_REDACT_SECRETS=false</code>; bila flag tetap true, redaksi tetap berjalan</td></tr>
+</table></div>
+<p>Redaksi tidak berarti anonim sempurna: arsitektur, judul, narasi, dan data yang tidak dikenali dapat tetap terkirim. LOCAL_ONLY tetap mengikuti perilaku model/server Ollama yang Anda kelola. Lihat <a href="FEATURE_REFERENCE.html#ai-privacy">AI Privacy Modes</a> dan daftar 15 operasi di Feature Reference.</p>
+<h2 id="cara-menggunakan-tool-advisor">Cara Menggunakan Tool Advisor</h2>
+<p>Technique adalah pendekatan pengujian; tool adalah aplikasi eksternal; helper adalah fitur internal untuk menyusun/menganalisis catatan. Contoh: IDOR / BOLA / Object Ownership → Burp Repeater → Authorization Matrix Builder. Nama Object Ownership Matrix bukan helper tersendiri pada aplikasi ini.</p>
+<p>Tanpa AI, buka <strong>Tool Knowledge</strong>, pilih technique, lalu baca rekomendasi offline beserta scope warning. Daftar difilter menurut izin yang dicatat dan kecocokan domain/tag technique. Dengan AI, buka <strong>Tool Advisor</strong> atau pilih Operation <strong>Tool Advisor</strong>; rekomendasi dibatasi kandidat Tool KB setelah hard policy filter. Aplikasi tidak menginstal atau menjalankan tools.</p>
+<p>Tool KB memuat Burp Repeater, Caido, mitmproxy, Postman, curl, jq, Browser DevTools, Wireshark, Git, Docker, dan websocat dalam mode manual yang dijelaskan. Jika rekomendasi kosong, periksa asset, In Scope, tiga konfirmasi awal, exclusions, dan kecocokan technique. Tidak ada saran otomatis berbasis scan target.</p>
+<h2 id="cara-menggunakan-helper-advisor">Cara Menggunakan Helper Advisor</h2>
+<p>Dengan AI, pilih Operation <strong>Helper Advisor</strong>; baca helperSuggestions dan alasan kegunaannya. Pemilihan helper tidak mengeksekusi helper. Buka <strong>Internal Helpers</strong> dan pilih helper sendiri.</p>
+<p>Tanpa AI, langsung gunakan dropdown Internal Helper. Tersedia 11 helper: Authorization Matrix Builder, State Transition Builder, Trust Boundary Mapper, Evidence Comparator, Secret Redactor, Hypothesis Generator, Scope Checker, Finding Checklist, Duplicate Comparator, Report Builder, dan Research Gap Analyzer.</p>
+<p>Authorization Matrix dan State Transition menyimpan row manual, bukan diagram atau generator semua kombinasi. Comparator evidence membandingkan keberadaan baris teks, bukan urutan/semantik respons. Duplicate Comparator memakai kemiripan teks lokal, bukan keputusan program. Input comparator/redactor yang belum disimpan hilang saat berganti view.</p>
+<h2 id="cara-membaca-research-coverage">Cara Membaca Research Coverage</h2>
+<p>Dashboard dan <strong>Research Gaps</strong> menunjukkan rasio <strong>covered / total</strong> untuk Technique, Actor, Object, State, dan Boundary. Contoh <code>Actor: 1 / 2</code> berarti satu dari dua actor yang dipetakan muncul dalam test yang hasilnya sudah dicatat.</p>
+<p>Test PASS, FAIL, INCONCLUSIVE, dan VULNERABILITY semuanya berkontribusi karena sudah mempunyai hasil; NOT TESTED tidak. Actor/object/state dicocokkan melalui teks persis, technique/boundary lewat ID. Boundary hanya dihitung jika dipilih pada test. Teknik disabled tidak masuk denominator technique. State berasal dari Objects, Hypotheses, dan Test Cases.</p>
+<p>Tidak ada grafik coverage per kategori Authorization/Async/OAuth dalam bentuk persen. Progress bar Dashboard hanya menunjukkan hasil tercatat dibanding seluruh test yang dibuat per technique. <code>0 / 0</code> berarti belum ada entri/test, bukan bukti aman. Coverage bukan penilaian kelengkapan semua kombinasi actor × object × state.</p>
+<p>Daftar Untested membantu memilih langkah berikutnya. Pesan missing revocation/async/cross-surface memakai kata pada nama technique dan state test; bukan inspeksi semantik langkah/evidence. Review manual, lalu buat hypothesis/test baru untuk gap yang relevan. <strong>AI Gap Analyzer</strong> memberi saran draft tambahan dari context, bukan mengganti rasio lokal.</p>
+<h2 id="cara-menggunakan-knowledge-base">Cara Menggunakan Knowledge Base</h2>
+<p>Buka <strong>Knowledge Base → + Add Knowledge</strong>. Isi judul, kategori, content, source/reference, dan metadata perbandingan bila relevan. Kategori: Technique Notes, Research Patterns, False Positives, Finding Patterns, Program Notes, Architecture Patterns, Lessons, Disclosed Reports.</p>
+<p>Contoh lesson: <code>Pisahkan waktu enqueue, revoke, eksekusi worker, dan download ketika menguji export</code>. Simpan hasil PASS juga; pengetahuan tentang kontrol yang benar dapat mencegah pengujian berulang.</p>
+<p>KB tersimpan per target. Global Search dapat menemukan lessons/KB lintas target; salin lesson yang relevan secara manual ke target baru. Reference disclosed report disimpan sebagai teks, tidak diunduh. Duplicate Comparator dapat memilih entri kategori Disclosed Reports/Finding Patterns/False Positives dari target aktif. AI hanya menerima KB bila Anda mencentang Include Knowledge Base.</p>
+<h2 id="backup-dan-restore-workspace">Backup dan Restore Workspace</h2>
+<p>IndexedDB adalah autosave lokal browser. <code>workspace.json</code> adalah backup portabel yang Anda ekspor; file root bukan database yang selalu ditulis aplikasi. Tunggu indikator <strong>Saved locally</strong> dan waktu Last saved. Jika storage error, Export Workspace untuk menyelamatkan snapshot memory saat ini.</p>
+<ol>
+<li>Tekan <strong>↓ Export</strong> pada header atau <strong>Backup → Export Workspace/Export Backup</strong>. Simpan JSON di lokasi yang Anda kelola.</li>
+<li>Sebelum restore, ekspor workspace saat ini.</li>
+<li>Tekan <strong>Import Workspace/Import Backup</strong>, pilih JSON, baca konfirmasi jumlah target, lalu setujui penggantian.</li>
+<li>Import mengganti seluruh workspace aktif, bukan merge. JSON invalid ditolak tanpa mengganti data. Format v1 dimigrasikan ke v2; ID dan isi riset dipertahankan.</li>
+<li>Tunggu Saved locally dan pastikan findings serta draft laporan masih tersedia.</li>
+</ol>
+<p>Batas import 20 MB. Tidak ada enkripsi IndexedDB/JSON, sinkronisasi cloud, atau attachment binary dalam backup. Cadangkan screenshot/video asli dan lindungi JSON sesuai kebutuhan engagement. Jangan mengedit workspace yang sama di beberapa tab; tidak ada penggabungan konflik tab.</p>
+<p>Jika browser menyediakan <strong>Connect workspace.json</strong>, pilih file dan tekan <strong>Save to workspace.json</strong> untuk menulis eksplisit. Hubungan file harus dibuat ulang setelah reload; Connect tidak membaca file sebagai import dan tidak mengaktifkan autosave filesystem.</p>
+<p><strong>Reset Workspace menghapus seluruh target dan riset workspace browser aktif.</strong> Ekspor backup dahulu. File download dan salinan legacy v1 tidak ikut dihapus. Menghapus data browser juga dapat menghapus autosave; export rutin sebelum menutup engagement atau berpindah browser.</p></article></main>
+<footer>Dokumentasi aplikasi 0.3.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>

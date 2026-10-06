@@ -1,10 +1,11 @@
 import {uuid,now} from './utils.js';
 import {DEFAULT_TECHNIQUES} from './technique-data.js';
 import {collections,migrateWorkspace} from './storage.js';
+import {emptyIntelligence,validateDomainPack} from './services/domain-schema.js';
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
-export const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'0.2.0',updatedAt:now(),targets:[]});
+export const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'0.3.0',updatedAt:now(),domainPacks:[],targets:[]});
 export function newTarget(values) {
-  return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
+  return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),intelligence:emptyIntelligence(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
 }
 export function createStore(initial=freshWorkspace()) {
   let state=migrateWorkspace(initial); const listeners=new Set();
@@ -16,6 +17,8 @@ export function createStore(initial=freshWorkspace()) {
     addTarget(values){const target=newTarget(values);state.targets.push(target);touch(target);return target;},
     updateTarget(id,values){const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target);},
     deleteTarget(id){state.targets=state.targets.filter(t=>t.id!==id);touch();},
+    saveDomainPack(pack){validateDomainPack(pack);const index=state.domainPacks.findIndex(p=>p.id===pack.id);if(index<0)state.domainPacks.push(pack);else state.domainPacks[index]=pack;touch();},
+    removeDomainPack(id){state.domainPacks=state.domainPacks.filter(p=>p.id!==id);touch();},
     upsert(targetId,collection,values){
       if(!collections.includes(collection)) throw new Error('Collection tidak dikenal.');
       const target=this.target(targetId);let row=target[collection].find(v=>v.id===values.id);

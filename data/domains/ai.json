@@ -1,0 +1,801 @@
+{
+  "id": "ai",
+  "name": "Artificial Intelligence",
+  "description": "Layanan model, aplikasi atau agent; pola generik bukan deskripsi arsitektur perusahaan tertentu.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Model dan inference",
+    "Authority agent/tool",
+    "Data input/output dan context"
+  ],
+  "terminology": [
+    {
+      "id": "ai-term-1",
+      "title": "Inference",
+      "content": "Proses menghasilkan output model dari input/context.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Inference",
+      "definition": "Proses menghasilkan output model dari input/context.",
+      "whyImportant": "Output model bukan fakta yang otomatis terverifikasi.",
+      "relatedTerms": [
+        "Model",
+        "Context"
+      ]
+    },
+    {
+      "id": "ai-term-2",
+      "title": "Agent",
+      "content": "Komponen yang dapat menyusun langkah atau menggunakan kemampuan yang diberikan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Agent",
+      "definition": "Komponen yang dapat menyusun langkah atau menggunakan kemampuan yang diberikan.",
+      "whyImportant": "Authority delegasi perlu dibatasi.",
+      "relatedTerms": [
+        "Tool",
+        "Connector"
+      ]
+    },
+    {
+      "id": "ai-term-3",
+      "title": "Connector",
+      "content": "Integrasi yang mengakses resource pada layanan lain.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Connector",
+      "definition": "Integrasi yang mengakses resource pada layanan lain.",
+      "whyImportant": "Resource dan consent membentuk trust boundary.",
+      "relatedTerms": [
+        "Tool",
+        "Authority"
+      ]
+    },
+    {
+      "id": "ai-term-4",
+      "title": "Model",
+      "content": "Komponen yang menghasilkan prediksi atau output.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Model",
+      "definition": "Komponen yang menghasilkan prediksi atau output.",
+      "whyImportant": "Bedakan model dari sistem yang memberi akses data.",
+      "relatedTerms": [
+        "Inference"
+      ]
+    },
+    {
+      "id": "ai-term-5",
+      "title": "Context",
+      "content": "Informasi yang diberikan untuk pemrosesan model/sistem.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Context",
+      "definition": "Informasi yang diberikan untuk pemrosesan model/sistem.",
+      "whyImportant": "Dapat memuat data sensitif dan instruksi tidak tepercaya.",
+      "relatedTerms": [
+        "Inference",
+        "Connector"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "ai-actor-1",
+      "title": "Consumer User",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-2",
+      "title": "Developer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-3",
+      "title": "Workspace Member",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-4",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-5",
+      "title": "API Client",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-6",
+      "title": "Agent",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-7",
+      "title": "Tool",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-8",
+      "title": "Connector",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-actor-9",
+      "title": "Service",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "ai-object-1",
+      "title": "Account",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-2",
+      "title": "Conversation",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-3",
+      "title": "Project",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-4",
+      "title": "File",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-5",
+      "title": "Model",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-6",
+      "title": "API Key",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-7",
+      "title": "Agent",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-8",
+      "title": "Tool",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-9",
+      "title": "Connector",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-10",
+      "title": "Workspace",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-11",
+      "title": "Organization",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-object-12",
+      "title": "Session",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "ai-flow-1",
+      "title": "Artificial Intelligence — flow generik",
+      "content": "Layanan model, aplikasi atau agent; pola generik bukan deskripsi arsitektur perusahaan tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "User",
+        "Account",
+        "Project",
+        "API Credential",
+        "Request",
+        "Model",
+        "Tool / Connector",
+        "Output"
+      ],
+      "actorIds": [
+        "ai-actor-1",
+        "ai-actor-2",
+        "ai-actor-3",
+        "ai-actor-4",
+        "ai-actor-5",
+        "ai-actor-6",
+        "ai-actor-7",
+        "ai-actor-8",
+        "ai-actor-9"
+      ],
+      "objectIds": [
+        "ai-object-1",
+        "ai-object-2",
+        "ai-object-3",
+        "ai-object-4",
+        "ai-object-5",
+        "ai-object-6",
+        "ai-object-7",
+        "ai-object-8",
+        "ai-object-9",
+        "ai-object-10",
+        "ai-object-11",
+        "ai-object-12"
+      ],
+      "boundaryIds": [
+        "ai-boundary-1"
+      ],
+      "invariantIds": [
+        "ai-invariant-1",
+        "ai-invariant-2",
+        "ai-invariant-3",
+        "ai-invariant-4"
+      ],
+      "transitions": [
+        {
+          "id": "ai-transition-1",
+          "fromState": "User",
+          "toState": "Account",
+          "action": "User → Account",
+          "critical": false,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-2",
+          "fromState": "Account",
+          "toState": "Project",
+          "action": "Account → Project",
+          "critical": false,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-3",
+          "fromState": "Project",
+          "toState": "API Credential",
+          "action": "Project → API Credential",
+          "critical": true,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-4",
+          "fromState": "API Credential",
+          "toState": "Request",
+          "action": "API Credential → Request",
+          "critical": true,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-5",
+          "fromState": "Request",
+          "toState": "Model",
+          "action": "Request → Model",
+          "critical": false,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-6",
+          "fromState": "Model",
+          "toState": "Tool / Connector",
+          "action": "Model → Tool / Connector",
+          "critical": false,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        },
+        {
+          "id": "ai-transition-7",
+          "fromState": "Tool / Connector",
+          "toState": "Output",
+          "action": "Tool / Connector → Output",
+          "critical": false,
+          "invariantIds": [
+            "ai-invariant-1",
+            "ai-invariant-2",
+            "ai-invariant-3",
+            "ai-invariant-4"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "ai-sensitive-1",
+      "title": "Private prompts, conversations and files",
+      "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-sensitive-2",
+      "title": "Workspace and connector resource data",
+      "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-sensitive-3",
+      "title": "API keys and tool credentials",
+      "content": "Kategori data generik Artificial Intelligence; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "ai-asset-1",
+      "title": "API Key",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-asset-2",
+      "title": "Project",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-asset-3",
+      "title": "File",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-asset-4",
+      "title": "Conversation",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-asset-5",
+      "title": "Connector",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-asset-6",
+      "title": "Workspace",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Artificial Intelligence flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "ai-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "ai-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "ai-invariant-1",
+      "title": "Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+      "content": "Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "techniqueIds": [
+        "tech_03"
+      ]
+    },
+    {
+      "id": "ai-invariant-2",
+      "title": "Data workspace harus tetap tenant isolated.",
+      "content": "Data workspace harus tetap tenant isolated.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "techniqueIds": [
+        "tech_06"
+      ]
+    },
+    {
+      "id": "ai-invariant-3",
+      "title": "Connector hanya mengakses resource yang diotorisasi.",
+      "content": "Connector hanya mengakses resource yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "techniqueIds": [
+        "tech_14"
+      ]
+    },
+    {
+      "id": "ai-invariant-4",
+      "title": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+      "content": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "ai-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ai-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "ai-mapping-1",
+      "title": "Technique tech_03",
+      "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_03",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "ai-mapping-2",
+      "title": "Technique tech_06",
+      "content": "Cross-context boundary: bandingkan authority yang didelegasikan antar app, agent, tool dan connector. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_06",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "ai-mapping-3",
+      "title": "Technique tech_14",
+      "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_14",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "ai-mapping-4",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-4",
+      "researchPriority": 60
+    },
+    {
+      "id": "ai-mapping-5",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Artificial Intelligence flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-1",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "ai-question-1",
+      "title": "Bagaimana memastikan: Authority tool tidak boleh melebihi hak yang diberikan pengguna.",
+      "content": "Authority tool tidak boleh melebihi hak yang diberikan pengguna. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-1",
+      "techniqueId": "tech_03"
+    },
+    {
+      "id": "ai-question-2",
+      "title": "Bagaimana memastikan: Data workspace harus tetap tenant isolated.",
+      "content": "Data workspace harus tetap tenant isolated. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-2",
+      "techniqueId": "tech_06"
+    },
+    {
+      "id": "ai-question-3",
+      "title": "Bagaimana memastikan: Connector hanya mengakses resource yang diotorisasi.",
+      "content": "Connector hanya mengakses resource yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-3",
+      "techniqueId": "tech_14"
+    },
+    {
+      "id": "ai-question-4",
+      "title": "Bagaimana memastikan: Credential revoked tidak boleh terus mengotorisasi operasi terlindungi.",
+      "content": "Credential revoked tidak boleh terus mengotorisasi operasi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ai-flow-1",
+      "invariantId": "ai-invariant-4",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": [
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "notes": "Referensi kerangka istilah AI; contoh agent/tool adalah kurasi riset generik."
+    }
+  ]
+}

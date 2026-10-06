@@ -1,0 +1,644 @@
+{
+  "id": "developer-platform",
+  "name": "Developer Platform",
+  "description": "Layanan untuk proyek developer, API, build, release, dan integrasi.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Credential project",
+    "Delegasi integrasi",
+    "Lifecycle build/release"
+  ],
+  "terminology": [
+    {
+      "id": "developer-platform-term-1",
+      "title": "Artifact",
+      "content": "Output build/proses yang disimpan untuk penggunaan berikutnya.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Artifact",
+      "definition": "Output build/proses yang disimpan untuk penggunaan berikutnya.",
+      "whyImportant": "Ownership/lifecycle berbeda dari request awal.",
+      "relatedTerms": [
+        "Build",
+        "Release"
+      ]
+    },
+    {
+      "id": "developer-platform-term-2",
+      "title": "API Credential",
+      "content": "Credential yang dipakai client untuk akses API.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "API Credential",
+      "definition": "Credential yang dipakai client untuk akses API.",
+      "whyImportant": "Scope dan revoke harus ditegakkan.",
+      "relatedTerms": [
+        "Project",
+        "API Client"
+      ]
+    },
+    {
+      "id": "developer-platform-term-3",
+      "title": "Build",
+      "content": "Proses menghasilkan artifact dari input.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Build",
+      "definition": "Proses menghasilkan artifact dari input.",
+      "whyImportant": "Worker dan input membentuk boundary.",
+      "relatedTerms": [
+        "Artifact",
+        "Worker"
+      ]
+    },
+    {
+      "id": "developer-platform-term-4",
+      "title": "Webhook",
+      "content": "Pengiriman event ke destination yang dikonfigurasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Webhook",
+      "definition": "Pengiriman event ke destination yang dikonfigurasi.",
+      "whyImportant": "Destination harus terikat pada owner sah.",
+      "relatedTerms": [
+        "Integration",
+        "Event"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "developer-platform-actor-1",
+      "title": "Developer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-actor-2",
+      "title": "Maintainer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-actor-3",
+      "title": "Organization Owner",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-actor-4",
+      "title": "CI Worker",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-actor-5",
+      "title": "API Client",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-actor-6",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "developer-platform-object-1",
+      "title": "Project",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-2",
+      "title": "Repository",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-3",
+      "title": "API Credential",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-4",
+      "title": "Build",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-5",
+      "title": "Artifact",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-6",
+      "title": "Release",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-7",
+      "title": "Webhook",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-object-8",
+      "title": "Integration",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "developer-platform-flow-1",
+      "title": "Developer Platform — flow generik",
+      "content": "Layanan untuk proyek developer, API, build, release, dan integrasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Developer",
+        "Project",
+        "Credential",
+        "Request / Build",
+        "Artifact",
+        "Release",
+        "Webhook"
+      ],
+      "actorIds": [
+        "developer-platform-actor-1",
+        "developer-platform-actor-2",
+        "developer-platform-actor-3",
+        "developer-platform-actor-4",
+        "developer-platform-actor-5",
+        "developer-platform-actor-6"
+      ],
+      "objectIds": [
+        "developer-platform-object-1",
+        "developer-platform-object-2",
+        "developer-platform-object-3",
+        "developer-platform-object-4",
+        "developer-platform-object-5",
+        "developer-platform-object-6",
+        "developer-platform-object-7",
+        "developer-platform-object-8"
+      ],
+      "boundaryIds": [
+        "developer-platform-boundary-1"
+      ],
+      "invariantIds": [
+        "developer-platform-invariant-1",
+        "developer-platform-invariant-2",
+        "developer-platform-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "developer-platform-transition-1",
+          "fromState": "Developer",
+          "toState": "Project",
+          "action": "Developer → Project",
+          "critical": false,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        },
+        {
+          "id": "developer-platform-transition-2",
+          "fromState": "Project",
+          "toState": "Credential",
+          "action": "Project → Credential",
+          "critical": true,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        },
+        {
+          "id": "developer-platform-transition-3",
+          "fromState": "Credential",
+          "toState": "Request / Build",
+          "action": "Credential → Request / Build",
+          "critical": true,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        },
+        {
+          "id": "developer-platform-transition-4",
+          "fromState": "Request / Build",
+          "toState": "Artifact",
+          "action": "Request / Build → Artifact",
+          "critical": false,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        },
+        {
+          "id": "developer-platform-transition-5",
+          "fromState": "Artifact",
+          "toState": "Release",
+          "action": "Artifact → Release",
+          "critical": false,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        },
+        {
+          "id": "developer-platform-transition-6",
+          "fromState": "Release",
+          "toState": "Webhook",
+          "action": "Release → Webhook",
+          "critical": false,
+          "invariantIds": [
+            "developer-platform-invariant-1",
+            "developer-platform-invariant-2",
+            "developer-platform-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "developer-platform-sensitive-1",
+      "title": "Source code and private artifacts",
+      "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-sensitive-2",
+      "title": "Build secrets and API credentials",
+      "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-sensitive-3",
+      "title": "Webhook and release configuration",
+      "content": "Kategori data generik Developer Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "developer-platform-asset-1",
+      "title": "API Credential",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-asset-2",
+      "title": "Repository",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-asset-3",
+      "title": "Artifact",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-asset-4",
+      "title": "Release",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-asset-5",
+      "title": "Integration",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Developer Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "developer-platform-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "developer-platform-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "developer-platform-invariant-1",
+      "title": "Credential harus terikat pada project dan capability yang diberikan.",
+      "content": "Credential harus terikat pada project dan capability yang diberikan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "developer-platform-invariant-2",
+      "title": "Worker build tidak boleh memakai authority yang tidak berlaku.",
+      "content": "Worker build tidak boleh memakai authority yang tidak berlaku.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "techniqueIds": [
+        "tech_03"
+      ]
+    },
+    {
+      "id": "developer-platform-invariant-3",
+      "title": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+      "content": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "techniqueIds": [
+        "tech_02"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "developer-platform-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "developer-platform-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "developer-platform-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "developer-platform-mapping-2",
+      "title": "Technique tech_03",
+      "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_03",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "developer-platform-mapping-3",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "developer-platform-mapping-4",
+      "title": "Technique tech_09",
+      "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_09",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "developer-platform-mapping-5",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Developer Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "developer-platform-question-1",
+      "title": "Bagaimana memastikan: Credential harus terikat pada project dan capability yang diberikan.",
+      "content": "Credential harus terikat pada project dan capability yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "developer-platform-question-2",
+      "title": "Bagaimana memastikan: Worker build tidak boleh memakai authority yang tidak berlaku.",
+      "content": "Worker build tidak boleh memakai authority yang tidak berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-2",
+      "techniqueId": "tech_03"
+    },
+    {
+      "id": "developer-platform-question-3",
+      "title": "Bagaimana memastikan: Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state.",
+      "content": "Artifact privat harus mempertahankan aturan akses setelah publikasi/perubahan state. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "developer-platform-flow-1",
+      "invariantId": "developer-platform-invariant-3",
+      "techniqueId": "tech_02"
+    }
+  ],
+  "references": []
+}

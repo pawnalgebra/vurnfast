@@ -1,0 +1,689 @@
+{
+  "id": "fintech",
+  "name": "Fintech",
+  "description": "Produk teknologi untuk layanan nilai/pembayaran; pola ini tidak mengasumsikan lisensi atau mekanisme perusahaan.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Wallet dan account",
+    "Retry versus duplikasi",
+    "Proses async pembayaran"
+  ],
+  "terminology": [
+    {
+      "id": "fintech-term-1",
+      "title": "Idempotency",
+      "content": "Properti bahwa pengulangan operasi yang sama tidak menambah efek yang tidak diinginkan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Idempotency",
+      "definition": "Properti bahwa pengulangan operasi yang sama tidak menambah efek yang tidak diinginkan.",
+      "whyImportant": "Penting ketika retry terjadi.",
+      "relatedTerms": [
+        "Retry",
+        "Payment"
+      ]
+    },
+    {
+      "id": "fintech-term-2",
+      "title": "Wallet",
+      "content": "Resource penyimpanan/representasi nilai sesuai model produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Wallet",
+      "definition": "Resource penyimpanan/representasi nilai sesuai model produk.",
+      "whyImportant": "Ownership wallet menentukan authority.",
+      "relatedTerms": [
+        "Account",
+        "Transfer"
+      ]
+    },
+    {
+      "id": "fintech-term-3",
+      "title": "Settlement",
+      "content": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Settlement",
+      "definition": "Penyelesaian kewajiban melalui perpindahan dana atau aset.",
+      "whyImportant": "Keputusan authorization dan finalitas dapat terjadi pada tahap berbeda.",
+      "relatedTerms": [
+        "Clearing",
+        "Transaction",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "fintech-term-4",
+      "title": "Clearing",
+      "content": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Clearing",
+      "definition": "Proses pertukaran dan pencocokan instruksi sebelum settlement.",
+      "whyImportant": "State sebelum settlement perlu dipahami saat review kontrol.",
+      "relatedTerms": [
+        "Settlement",
+        "Reconciliation"
+      ]
+    },
+    {
+      "id": "fintech-term-5",
+      "title": "Transaction",
+      "content": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Transaction",
+      "definition": "Record suatu aktivitas ekonomi atau perpindahan nilai.",
+      "whyImportant": "State dan pemilik transaksi menentukan aksi yang sah.",
+      "relatedTerms": [
+        "Transfer",
+        "Ledger"
+      ]
+    },
+    {
+      "id": "fintech-term-6",
+      "title": "Transfer",
+      "content": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Transfer",
+      "definition": "Instruksi memindahkan nilai dari sumber ke tujuan.",
+      "whyImportant": "Sumber dana, beneficiary dan authority harus konsisten.",
+      "relatedTerms": [
+        "Account",
+        "Beneficiary",
+        "Transaction"
+      ]
+    },
+    {
+      "id": "fintech-term-7",
+      "title": "Reconciliation",
+      "content": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Reconciliation",
+      "definition": "Pencocokan record antar pihak atau sistem untuk mencari perbedaan.",
+      "whyImportant": "Perbedaan state ledger dan settlement perlu penjelasan, bukan langsung vulnerability.",
+      "relatedTerms": [
+        "Ledger",
+        "Settlement",
+        "Clearing"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "fintech-actor-1",
+      "title": "Customer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-actor-2",
+      "title": "Merchant",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-actor-3",
+      "title": "Beneficiary",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-actor-4",
+      "title": "Payment Processor",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-actor-5",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-actor-6",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "fintech-object-1",
+      "title": "Wallet",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-2",
+      "title": "Payment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-3",
+      "title": "Refund",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-4",
+      "title": "Settlement",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-5",
+      "title": "API Credential",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-6",
+      "title": "Webhook Event",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-object-7",
+      "title": "Transaction",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "fintech-flow-1",
+      "title": "Fintech — flow generik",
+      "content": "Produk teknologi untuk layanan nilai/pembayaran; pola ini tidak mengasumsikan lisensi atau mekanisme perusahaan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Customer",
+        "Create Payment",
+        "Authorize",
+        "Submit",
+        "Process",
+        "Webhook",
+        "Reconciliation"
+      ],
+      "actorIds": [
+        "fintech-actor-1",
+        "fintech-actor-2",
+        "fintech-actor-3",
+        "fintech-actor-4",
+        "fintech-actor-5",
+        "fintech-actor-6"
+      ],
+      "objectIds": [
+        "fintech-object-1",
+        "fintech-object-2",
+        "fintech-object-3",
+        "fintech-object-4",
+        "fintech-object-5",
+        "fintech-object-6",
+        "fintech-object-7"
+      ],
+      "boundaryIds": [
+        "fintech-boundary-1"
+      ],
+      "invariantIds": [
+        "fintech-invariant-1",
+        "fintech-invariant-2",
+        "fintech-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "fintech-transition-1",
+          "fromState": "Customer",
+          "toState": "Create Payment",
+          "action": "Customer → Create Payment",
+          "critical": false,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        },
+        {
+          "id": "fintech-transition-2",
+          "fromState": "Create Payment",
+          "toState": "Authorize",
+          "action": "Create Payment → Authorize",
+          "critical": true,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        },
+        {
+          "id": "fintech-transition-3",
+          "fromState": "Authorize",
+          "toState": "Submit",
+          "action": "Authorize → Submit",
+          "critical": true,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        },
+        {
+          "id": "fintech-transition-4",
+          "fromState": "Submit",
+          "toState": "Process",
+          "action": "Submit → Process",
+          "critical": false,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        },
+        {
+          "id": "fintech-transition-5",
+          "fromState": "Process",
+          "toState": "Webhook",
+          "action": "Process → Webhook",
+          "critical": false,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        },
+        {
+          "id": "fintech-transition-6",
+          "fromState": "Webhook",
+          "toState": "Reconciliation",
+          "action": "Webhook → Reconciliation",
+          "critical": false,
+          "invariantIds": [
+            "fintech-invariant-1",
+            "fintech-invariant-2",
+            "fintech-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "fintech-sensitive-1",
+      "title": "Wallet and merchant identity",
+      "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-sensitive-2",
+      "title": "Payment/refund events",
+      "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-sensitive-3",
+      "title": "API credentials and webhook secrets",
+      "content": "Kategori data generik Fintech; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "fintech-asset-1",
+      "title": "Wallet",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-asset-2",
+      "title": "Payment",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-asset-3",
+      "title": "Refund",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-asset-4",
+      "title": "Settlement",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-asset-5",
+      "title": "API Credential",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-asset-6",
+      "title": "Webhook Event",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Fintech flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "fintech-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "fintech-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "fintech-invariant-1",
+      "title": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+      "content": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "techniqueIds": [
+        "tech_18"
+      ]
+    },
+    {
+      "id": "fintech-invariant-2",
+      "title": "Webhook harus terikat pada owner/merchant yang sah.",
+      "content": "Webhook harus terikat pada owner/merchant yang sah.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "techniqueIds": [
+        "tech_08"
+      ]
+    },
+    {
+      "id": "fintech-invariant-3",
+      "title": "Worker memeriksa authority/state ketika menjalankan aksi.",
+      "content": "Worker memeriksa authority/state ketika menjalankan aksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "techniqueIds": [
+        "tech_09"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "fintech-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "fintech-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "fintech-mapping-1",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "fintech-mapping-2",
+      "title": "Technique tech_08",
+      "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_08",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "fintech-mapping-3",
+      "title": "Technique tech_09",
+      "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_09",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "fintech-mapping-4",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Fintech flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-1",
+      "researchPriority": 60
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "fintech-question-1",
+      "title": "Bagaimana memastikan: Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan.",
+      "content": "Retry tidak boleh menghasilkan efek ekonomi ganda yang tidak diizinkan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-1",
+      "techniqueId": "tech_18"
+    },
+    {
+      "id": "fintech-question-2",
+      "title": "Bagaimana memastikan: Webhook harus terikat pada owner/merchant yang sah.",
+      "content": "Webhook harus terikat pada owner/merchant yang sah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-2",
+      "techniqueId": "tech_08"
+    },
+    {
+      "id": "fintech-question-3",
+      "title": "Bagaimana memastikan: Worker memeriksa authority/state ketika menjalankan aksi.",
+      "content": "Worker memeriksa authority/state ketika menjalankan aksi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "fintech-flow-1",
+      "invariantId": "fintech-invariant-3",
+      "techniqueId": "tech_09"
+    }
+  ],
+  "references": [
+    {
+      "title": "BIS CPMI — glossary clearing/settlement/reconciliation",
+      "url": "https://www.bis.org/cpmi/publ/d00b.htm",
+      "notes": "Referensi istilah proses pembayaran; invariant dan contoh penelitian adalah kurasi lokal."
+    }
+  ]
+}

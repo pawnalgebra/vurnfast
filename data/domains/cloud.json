@@ -1,0 +1,639 @@
+{
+  "id": "cloud",
+  "name": "Cloud",
+  "description": "Layanan komputasi bersama dengan pengelolaan resource, identity, dan control/data plane.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Control plane dan data plane",
+    "Resource isolation",
+    "Credential lifecycle"
+  ],
+  "terminology": [
+    {
+      "id": "cloud-term-1",
+      "title": "Control Plane",
+      "content": "Bagian layanan yang mengatur konfigurasi dan resource.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Control Plane",
+      "definition": "Bagian layanan yang mengatur konfigurasi dan resource.",
+      "whyImportant": "Authority administrasi berbeda dari akses data.",
+      "relatedTerms": [
+        "Data Plane",
+        "Policy"
+      ]
+    },
+    {
+      "id": "cloud-term-2",
+      "title": "Data Plane",
+      "content": "Bagian yang menjalankan atau membawa operasi/data layanan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Data Plane",
+      "definition": "Bagian yang menjalankan atau membawa operasi/data layanan.",
+      "whyImportant": "Akses data tetap membutuhkan izin efektif.",
+      "relatedTerms": [
+        "Control Plane"
+      ]
+    },
+    {
+      "id": "cloud-term-3",
+      "title": "Policy",
+      "content": "Aturan pemberian atau penolakan hak.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Policy",
+      "definition": "Aturan pemberian atau penolakan hak.",
+      "whyImportant": "Policy aktual perlu ditinjau, bukan hanya nama role.",
+      "relatedTerms": [
+        "Credential",
+        "Authority"
+      ]
+    },
+    {
+      "id": "cloud-term-4",
+      "title": "Snapshot",
+      "content": "Salinan state/resource pada waktu tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Snapshot",
+      "definition": "Salinan state/resource pada waktu tertentu.",
+      "whyImportant": "Salinan bisa mempertahankan data sensitif.",
+      "relatedTerms": [
+        "Storage",
+        "Resource"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "cloud-actor-1",
+      "title": "Tenant Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-actor-2",
+      "title": "Developer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-actor-3",
+      "title": "Operator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-actor-4",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-actor-5",
+      "title": "Workload",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-actor-6",
+      "title": "Support",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "cloud-object-1",
+      "title": "Account",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-2",
+      "title": "Project",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-3",
+      "title": "Compute Resource",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-4",
+      "title": "Storage Object",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-5",
+      "title": "Policy",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-6",
+      "title": "Credential",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-7",
+      "title": "Snapshot",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-object-8",
+      "title": "Job",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "cloud-flow-1",
+      "title": "Cloud — flow generik",
+      "content": "Layanan komputasi bersama dengan pengelolaan resource, identity, dan control/data plane.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Tenant",
+        "Project",
+        "Assign Policy",
+        "Provision Resource",
+        "Access Data",
+        "Rotate Credential",
+        "Delete Resource"
+      ],
+      "actorIds": [
+        "cloud-actor-1",
+        "cloud-actor-2",
+        "cloud-actor-3",
+        "cloud-actor-4",
+        "cloud-actor-5",
+        "cloud-actor-6"
+      ],
+      "objectIds": [
+        "cloud-object-1",
+        "cloud-object-2",
+        "cloud-object-3",
+        "cloud-object-4",
+        "cloud-object-5",
+        "cloud-object-6",
+        "cloud-object-7",
+        "cloud-object-8"
+      ],
+      "boundaryIds": [
+        "cloud-boundary-1"
+      ],
+      "invariantIds": [
+        "cloud-invariant-1",
+        "cloud-invariant-2",
+        "cloud-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "cloud-transition-1",
+          "fromState": "Tenant",
+          "toState": "Project",
+          "action": "Tenant → Project",
+          "critical": false,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        },
+        {
+          "id": "cloud-transition-2",
+          "fromState": "Project",
+          "toState": "Assign Policy",
+          "action": "Project → Assign Policy",
+          "critical": false,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        },
+        {
+          "id": "cloud-transition-3",
+          "fromState": "Assign Policy",
+          "toState": "Provision Resource",
+          "action": "Assign Policy → Provision Resource",
+          "critical": false,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        },
+        {
+          "id": "cloud-transition-4",
+          "fromState": "Provision Resource",
+          "toState": "Access Data",
+          "action": "Provision Resource → Access Data",
+          "critical": false,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        },
+        {
+          "id": "cloud-transition-5",
+          "fromState": "Access Data",
+          "toState": "Rotate Credential",
+          "action": "Access Data → Rotate Credential",
+          "critical": true,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        },
+        {
+          "id": "cloud-transition-6",
+          "fromState": "Rotate Credential",
+          "toState": "Delete Resource",
+          "action": "Rotate Credential → Delete Resource",
+          "critical": true,
+          "invariantIds": [
+            "cloud-invariant-1",
+            "cloud-invariant-2",
+            "cloud-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "cloud-sensitive-1",
+      "title": "Storage objects and snapshots",
+      "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-sensitive-2",
+      "title": "IAM policies and workload credentials",
+      "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-sensitive-3",
+      "title": "Tenant usage and audit records",
+      "content": "Kategori data generik Cloud; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "cloud-asset-1",
+      "title": "Storage Object",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-asset-2",
+      "title": "Policy",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-asset-3",
+      "title": "Credential",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-asset-4",
+      "title": "Snapshot",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Cloud flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "cloud-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "cloud-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "cloud-invariant-1",
+      "title": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+      "content": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "techniqueIds": [
+        "tech_14"
+      ]
+    },
+    {
+      "id": "cloud-invariant-2",
+      "title": "Policy dicabut harus dihormati pada operasi terlindungi.",
+      "content": "Policy dicabut harus dihormati pada operasi terlindungi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "cloud-invariant-3",
+      "title": "Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+      "content": "Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "cloud-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "cloud-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "cloud-mapping-1",
+      "title": "Technique tech_14",
+      "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_14",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "cloud-mapping-2",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "cloud-mapping-3",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "cloud-mapping-4",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "cloud-mapping-5",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Cloud flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "cloud-question-1",
+      "title": "Bagaimana memastikan: Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin.",
+      "content": "Identity suatu tenant tidak boleh mengelola resource tenant lain tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-1",
+      "techniqueId": "tech_14"
+    },
+    {
+      "id": "cloud-question-2",
+      "title": "Bagaimana memastikan: Policy dicabut harus dihormati pada operasi terlindungi.",
+      "content": "Policy dicabut harus dihormati pada operasi terlindungi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-2",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "cloud-question-3",
+      "title": "Bagaimana memastikan: Snapshot/storage harus mempertahankan ownership dan sensitivitas.",
+      "content": "Snapshot/storage harus mempertahankan ownership dan sensitivitas. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "cloud-flow-1",
+      "invariantId": "cloud-invariant-3",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": [
+    {
+      "title": "NIST SP 800-145 — cloud service models",
+      "url": "https://www.nist.gov/publications/nist-definition-cloud-computing",
+      "notes": "Referensi model layanan; mapping kontrol adalah pola riset generik."
+    }
+  ]
+}

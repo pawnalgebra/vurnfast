@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'none'; style-src 'self' file:; img-src 'self' file: data:; object-src 'none'; base-uri 'none'">
+<title>Target Intelligence Guide — Research Workspace</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/documentation.css"></head>
+<body><header><strong>RESEARCH WORKSPACE / LEARN</strong><nav aria-label="Dokumentasi"><a href="USER_GUIDE.html">User Guide</a> <a href="FEATURE_REFERENCE.html">Feature Reference</a> <a href="WORKFLOW_GUIDE.html">Workflow Guide</a> <a href="TARGET_INTELLIGENCE_GUIDE.html">Intelligence Guide</a></nav><a href="TARGET_INTELLIGENCE_GUIDE.md" download>Download Markdown</a></header>
+<main><details class="contents"><summary>Daftar isi</summary><ul><li><a href="#target-intelligence-domain-knowledge-engine">Target Intelligence &amp; Domain Knowledge Engine</a></li><li><a href="#mulai-dengan-example-finance">Mulai dengan Example Finance</a></li><li><a href="#fakta-pengetahuan-dan-inferensi">Fakta, Pengetahuan, dan Inferensi</a></li><li><a href="#pack-dan-learning-mode">Pack dan Learning Mode</a></li><li><a href="#custom-domain-dan-relationships">Custom Domain dan Relationships</a></li><li><a href="#business-flow-research-flow">Business Flow → Research Flow</a></li><li><a href="#ai-knowledge-assistant">AI Knowledge Assistant</a></li><li><a href="#search-storage-dan-batasan">Search, Storage, dan Batasan</a></li><li><a href="#referensi-materi-generik">Referensi Materi Generik</a></li></ul></details><article><h1 id="target-intelligence-domain-knowledge-engine">Target Intelligence &amp; Domain Knowledge Engine</h1>
+<p>Understand the business before testing the technology. Engine ini membantu memahami company/sector/business/actor/object/flow sebelum menyusun rencana pengujian. Materi domain adalah pola umum, bukan deskripsi perusahaan nyata atau klaim vulnerability.</p>
+<h2 id="mulai-dengan-example-finance">Mulai dengan Example Finance</h2>
+<ol>
+<li>Create Target: Example Finance, Private, asset <code>finance.example.test</code>, environment laboratorium sendiri.</li>
+<li>Isi Scope/Rules/Guard dengan izin laboratorium, akun dan data dummy; aturan pembayaran/settlement domain tidak memberi izin menjalankan transaksi nyata.</li>
+<li>Target Intelligence → pilih Finance pada Primary Sector; Fintech boleh menjadi Secondary Domain jika sesuai laboratorium. Tekan Save Domain Classification.</li>
+<li>Edit Intelligence Profile: company, business model, products/services, users, assets, sensitive data, operations/dependencies/surfaces/notes. Nilai menjadi RESEARCHER INPUT; kosong berarti Unknown.</li>
+<li>Pilih pack Finance lalu Learn This Domain. Pilih Beginner terlebih dahulu, kemudian Intermediate/Advanced. Gunakan Browse Full Pack untuk semua sections.</li>
+<li>Terminology → baca Account, Ledger, Balance/Available Balance, Settlement, Clearing, Reconciliation, Authorization/Capture/Refund dan istilah lain. Glossary Finance memiliki 22 istilah.</li>
+<li>Domain Knowledge → Browse Full Pack → Actors. Review / Import actor membuka editor; isi authority nyata dan Simpan. Objects memakai langkah review yang sama. Tidak ada akun/resource target yang dibuat otomatis.</li>
+<li>Business Flows → pelajari flow generik transfer, pilih transition Authorization → tahap berikutnya, baca invariant dan relasinya. Mark / Unmark Critical dan Edit Flow Relationships menyimpan override pack di workspace.</li>
+<li>Review / Save Business Flow atau Flow → Invariant → Question. Editor review menjaga source/confidence/notes; knowledge masuk target hanya setelah Simpan.</li>
+<li>Research Questions → Convert to Hypothesis. Review invariant, technique, WHO/WHAT/OBJECT/STATE/AUTHORITY/CONTEXT, expected behavior, priority dan scope. Simpan lalu Buat Test Case.</li>
+<li>Lanjutkan manual authorized testing, evidence, finding dan report memakai <a href="WORKFLOW_GUIDE.html">Workflow Guide</a>. Knowledge engine tidak membuat finding tanpa tindakan peneliti.</li>
+</ol>
+<h2 id="fakta-pengetahuan-dan-inferensi">Fakta, Pengetahuan, dan Inferensi</h2>
+<div class="table-scroll"><table>
+<tr><th>Badge / sourceType</th><th>Arti</th><th>Batas</th></tr>
+<tr><td>TARGET FACT / target</td><td>Informasi target yang dinyatakan terverifikasi oleh peneliti</td><td>Source/reference wajib dan verified=true; software tidak memeriksa sumber secara independen</td></tr>
+<tr><td>DOMAIN KNOWLEDGE / domain</td><td>Konsep, flow, actor, invariant atau pola generik sektor</td><td>Tidak membuktikan target memakai mekanisme tersebut</td></tr>
+<tr><td>RESEARCHER INPUT / researcher</td><td>Catatan peneliti, termasuk profil yang diisi manual</td><td>Belum otomatis terverifikasi</td></tr>
+<tr><td>AI INFERENCE / ai</td><td>Draft model dari context supplied</td><td>AI GENERATED, confidence 0–1, verified=false, notes wajib</td></tr>
+<tr><td>External / external</td><td>Reference/catatan eksternal yang dimasukkan peneliti</td><td>Bukan TARGET FACT tanpa verifikasi eksplisit</td></tr>
+<tr><td>UNKNOWN / unknown</td><td>Informasi belum tersedia</td><td>Jangan menggantinya dengan tebakan</td></tr>
+</table></div>
+<p>Accept / Edit Knowledge menyimpan draft dengan asalnya. Jika title/content domain diadaptasi saat review, source menjadi RESEARCHER INPUT dengan catatan sumber domain. Edit flow/relationships atau critical marking juga menjadi input peneliti. Verify as Target Fact hanya digunakan setelah memeriksa sumber: isi reference dan konfirmasi verifikasi. Item yang berasal dari AI tetap menyimpan origin AI GENERATED. Edit isi target fact menurunkan verifikasi; review ulang sebelum menjadikannya fact lagi.</p>
+<p>Contoh: API key merupakan credential sensitif adalah domain knowledge. Company tertentu menyediakan API hanya target fact bila sumber sudah Anda periksa. Worker mungkin memproses export asynchronous tetap inference sampai ada informasi/bukti yang memadai.</p>
+<h2 id="pack-dan-learning-mode">Pack dan Learning Mode</h2>
+<p>Pack awal: Artificial Intelligence, Finance, Banking, Fintech, SaaS, E-Commerce, Healthcare, Cloud, Developer Platform, Social Platform, Telecommunication, Education, Enterprise Software. Satu target boleh menggunakan beberapa domain, tetapi memilih materi pada Knowledge Domain tidak otomatis mengganti klasifikasi target; Save Domain Classification diperlukan.</p>
+<p>Beginner menampilkan concepts, tiga term awal dan flow. Intermediate menambah actor/object, sensitive data, critical operations dan invariants. Advanced menambah lebih banyak terminology, research patterns dan technique mapping. Materi offline tersedia tanpa AI. Penjelasan AI dipilih melalui Operation Explain Domain/Explain Terminology dan hanya dipanggil sesudah preview/send.</p>
+<p>Packs tersimpan sebagai JSON pada <code>data/domains/</code>. Aplikasi memakai bundle data untuk file://; domain tidak di-hardcode pada renderer UI. Default pack tidak berubah ketika user membuat override. Override/custom tersimpan di <code>workspace.domainPacks</code> dan ikut IndexedDB/JSON backup. Domain Knowledge → Remove Custom / Restore Default menghapus override/custom saja; snapshot knowledge/research yang sudah diimpor tetap ada.</p>
+<h2 id="custom-domain-dan-relationships">Custom Domain dan Relationships</h2>
+<p>+ Custom Domain Pack menyediakan name, description, core concepts, glossary (<code>term | definition | whyImportant | related,terms</code>), actors, objects, flows (<code>Create → Authorize → Execute</code>), sensitive data, assets, invariants, patterns, notes.</p>
+<p>Custom form menghasilkan entri dasar, bukan pengetahuan lengkap otomatis. Setelah dibuat:</p>
+<ol>
+<li>Business Flows → Edit Flow Relationships untuk memilih actors, objects, boundaries dan invariants terkait.</li>
+<li>Mark / Unmark Critical untuk transition yang memang perlu perhatian.</li>
+<li>Domain Knowledge → + Technique Mapping untuk technique, reason, related flow/invariant dan research priority 0–100.</li>
+<li>Edit Pack JSON untuk advanced boundaries, questions, references, serta metadata/relationship detail. Struktur dapat ditiru dari Export Domain Pack. Import Domain Pack maksimal 1 MB dan divalidasi sebelum save.</li>
+</ol>
+<p>Referensi domain item memakai ID yang stabil. Jangan mengubah ID tanpa memperbarui relationships. Import pack bukan merge otomatis; mengganti ID pack yang sama menjadi override setelah konfirmasi. Custom pack yang dihapus dapat meninggalkan classification reference lama; pilih klasifikasi yang tersedia kembali. Historical knowledgeLinks adalah snapshot untuk penelusuran, bukan foreign-key yang selalu direwrite setelah pack berubah.</p>
+<h2 id="business-flow-research-flow">Business Flow → Research Flow</h2>
+<pre><code>Domain / Sector
+  → Business Flow
+  → Actor + Object + Trust Boundary
+  → Critical Transition
+  → Security Invariant
+  → Research Question
+  → Technique Mapping
+  → Hypothesis (review dan Save)
+  → Test Case (pengujian manual)
+  → Evidence → Finding → Report</code></pre>
+<p>Flow → Invariant → Question memakai invariant yang dikaitkan ke flow/transition. Bila belum ada kaitan, aplikasi meminta peneliti melengkapinya. Flow → Hypothesis membuka draft dengan invariant/technique yang tersedia; tidak menjalankan test. Question/invariant dapat dikonversi langsung dengan Convert to Hypothesis.</p>
+<p>Hypothesis menyimpan knowledgeLinks domainId/flowId/transitionId/invariantId/questionId/sourceType. Relasi tersebut diteruskan ke test dan finding ketika dibuat/promoted dari sumber. Mengedit atau menghapus pack tidak mengganti fakta historis pada hasil test. Priority mapping adalah prioritas riset, bukan severity finding.</p>
+<p>Actor/object/boundary suggestions selalu membuka editor sebelum masuk mapping riset. Peneliti harus mengisi ownership/tenant/authority/trust yang sesuai target; generic role name belum membuktikan permission. Provenance asal dibawa pada record mapping hasil import.</p>
+<h2 id="ai-knowledge-assistant">AI Knowledge Assistant</h2>
+<p>Prasyarat dan provider/privacy sama dengan <a href="USER_GUIDE.html#cara-menggunakan-ai">panduan AI</a>. AI_ENABLED=false mempertahankan semua fungsi manual. Generate Target Knowledge memerlukan AI configured; button/action tidak memberikan data perusahaan dari layanan lookup lain.</p>
+<div class="table-scroll"><table>
+<tr><th>Operation</th><th>Input yang penting</th><th>Output / kapan dipakai</th></tr>
+<tr><td>Generate Target Knowledge</td><td>Profil/knowledge target, domain, notes, scope</td><td>Draft company/sector/business/actors/objects/assets/data/flow/term/boundary/invariant/question sebelum mapping</td></tr>
+<tr><td>Analyze Target</td><td>Target knowledge dan pertanyaan bisnis</td><td>Penjelasan dan Unknown information ketika profil belum lengkap</td></tr>
+<tr><td>Suggest Domain</td><td>Catatan produk/services dan katalog label sektor</td><td>Primary/secondary suggestions; final classification direview peneliti</td></tr>
+<tr><td>Explain Domain</td><td>Selected domain dan depth</td><td>Penjelasan ringkas concepts/flows/invariants saat belajar</td></tr>
+<tr><td>Explain Terminology</td><td>Selected term</td><td>Definition/relations/context yang perlu direview</td></tr>
+<tr><td>Ask About Target</td><td>Pertanyaan spesifik + supplied target/domain context</td><td>Jawaban inference/Unknown, bukan klaim fakta dari ingatan brand</td></tr>
+<tr><td>Analyze Business Flow</td><td>Selected flow/critical context</td><td>Boundary/invariant/question draft sebelum hypothesis</td></tr>
+<tr><td>Identify Critical Assets</td><td>Domain dan business context</td><td>Asset/sensitive-data candidates untuk mapping</td></tr>
+<tr><td>Generate Security Invariants</td><td>Flow, authority, object dan context</td><td>Aturan kandidat untuk review/conversion</td></tr>
+<tr><td>Generate Research Questions</td><td>Domain/flow/invariant</td><td>Question drafts yang dapat diterima dan dikonversi</td></tr>
+<tr><td>Recommend Techniques</td><td>Mapping domain, technique enabled dan scope</td><td>Teknik kandidat tersedia; tidak ada library/tool baru yang dieksekusi</td></tr>
+</table></div>
+<p>Pilih operasi pada form AI Knowledge Assistant, lalu term/flow/current hypothesis bila relevan. Preview Knowledge Context menampilkan payload pilihan: hanya target aktif, selected pack yang dibatasi, label katalog domain, profile/accepted knowledge yang dibatasi, hingga delapan actor/object/boundary, satu current hypothesis, dan teknik mapping relevan. Tidak ada evidence binary/raw, key provider, target lain, atau seluruh database dalam request knowledge ini.</p>
+<p>Send Knowledge Analysis baru menghubungi provider. Results tersimpan sebagai suggestion pending, bukan facts/mapping otomatis. Setiap item memiliki sourceType/confidence/notes/verified dan label AI GENERATED. Backend menahan company overview sebagai Unknown bila context tidak memuat TARGET FACT terverifikasi, menolak output schema invalid, membatasi sector/technique IDs, dan memakai hard scope policy. Tidak ada browsing perusahaan otomatis. Model masih dapat menghasilkan inferensi yang salah; review isi sebelum menerima.</p>
+<p>Accept / Edit Knowledge menyimpan item target unverified; Reject Item/Reject Sector/Reject Suggestion menolak draft. Review Sector Classification meminta primary/secondary choice sebelum mengubah klasifikasi. Setelah semua item/sector ditinjau, status batch terselesaikan; status accepted adalah status review, bukan validity atau verifikasi fakta. Mapping/konversi tetap tindakan eksplisit terpisah.</p>
+<p>Research Assistant lama dapat menerima accepted intelligence dan selected domain summaries melalui opsi Include Knowledge Base. Default opt-in tetap off. Request lama memakai context risetnya sendiri; request Knowledge Assistant memakai context yang dipilih dan dibatasi seperti di atas.</p>
+<h2 id="search-storage-dan-batasan">Search, Storage, dan Batasan</h2>
+<p>Global Search sekarang mencakup targets/profile, terminology, flow, techniques, invariants, research patterns, findings, lessons dan catatan riset. Cari <code>reconciliation</code> untuk melihat Finance Terminology, Finance Business Flow, related invariants dan technique mappings. Relasi flow text membantu discovery hasil terkait; ini pencarian teks lokal, bukan semantic search/Internet search. Maksimal 200 hasil ditampilkan. Filter target membatasi catatan target; domain packs tetap katalog global workspace.</p>
+<p>IndexedDB autosave dan Export Workspace/Backup memuat target.intelligence, suggestions/decisions, custom/override domainPacks, dan knowledgeLinks. Schema tetap 2.0.0 dengan extension fields yang divalidasi; workspace v1/v2 lama mendapat struktur intelligence/domainPacks kosong saat dibaca. Backup/restore bukan merge, tidak terenkripsi, dan binary evidence tetap dikelola terpisah.</p>
+<p>System ini tidak mengetahui perusahaan hanya dari namanya. Domain packs merupakan materi pembelajaran awal dengan flow generik; custom/JSON editor diperlukan untuk model bisnis yang lebih detail. Tidak ada graph visual interaktif, connector lookup perusahaan, atau verifikasi independen URL. Knowledge relationships tersedia sebagai data dan daftar relasi/diagram teks, lalu trace links pada riset. Tidak ada vulnerability atau severity yang ditentukan knowledge engine.</p>
+<h2 id="referensi-materi-generik">Referensi Materi Generik</h2>
+<p>Istilah clearing/settlement/reconciliation diringkas dari <a href="https://www.bis.org/cpmi/publ/d00b.htm">BIS CPMI glossary</a>. Model SaaS/cloud mengacu pada <a href="https://www.nist.gov/publications/nist-definition-cloud-computing">NIST SP 800-145</a>. Consent healthcare memakai <a href="https://hl7.org/fhir/R4/consent.html">HL7 FHIR R4 Consent</a>. Pack AI menautkan <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI RMF</a> sebagai kerangka referensi.</p>
+<p>Actors, flows, invariant dan technique mapping dalam packs adalah kurasi riset generik lokal. Referensi tersebut tidak membuktikan implementasi target atau memberikan izin pengujian.</p></article></main>
+<footer>Dokumentasi aplikasi 0.3.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>

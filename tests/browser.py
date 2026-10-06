@@ -85,10 +85,22 @@ def run(chrome,node='node'):
         c.call('Runtime.enable');c.call('Page.enable');c.call('Log.enable')
         c.call('Browser.setDownloadBehavior',{'behavior':'allow','downloadPath':str(output)})
         c.go(ROOT.joinpath('index.html').as_uri());assert c.js("document.querySelector('h1').textContent")=='Research Dashboard'
+        def verify_help():
+            origin=c.js('location.href')
+            assert c.js("!!document.querySelector('.page-heading .help-button[title]')")
+            c.click('?');assert c.js("!!document.querySelector('dialog.feature-help-dialog[open]')")
+            href=c.js("document.querySelector('dialog.feature-help-dialog a').href")
+            assert c.js("document.querySelector('dialog.feature-help-dialog').textContent.includes('Status:')")
+            c.click('×');c.go(href)
+            assert c.js("!!document.getElementById(location.hash.slice(1))"),href
+            assert c.js("document.querySelector('article').textContent.includes('Kenapa Feature Ini Penting')")
+            assert c.js("document.querySelectorAll('nav a').length")==4
+            c.go(origin)
+        verify_help()
         c.js('window.confirm=()=>true')
-        c.click('+ Create Target');c.submit({'name':'OpenAI Codex','platform':'Bugcrowd','asset':'Codex Desktop'})
-        assert c.state()['targets'][0]['name']=='OpenAI Codex'
-        c.route('scope');c.js("const scopeInput=document.querySelector('[name=inScope]');scopeInput.value='Codex Desktop (authorized test environment)';scopeInput.dispatchEvent(new Event('input'));for(const label of ['Target confirmed in-scope','Testing account authorized','Testing data owned'])document.querySelector('input[aria-label=\"'+label+'\"]').click()");c.wait()
+        c.click('+ Create Target');c.submit({'name':'Example SaaS','platform':'Private','asset':'app.example.test'})
+        assert c.state()['targets'][0]['name']=='Example SaaS'
+        c.route('scope');c.js("const scopeInput=document.querySelector('[name=inScope]');scopeInput.value='app.example.test (authorized test environment)';scopeInput.dispatchEvent(new Event('input'));for(const label of ['Target confirmed in-scope','Testing account authorized','Testing data owned'])document.querySelector('input[aria-label=\"'+label+'\"]').click()");c.wait()
         c.route('attack-surface');c.click('+ Tambah');c.submit({'name':'Owner'})
         c.click('+ Tambah');c.submit({'name':'Member'})
         c.js("document.querySelectorAll('.panel')[1].querySelector('button').click()");c.submit({'name':'Approval','type':'Approval','owner':'Owner','state':'Used'})
@@ -112,6 +124,32 @@ def run(chrome,node='node'):
         c.js("document.querySelector('select[aria-label=\"Internal Helper\"]').value='secret-redactor';document.querySelector('select[aria-label=\"Internal Helper\"]').dispatchEvent(new Event('change'))");c.wait(100)
         c.js("document.querySelector('textarea[aria-label=\"Text to redact\"]').value='Authorization: Bearer SECRET_BROWSER_TEST'");c.click('Redact Preview');assert 'SECRET_BROWSER_TEST' not in c.js("document.querySelector('#view pre').textContent")
         c.route('tools');assert 'Burp Repeater' in c.js("document.querySelector('#view').textContent")
+        # Finance knowledge is fully usable with AI disabled, and importing suggestions requires review.
+        c.route('target-intelligence');c.click('Edit Intelligence Profile');c.submit({'company':'Example Finance Lab','businessModel':'Dummy SaaS/API lab','products':'Dummy transfer records'})
+        c.js("(()=>{const f=document.querySelector('#view form');f.elements.primaryDomain.value='finance';f.requestSubmit();})()");c.wait()
+        assert c.state()['targets'][0]['intelligence']['primaryDomainId']=='finance'
+        assert c.state()['targets'][0]['intelligence']['profile']['company']['sourceType']=='researcher'
+        c.click('Learn This Domain');c.js("(()=>{const s=document.querySelector('select[aria-label=\"Learning Depth\"]');s.value='Advanced';s.dispatchEvent(new Event('change'));})()");c.wait(150)
+        assert 'Reconciliation' in c.js("document.querySelector('#view').textContent")
+        c.click('Browse Full Pack');c.click('Actors');before_actors=len(c.state()['targets'][0]['actors'])
+        c.click('Review / Import actor');assert len(c.state()['targets'][0]['actors'])==before_actors
+        c.submit({'name':'Finance Customer','authority':'Own lab account only'});assert len(c.state()['targets'][0]['actors'])==before_actors+1
+        assert c.state()['targets'][0]['actors'][-1]['knowledgeProvenance']['sourceType']=='domain'
+        c.click('Objects');c.click('Review / Import object');c.submit({'name':'Finance Account','type':'Account','owner':'Finance Customer','tenant':'Lab','state':'active'})
+        c.route('business-flows');c.click('Edit Flow Relationships');c.submit({})
+        assert c.state()['domainPacks'][0]['id']=='finance'
+        c.click('Flow → Invariant → Question');c.submit({'title':'Finance transition question','notes':'Reviewed generic domain question'})
+        assert c.state()['targets'][0]['intelligence']['items'][-1]['sourceType']=='researcher','edited domain question retains researcher provenance'
+        assert c.state()['targets'][0]['intelligence']['items'][0]['sourceType']=='researcher'
+        c.route('research-questions');c.click('Convert to Hypothesis');c.submit({'title':'Finance invariant reviewed','who':'Finance Customer','object':'Finance Account','state':'pending','authority':'Owned lab authority','context':'Lab only'})
+        assert c.state()['targets'][0]['hypotheses'][-1]['knowledgeLinks']['domainId']=='finance'
+        c.route('hypotheses');c.js("(()=>{const r=[...document.querySelectorAll('article.record')].find(r=>r.textContent.includes('Finance invariant reviewed'));[...r.querySelectorAll('button')].find(b=>b.textContent==='Buat Test Case').click();})()");c.submit({'preconditions':'Owned lab data; no real funds','steps':'Review authorization\nRecord approved dummy transition','result':'not-tested'})
+        assert c.state()['targets'][0]['testCases'][-1]['knowledgeLinks']['flowId']=='finance-flow-1'
+        c.route('domain-knowledge');c.click('+ Custom Domain Pack');c.submit({'name':'QA Lab Domain','actorsText':'Owner\nMember','objectsText':'Dummy Export','flowsText':'Create → Authorize → Execute','invariantsText':'Removed member must lose export authority','termsText':'Export | Dummy artifact | Ownership matters | Resource'})
+        assert any(p['name']=='QA Lab Domain' for p in c.state()['domainPacks'])
+        c.js("document.getElementById('global-search').value='reconciliation';document.getElementById('global-search').dispatchEvent(new Event('input'))");c.wait()
+        for label in ['Terminology','Business Flow','Security Invariant','Related Technique']:assert label in c.js("document.querySelector('#view').textContent"),label
+        print('PASS Intelligence manual: multi-domain profile, learning/glossary, reviewed actors/objects, flow relationships, question -> hypothesis -> test, custom pack and related search.')
         c.route('notes')
         c.js("document.getElementById('global-search').value='research note';document.getElementById('global-search').dispatchEvent(new Event('input'))");c.wait()
         assert c.js("document.querySelectorAll('.search-result').length")==1
@@ -128,9 +166,16 @@ def run(chrome,node='node'):
         # Attempt HTML injection via notes remains plain text.
         c.route('notes');assert c.js("document.querySelectorAll('#view img').length")==0
         # Every sidebar route is rendered without runtime errors.
-        for route in ['dashboard','targets','scope','attack-surface','actors','objects','boundaries','techniques','hypotheses','tests','queue','evidence','findings','reports','notes','knowledge','tools','helpers','coverage','ai','settings','ai-provider','backup']:c.route(route);assert c.js("!!document.querySelector('main h1')"),route
+        for route in ['dashboard','targets','scope','attack-surface','actors','objects','boundaries','target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions','techniques','hypotheses','tests','queue','evidence','findings','reports','notes','knowledge','tools','helpers','coverage','ai','ai-techniques','ai-tools','ai-gaps','ai-findings','settings','ai-provider','backup']:
+            c.route(route);assert c.js("!!document.querySelector('main h1')"),route
+            assert c.js("!!document.querySelector('.page-heading .documentation-link')"),route
+        c.route('helpers')
+        for helper in ['authorization-matrix','state-transition','trust-boundary','evidence-comparator','secret-redactor','hypothesis-generator','scope-checker','finding-checklist','duplicate-comparator','report-builder','gap-analyzer']:
+            c.js("(()=>{const s=document.querySelector('select[aria-label=\"Internal Helper\"]');s.value="+json.dumps(helper)+";s.dispatchEvent(new Event('change'));})()")
+            assert c.js("[...document.querySelectorAll('#view .documentation-link')].some(a=>a.hash==='#helper-"+helper+"')"),helper
         c.call('Emulation.setDeviceMetricsOverride',{'width':390,'height':844,'deviceScaleFactor':1,'mobile':True});c.route('dashboard')
         assert c.js('document.documentElement.scrollWidth<=window.innerWidth'), 'mobile overflow'
+        c.route('target-intelligence');assert c.js('document.documentElement.scrollWidth<=window.innerWidth'),'intelligence mobile overflow'
         c.call('Emulation.setDeviceMetricsOverride',{'width':1440,'height':1000,'deviceScaleFactor':1,'mobile':False});c.route('dashboard')
         image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'dashboard.png').write_bytes(base64.b64decode(image))
         assert not c.errors,c.errors
@@ -140,6 +185,7 @@ def run(chrome,node='node'):
         print('PASS phase 4: KB/helpers/redactor/tools/coverage, exact JSON round trip, invalid import, routes, mobile layout, no console errors.')
         # Fresh origin: HTTP ES modules must work independently of the compatibility bundle.
         c.go(f'http://127.0.0.1:{server.server_port}/index.html');assert c.js("document.querySelector('h1').textContent")=='Research Dashboard'
+        verify_help()
         c.js('window.confirm=()=>true');import_data(json.dumps(exported));assert c.state()==exported,'fresh browser-origin import'
         c.route('reports');assert c.js("document.querySelector('.report-editor').value")==report
         assert not c.errors,c.errors
@@ -163,7 +209,7 @@ def run(chrome,node='node'):
                     time.sleep(.1)
             raise RuntimeError('Backend not ready')
         disabled_url=launch_backend(Path('server/index.js'),False)
-        c.go(disabled_url);c.js('window.confirm=()=>true');import_data(json.dumps(exported));c.route('reports')
+        c.go(disabled_url);verify_help();c.js('window.confirm=()=>true');import_data(json.dumps(exported));c.route('reports')
         assert c.js("document.querySelector('.report-editor').value")==report
         assert c.js("document.querySelectorAll('#navigation a[href=\"#ai\"]').length")==0
         c.route('settings');assert 'Disabled' in c.js("document.querySelector('#view').textContent")
@@ -172,6 +218,8 @@ def run(chrome,node='node'):
         enabled_url=launch_backend(Path('tests/mock-server.mjs'),True)
         c.go(enabled_url);c.js('window.confirm=()=>true');import_data(json.dumps(exported));c.route('ai')
         assert c.js("document.querySelectorAll('#navigation a[href=\"#ai\"]').length")==1
+        c.js("(()=>{const s=document.querySelector('#view form').elements.operation;s.value='false_positive_analysis';s.dispatchEvent(new Event('change'));})()")
+        assert c.js("document.querySelector('.operation-help a').hash")=='#ai-false-positive'
         source_finding=exported['targets'][0]['findings'][0]['id']
         def request_ai(operation='generate_hypotheses'):
             c.js("(()=>{const f=document.querySelector('#view form');f.elements.operation.value="+json.dumps(operation)+";f.elements.findingId.value="+json.dumps(source_finding)+";f.elements.notes.value='Authorization: Bearer PRIVATE_AI_CONTEXT';f.requestSubmit();})()")
@@ -181,7 +229,7 @@ def run(chrome,node='node'):
         assert state['hypotheses']==exported['targets'][0]['hypotheses'] and state['findings']==exported['targets'][0]['findings'],'AI did not modify research before acceptance'
         c.click('Reject');c.wait();assert c.state()['targets'][0]['aiSuggestions'][0]['status']=='rejected'
         request_ai();c.click('Review Hypothesis: AI draft owned capability hypothesis');c.submit({'title':'Reviewed by researcher: owned capability hypothesis'})
-        assert len(c.state()['targets'][0]['hypotheses'])==2
+        assert len(c.state()['targets'][0]['hypotheses'])==len(exported['targets'][0]['hypotheses'])+1
         c.click('Accept as Research Note');c.wait();assert any(n.get('type')=='ai-advice' for n in c.state()['targets'][0]['notes'])
         request_ai('improve_report');c.click('Preview / Edit Report Draft');c.submit({'reportMarkdown':'# Researcher Reviewed AI Draft\n\nObserved fixture only.'})
         assert c.state()['targets'][0]['findings'][0]['reportMarkdown']=='# Researcher Reviewed AI Draft\n\nObserved fixture only.'
@@ -190,6 +238,23 @@ def run(chrome,node='node'):
         c.call('Page.reload');c.wait(900);assert len(c.state()['targets'][0]['aiSuggestions'])==3
         assert not c.errors,c.errors
         print('PASS AI_ENABLED mock UI: redacted context preview, JSON validation, no automatic research mutation, Reject, edited hypothesis Accept, note Accept, report Edit/Accept, reload.')
+        c.route('target-intelligence')
+        c.js("(()=>{const f=document.querySelector('#view form select[name=knowledgeOperation]').form;f.elements.knowledgeOperation.value='generate_target_knowledge';f.elements.knowledgeNotes.value='Authorization: Bearer PRIVATE_KNOWLEDGE_CONTEXT';f.requestSubmit();})()");c.wait(100)
+        assert 'PRIVATE_KNOWLEDGE_CONTEXT' not in c.js("document.querySelector('dialog pre').textContent")
+        knowledge_before=len(c.state()['targets'][0]['intelligence']['items']);actors_before=len(c.state()['targets'][0]['actors'])
+        c.click('Send Knowledge Analysis');c.wait(800)
+        assert len(c.state()['targets'][0]['intelligence']['items'])==knowledge_before
+        suggestion=c.state()['targets'][0]['intelligence']['suggestions'][0];assert suggestion['status']=='pending'
+        assert all(i['sourceType']=='ai' and not i['verified'] for i in suggestion['response']['items'])
+        c.click('Accept / Edit Knowledge');c.submit({'title':'Researcher reviewed AI actor'})
+        assert len(c.state()['targets'][0]['intelligence']['items'])==knowledge_before+1 and len(c.state()['targets'][0]['actors'])==actors_before
+        assert c.state()['targets'][0]['intelligence']['items'][-1]['sourceType']=='ai'
+        c.click('Review Sector Classification');c.submit({'choice':'secondary','notes':'Reviewed sector draft'})
+        c.click('Reject Suggestion');c.wait();assert c.state()['targets'][0]['intelligence']['suggestions'][0]['status']=='rejected'
+        c.call('Page.reload');c.wait(800);assert c.state()['targets'][0]['intelligence']['items'][-1]['sourceType']=='ai'
+        assert not c.errors,c.errors
+        image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'intelligence.png').write_bytes(base64.b64decode(image))
+        print('PASS Intelligence AI mock: selected/redacted context, inference provenance, no automatic model mutations, item Accept/Edit, sector review, Reject, reload.')
     finally:
         for backend in backends:
             backend.terminate()

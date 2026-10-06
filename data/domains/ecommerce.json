@@ -1,0 +1,689 @@
+{
+  "id": "ecommerce",
+  "name": "E-Commerce",
+  "description": "Penjualan dan pemenuhan barang/jasa dengan checkout, order, dan refund.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Ownership order",
+    "State order/payment",
+    "Inventory dan fulfillment"
+  ],
+  "terminology": [
+    {
+      "id": "ecommerce-term-1",
+      "title": "Fulfillment",
+      "content": "Proses memenuhi order hingga siap dikirim/diserahkan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Fulfillment",
+      "definition": "Proses memenuhi order hingga siap dikirim/diserahkan.",
+      "whyImportant": "State ini dapat mengubah aksi pembatalan/refund yang tersedia.",
+      "relatedTerms": [
+        "Order",
+        "Shipment"
+      ]
+    },
+    {
+      "id": "ecommerce-term-2",
+      "title": "Inventory",
+      "content": "Catatan ketersediaan resource/barang.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Inventory",
+      "definition": "Catatan ketersediaan resource/barang.",
+      "whyImportant": "Konsistensi perubahan state perlu dijaga.",
+      "relatedTerms": [
+        "Order",
+        "Product"
+      ]
+    },
+    {
+      "id": "ecommerce-term-3",
+      "title": "Checkout",
+      "content": "Tahap memfinalkan pilihan dan informasi order.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Checkout",
+      "definition": "Tahap memfinalkan pilihan dan informasi order.",
+      "whyImportant": "Harga/pemilik/context perlu konsisten.",
+      "relatedTerms": [
+        "Cart",
+        "Payment"
+      ]
+    },
+    {
+      "id": "ecommerce-term-4",
+      "title": "Coupon",
+      "content": "Aturan manfaat/potongan untuk kondisi tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Coupon",
+      "definition": "Aturan manfaat/potongan untuk kondisi tertentu.",
+      "whyImportant": "Prasyarat dan penggunaan perlu sesuai aturan.",
+      "relatedTerms": [
+        "Cart",
+        "Order"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "ecommerce-actor-1",
+      "title": "Customer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-2",
+      "title": "Seller",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-3",
+      "title": "Buyer",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-4",
+      "title": "Merchant",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-5",
+      "title": "Warehouse Operator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-6",
+      "title": "Support",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-actor-7",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "ecommerce-object-1",
+      "title": "Product",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-2",
+      "title": "Cart",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-3",
+      "title": "Order",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-4",
+      "title": "Payment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-5",
+      "title": "Coupon",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-6",
+      "title": "Inventory",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-7",
+      "title": "Shipment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-8",
+      "title": "Refund",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-9",
+      "title": "Seller",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-object-10",
+      "title": "Buyer",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "ecommerce-flow-1",
+      "title": "E-Commerce — flow generik",
+      "content": "Penjualan dan pemenuhan barang/jasa dengan checkout, order, dan refund.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Customer",
+        "Cart",
+        "Checkout",
+        "Payment",
+        "Order",
+        "Inventory",
+        "Fulfillment",
+        "Delivery",
+        "Refund"
+      ],
+      "actorIds": [
+        "ecommerce-actor-1",
+        "ecommerce-actor-2",
+        "ecommerce-actor-3",
+        "ecommerce-actor-4",
+        "ecommerce-actor-5",
+        "ecommerce-actor-6",
+        "ecommerce-actor-7"
+      ],
+      "objectIds": [
+        "ecommerce-object-1",
+        "ecommerce-object-2",
+        "ecommerce-object-3",
+        "ecommerce-object-4",
+        "ecommerce-object-5",
+        "ecommerce-object-6",
+        "ecommerce-object-7",
+        "ecommerce-object-8",
+        "ecommerce-object-9",
+        "ecommerce-object-10"
+      ],
+      "boundaryIds": [
+        "ecommerce-boundary-1"
+      ],
+      "invariantIds": [
+        "ecommerce-invariant-1",
+        "ecommerce-invariant-2",
+        "ecommerce-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "ecommerce-transition-1",
+          "fromState": "Customer",
+          "toState": "Cart",
+          "action": "Customer → Cart",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-2",
+          "fromState": "Cart",
+          "toState": "Checkout",
+          "action": "Cart → Checkout",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-3",
+          "fromState": "Checkout",
+          "toState": "Payment",
+          "action": "Checkout → Payment",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-4",
+          "fromState": "Payment",
+          "toState": "Order",
+          "action": "Payment → Order",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-5",
+          "fromState": "Order",
+          "toState": "Inventory",
+          "action": "Order → Inventory",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-6",
+          "fromState": "Inventory",
+          "toState": "Fulfillment",
+          "action": "Inventory → Fulfillment",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-7",
+          "fromState": "Fulfillment",
+          "toState": "Delivery",
+          "action": "Fulfillment → Delivery",
+          "critical": false,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        },
+        {
+          "id": "ecommerce-transition-8",
+          "fromState": "Delivery",
+          "toState": "Refund",
+          "action": "Delivery → Refund",
+          "critical": true,
+          "invariantIds": [
+            "ecommerce-invariant-1",
+            "ecommerce-invariant-2",
+            "ecommerce-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "ecommerce-sensitive-1",
+      "title": "Buyer addresses and contact details",
+      "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-sensitive-2",
+      "title": "Orders and payment references",
+      "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-sensitive-3",
+      "title": "Seller financial and inventory records",
+      "content": "Kategori data generik E-Commerce; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "ecommerce-asset-1",
+      "title": "Order",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-asset-2",
+      "title": "Payment",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-asset-3",
+      "title": "Inventory",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-asset-4",
+      "title": "Shipment",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-asset-5",
+      "title": "Refund",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada E-Commerce flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "ecommerce-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "ecommerce-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "ecommerce-invariant-1",
+      "title": "Order harus terikat pada customer dan merchant yang benar.",
+      "content": "Order harus terikat pada customer dan merchant yang benar.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "ecommerce-invariant-2",
+      "title": "Transisi refund harus memenuhi state serta hak yang berlaku.",
+      "content": "Transisi refund harus memenuhi state serta hak yang berlaku.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "techniqueIds": [
+        "tech_18"
+      ]
+    },
+    {
+      "id": "ecommerce-invariant-3",
+      "title": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+      "content": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "techniqueIds": [
+        "tech_08"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "ecommerce-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "ecommerce-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "ecommerce-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "ecommerce-mapping-2",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "ecommerce-mapping-3",
+      "title": "Technique tech_08",
+      "content": "Race/TOCTOU: tinjau apakah validasi dan efek bisnis tetap konsisten saat transisi berdekatan. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_08",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "ecommerce-mapping-4",
+      "title": "Technique tech_09",
+      "content": "Webhook ownership: event dan destination harus tetap terikat pada owner serta context bisnis yang sah. Tinjau E-Commerce flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_09",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-1",
+      "researchPriority": 60
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "ecommerce-question-1",
+      "title": "Bagaimana memastikan: Order harus terikat pada customer dan merchant yang benar.",
+      "content": "Order harus terikat pada customer dan merchant yang benar. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "ecommerce-question-2",
+      "title": "Bagaimana memastikan: Transisi refund harus memenuhi state serta hak yang berlaku.",
+      "content": "Transisi refund harus memenuhi state serta hak yang berlaku. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-2",
+      "techniqueId": "tech_18"
+    },
+    {
+      "id": "ecommerce-question-3",
+      "title": "Bagaimana memastikan: Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment.",
+      "content": "Perubahan order tidak boleh melewati prasyarat pembayaran/fulfillment. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "ecommerce-flow-1",
+      "invariantId": "ecommerce-invariant-3",
+      "techniqueId": "tech_08"
+    }
+  ],
+  "references": []
+}

@@ -19,7 +19,11 @@ export function buildResearchContext(target,options={}) {
     findings:target.findings.map(row=>choose(row,['id','title','affectedComponent','rootCause','securityRestriction','vulnerabilityClass','impact','status'])),
     finding:options.findingId?(()=>{const f=target.findings.find(row=>row.id===options.findingId);return f?choose(f,['title','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','preconditions','steps','expectedResult','actualResult','researchNotes','severity','testCaseId','who','what','object','state','authority','context']):null;})():null,
     evidence:options.includeEvidence?target.evidence.filter(e=>!options.findingId || target.findings.find(f=>f.id===options.findingId)?.evidenceIds?.includes(e.id)).map(row=>choose(row,['type','label','description','content'])):[],
-    knowledge:options.includeKnowledge?target.knowledgeBase.map(row=>choose(row,['category','title','content','source','rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'])):[],
+    knowledge:options.includeKnowledge?[
+      ...target.knowledgeBase.map(row=>choose(row,['category','title','content','source','rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'])),
+      ...(target.intelligence?.items||[]).filter(i=>i.status==='accepted').slice(0,12).map(row=>({category:'Target Intelligence · '+row.sourceType,title:row.title,content:row.content,source:row.source,sourceType:row.sourceType,confidence:row.confidence,verified:row.verified,notes:row.notes})),
+      ...(options.domainKnowledge||[]).slice(0,3).flatMap(pack=>[...pack.securityInvariants.slice(0,4),...pack.businessFlows.slice(0,2)].map(row=>({category:'DOMAIN KNOWLEDGE · '+pack.name,title:row.title,content:row.content+(row.steps?'\nFlow: '+row.steps.join(' → '):''),source:row.source,sourceType:'domain',confidence:row.confidence,verified:false,notes:'Pola generik; bukan fakta perusahaan.'})))
+    ]:[],
     report:options.report||''
   };
 }

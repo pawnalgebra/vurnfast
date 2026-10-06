@@ -8,11 +8,13 @@ import {compareText,duplicateComparison,findingChecklist} from '../services/anal
 import {editHypothesis} from './hypotheses.js';
 import {coveragePanels} from './coverage.js';
 import {routeTo} from '../router.js';
+import {helperFeatures} from '../feature-registry.js';
 // MODULE: Local manual helper tools. Inputs never produce network requests or target actions.
 export function renderHelpers(ctx,target) {
   const root=el('div',{},ctx.heading('Internal Research Helpers','Bangun catatan dan bandingkan observasi secara lokal.'));
   const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
   const kind=select.value;
+  root.append(ctx.help(helperFeatures[kind]));
   if(kind==='authorization-matrix'||kind==='state-transition') {
     const definitions=kind==='authorization-matrix'?[['who','Actor','required'],['object','Object','required'],['what','Action','required'],['authority','Required Authority'],['expectedResult','Expected permission / invariant','textarea']]:[['from','From State','required'],['to','To State','required'],['what','Action'],['authority','Required Authority'],['invariant','Security Invariant','textarea'],['notes','Notes','textarea']];
     const edit=row=>editDialog('Manual '+(kind==='authorization-matrix'?'Authorization Matrix':'State Transition'),definitions,row||{},values=>{ctx.store.upsert(target.id,'helperRecords',{...row,...values,type:kind});ctx.render();});

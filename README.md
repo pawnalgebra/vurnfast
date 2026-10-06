@@ -1,8 +1,42 @@
-# Universal Bug Bounty Research Workspace · v0.2
+# Advanced Bug Bounty Research Workspace · v0.3
 
 Platform local-first untuk riset bug bounty manual lintas program: target → scope/rules → actors/objects/trust boundaries → techniques → hypotheses → test cases → evidence → findings → laporan Indonesia. **Researcher First · AI Optional · Program Rules First · Evidence Required.**
 
 Core tetap offline dan tidak bergantung backend. AI memberi rekomendasi dan draft yang harus direview; workspace tidak menjalankan scanner, commands, fuzzing, brute force, atau interaksi otomatis dengan asset target.
+
+## Dokumentasi Pengguna
+
+- [USER_GUIDE](docs/USER_GUIDE.md): mulai dari instalasi, konsep WHO/WHAT/OBJECT/STATE/AUTHORITY/CONTEXT, sampai report dan backup.
+- [FEATURE_REFERENCE](docs/FEATURE_REFERENCE.md): fungsi, input, output, contoh, hubungan, status Active/Partial, dan batasan setiap fitur, helper, operasi AI, serta 20 teknik bawaan.
+- [WORKFLOW_GUIDE](docs/WORKFLOW_GUIDE.md): latihan Example SaaS dalam 20 langkah, dengan alur AI aktif dan tanpa AI.
+- [TARGET_INTELLIGENCE_GUIDE](docs/TARGET_INTELLIGENCE_GUIDE.md): profil bisnis, provenance, 13 domain pack, glossary, critical transitions, dan latihan Finance tanpa AI.
+
+Di aplikasi, tombol **?** menyediakan tooltip singkat dan dialog bantuan. **View Documentation** membuka bagian terkait dalam dokumentasi HTML lokal; bekerja pada file://, HTTP statis folder client, dan backend Fastify. Halaman dokumentasi mempunyai daftar isi, tautan empat panduan, dan download Markdown.
+
+## How to Learn This System
+
+Ikuti urutan berikut sambil menjalankan [workflow Example SaaS](docs/WORKFLOW_GUIDE.md). Buat satu catatan pada tiap tahap sebelum melanjutkan.
+
+Sebelum Actors & Objects, pelajari **Target Intelligence → Domain Knowledge → Terminology → Business Flows**. Tentukan primary sector dan secondary domains, bedakan fakta bersumber dari pola domain, lalu review actor/object suggestions. Gunakan [latihan Finance](docs/TARGET_INTELLIGENCE_GUIDE.md) untuk menurunkan flow → critical transition → invariant → research question → hypothesis → test case.
+
+1. [Target](docs/USER_GUIDE.md#cara-membuat-target-pertama): identitas program/aset dan lingkungan.
+2. [Scope](docs/USER_GUIDE.md#cara-memasukkan-scope-dan-rules): batas izin, guard, rules, dan stop conditions.
+3. [Actors & Objects](docs/USER_GUIDE.md#cara-membuat-actor): pelaku, resource, ownership, tenant, state.
+4. [Trust Boundaries](docs/USER_GUIDE.md#cara-membuat-trust-boundary): perpindahan trust/authority antar komponen.
+5. [Techniques](docs/USER_GUIDE.md#cara-memilih-technique): pilih invariant yang sesuai sistem.
+6. [Hypotheses](docs/USER_GUIDE.md#cara-membuat-hypothesis): pisahkan aturan yang diharapkan dari dugaan kegagalan.
+7. [Test Cases](docs/USER_GUIDE.md#cara-membuat-test-case): langkah manual serta expected/actual dan PASS/FAIL.
+8. [Evidence](docs/USER_GUIDE.md#cara-menyimpan-evidence): observasi redacted dan referensi file.
+9. [Findings](docs/USER_GUIDE.md#cara-membuat-finding): authority, restriction, resource, outcome, impact.
+10. [Reports](docs/USER_GUIDE.md#cara-generate-report): review, edit, dan export laporan Indonesia.
+11. [AI Tools](docs/USER_GUIDE.md#cara-menggunakan-ai): konfigurasi, preview, privacy, dan keputusan peneliti.
+12. [Coverage / Knowledge Base](docs/USER_GUIDE.md#cara-membaca-research-coverage): pilih gap berikutnya dan simpan lessons.
+
+## Memperbarui Dokumentasi dan Bantuan
+
+`scripts/feature_catalog.py` adalah sumber bersama description, purpose, status, mapping route/operation/helper, dan isi referensi fitur. `data/default-techniques.json` menyediakan metadata 20 teknik. Edit kedua sumber sesuai perubahan implementasi; `docs/USER_GUIDE.md` dan `docs/WORKFLOW_GUIDE.md` ditulis langsung. Jalankan `python scripts/build.py` untuk menghasilkan `docs/FEATURE_REFERENCE.md`, `client/js/feature-registry.js`, seluruh halaman `client/docs/`, dan bundle offline. Jangan mengedit output generated secara langsung.
+
+Build memeriksa tautan antarbagian. Test dokumentasi memeriksa cakupan semua menu, operasi AI, helper, teknik, dan ketersediaan halaman/anchor melalui backend yang hanya menyajikan client. Sumber frontend/dependensi dan alur manual tidak berubah oleh status dokumentasi.
 
 ## Menjalankan
 
@@ -34,6 +68,11 @@ client/
   js/app.js, store.js, storage.js, router.js, utils.js, forms.js
   js/modules/                      View CRUD, reporting, knowledge, helpers, AI
   js/services/
+    domain-schema.js                Pack/provenance validation
+    domain-knowledge.js             Local packs, profile, flows and relationships
+    knowledge-context.js            Selected, bounded intelligence context
+    knowledge-schema.js             Separate 11-operation AI contract
+    knowledge-search.js             Global research/domain knowledge search
     rules.js                       Scope assessment dan hard policy filter
     redactor.js                    SecretRedactor browser/backend
     context.js                     Allowlisted, selected-target AI context
@@ -49,7 +88,9 @@ server/
   config.js                        Server-only .env and safe config
   ai/provider.js                   AiProvider.complete(request), four adapters
   services/advisor.js               CyberResearchAdvisor and output constraints
+  services/target-knowledge.js      Optional knowledge AI; no automatic facts/findings
 data/
+  domains/*.json                    13 offline packs, editable workspace overrides
   default-techniques.json
   tools/tools.json, helpers/helpers.json
   example-workspace.json            Fiktif schema v2
@@ -83,9 +124,10 @@ File System Access tetap opsional: Connect workspace.json → Save to workspace.
 ```json
 {
   "schemaVersion": "2.0.0",
-  "applicationVersion": "0.2.0",
+  "applicationVersion": "0.3.0",
   "updatedAt": "ISO-8601",
-  "targets": []
+  "targets": [],
+  "domainPacks": []
 }
 ```
 
@@ -95,6 +137,10 @@ Setiap target mempertahankan profile, scope/guard, actors, objects, boundaries, 
 - `knowledgeBase`: category, title, content, source dan comparison metadata opsional.
 - `helperRecords`: authorization matrix rows dan state transitions.
 - `aiSuggestions`: UUID, operation, provider/model, privacyMode, sourceFindingId, validated response, status pending/accepted/rejected.
+- `intelligence`: 16-field profile with provenance, primary/secondary domain IDs, accepted items, reviewed AI suggestions and classification provenance. Existing v1/v2 imports receive empty intelligence fields; existing records stay intact.
+- Workspace `domainPacks` stores custom packs and overrides. Default packs load from `data/domains/`; build generates an offline module. JSON backups carry overrides; `knowledgeLinks` carries domain/flow/invariant/question references through hypotheses, tests and findings.
+
+The core includes AI, Finance, Banking, Fintech, SaaS, E-commerce, Healthcare, Cloud, Developer Platform, Social Media, Telecommunication, Education and Enterprise Software. Beginner/Intermediate/Advanced learning, glossary and technique mappings work with `AI_ENABLED=false`. The separate `/api/knowledge` endpoint offers 11 reviewed operations using selected context, existing provider/config/privacy settings, and explicit researcher acceptance. Domain patterns and AI inference never establish a vulnerability or confirmed company fact automatically.
 
 Technique memiliki category, securityInvariant, dimensions, signals, falsePositiveIndicators, stopConditions, researchPriority, duplicateRisk, testingCost. Skor manual bernilai 0–100 dan dapat diedit. Sorting Rare First, Easy First, Highest Research Priority, Lowest Duplicate Risk, Lowest Testing Cost. Blueprint ranking bukan severity.
 

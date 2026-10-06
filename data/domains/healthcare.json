@@ -1,0 +1,640 @@
+{
+  "id": "healthcare",
+  "name": "Healthcare",
+  "description": "Platform informasi dan pelayanan kesehatan; gunakan data sintetis dan batas izin yang ditentukan pemilik.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Consent dan purpose",
+    "Keterkaitan patient/resource",
+    "Role klinis dan administratif"
+  ],
+  "terminology": [
+    {
+      "id": "healthcare-term-1",
+      "title": "Consent",
+      "content": "Catatan pilihan izin untuk aksi, penerima dan context tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Consent",
+      "definition": "Catatan pilihan izin untuk aksi, penerima dan context tertentu.",
+      "whyImportant": "Consent bukan izin universal untuk seluruh data.",
+      "relatedTerms": [
+        "Patient",
+        "Sharing"
+      ]
+    },
+    {
+      "id": "healthcare-term-2",
+      "title": "Encounter",
+      "content": "Context pertemuan/layanan kesehatan pada model informasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Encounter",
+      "definition": "Context pertemuan/layanan kesehatan pada model informasi.",
+      "whyImportant": "Menentukan hubungan resource dan role.",
+      "relatedTerms": [
+        "Patient",
+        "Observation"
+      ]
+    },
+    {
+      "id": "healthcare-term-3",
+      "title": "Observation",
+      "content": "Record pengamatan/hasil dalam model informasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Observation",
+      "definition": "Record pengamatan/hasil dalam model informasi.",
+      "whyImportant": "Dapat mengandung data sensitif.",
+      "relatedTerms": [
+        "Patient",
+        "Encounter"
+      ]
+    },
+    {
+      "id": "healthcare-term-4",
+      "title": "FHIR Resource",
+      "content": "Unit struktur data pada model FHIR.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "FHIR Resource",
+      "definition": "Unit struktur data pada model FHIR.",
+      "whyImportant": "Reference dan akses tetap harus diotorisasi.",
+      "relatedTerms": [
+        "Patient",
+        "Consent"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "healthcare-actor-1",
+      "title": "Patient",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-2",
+      "title": "Clinician",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-3",
+      "title": "Caregiver",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-4",
+      "title": "Receptionist",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-5",
+      "title": "Lab Operator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-6",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-actor-7",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "healthcare-object-1",
+      "title": "Patient Record",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-2",
+      "title": "Encounter",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-3",
+      "title": "Observation",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-4",
+      "title": "Appointment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-5",
+      "title": "Consent",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-6",
+      "title": "Prescription",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-object-7",
+      "title": "Document",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "healthcare-flow-1",
+      "title": "Healthcare — flow generik",
+      "content": "Platform informasi dan pelayanan kesehatan; gunakan data sintetis dan batas izin yang ditentukan pemilik.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Patient",
+        "Appointment",
+        "Encounter",
+        "Observation",
+        "Review",
+        "Authorized Sharing",
+        "Consent Update"
+      ],
+      "actorIds": [
+        "healthcare-actor-1",
+        "healthcare-actor-2",
+        "healthcare-actor-3",
+        "healthcare-actor-4",
+        "healthcare-actor-5",
+        "healthcare-actor-6",
+        "healthcare-actor-7"
+      ],
+      "objectIds": [
+        "healthcare-object-1",
+        "healthcare-object-2",
+        "healthcare-object-3",
+        "healthcare-object-4",
+        "healthcare-object-5",
+        "healthcare-object-6",
+        "healthcare-object-7"
+      ],
+      "boundaryIds": [
+        "healthcare-boundary-1"
+      ],
+      "invariantIds": [
+        "healthcare-invariant-1",
+        "healthcare-invariant-2",
+        "healthcare-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "healthcare-transition-1",
+          "fromState": "Patient",
+          "toState": "Appointment",
+          "action": "Patient → Appointment",
+          "critical": false,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        },
+        {
+          "id": "healthcare-transition-2",
+          "fromState": "Appointment",
+          "toState": "Encounter",
+          "action": "Appointment → Encounter",
+          "critical": false,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        },
+        {
+          "id": "healthcare-transition-3",
+          "fromState": "Encounter",
+          "toState": "Observation",
+          "action": "Encounter → Observation",
+          "critical": false,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        },
+        {
+          "id": "healthcare-transition-4",
+          "fromState": "Observation",
+          "toState": "Review",
+          "action": "Observation → Review",
+          "critical": false,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        },
+        {
+          "id": "healthcare-transition-5",
+          "fromState": "Review",
+          "toState": "Authorized Sharing",
+          "action": "Review → Authorized Sharing",
+          "critical": true,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        },
+        {
+          "id": "healthcare-transition-6",
+          "fromState": "Authorized Sharing",
+          "toState": "Consent Update",
+          "action": "Authorized Sharing → Consent Update",
+          "critical": true,
+          "invariantIds": [
+            "healthcare-invariant-1",
+            "healthcare-invariant-2",
+            "healthcare-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "healthcare-sensitive-1",
+      "title": "Patient identity and clinical observations",
+      "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-sensitive-2",
+      "title": "Prescriptions and encounter documents",
+      "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-sensitive-3",
+      "title": "Consent and recipient records",
+      "content": "Kategori data generik Healthcare; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "healthcare-asset-1",
+      "title": "Patient Record",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-asset-2",
+      "title": "Observation",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-asset-3",
+      "title": "Consent",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-asset-4",
+      "title": "Prescription",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Healthcare flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "healthcare-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "healthcare-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "healthcare-invariant-1",
+      "title": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+      "content": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "healthcare-invariant-2",
+      "title": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+      "content": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "healthcare-invariant-3",
+      "title": "Resource tidak boleh tertaut pada identitas pasien yang salah.",
+      "content": "Resource tidak boleh tertaut pada identitas pasien yang salah.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "healthcare-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "healthcare-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "healthcare-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "healthcare-mapping-2",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "healthcare-mapping-3",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "healthcare-mapping-4",
+      "title": "Technique tech_13",
+      "content": "Account linking: identitas dan consent harus terikat pada akun serta recipient yang benar. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_13",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "healthcare-mapping-5",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Healthcare flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "healthcare-question-1",
+      "title": "Bagaimana memastikan: Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi.",
+      "content": "Record pasien hanya tersedia bagi actor dan purpose yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "healthcare-question-2",
+      "title": "Bagaimana memastikan: Consent/context yang berubah harus diperhitungkan dalam akses berikutnya.",
+      "content": "Consent/context yang berubah harus diperhitungkan dalam akses berikutnya. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-2",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "healthcare-question-3",
+      "title": "Bagaimana memastikan: Resource tidak boleh tertaut pada identitas pasien yang salah.",
+      "content": "Resource tidak boleh tertaut pada identitas pasien yang salah. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "healthcare-flow-1",
+      "invariantId": "healthcare-invariant-3",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": [
+    {
+      "title": "HL7 FHIR R4 — Consent",
+      "url": "https://hl7.org/fhir/R4/consent.html",
+      "notes": "Referensi representasi consent; bukan panduan hukum/klinis atau klaim sistem target."
+    }
+  ]
+}

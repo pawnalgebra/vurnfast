@@ -1,4 +1,5 @@
 import {validateAIOutput} from './ai-schema.js';
+import {validateKnowledgeResponse} from './knowledge-schema.js';
 // MODULE: Optional localhost bridge. Config and request token remain session-memory only.
 export const aiConnection={baseURL:'',token:'',status:'Disabled',enabled:false,configured:false,provider:'',model:'',privacyMode:'REDACTED_CLOUD',redactSecrets:true};
 export async function connectBackend(url) {
@@ -18,4 +19,8 @@ export async function requestAdvice(context,privacyMode) {
     const data=await response.json();if(!response.ok){aiConnection.status=data.status||'Provider Error';throw new Error(data.error||'Provider Error');}
     aiConnection.status='Connected';return validateAIOutput(data.response);
   }catch(error){if(!['Disabled','Misconfigured'].includes(aiConnection.status))aiConnection.status='Provider Error';throw error;}
+}
+export async function requestKnowledge(context,privacyMode){
+  if(!aiConnection.enabled||!aiConnection.configured)throw new Error('AI disabled atau misconfigured.');
+  try{const response=await fetch(aiConnection.baseURL+'/api/knowledge',{method:'POST',headers:{'Content-Type':'application/json','X-Workspace-Token':aiConnection.token},body:JSON.stringify({context,privacyMode}),signal:AbortSignal.timeout(65000),credentials:'omit'});const data=await response.json();if(!response.ok){aiConnection.status=data.status||'Provider Error';throw new Error(data.error||'Provider Error');}aiConnection.status='Connected';return validateKnowledgeResponse(data.response);}catch(error){if(!['Disabled','Misconfigured'].includes(aiConnection.status))aiConnection.status='Provider Error';throw error;}
 }

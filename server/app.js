@@ -6,6 +6,8 @@ import {randomBytes,timingSafeEqual} from 'node:crypto';
 import {resolveConfig,safeConfig} from './config.js';
 import {createProvider} from './ai/provider.js';
 import {CyberResearchAdvisor,advisorOperations} from './services/advisor.js';
+import {TargetKnowledgeAIService} from './services/target-knowledge.js';
+import {KNOWLEDGE_REQUEST_SCHEMA,validateKnowledgeContext} from '../client/js/services/knowledge-schema.js';
 // MODULE: Local API and explicit static client root. Project/server/.env are never static resources.
 export function localOrigin(origin) {
   try{const url=new URL(origin);return ['http:','https:'].includes(url.protocol)&&['127.0.0.1','localhost','[::1]'].includes(url.hostname)&&url.origin===origin;}catch{return false;}
@@ -15,6 +17,7 @@ export async function createApp({env={},providerFactory=createProvider}={}) {
   const app=Fastify({logger:false,bodyLimit:300000,requestTimeout:70000,ajv:{customOptions:{allowUnionTypes:true}}});
   const provider=config.enabled&&config.configured?providerFactory(config):null; // Disabled startup never initializes a provider.
   const advisor=new CyberResearchAdvisor(provider,config),requestToken=randomBytes(32).toString('hex');
+  const targetKnowledge=new TargetKnowledgeAIService(provider,config);
   let providerStatus=!config.enabled?'Disabled':!config.configured?'Misconfigured':'Connected',activeRequest=false;
   const clientRoot=fileURLToPath(new URL('../client/',import.meta.url));
   app.addHook('onRequest',async(request,reply)=>{
@@ -43,6 +46,18 @@ export async function createApp({env={},providerFactory=createProvider}={}) {
     activeRequest=true;
     try {const output=await advisor.analyze(request.body.context,request.body.privacyMode);providerStatus='Connected';return {status:'Connected',response:output};}
     catch {providerStatus='Provider Error';return reply.code(502).send({status:'Provider Error',error:'Provider gagal atau output tidak valid. Workspace manual tidak diubah.'});}
+    finally{activeRequest=false;}
+  });
+  app.post('/api/knowledge',{schema:{body:KNOWLEDGE_REQUEST_SCHEMA}},async(request,reply)=>{
+    if(!config.enabled)return reply.code(503).send({status:'Disabled',error:'AI disabled. Domain knowledge manual tetap tersedia.'});
+    if(!provider)return reply.code(503).send({status:'Misconfigured',error:'Konfigurasi provider/model belum lengkap.'});
+    try{validateKnowledgeContext(request.body.context);}catch{return reply.code(400).send({error:'Knowledge context tidak valid.'});}
+    if(request.body.privacyMode==='LOCAL_ONLY'&&config.provider!=='ollama')return reply.code(400).send({error:'LOCAL_ONLY hanya untuk Ollama localhost.'});
+    if(config.privacyMode==='LOCAL_ONLY'&&request.body.privacyMode!=='LOCAL_ONLY')return reply.code(400).send({error:'Backend dikonfigurasi LOCAL_ONLY.'});
+    if(activeRequest)return reply.code(429).send({error:'Satu analisis sedang berjalan.'});
+    activeRequest=true;
+    try{const output=await targetKnowledge.analyze(request.body.context,request.body.privacyMode);providerStatus='Connected';return {status:'Connected',response:output};}
+    catch{providerStatus='Provider Error';return reply.code(502).send({status:'Provider Error',error:'Knowledge provider gagal atau output tidak valid. Core manual tidak diubah.'});}
     finally{activeRequest=false;}
   });
   // SECURITY: Fastify errors never return validation payloads, raw upstream bodies, stack traces or config.

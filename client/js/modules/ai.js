@@ -7,6 +7,8 @@ import {validateAIOutput} from '../services/ai-schema.js';
 import {editHypothesis} from './hypotheses.js';
 import {routeTo} from '../router.js';
 import {generateIndonesianReport} from '../templates/report-id.js';
+import {operationFeatures} from '../feature-registry.js';
+import {DomainKnowledgeService} from '../services/domain-knowledge.js';
 export const aiOperations=[['research_advice','Research Assistant'],['analyze_scope','Analyze Scope'],['recommend_techniques','Technique Advisor'],['recommend_tools','Tool Advisor'],['recommend_helpers','Helper Advisor'],['research_questions','Research Questions'],['generate_hypotheses','Hypothesis Generator'],['analyze_finding','Finding Analyzer'],['false_positive_analysis','False Positive Analyzer'],['duplicate_analysis','Duplicate Analyzer'],['gap_analysis','Gap Analyzer'],['improve_report','Report Assistant'],['evidence_summary','Evidence Summarizer'],['safe_next_steps','Safe Next Steps'],['identify_restrictions','Restrictions']];
 const routeOperations={'ai-techniques':'recommend_techniques','ai-tools':'recommend_tools','ai-gaps':'gap_analysis','ai-findings':'analyze_finding'};
 export function renderAI(ctx,target) {
@@ -14,6 +16,9 @@ export function renderAI(ctx,target) {
   if(!aiConnection.enabled||!aiConnection.configured){root.append(panel('AI: '+aiConnection.status,el('p',{class:'muted'},'Workflow manual tetap tersedia. Konfigurasi provider dan model di .env backend, lalu hubungkan dari AI Provider Settings.'),button('AI Provider Settings',()=>routeTo('ai-provider'))));return root;}
   const form=el('form',{class:'form-grid'});
   field(form,['operation','Operation','select',aiOperations],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
+  const operationHelp=el('div',{class:'wide operation-help'});
+  const updateOperationHelp=()=>operationHelp.replaceChildren(ctx.help(operationFeatures[form.elements.operation.value]));
+  updateOperationHelp();form.elements.operation.addEventListener('change',updateOperationHelp);form.append(operationHelp);
   field(form,['privacyMode','Privacy Mode','select',['LOCAL_ONLY','REDACTED_CLOUD','CLOUD']],aiConnection.privacyMode||'REDACTED_CLOUD');
   field(form,['techniqueId','Technique context','select',[['','— Semua teknik enabled —'],...target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name])]],ctx.toolTechniqueId||'');
   field(form,['findingId','Finding context','select',[['','— Tidak ada finding —'],...target.findings.map(f=>[f.id,f.title])]],ctx.reportFindingId||'');
@@ -25,6 +30,7 @@ export function renderAI(ctx,target) {
     if(['analyze_finding','false_positive_analysis','duplicate_analysis','improve_report'].includes(options.operation)&&!options.findingId){ctx.toast('Pilih finding untuk operasi ini.');return;}
     const finding=target.findings.find(f=>f.id===options.findingId);if(options.operation==='improve_report')options.report=finding?.reportMarkdown||generateIndonesianReport(target,finding);
     if(options.privacyMode==='LOCAL_ONLY'&&aiConnection.provider!=='ollama'){ctx.toast('LOCAL_ONLY memerlukan provider Ollama localhost.');return;}
+    options.domainKnowledge=DomainKnowledgeService.selected(ctx.store.get(),target);
     const context=buildResearchContext(target,options),redact=options.privacyMode==='REDACTED_CLOUD'||aiConnection.redactSecrets;
     const prepared=redact?SecretRedactor.context(context):context;
     const dialog=el('dialog',{class:'editor'},el('h2',{},'Review AI Context · '+options.privacyMode),el('p',{class:'notice'},options.privacyMode==='LOCAL_ONLY'?'Context dikirim melalui backend localhost ke Ollama localhost.':'Context ini akan dikirim ke '+aiConnection.provider+' melalui backend. Review redaksi, scope, dan evidence sebelum melanjutkan.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send for Analysis',async()=>{

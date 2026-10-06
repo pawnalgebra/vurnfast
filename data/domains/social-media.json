@@ -1,0 +1,638 @@
+{
+  "id": "social-media",
+  "name": "Social Platform",
+  "description": "Interaksi pengguna, posting, sharing, moderasi, dan pesan.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Visibility resource",
+    "Membership dan moderasi",
+    "Identitas dan relasi pengguna"
+  ],
+  "terminology": [
+    {
+      "id": "social-media-term-1",
+      "title": "Visibility",
+      "content": "Aturan siapa dapat melihat suatu resource.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Visibility",
+      "definition": "Aturan siapa dapat melihat suatu resource.",
+      "whyImportant": "Perubahan sharing bukan sekadar state UI.",
+      "relatedTerms": [
+        "Post",
+        "Group"
+      ]
+    },
+    {
+      "id": "social-media-term-2",
+      "title": "Moderation",
+      "content": "Aksi mengatur konten/pengguna dalam context komunitas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Moderation",
+      "definition": "Aksi mengatur konten/pengguna dalam context komunitas.",
+      "whyImportant": "Authority moderator perlu terikat context.",
+      "relatedTerms": [
+        "Role",
+        "Group"
+      ]
+    },
+    {
+      "id": "social-media-term-3",
+      "title": "Direct Message",
+      "content": "Pesan dengan penerima dan akses terbatas menurut produk.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Direct Message",
+      "definition": "Pesan dengan penerima dan akses terbatas menurut produk.",
+      "whyImportant": "Ownership/penerima harus jelas.",
+      "relatedTerms": [
+        "User",
+        "Message"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "social-media-actor-1",
+      "title": "User",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-2",
+      "title": "Follower",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-3",
+      "title": "Group Member",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-4",
+      "title": "Moderator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-5",
+      "title": "Creator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-6",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-actor-7",
+      "title": "API Client",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "social-media-object-1",
+      "title": "Profile",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-2",
+      "title": "Post",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-3",
+      "title": "Message",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-4",
+      "title": "Group",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-5",
+      "title": "Media",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-6",
+      "title": "Invitation",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-7",
+      "title": "Moderation Action",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-object-8",
+      "title": "Session",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "social-media-flow-1",
+      "title": "Social Platform — flow generik",
+      "content": "Interaksi pengguna, posting, sharing, moderasi, dan pesan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "User",
+        "Create Content",
+        "Set Visibility",
+        "Share",
+        "Join Group",
+        "Moderate",
+        "Remove Access"
+      ],
+      "actorIds": [
+        "social-media-actor-1",
+        "social-media-actor-2",
+        "social-media-actor-3",
+        "social-media-actor-4",
+        "social-media-actor-5",
+        "social-media-actor-6",
+        "social-media-actor-7"
+      ],
+      "objectIds": [
+        "social-media-object-1",
+        "social-media-object-2",
+        "social-media-object-3",
+        "social-media-object-4",
+        "social-media-object-5",
+        "social-media-object-6",
+        "social-media-object-7",
+        "social-media-object-8"
+      ],
+      "boundaryIds": [
+        "social-media-boundary-1"
+      ],
+      "invariantIds": [
+        "social-media-invariant-1",
+        "social-media-invariant-2",
+        "social-media-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "social-media-transition-1",
+          "fromState": "User",
+          "toState": "Create Content",
+          "action": "User → Create Content",
+          "critical": false,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        },
+        {
+          "id": "social-media-transition-2",
+          "fromState": "Create Content",
+          "toState": "Set Visibility",
+          "action": "Create Content → Set Visibility",
+          "critical": false,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        },
+        {
+          "id": "social-media-transition-3",
+          "fromState": "Set Visibility",
+          "toState": "Share",
+          "action": "Set Visibility → Share",
+          "critical": true,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        },
+        {
+          "id": "social-media-transition-4",
+          "fromState": "Share",
+          "toState": "Join Group",
+          "action": "Share → Join Group",
+          "critical": true,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        },
+        {
+          "id": "social-media-transition-5",
+          "fromState": "Join Group",
+          "toState": "Moderate",
+          "action": "Join Group → Moderate",
+          "critical": false,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        },
+        {
+          "id": "social-media-transition-6",
+          "fromState": "Moderate",
+          "toState": "Remove Access",
+          "action": "Moderate → Remove Access",
+          "critical": false,
+          "invariantIds": [
+            "social-media-invariant-1",
+            "social-media-invariant-2",
+            "social-media-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "social-media-sensitive-1",
+      "title": "Private messages and restricted media",
+      "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-sensitive-2",
+      "title": "Identity and account-linking records",
+      "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-sensitive-3",
+      "title": "Group membership and moderation records",
+      "content": "Kategori data generik Social Platform; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "social-media-asset-1",
+      "title": "Message",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-asset-2",
+      "title": "Media",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-asset-3",
+      "title": "Group",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-asset-4",
+      "title": "Moderation Action",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-asset-5",
+      "title": "Session",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Social Platform flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "social-media-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "social-media-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "social-media-invariant-1",
+      "title": "Konten privat harus mengikuti visibility dan membership terkini.",
+      "content": "Konten privat harus mengikuti visibility dan membership terkini.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "social-media-invariant-2",
+      "title": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+      "content": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "social-media-invariant-3",
+      "title": "Identity/account linking harus tetap terikat pada akun yang benar.",
+      "content": "Identity/account linking harus tetap terikat pada akun yang benar.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "social-media-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "social-media-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "social-media-mapping-1",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "social-media-mapping-2",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "social-media-mapping-3",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "social-media-mapping-4",
+      "title": "Technique tech_10",
+      "content": "Realtime authorization: subscription/socket perlu mengikuti perubahan visibility, membership dan authority. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_10",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "social-media-mapping-5",
+      "title": "Technique tech_13",
+      "content": "Account linking: identitas dan consent harus terikat pada akun serta recipient yang benar. Tinjau Social Platform flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_13",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "social-media-question-1",
+      "title": "Bagaimana memastikan: Konten privat harus mengikuti visibility dan membership terkini.",
+      "content": "Konten privat harus mengikuti visibility dan membership terkini. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-1",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "social-media-question-2",
+      "title": "Bagaimana memastikan: Moderator hanya boleh melakukan aksi dalam context authority yang diberikan.",
+      "content": "Moderator hanya boleh melakukan aksi dalam context authority yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-2",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "social-media-question-3",
+      "title": "Bagaimana memastikan: Identity/account linking harus tetap terikat pada akun yang benar.",
+      "content": "Identity/account linking harus tetap terikat pada akun yang benar. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "social-media-flow-1",
+      "invariantId": "social-media-invariant-3",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": []
+}

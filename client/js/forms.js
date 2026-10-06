@@ -7,6 +7,7 @@ export function field(form,definition,value='') {
   if(type==='select') {input=el('select',{name,id});for(const option of options) {const [key,text]=Array.isArray(option)?option:[option,option];input.append(el('option',{value:key},text));}}
   else if(type==='textarea') input=el('textarea',{name,id,rows:4});
   else input=el('input',{name,id,type:type==='required'?'text':type,required:type==='required',maxlength: type==='required'?240:4000});
+  if(type==='number') input.step='any';
   input.value=value??'';
   const wrapper=el('label',{class:'field '+(type==='textarea'?'wide':''),for:id},el('span',{},label),input);
   form.append(wrapper);return input;

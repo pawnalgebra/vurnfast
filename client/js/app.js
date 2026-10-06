@@ -20,6 +20,9 @@ import {renderHelpers} from './modules/helpers.js';
 import {renderCoverage} from './modules/coverage.js';
 import {renderAI} from './modules/ai.js';
 import {aiConnection,connectBackend} from './services/ai-client.js';
+import {featureHelp,routeHelp} from './help.js';
+import {renderIntelligence} from './modules/intelligence.js';
+import {knowledgeSearch} from './services/knowledge-search.js';
 // MODULE: App composition. Research modules share a small context instead of owning persistence.
 let initial,startupError='';
 try {initial=await readLocal();}catch(error){startupError='Data lokal tidak dapat dimuat: '+error.message+' Data lama tidak ditimpa otomatis. Ekspor/perbaiki backup sebelum melakukan perubahan.';}
@@ -29,8 +32,9 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
   aiConnection,persistence,storageHealthy:!startupError,
   playbookUrl:location.pathname.replace(/\\/g,'/').includes('/client/')?'../universal_bug_bounty_playbook.html':'universal_bug_bounty_playbook.html',
   async connectBackend(url){try{await connectBackend(url);renderNavigation();ctx.render();ctx.toast('Backend terhubung · AI: '+aiConnection.status);}catch(error){ctx.toast(error.message);}},
-  selectTarget(id){ctx.targetId=id;ctx.reportFindingId='';ctx.search='';ctx.searchTarget='';ctx.filterState={};searchInput.value='';},
-  heading(title,description,action){return el('div',{class:'page-heading'},el('div',{},el('div',{class:'eyebrow'},'UNIVERSAL / '+currentRoute().toUpperCase()),el('h1',{},title),el('p',{},description)),action||null);},
+  selectTarget(id){ctx.targetId=id;ctx.reportFindingId='';ctx.search='';ctx.searchTarget='';ctx.filterState={};ctx.domainId='';ctx.knowledgeQuestion='';ctx.knowledgeTerm='';ctx.knowledgeFlow='';searchInput.value='';},
+  help:featureHelp,
+  heading(title,description,action){return el('div',{class:'page-heading'},el('div',{},el('div',{class:'eyebrow'},'UNIVERSAL / '+currentRoute().toUpperCase()),el('h1',{},title),el('p',{},description),routeHelp(currentRoute())),action||null);},
   toast(message){const toast=document.getElementById('toast');toast.textContent=message;toast.hidden=false;clearTimeout(ctx.toastTimer);ctx.toastTimer=setTimeout(()=>toast.hidden=true,6500);},
   deleteButton(target,collection,row){return button('Hapus',()=>{if(confirm('Hapus "'+(row.title||row.name||row.label||'catatan')+'"? Referensi terkait akan dilepas.')){store.remove(target.id,collection,row.id);ctx.render();}},'danger');},
   filters(key,definitions){const container=el('div',{class:'filters'});const state=ctx.filterState[key]||{};
@@ -50,17 +54,17 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     else if(route==='targets')content=renderTargets(ctx);
     else if(['settings','ai-provider','backup'].includes(route))content=renderSettings(ctx);
     else if(!target)content=el('div',{},ctx.heading(routes.find(r=>r[0]===route)[1],'Buat atau pilih target terlebih dahulu.',button('+ Create Target',()=>editTarget(ctx),'primary')),empty('Tidak ada target aktif.'));
-    else {const renders={'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
+    else {const renders={'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
     view.replaceChildren(content);
     if(startupError)view.prepend(el('div',{class:'notice',role:'alert'},startupError));
   }
 };
 function renderSearch() {
-  const query=ctx.search.trim().toLowerCase();const root=el('div',{},ctx.heading('Search Results','Pencarian global hypotheses, test cases, findings, dan research notes.'));
+  const query=ctx.search.trim().toLowerCase();const root=el('div',{},ctx.heading('Search Results','Pencarian targets, terminology, business flows, techniques, invariants, patterns, lessons, dan riset.'));
   const picker=el('select',{'aria-label':'Filter target pencarian'},el('option',{value:''},'Semua target'),store.get().targets.map(t=>el('option',{value:t.id},t.name)));picker.value=ctx.searchTarget||'';picker.addEventListener('change',()=>{ctx.searchTarget=picker.value;ctx.render();});root.append(picker);
-  let count=0;
-  for(const target of store.get().targets.filter(t=>!ctx.searchTarget||t.id===ctx.searchTarget))for(const [collection,route,label] of [['hypotheses','hypotheses','Hypothesis'],['testCases','tests','Test Case'],['findings','findings','Finding'],['notes','notes','Notes']])for(const row of target[collection])if(JSON.stringify(row).toLowerCase().includes(query)) {count++;root.append(button(el('span',{},row.title||'Research Notes',el('small',{},target.name+' / '+label+' / '+(row.status||row.result||''))),()=>{ctx.selectTarget(target.id);routeTo(route);ctx.render();},'search-result'));}
-  if(!count)root.append(empty('Tidak ada hasil yang cocok.'));return root;
+  const results=knowledgeSearch(store.get(),query,ctx.searchTarget||'');
+  for(const result of results)root.append(button(el('span',{},result.title,el('small',{},(result.targetId?store.target(result.targetId)?.name+' / ':'')+result.category)),()=>{if(result.targetId)ctx.selectTarget(result.targetId);else {ctx.search='';searchInput.value='';}ctx.domainId=result.domainId||'';ctx.domainLearning=false;ctx.intelligenceSection=result.section||'overview';routeTo(result.route);ctx.render();},'search-result'));
+  if(!results.length)root.append(empty('Tidak ada hasil yang cocok.'));return root;
 }
 function renderNavigation() {
   const nav=document.getElementById('navigation');nav.replaceChildren();

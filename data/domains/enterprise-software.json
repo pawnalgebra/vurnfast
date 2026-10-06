@@ -1,0 +1,640 @@
+{
+  "id": "enterprise-software",
+  "name": "Enterprise Software",
+  "description": "Aplikasi proses organisasi dengan workflow, approval dan integrasi.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Authority berbasis organisasi",
+    "Approval workflow",
+    "Integrasi dan data export"
+  ],
+  "terminology": [
+    {
+      "id": "enterprise-software-term-1",
+      "title": "Workflow",
+      "content": "Urutan state/aksi bisnis yang mempunyai prasyarat.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Workflow",
+      "definition": "Urutan state/aksi bisnis yang mempunyai prasyarat.",
+      "whyImportant": "Kontrol perlu mengikuti transisi aktual.",
+      "relatedTerms": [
+        "Approval",
+        "Record"
+      ]
+    },
+    {
+      "id": "enterprise-software-term-2",
+      "title": "Approval",
+      "content": "Keputusan izin untuk actor/action/resource tertentu.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Approval",
+      "definition": "Keputusan izin untuk actor/action/resource tertentu.",
+      "whyImportant": "Replay atau context berubah perlu dipertimbangkan.",
+      "relatedTerms": [
+        "Workflow",
+        "Authority"
+      ]
+    },
+    {
+      "id": "enterprise-software-term-3",
+      "title": "Audit Trail",
+      "content": "Record aktivitas untuk meninjau proses.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Audit Trail",
+      "definition": "Record aktivitas untuk meninjau proses.",
+      "whyImportant": "Catatan bukan bukti bahwa seluruh kontrol efektif.",
+      "relatedTerms": [
+        "Workflow",
+        "Record"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "enterprise-software-actor-1",
+      "title": "Employee",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-actor-2",
+      "title": "Manager",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-actor-3",
+      "title": "Approver",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-actor-4",
+      "title": "Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-actor-5",
+      "title": "Auditor",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-actor-6",
+      "title": "Integration Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "enterprise-software-object-1",
+      "title": "Organization",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-2",
+      "title": "Record",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-3",
+      "title": "Approval",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-4",
+      "title": "Document",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-5",
+      "title": "Workflow",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-6",
+      "title": "Export",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-7",
+      "title": "Role",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-object-8",
+      "title": "Integration",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "enterprise-software-flow-1",
+      "title": "Enterprise Software — flow generik",
+      "content": "Aplikasi proses organisasi dengan workflow, approval dan integrasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Employee",
+        "Create Record",
+        "Request Approval",
+        "Manager Review",
+        "Authorize",
+        "Execute",
+        "Audit",
+        "Export"
+      ],
+      "actorIds": [
+        "enterprise-software-actor-1",
+        "enterprise-software-actor-2",
+        "enterprise-software-actor-3",
+        "enterprise-software-actor-4",
+        "enterprise-software-actor-5",
+        "enterprise-software-actor-6"
+      ],
+      "objectIds": [
+        "enterprise-software-object-1",
+        "enterprise-software-object-2",
+        "enterprise-software-object-3",
+        "enterprise-software-object-4",
+        "enterprise-software-object-5",
+        "enterprise-software-object-6",
+        "enterprise-software-object-7",
+        "enterprise-software-object-8"
+      ],
+      "boundaryIds": [
+        "enterprise-software-boundary-1"
+      ],
+      "invariantIds": [
+        "enterprise-software-invariant-1",
+        "enterprise-software-invariant-2",
+        "enterprise-software-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "enterprise-software-transition-1",
+          "fromState": "Employee",
+          "toState": "Create Record",
+          "action": "Employee → Create Record",
+          "critical": false,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-2",
+          "fromState": "Create Record",
+          "toState": "Request Approval",
+          "action": "Create Record → Request Approval",
+          "critical": true,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-3",
+          "fromState": "Request Approval",
+          "toState": "Manager Review",
+          "action": "Request Approval → Manager Review",
+          "critical": true,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-4",
+          "fromState": "Manager Review",
+          "toState": "Authorize",
+          "action": "Manager Review → Authorize",
+          "critical": true,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-5",
+          "fromState": "Authorize",
+          "toState": "Execute",
+          "action": "Authorize → Execute",
+          "critical": true,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-6",
+          "fromState": "Execute",
+          "toState": "Audit",
+          "action": "Execute → Audit",
+          "critical": true,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        },
+        {
+          "id": "enterprise-software-transition-7",
+          "fromState": "Audit",
+          "toState": "Export",
+          "action": "Audit → Export",
+          "critical": false,
+          "invariantIds": [
+            "enterprise-software-invariant-1",
+            "enterprise-software-invariant-2",
+            "enterprise-software-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "enterprise-software-sensitive-1",
+      "title": "Confidential documents and exports",
+      "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-sensitive-2",
+      "title": "Approval and organizational records",
+      "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-sensitive-3",
+      "title": "Integration credentials",
+      "content": "Kategori data generik Enterprise Software; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "enterprise-software-asset-1",
+      "title": "Approval",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-asset-2",
+      "title": "Document",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-asset-3",
+      "title": "Workflow",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-asset-4",
+      "title": "Export",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-asset-5",
+      "title": "Integration",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Enterprise Software flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "enterprise-software-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "enterprise-software-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "enterprise-software-invariant-1",
+      "title": "Approval harus terikat pada record/action/context yang disetujui.",
+      "content": "Approval harus terikat pada record/action/context yang disetujui.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "techniqueIds": [
+        "tech_03"
+      ]
+    },
+    {
+      "id": "enterprise-software-invariant-2",
+      "title": "Employee tidak boleh memakai operasi administrator di luar authority.",
+      "content": "Employee tidak boleh memakai operasi administrator di luar authority.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "enterprise-software-invariant-3",
+      "title": "Export dan integrasi hanya membawa data yang diotorisasi.",
+      "content": "Export dan integrasi hanya membawa data yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "techniqueIds": [
+        "tech_02"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "enterprise-software-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "enterprise-software-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "enterprise-software-mapping-1",
+      "title": "Technique tech_03",
+      "content": "Capability context: persetujuan harus terikat pada actor, action, resource dan context yang diberikan. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_03",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "enterprise-software-mapping-2",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "enterprise-software-mapping-3",
+      "title": "Technique tech_02",
+      "content": "Async revalidation: periksa apakah worker memakai authority/state yang masih berlaku ketika job dieksekusi. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_02",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "enterprise-software-mapping-4",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "enterprise-software-mapping-5",
+      "title": "Technique tech_14",
+      "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau Enterprise Software flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_14",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "enterprise-software-question-1",
+      "title": "Bagaimana memastikan: Approval harus terikat pada record/action/context yang disetujui.",
+      "content": "Approval harus terikat pada record/action/context yang disetujui. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-1",
+      "techniqueId": "tech_03"
+    },
+    {
+      "id": "enterprise-software-question-2",
+      "title": "Bagaimana memastikan: Employee tidak boleh memakai operasi administrator di luar authority.",
+      "content": "Employee tidak boleh memakai operasi administrator di luar authority. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-2",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "enterprise-software-question-3",
+      "title": "Bagaimana memastikan: Export dan integrasi hanya membawa data yang diotorisasi.",
+      "content": "Export dan integrasi hanya membawa data yang diotorisasi. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "enterprise-software-flow-1",
+      "invariantId": "enterprise-software-invariant-3",
+      "techniqueId": "tech_02"
+    }
+  ],
+  "references": []
+}

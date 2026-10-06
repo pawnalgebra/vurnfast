@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'none'; style-src 'self' file:; img-src 'self' file: data:; object-src 'none'; base-uri 'none'">
+<title>Workflow Guide — Research Workspace</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/documentation.css"></head>
+<body><header><strong>RESEARCH WORKSPACE / LEARN</strong><nav aria-label="Dokumentasi"><a href="USER_GUIDE.html">User Guide</a> <a href="FEATURE_REFERENCE.html">Feature Reference</a> <a href="WORKFLOW_GUIDE.html">Workflow Guide</a> <a href="TARGET_INTELLIGENCE_GUIDE.html">Intelligence Guide</a></nav><a href="WORKFLOW_GUIDE.md" download>Download Markdown</a></header>
+<main><details class="contents"><summary>Daftar isi</summary><ul><li><a href="#workflow-guide-example-saas">Workflow Guide — Example SaaS</a></li><li><a href="#workflow-manual-lengkap">Workflow Manual Lengkap</a></li><li><a href="#ai-enabled-workflow">AI Enabled Workflow</a></li><li><a href="#ai-disabled-workflow">AI Disabled Workflow</a></li></ul></details><article><h1 id="workflow-guide-example-saas">Workflow Guide — Example SaaS</h1>
+<p>Pelajari bisnis sebelum menguji teknologi: buka <strong>Target Intelligence</strong> untuk profil dan klasifikasi sektor, lalu <strong>Domain Knowledge</strong>, <strong>Terminology</strong>, dan <strong>Business Flows</strong>. Panduan <a href="TARGET_INTELLIGENCE_GUIDE.html">Target Intelligence &amp; Domain Knowledge</a> menyediakan latihan Finance manual, provenance, custom packs, serta 11 operasi AI knowledge yang terpisah dari Research Assistant. Semua pembelajaran domain bekerja tanpa AI.</p>
+<p>Panduan ini memakai sistem dan hasil dummy. <code>https://app.example.test</code>, Tenant Demo, Owner, Member, dan seluruh marker merupakan contoh untuk laboratorium sendiri, bukan izin menguji target nyata. Hasil gagal pada contoh adalah skenario pembelajaran; catat hanya hasil yang benar-benar Anda amati.</p>
+<p>Mulai dengan <a href="USER_GUIDE.html#cara-menjalankan-aplikasi">cara menjalankan aplikasi</a>. Gunakan CURRENT TARGET secara konsisten, dan tunggu Saved locally sebelum meninggalkan pekerjaan. Setiap tahap berikut menjelaskan mengapa, tindakan, output, dan langkah berikutnya.</p>
+<h2 id="workflow-manual-lengkap">Workflow Manual Lengkap</h2>
+<h3 id="1-create-target">1. Create Target</h3>
+<p><strong>Mengapa:</strong> Memisahkan catatan engagement dan menyediakan identitas laporan.</p>
+<p><strong>Yang dilakukan:</strong> Target → + Create Target. Program Name Example SaaS; Platform Private; Asset <code>https://app.example.test</code>; Environment laboratorium sendiri; Version demo-1; Status active. Simpan dan pilih target.</p>
+<p><strong>Output yang diharapkan:</strong> Profil target dengan 20 technique awal dan koleksi riset kosong.</p>
+<p><strong>Langkah berikutnya:</strong> Catat scope sebelum menyusun pengujian.</p>
+<h3 id="2-define-scope">2. Define Scope</h3>
+<p><strong>Mengapa:</strong> Dugaan menarik hanya layak diuji dalam batas izin engagement.</p>
+<p><strong>Yang dilakukan:</strong> Scope → isi In Scope dengan asset dummy. Catat Out of Scope pihak ketiga, Known Issues, rate limit manual laboratorium, automation rules, restrictions, safe harbor notes, alias akun A/B, dan Tenant Demo. Catat marker <code>SECRET_ACCOUNT_A_123</code> dan <code>SECRET_ACCOUNT_B_456</code> sebagai data dummy.</p>
+<p><strong>Output yang diharapkan:</strong> Batas aset, data, akun, dan kondisi penghentian yang bisa dibaca ulang.</p>
+<p><strong>Langkah berikutnya:</strong> Catat konfirmasi izin dan flags program.</p>
+<h3 id="3-define-program-rules">3. Define Program Rules</h3>
+<p><strong>Mengapa:</strong> Program rules membatasi rekomendasi dan keputusan pengujian.</p>
+<p><strong>Yang dilakukan:</strong> Review semua tujuh Engagement Guard; centang hanya yang telah diperiksa. Biarkan automationAllowed, dosAllowed, thirdPartyTesting false pada latihan. Isi larangan automation dan third-party testing dalam teks restrictions juga.</p>
+<p><strong>Output yang diharapkan:</strong> Checklist terdokumentasi dan hard flags false. Scope Checker dapat menunjukkan within_supplied_scope setelah asset, In Scope, dan tiga konfirmasi awal lengkap; tetap review batas izin secara manual.</p>
+<p><strong>Langkah berikutnya:</strong> Definisikan pelaku dan haknya.</p>
+<h3 id="4-create-actors">4. Create Actors</h3>
+<p><strong>Mengapa:</strong> Authorization harus dibaca dari hak actor yang melakukan aksi.</p>
+<p><strong>Yang dilakukan:</strong> Actors → + Tambah Owner dan Member. Owner mengelola Project Demo; Member boleh export hanya selama membership aktif. Catat keduanya merupakan akun uji milik peneliti.</p>
+<p><strong>Output yang diharapkan:</strong> Dua actor sebagai referensi WHO, bukan dua akun yang dibuat otomatis pada target.</p>
+<p><strong>Langkah berikutnya:</strong> Catat resource yang dilindungi.</p>
+<h3 id="5-create-objects">5. Create Objects</h3>
+<p><strong>Mengapa:</strong> Menjelaskan kepemilikan, tenant, state, dan data yang mungkin keluar.</p>
+<p><strong>Yang dilakukan:</strong> Objects → + Tambah Project Demo bertipe Project, state active, owner Owner, tenant Tenant Demo. Tambah Export Demo bertipe File, state queued, sensitivity dummy. Export bukan tipe dropdown tersendiri; notes menjelaskan hubungan dengan project dan job.</p>
+<p><strong>Output yang diharapkan:</strong> Dua object yang namanya dipakai konsisten dalam hypothesis/test.</p>
+<p><strong>Langkah berikutnya:</strong> Petakan komponen yang memproses object.</p>
+<h3 id="6-map-architecture">6. Map Architecture</h3>
+<p><strong>Mengapa:</strong> Izin dapat diperiksa pada satu komponen tetapi dipakai pada waktu atau komponen berbeda.</p>
+<p><strong>Yang dilakukan:</strong> Target → Edit → Custom Notes, tulis arsitektur laboratorium <code>Browser → Backend API → Export Worker → Storage</code>. Catat kapan enqueue, kapan worker berjalan, dan bagaimana hasil diambil. Gunakan Attack Surface untuk melihat Actors/Objects/Boundaries bersama.</p>
+<p><strong>Output yang diharapkan:</strong> Catatan arsitektur manual. Tidak ada endpoint discovery atau graph otomatis.</p>
+<p><strong>Langkah berikutnya:</strong> Tentukan boundary yang menjadi fokus.</p>
+<h3 id="7-create-trust-boundary">7. Create Trust Boundary</h3>
+<p><strong>Mengapa:</strong> Membuat aturan perpindahan authority antar komponen eksplisit.</p>
+<p><strong>Yang dilakukan:</strong> Trust Boundaries → + Tambah. From Backend API; To Export Worker; Channel queue export-job; Trust restricted; Authority Member harus aktif saat worker berjalan; Notes worker mengecek membership terbaru.</p>
+<p><strong>Output yang diharapkan:</strong> Row boundary yang nanti dipilih secara eksplisit pada Test Case.</p>
+<p><strong>Langkah berikutnya:</strong> Cari technique yang memeriksa invariant tersebut.</p>
+<h3 id="8-review-technique-library">8. Review Technique Library</h3>
+<p><strong>Mengapa:</strong> Technique mengubah dugaan abstrak menjadi pertanyaan yang dapat diuji.</p>
+<p><strong>Yang dilakukan:</strong> Techniques → baca Async Authorization / Queue Revalidation, Object Lifecycle &amp; Revocation, dan File / Share / Export Boundary. Buka detail invariant, signals, false positives, dan stop condition masing-masing.</p>
+<p><strong>Output yang diharapkan:</strong> Pemahaman tentang aturan authorization saat enqueue, execution, dan akses hasil.</p>
+<p><strong>Langkah berikutnya:</strong> Pilih satu technique untuk test pertama.</p>
+<h3 id="9-select-technique">9. Select Technique</h3>
+<p><strong>Mengapa:</strong> Fokus tunggal memudahkan menafsirkan hasil dan memilih alat manual.</p>
+<p><strong>Yang dilakukan:</strong> Pilih Async Authorization / Queue Revalidation sebagai fokus; pastikan Enabled. Buka Tool Knowledge bila membutuhkan saran alat manual; gunakan sesuai scope, bukan menganggap seluruh kemampuan tool diizinkan.</p>
+<p><strong>Output yang diharapkan:</strong> Technique dan kebutuhan observasi yang jelas. Checkbox Tested belum menjadi evidence pengujian.</p>
+<p><strong>Langkah berikutnya:</strong> Tulis hypothesis konkret.</p>
+<h3 id="10-create-hypothesis">10. Create Hypothesis</h3>
+<p><strong>Mengapa:</strong> Memisahkan invariant yang diharapkan dari dugaan kegagalan.</p>
+<p><strong>Yang dilakukan:</strong> Pada technique tekan Buat hypothesis. Title Member revoked tidak boleh memperoleh Export Demo. Invariant Member revoked tidak boleh menerima export baru. Expected Behavior worker/akses hasil menolak Member. Potential Failure worker memakai snapshot izin enqueue. Isi WHO Member, WHAT memperoleh export, OBJECT Export Demo, STATE revoked, AUTHORITY session akun uji B, CONTEXT Tenant Demo; API → Worker. Priority medium, confidence low, status idea, queue Next.</p>
+<p><strong>Output yang diharapkan:</strong> Hypothesis tersimpan. Invariant perlu diisi sendiri jika memakai tombol dari kartu library.</p>
+<p><strong>Langkah berikutnya:</strong> Buat rencana reproduksi.</p>
+<h3 id="11-create-test-case">11. Create Test Case</h3>
+<p><strong>Mengapa:</strong> Satu hypothesis memerlukan kondisi dan langkah yang dapat diulang.</p>
+<p><strong>Yang dilakukan:</strong> Hypotheses → Buat Test Case. Preconditions: dua akun sendiri, project dummy, kontrol waktu job di laboratorium. Steps: konfirmasi hak Member aktif; buat job dummy; Owner revoke Member; amati worker/akses hasil; catat waktu dan marker. Expected Result Member revoked tidak memperoleh export baru. Pilih boundary Backend API → Export Worker; result NOT TESTED. Periksa enam dimensi dan simpan.</p>
+<p><strong>Output yang diharapkan:</strong> Rencana test yang belum mengklaim hasil. Test tidak dijalankan aplikasi.</p>
+<p><strong>Langkah berikutnya:</strong> Jalankan tindakan manual yang sudah diotorisasi.</p>
+<h3 id="12-perform-manual-authorized-testing">12. Perform Manual Authorized Testing</h3>
+<p><strong>Mengapa:</strong> Catatan dugaan harus diuji melalui observasi nyata yang terbatas.</p>
+<p><strong>Yang dilakukan:</strong> Jalankan rencana pada laboratorium sendiri mengikuti rate limit. Bedakan waktu enqueue, revoke, worker execution, dan download. Catat role efektif dan ownership aktual. Hentikan jika muncul data asing, scope tidak jelas, atau kondisi stop technique terpenuhi.</p>
+<p><strong>Output yang diharapkan:</strong> Observasi aktual: misalnya akses ditolak, export masih diperoleh, atau timing belum dapat ditentukan. Jangan menyalin hasil gagal ilustrasi sebagai fakta.</p>
+<p><strong>Langkah berikutnya:</strong> Rekam bukti sebelum mengubah kesimpulan.</p>
+<h3 id="13-record-evidence">13. Record Evidence</h3>
+<p><strong>Mengapa:</strong> Evidence membantu membedakan role/timing/ownership dari asumsi.</p>
+<p><strong>Yang dilakukan:</strong> Redaksi request/response dan log melalui Secret Redactor lalu review manual. Test Cases → Attach Evidence → label/tipenya, description, content aman, timestamp dalam description bila perlu. Hubungkan ke test. Simpan screenshot/video asli di lokasi terpisah dan catat path metadata. Marker A/B tetap dummy, bukan kredensial.</p>
+<p><strong>Output yang diharapkan:</strong> Evidence terkait test dan file asli yang Anda kelola sendiri. Export workspace hanya membawa teks/metadata.</p>
+<p><strong>Langkah berikutnya:</strong> Bandingkan expected dan actual.</p>
+<h3 id="14-analyze-result">14. Analyze Result</h3>
+<p><strong>Mengapa:</strong> Respons sukses belum tentu berarti kontrol keamanan gagal.</p>
+<p><strong>Yang dilakukan:</strong> Edit test, isi actual result faktual, request/response notes, timestamp. PASS jika penolakan sesuai invariant; FAIL jika invariant benar-benar gagal; INCONCLUSIVE jika membership/timing belum jelas. Gunakan Evidence Comparator untuk membandingkan baris respons kontrol dan percobaan; periksa urutan/timing secara manual.</p>
+<p><strong>Output yang diharapkan:</strong> Hasil test dengan konteks/evidence. FAIL berarti invariant gagal, bukan aplikasi test rusak. Hypothesis status dan queue masih harus diubah sendiri.</p>
+<p><strong>Langkah berikutnya:</strong> Promosikan hanya observasi yang layak ditinjau menjadi finding.</p>
+<h3 id="15-promote-to-finding">15. Promote to Finding</h3>
+<p><strong>Mengapa:</strong> Menyusun observasi menjadi kandidat laporan dengan authority, resource, dan dampak jelas.</p>
+<p><strong>Yang dilakukan:</strong> Test Cases → Promote to Finding. Review draft, source test, technique, evidence dan enam dimensi. Isi Component Export Worker, Version demo-1, Class sesuai observasi, Starting Authority Member/session B, Security Restriction invariant, Protected Resource Export Demo, Unauthorized Outcome aktual, impact terbatas pada data dummy yang diamati, mitigation dan notes. Pisahkan root cause hypothesis dari fakta. Simpan severity Unknown selama belum dinilai.</p>
+<p><strong>Output yang diharapkan:</strong> Finding draft. Promosi tidak mengubah hasil menjadi confirmed dan tidak menetapkan P1–P5.</p>
+<p><strong>Langkah berikutnya:</strong> Cari alasan perilaku mungkin valid.</p>
+<h3 id="16-check-false-positive">16. Check False Positive</h3>
+<p><strong>Mengapa:</strong> Perilaku yang terlihat aneh bisa sesuai desain atau kondisi role sebenarnya.</p>
+<p><strong>Yang dilakukan:</strong> Internal Helpers → Finding Checklist untuk kelengkapan. Review dokumentasi laboratorium: apakah export memang tetap dimiliki Member, object public/shared, capability masih sah, revoke belum efektif, eventual consistency terdokumentasi, atau hak Owner masih terbawa? Tambahkan kontrol manual yang diotorisasi jika dibutuhkan. Dengan AI aktif, False Positive Analyzer memberi pertanyaan tambahan, bukan validasi otomatis.</p>
+<p><strong>Output yang diharapkan:</strong> Alasan dugaan bertahan atau ditolak, bukti tambahan, serta status investigating/confirmed/rejected yang ditentukan peneliti.</p>
+<p><strong>Langkah berikutnya:</strong> Bandingkan dengan issue sebelumnya.</p>
+<h3 id="17-check-duplicate-risk">17. Check Duplicate Risk</h3>
+<p><strong>Mengapa:</strong> Temuan yang tampak berbeda dapat memiliki akar masalah atau boundary sama.</p>
+<p><strong>Yang dilakukan:</strong> Review Known Issues. Jika ada laporan dummy terdahulu, masukkan ke KB kategori Disclosed Reports/Finding Patterns berikut rootCause, securityRestriction, vulnerabilityClass, affectedComponent, impact. Internal Helpers → Duplicate Comparator → pilih finding dan kandidat atau isi manual → Compare Duplicate Risk.</p>
+<p><strong>Output yang diharapkan:</strong> Likely Unique/Possible Variant/Likely Duplicate/Unknown dan kemiripan teks. Jika belum ada data pembanding, Unknown merupakan hasil yang wajar; tidak ada pencarian internet otomatis.</p>
+<p><strong>Langkah berikutnya:</strong> Lengkapi finding dan susun report.</p>
+<h3 id="18-generate-report">18. Generate Report</h3>
+<p><strong>Mengapa:</strong> Menggabungkan fakta, reproduksi, evidence, dan batas kesimpulan secara konsisten.</p>
+<p><strong>Yang dilakukan:</strong> Findings → Generate Report → di Reports pilih finding dan tekan Generate Report. Baca semua bagian; lengkapi field Belum dicatat. Periksa expected/actual, marker, prasyarat, impact, severity estimate, dan label root cause hypothesis. Edit draft sesuai hasil review.</p>
+<p><strong>Output yang diharapkan:</strong> Draft laporan Indonesia yang tersimpan. Template tidak mengarang severity atau menerjemahkan input user secara otomatis.</p>
+<p><strong>Langkah berikutnya:</strong> Ekspor format yang dibutuhkan.</p>
+<h3 id="19-export-report">19. Export Report</h3>
+<p><strong>Mengapa:</strong> Menyediakan artifact yang bisa direview dan dikirim melalui kanal program sendiri.</p>
+<p><strong>Yang dilakukan:</strong> Copy Markdown atau Download .md/.txt/.html; Print bila diperlukan. Buka hasil download dan pastikan secret tidak terbawa. HTML adalah teks Markdown escaped dalam pre, bukan renderer rich Markdown. Lengkapi attachment binary secara terpisah jika dibutuhkan program.</p>
+<p><strong>Output yang diharapkan:</strong> File report lokal. Aplikasi tidak mengirim report atau membuat submission program.</p>
+<p><strong>Langkah berikutnya:</strong> Cadangkan workspace beserta lesson.</p>
+<h3 id="20-save-workspace">20. Save Workspace</h3>
+<p><strong>Mengapa:</strong> Autosave browser dapat hilang jika profil/origin/storage berubah.</p>
+<p><strong>Yang dilakukan:</strong> Tunggu Saved locally; Backup → Export Backup. Simpan JSON dan file screenshot/video terpisah. Bila memakai Connect workspace.json, tekan Save to workspace.json eksplisit. Catat lesson di KB; atur queue Done/status hypothesis dan finding sesuai keputusan Anda. Setelah KB diubah, ekspor snapshot terbaru.</p>
+<p><strong>Output yang diharapkan:</strong> Workspace JSON schema 2.0.0, draft report, evidence teks/metadata, dan lesson yang dapat dipulihkan. Import mengganti workspace, jadi backup data aktif sebelum mencoba restore.</p>
+<p><strong>Langkah berikutnya:</strong> Review Research Gaps; pilih actor/object/state/boundary yang belum mempunyai hasil test, lalu mulai hypothesis baru yang relevan.</p>
+<h2 id="ai-enabled-workflow">AI Enabled Workflow</h2>
+<p>Prasyarat: backend lokal, AI_ENABLED=true, provider/model/key atau Ollama yang siap, dan scope lengkap. <a href="USER_GUIDE.html#cara-menggunakan-ai">Panduan AI</a> menjelaskan privacy mode dan preview.</p>
+<pre><code>Target + Scope + Rules + Mapping
+  → Research Assistant (research_advice)
+  → Technique Advisor → Tool Advisor → Hypothesis Generator
+  → Researcher Review → Manual Test → Evidence → Finding draft
+  → Finding Analyzer → False Positive Analyzer → Duplicate Analyzer
+  → Report Assistant → Researcher Review/Edit → Export</code></pre>
+<p>Label <strong>Analyze Target</strong> pada alur pembelajaran merujuk pada Operation <strong>Research Assistant</strong> (<code>research_advice</code>), bukan command terpisah. Pilihan <strong>Analyze Scope</strong> tersedia untuk meninjau scope. Kelima menu AI menggunakan satu form Operation; periksa operasi yang sedang dipilih sebelum mengirim.</p>
+<div class="table-scroll"><table>
+<tr><th>Tahap</th><th>Input yang ditinjau</th><th>Output yang dipakai</th></tr>
+<tr><td>Research Assistant</td><td>Target, scope, mapping, goal memeriksa export setelah revoke</td><td>Pertanyaan, missing context, safe next steps</td></tr>
+<tr><td>Technique Advisor</td><td>Technique enabled dan arsitektur API/Worker</td><td>Nama teknik yang tersedia, priority, alasan, invariant</td></tr>
+<tr><td>Tool Advisor</td><td>Technique pilihan dan rules manual</td><td>Kandidat Tool KB manual dengan alasan/scope warning</td></tr>
+<tr><td>Hypothesis Generator</td><td>Invariant, aktor/object/state dalam context</td><td>Draft hypothesis; Review Hypothesis membuka editor, Simpan membuat record</td></tr>
+<tr><td>Researcher Review</td><td>Seluruh draft dan scope</td><td>Hypothesis/rencana test yang Anda setujui; belum ada pengujian otomatis</td></tr>
+<tr><td>Finding Analyzer</td><td>Finding pilihan dan evidence opt-in bila aman</td><td>Dugaan broken invariant/class/root cause/impact dan missing evidence</td></tr>
+<tr><td>False Positive Analyzer</td><td>Finding, role/ownership/timing dan notes pembanding</td><td>Penjelasan alternatif yang harus diverifikasi manual</td></tr>
+<tr><td>Duplicate Analyzer</td><td>Finding, Known Issues, KB opt-in dan finding target aktif</td><td>Estimasi status duplicate serta ketidakpastian, bukan pencarian seluruh laporan publik</td></tr>
+<tr><td>Report Assistant</td><td>Finding pilihan dan draft report</td><td>Draft baru yang dipreview/diedit, lalu disimpan eksplisit</td></tr>
+</table></div>
+<p>Setiap request harus melalui <strong>Preview AI Context → Send for Analysis</strong>. Jangan memasukkan bukti sensitif karena menganggap checkbox evidence yang tidak dicentang menghilangkan semua narasi sensitif; fields actual result dan research notes masih dapat masuk context.</p>
+<p>Setelah menerima suggestion, Reject atau simpan note yang relevan. Menyimpan hypothesis sendiri tidak menandai batch suggestion accepted. Mengedit/menyimpan AI Report Draft hanya mengubah reportMarkdown; fakta finding/status/severity tetap memerlukan review terpisah. Backend memaksa assessment analisis finding menjadi Hypothesis atau Unknown. <strong>AI suggests. Researcher decides.</strong></p>
+<h2 id="ai-disabled-workflow">AI Disabled Workflow</h2>
+<p>Dengan <code>AI_ENABLED=false</code>, provider tidak diinisialisasi dan menu AI disembunyikan. Form AI yang diakses lewat hash menunjukkan petunjuk konfigurasi. Seluruh 20 langkah manual di atas tetap dapat dilakukan.</p>
+<pre><code>Target + Scope + Rules
+  → Actors &amp; Objects → Trust Boundaries
+  → Manual Technique Selection
+  → Manual Hypothesis / offline Hypothesis Generator
+  → Manual Test → Evidence → Finding
+  → Finding Checklist + manual false-positive review
+  → Duplicate Comparator + manual Known Issues review
+  → Indonesian Report → Export → Backup</code></pre>
+<p>Tool Knowledge, Authorization Matrix, State Transition, Secret Redactor, Evidence Comparator, Finding Checklist, Duplicate Comparator, Research Gaps, dan Report Builder bekerja tanpa provider AI. Tidak ada tombol offline khusus False Positive Analyzer; gunakan checklist kelengkapan dan review alternatif perilaku secara manual. Rasio coverage serta priority technique manual tetap tersedia.</p>
+<p>Jika AI gagal saat workflow, simpan catatan dan lanjutkan dari tahap manual yang sesuai. Tidak perlu menunggu provider untuk menyimpan hypothesis, test, finding, laporan, atau backup.</p></article></main>
+<footer>Dokumentasi aplikasi 0.3.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>

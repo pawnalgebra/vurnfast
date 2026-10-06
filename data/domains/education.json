@@ -1,0 +1,630 @@
+{
+  "id": "education",
+  "name": "Education",
+  "description": "Platform pembelajaran, enrollment, assessment, dan resource kelas.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Role pada kelas",
+    "State enrollment",
+    "Integritas assessment"
+  ],
+  "terminology": [
+    {
+      "id": "education-term-1",
+      "title": "Enrollment",
+      "content": "Keanggotaan/pendaftaran pada course atau institusi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Enrollment",
+      "definition": "Keanggotaan/pendaftaran pada course atau institusi.",
+      "whyImportant": "Lifecycle-nya menentukan akses resource.",
+      "relatedTerms": [
+        "Course",
+        "Student"
+      ]
+    },
+    {
+      "id": "education-term-2",
+      "title": "Assessment",
+      "content": "Proses penilaian pekerjaan/kompetensi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Assessment",
+      "definition": "Proses penilaian pekerjaan/kompetensi.",
+      "whyImportant": "Authority dan state perubahan perlu dipahami.",
+      "relatedTerms": [
+        "Grade",
+        "Submission"
+      ]
+    },
+    {
+      "id": "education-term-3",
+      "title": "Roster",
+      "content": "Daftar participant dalam suatu context kelas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Roster",
+      "definition": "Daftar participant dalam suatu context kelas.",
+      "whyImportant": "Merupakan resource identitas yang dapat sensitif.",
+      "relatedTerms": [
+        "Course",
+        "Enrollment"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "education-actor-1",
+      "title": "Student",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-actor-2",
+      "title": "Teacher",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-actor-3",
+      "title": "Guardian",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-actor-4",
+      "title": "Course Owner",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-actor-5",
+      "title": "Institution Administrator",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-actor-6",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "education-object-1",
+      "title": "Course",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-2",
+      "title": "Enrollment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-3",
+      "title": "Assignment",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-4",
+      "title": "Submission",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-5",
+      "title": "Grade",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-6",
+      "title": "Roster",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-7",
+      "title": "Certificate",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-object-8",
+      "title": "File",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "education-flow-1",
+      "title": "Education — flow generik",
+      "content": "Platform pembelajaran, enrollment, assessment, dan resource kelas.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "Student",
+        "Enrollment",
+        "Course Access",
+        "Assignment",
+        "Submission",
+        "Assessment",
+        "Grade",
+        "Completion"
+      ],
+      "actorIds": [
+        "education-actor-1",
+        "education-actor-2",
+        "education-actor-3",
+        "education-actor-4",
+        "education-actor-5",
+        "education-actor-6"
+      ],
+      "objectIds": [
+        "education-object-1",
+        "education-object-2",
+        "education-object-3",
+        "education-object-4",
+        "education-object-5",
+        "education-object-6",
+        "education-object-7",
+        "education-object-8"
+      ],
+      "boundaryIds": [
+        "education-boundary-1"
+      ],
+      "invariantIds": [
+        "education-invariant-1",
+        "education-invariant-2",
+        "education-invariant-3"
+      ],
+      "transitions": [
+        {
+          "id": "education-transition-1",
+          "fromState": "Student",
+          "toState": "Enrollment",
+          "action": "Student → Enrollment",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-2",
+          "fromState": "Enrollment",
+          "toState": "Course Access",
+          "action": "Enrollment → Course Access",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-3",
+          "fromState": "Course Access",
+          "toState": "Assignment",
+          "action": "Course Access → Assignment",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-4",
+          "fromState": "Assignment",
+          "toState": "Submission",
+          "action": "Assignment → Submission",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-5",
+          "fromState": "Submission",
+          "toState": "Assessment",
+          "action": "Submission → Assessment",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-6",
+          "fromState": "Assessment",
+          "toState": "Grade",
+          "action": "Assessment → Grade",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        },
+        {
+          "id": "education-transition-7",
+          "fromState": "Grade",
+          "toState": "Completion",
+          "action": "Grade → Completion",
+          "critical": false,
+          "invariantIds": [
+            "education-invariant-1",
+            "education-invariant-2",
+            "education-invariant-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "education-sensitive-1",
+      "title": "Student identity and class rosters",
+      "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-sensitive-2",
+      "title": "Submissions, grades and assessment records",
+      "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-sensitive-3",
+      "title": "Guardian and enrollment details",
+      "content": "Kategori data generik Education; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "education-asset-1",
+      "title": "Submission",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-asset-2",
+      "title": "Grade",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-asset-3",
+      "title": "Roster",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-asset-4",
+      "title": "Certificate",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada Education flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "education-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "education-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "education-invariant-1",
+      "title": "Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+      "content": "Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "education-invariant-2",
+      "title": "Resource kelas mengikuti enrollment terkini.",
+      "content": "Resource kelas mengikuti enrollment terkini.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "education-invariant-3",
+      "title": "Submission/record tidak boleh berpindah pemilik tanpa izin.",
+      "content": "Submission/record tidak boleh berpindah pemilik tanpa izin.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "education-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "education-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "education-mapping-1",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "education-mapping-2",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "education-mapping-3",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "education-mapping-4",
+      "title": "Technique tech_18",
+      "content": "Business logic: retry, urutan aksi dan state terminal tidak boleh menambah efek bisnis yang melanggar invariant. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_18",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "education-mapping-5",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau Education flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-2",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "education-question-1",
+      "title": "Bagaimana memastikan: Student tidak boleh mengubah grade tanpa authority yang diberikan.",
+      "content": "Student tidak boleh mengubah grade tanpa authority yang diberikan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-1",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "education-question-2",
+      "title": "Bagaimana memastikan: Resource kelas mengikuti enrollment terkini.",
+      "content": "Resource kelas mengikuti enrollment terkini. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-2",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "education-question-3",
+      "title": "Bagaimana memastikan: Submission/record tidak boleh berpindah pemilik tanpa izin.",
+      "content": "Submission/record tidak boleh berpindah pemilik tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "education-flow-1",
+      "invariantId": "education-invariant-3",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": []
+}

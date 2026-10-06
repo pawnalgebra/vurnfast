@@ -1,0 +1,737 @@
+{
+  "id": "saas",
+  "name": "SaaS",
+  "description": "Aplikasi sebagai layanan dengan organisasi, workspace dan resource; bentuk tenancy harus dikonfirmasi pada target.",
+  "notes": "Contoh pembelajaran; bukan klaim tentang perusahaan atau izin testing.",
+  "provenance": {
+    "sourceType": "domain",
+    "source": "Pack riset generik lokal; bukan fakta perusahaan",
+    "confidence": 0.8,
+    "verified": false,
+    "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+  },
+  "coreConcepts": [
+    "Tenancy",
+    "Lifecycle membership",
+    "Role dan capability"
+  ],
+  "terminology": [
+    {
+      "id": "saas-term-1",
+      "title": "Tenant",
+      "content": "Unit pemisahan customer/organisasi dalam layanan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Tenant",
+      "definition": "Unit pemisahan customer/organisasi dalam layanan.",
+      "whyImportant": "Context tenant harus ikut keputusan akses.",
+      "relatedTerms": [
+        "Workspace",
+        "Organization"
+      ]
+    },
+    {
+      "id": "saas-term-2",
+      "title": "Workspace",
+      "content": "Area resource dan membership yang dikelola bersama.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Workspace",
+      "definition": "Area resource dan membership yang dikelola bersama.",
+      "whyImportant": "Ownership dan role menentukan akses.",
+      "relatedTerms": [
+        "Tenant",
+        "Role"
+      ]
+    },
+    {
+      "id": "saas-term-3",
+      "title": "Role",
+      "content": "Kelompok hak yang diberikan pada actor.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Role",
+      "definition": "Kelompok hak yang diberikan pada actor.",
+      "whyImportant": "Nama role belum membuktikan permission efektif.",
+      "relatedTerms": [
+        "Authority",
+        "Member"
+      ]
+    },
+    {
+      "id": "saas-term-4",
+      "title": "Revocation",
+      "content": "Pencabutan hak atau capability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Revocation",
+      "definition": "Pencabutan hak atau capability.",
+      "whyImportant": "Perubahan harus diperiksa pada surface yang relevan.",
+      "relatedTerms": [
+        "Role",
+        "Session"
+      ]
+    },
+    {
+      "id": "saas-term-5",
+      "title": "Export",
+      "content": "Hasil pengambilan data untuk suatu context.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "term": "Export",
+      "definition": "Hasil pengambilan data untuk suatu context.",
+      "whyImportant": "File/worker bisa memiliki lifecycle sendiri.",
+      "relatedTerms": [
+        "Resource",
+        "Revocation"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "saas-actor-1",
+      "title": "Guest",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-2",
+      "title": "User",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-3",
+      "title": "Member",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-4",
+      "title": "Manager",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-5",
+      "title": "Admin",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-6",
+      "title": "Owner",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-7",
+      "title": "Organization",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-actor-8",
+      "title": "Service Account",
+      "content": "Peran tipikal; hak efektif harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessObjects": [
+    {
+      "id": "saas-object-1",
+      "title": "Workspace",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-2",
+      "title": "Organization",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-3",
+      "title": "Project",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-4",
+      "title": "Resource",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-5",
+      "title": "Invitation",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-6",
+      "title": "Role",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-7",
+      "title": "Export",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-object-8",
+      "title": "Session",
+      "content": "Resource bisnis tipikal; ownership, state dan sensitivitas perlu dipetakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "businessFlows": [
+    {
+      "id": "saas-flow-1",
+      "title": "SaaS — flow generik",
+      "content": "Aplikasi sebagai layanan dengan organisasi, workspace dan resource; bentuk tenancy harus dikonfirmasi pada target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "steps": [
+        "User",
+        "Organization",
+        "Workspace",
+        "Resource",
+        "Invite Member",
+        "Assign Role",
+        "Share Resource",
+        "Revoke Access"
+      ],
+      "actorIds": [
+        "saas-actor-1",
+        "saas-actor-2",
+        "saas-actor-3",
+        "saas-actor-4",
+        "saas-actor-5",
+        "saas-actor-6",
+        "saas-actor-7",
+        "saas-actor-8"
+      ],
+      "objectIds": [
+        "saas-object-1",
+        "saas-object-2",
+        "saas-object-3",
+        "saas-object-4",
+        "saas-object-5",
+        "saas-object-6",
+        "saas-object-7",
+        "saas-object-8"
+      ],
+      "boundaryIds": [
+        "saas-boundary-1"
+      ],
+      "invariantIds": [
+        "saas-invariant-1",
+        "saas-invariant-2",
+        "saas-invariant-3",
+        "saas-invariant-4"
+      ],
+      "transitions": [
+        {
+          "id": "saas-transition-1",
+          "fromState": "User",
+          "toState": "Organization",
+          "action": "User → Organization",
+          "critical": false,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-2",
+          "fromState": "Organization",
+          "toState": "Workspace",
+          "action": "Organization → Workspace",
+          "critical": false,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-3",
+          "fromState": "Workspace",
+          "toState": "Resource",
+          "action": "Workspace → Resource",
+          "critical": false,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-4",
+          "fromState": "Resource",
+          "toState": "Invite Member",
+          "action": "Resource → Invite Member",
+          "critical": false,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-5",
+          "fromState": "Invite Member",
+          "toState": "Assign Role",
+          "action": "Invite Member → Assign Role",
+          "critical": false,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-6",
+          "fromState": "Assign Role",
+          "toState": "Share Resource",
+          "action": "Assign Role → Share Resource",
+          "critical": true,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        },
+        {
+          "id": "saas-transition-7",
+          "fromState": "Share Resource",
+          "toState": "Revoke Access",
+          "action": "Share Resource → Revoke Access",
+          "critical": true,
+          "invariantIds": [
+            "saas-invariant-1",
+            "saas-invariant-2",
+            "saas-invariant-3",
+            "saas-invariant-4"
+          ]
+        }
+      ]
+    }
+  ],
+  "sensitiveData": [
+    {
+      "id": "saas-sensitive-1",
+      "title": "Private workspace resources",
+      "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-sensitive-2",
+      "title": "Membership and role assignments",
+      "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-sensitive-3",
+      "title": "Exports and session credentials",
+      "content": "Kategori data generik SaaS; konfirmasi sensitivitas pada target dan gunakan data dummy/redaksi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "criticalAssets": [
+    {
+      "id": "saas-asset-1",
+      "title": "Workspace",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-asset-2",
+      "title": "Resource",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-asset-3",
+      "title": "Role",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-asset-4",
+      "title": "Export",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-asset-5",
+      "title": "Session",
+      "content": "Nilai bisnis terkait integritas, ownership dan authority pada SaaS flow; bukan penilaian severity target.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "commonTrustBoundaries": [
+    {
+      "id": "saas-boundary-1",
+      "title": "Authorization → Execution",
+      "content": "Authority harus tetap sesuai ketika aksi terlindungi benar-benar dijalankan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "fromComponent": "User / Client",
+      "toComponent": "Backend / Worker",
+      "channel": "request / job",
+      "authority": "Izin actor untuk object dan state yang berlaku",
+      "flowId": "saas-flow-1"
+    }
+  ],
+  "securityInvariants": [
+    {
+      "id": "saas-invariant-1",
+      "title": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+      "content": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "techniqueIds": [
+        "tech_14"
+      ]
+    },
+    {
+      "id": "saas-invariant-2",
+      "title": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+      "content": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "techniqueIds": [
+        "tech_17"
+      ]
+    },
+    {
+      "id": "saas-invariant-3",
+      "title": "Viewer tidak boleh menjalankan operasi Owner.",
+      "content": "Viewer tidak boleh menjalankan operasi Owner.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "techniqueIds": [
+        "tech_16"
+      ]
+    },
+    {
+      "id": "saas-invariant-4",
+      "title": "Resource privat harus mengikuti perubahan state sharing.",
+      "content": "Resource privat harus mengikuti perubahan state sharing.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "techniqueIds": [
+        "tech_07"
+      ]
+    }
+  ],
+  "commonFailurePatterns": [
+    {
+      "id": "saas-pattern-1",
+      "title": "Authorization mismatch",
+      "content": "Bandingkan authority efektif, owner, state dan context sebelum menyimpulkan kontrol gagal.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-pattern-2",
+      "title": "Stale authorization",
+      "content": "Pertanyaan generik: apakah authority lama masih dipakai setelah perubahan state?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    },
+    {
+      "id": "saas-pattern-3",
+      "title": "State desynchronization",
+      "content": "Perbedaan state antarkomponen perlu kontrol timing dan evidence; belum tentu vulnerability.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target."
+    }
+  ],
+  "relevantTechniques": [
+    {
+      "id": "saas-mapping-1",
+      "title": "Technique tech_14",
+      "content": "Tenant isolation: resource dan capability satu organisasi tidak memberi akses ke organisasi lain. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_14",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-1",
+      "researchPriority": 60
+    },
+    {
+      "id": "saas-mapping-2",
+      "title": "Technique tech_17",
+      "content": "Object ownership: actor harus berhak atas object, account atau record yang dirujuk pada flow. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_17",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-2",
+      "researchPriority": 70
+    },
+    {
+      "id": "saas-mapping-3",
+      "title": "Technique tech_16",
+      "content": "Vertical authority: operasi privilege tinggi harus menolak actor tanpa hak efektif yang sesuai. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_16",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-3",
+      "researchPriority": 80
+    },
+    {
+      "id": "saas-mapping-4",
+      "title": "Technique tech_07",
+      "content": "Revocation/lifecycle: periksa capability dan resource turunan setelah izin, membership atau credential dicabut. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_07",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-4",
+      "researchPriority": 60
+    },
+    {
+      "id": "saas-mapping-5",
+      "title": "Technique tech_15",
+      "content": "File/share/export: salinan, link dan export harus mempertahankan ownership serta perubahan akses. Tinjau SaaS flow bersama invariant terkait; gunakan hanya scope yang diotorisasi.",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "techniqueId": "tech_15",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-1",
+      "researchPriority": 70
+    }
+  ],
+  "researchQuestions": [
+    {
+      "id": "saas-question-1",
+      "title": "Bagaimana memastikan: Workspace A tidak boleh mengakses resource Workspace B tanpa izin.",
+      "content": "Workspace A tidak boleh mengakses resource Workspace B tanpa izin. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-1",
+      "techniqueId": "tech_14"
+    },
+    {
+      "id": "saas-question-2",
+      "title": "Bagaimana memastikan: Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan.",
+      "content": "Member yang dihapus harus kehilangan capability terlindungi sesuai kebijakan. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-2",
+      "techniqueId": "tech_17"
+    },
+    {
+      "id": "saas-question-3",
+      "title": "Bagaimana memastikan: Viewer tidak boleh menjalankan operasi Owner.",
+      "content": "Viewer tidak boleh menjalankan operasi Owner. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-3",
+      "techniqueId": "tech_16"
+    },
+    {
+      "id": "saas-question-4",
+      "title": "Bagaimana memastikan: Resource privat harus mengikuti perubahan state sharing.",
+      "content": "Resource privat harus mengikuti perubahan state sharing. Apa expected behavior jika owner, authority atau state berubah sebelum execution; apa evidence yang membedakan kontrol efektif dari pelanggaran?",
+      "sourceType": "domain",
+      "source": "Pack riset generik lokal; bukan fakta perusahaan",
+      "confidence": 0.8,
+      "verified": false,
+      "notes": "Adaptasikan dengan dokumentasi target dan scope; pola bukan vulnerability target.",
+      "flowId": "saas-flow-1",
+      "invariantId": "saas-invariant-4",
+      "techniqueId": "tech_07"
+    }
+  ],
+  "references": [
+    {
+      "title": "NIST SP 800-145 — cloud service models",
+      "url": "https://www.nist.gov/publications/nist-definition-cloud-computing",
+      "notes": "Referensi model layanan; mapping kontrol adalah pola riset generik."
+    }
+  ]
+}
