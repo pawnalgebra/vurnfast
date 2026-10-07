@@ -33,6 +33,6 @@ export function editEvidence(ctx,target,row,defaults={}) {
 export function renderEvidence(ctx,target) {
   const root=el('div',{},ctx.heading('Evidence','Metadata file dan teks observasi yang mendukung hasil riset.',button('+ Attach Evidence',()=>editEvidence(ctx,target),'primary')),el('div',{class:'notice'},'Periksa redaksi secrets dan data pribadi. Workspace JSON memuat teks evidence; file screenshot/video hanya direferensikan lewat path.'));
   if(!target.evidence.length)root.append(empty());
-  for(const row of target.evidence)root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},row.label),el('div',{class:'actions'},button('Edit',()=>editEvidence(ctx,target,row)),ctx.deleteButton(target,'evidence',row))),badge(row.type),el('p',{class:'muted'},row.path||''),el('p',{},row.description||''),el('pre',{},row.content||'')));
+  for(const row of target.evidence)root.append(el('article',{class:'record','data-agent-kind':'evidence','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.label),el('div',{class:'actions'},button('Edit',()=>editEvidence(ctx,target,row)),ctx.deleteButton(target,'evidence',row))),badge(row.type),el('p',{class:'muted'},row.path||''),el('p',{},row.description||''),el('pre',{},row.content||'')));
   return root;
 }

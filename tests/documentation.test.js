@@ -31,7 +31,7 @@ test('every feature documentation URL reaches an actual generated section under 
       }
       assert.ok(pages.get(path).includes('id="'+anchor+'"'),feature.id);
     }
-    for(const name of ['USER_GUIDE','FEATURE_REFERENCE','WORKFLOW_GUIDE','TARGET_INTELLIGENCE_GUIDE']){
+    for(const name of ['USER_GUIDE','FEATURE_REFERENCE','WORKFLOW_GUIDE','TARGET_INTELLIGENCE_GUIDE','AGENTIC_RESEARCH_GUIDE']){
       assert.equal((await app.inject('/docs/'+name+'.html')).statusCode,200);
       assert.equal(await readFile(new URL('../docs/'+name+'.md',import.meta.url),'utf8'),await readFile(new URL('../client/docs/'+name+'.md',import.meta.url),'utf8'));
     }

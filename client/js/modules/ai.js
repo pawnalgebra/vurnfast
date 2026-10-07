@@ -34,9 +34,10 @@ export function renderAI(ctx,target) {
     const context=buildResearchContext(target,options),redact=options.privacyMode==='REDACTED_CLOUD'||aiConnection.redactSecrets;
     const prepared=redact?SecretRedactor.context(context):context;
     const dialog=el('dialog',{class:'editor'},el('h2',{},'Review AI Context · '+options.privacyMode),el('p',{class:'notice'},options.privacyMode==='LOCAL_ONLY'?'Context dikirim melalui backend localhost ke Ollama localhost.':'Context ini akan dikirim ke '+aiConnection.provider+' melalui backend. Review redaksi, scope, dan evidence sebelum melanjutkan.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send for Analysis',async()=>{
-      dialog.close();ctx.aiBusy=true;ctx.render();
+      const revision=target.researchRevision;dialog.close();ctx.aiBusy=true;ctx.render();
       try {
         const response=validateAIOutput(await requestAdvice(prepared,options.privacyMode));
+        if(ctx.store.target(target.id)!==target||target.researchRevision!==revision)throw new Error('Context changed; AI response discarded. Send a fresh analysis.');
         // DATA CONTRACT: Only a suggestion record is saved; no research field is overwritten.
         ctx.store.upsert(target.id,'aiSuggestions',{operation:options.operation,status:'pending',provider:aiConnection.provider,model:aiConnection.model,privacyMode:options.privacyMode,sourceFindingId:options.findingId||'',response,createdAt:now()});ctx.toast('AI suggestion siap direview. Tidak ada finding/hypothesis yang diubah otomatis.');
       }catch(error){ctx.toast(error.message);}finally{ctx.aiBusy=false;ctx.render();}

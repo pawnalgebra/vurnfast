@@ -1,3 +1,4 @@
+import {effectiveProgramRules} from './environment.js';
 // MODULE: Explicit allowlist context builder; keys/config and unrelated targets never enter prompts.
 export const lines=value=>String(value||'').split('\n').map(v=>v.trim()).filter(Boolean);
 export function buildResearchContext(target,options={}) {
@@ -7,7 +8,7 @@ export function buildResearchContext(target,options={}) {
     operation:options.operation||'research_advice',
     target:{program:target.name,platform:target.platform,asset:target.asset,environment:target.environment||'',version:target.version||''},
     authorization:{authorized:guard.inScope===true,ownedAccountsOnly:guard.account===true,ownedDataOnly:guard.data===true},
-    programRules:{automationAllowed:target.programRules?.automationAllowed===true,dosAllowed:target.programRules?.dosAllowed===true,thirdPartyTesting:target.programRules?.thirdPartyTesting===true},
+    programRules:effectiveProgramRules(target),
     scope:{inScope:lines(scope.inScope),outOfScope:lines(scope.outOfScope),testingRules:lines(scope.testingRestrictions),automationRules:lines(scope.automationRules),knownIssues:lines(scope.knownIssues),rateLimits:scope.rateLimits||'',safeHarbor:scope.safeHarbor||''},
     research:{goal:options.goal||'',technique:options.techniqueId?target.techniques.find(t=>t.id===options.techniqueId)?.name||'':'',hypothesis:options.hypothesisId?target.hypotheses.find(h=>h.id===options.hypothesisId)?.title||'':'',notes:options.notes||''},
     actors:target.actors.map(row=>choose(row,['name','authority','notes'])),

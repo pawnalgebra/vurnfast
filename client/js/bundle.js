@@ -39,6 +39,15 @@ const formulaKeys=['who','what','object','state','authority','context'];
 function formulaView(item) { return el('div',{class:'formula-strip'},formulaKeys.map(key=>el('div',{},el('small',{},key.toUpperCase()),el('span',{},item[key]||'—')))); }
 function panel(title,...children) { return el('section',{class:'panel'},el('h2',{},title),...children); }
 
+// SOURCE: icons
+// Vendored Lucide icons (ISC / Feather MIT); see client/assets/icons/lucide/LICENSE.
+const companionIconPaths={"message-square-text": [["path", {"d": "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"}], ["path", {"d": "M7 11h10"}], ["path", {"d": "M7 15h6"}], ["path", {"d": "M7 7h8"}]], "panel-left-close": [["rect", {"width": "18", "height": "18", "x": "3", "y": "3", "rx": "2"}], ["path", {"d": "M9 3v18"}], ["path", {"d": "m16 15-3-3 3-3"}]], "x": [["path", {"d": "M18 6 6 18"}], ["path", {"d": "m6 6 12 12"}]], "send": [["path", {"d": "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"}], ["path", {"d": "m21.854 2.147-10.94 10.939"}]], "search": [["path", {"d": "m21 21-4.34-4.34"}], ["circle", {"cx": "11", "cy": "11", "r": "8"}]], "pause": [["rect", {"x": "14", "y": "3", "width": "5", "height": "18", "rx": "1"}], ["rect", {"x": "5", "y": "3", "width": "5", "height": "18", "rx": "1"}]], "chevron-down": [["path", {"d": "m6 9 6 6 6-6"}]]};
+// Mirror the existing collapse icon for the companion dock on the right.
+companionIconPaths['panel-right-close']=companionIconPaths['panel-left-close'].map(([tag,attrs])=>[tag,{...attrs,transform:'translate(24 0) scale(-1 1)'}]);
+companionIconPaths.plus=[['path',{d:'M12 5v14'}],['path',{d:'M5 12h14'}]];
+companionIconPaths['refresh-cw']=[['path',{d:'M20 7v5h-5'}],['path',{d:'M4 17v-5h5'}],['path',{d:'M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1'}]];
+function companionIcon(name){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');for(const [key,value] of Object.entries({viewBox:'0 0 24 24',width:'18',height:'18',fill:'none',stroke:'currentColor','stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true',focusable:'false'}))svg.setAttribute(key,value);for(const [tag,attrs] of companionIconPaths[name]||[]){const node=document.createElementNS(svg.namespaceURI,tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);svg.append(node);}return svg;}
+
 // SOURCE: technique-data
 // MODULE: Bundled technique reference; regenerate using scripts/extract-techniques.py.
 const DEFAULT_TECHNIQUES = [
@@ -10903,6 +10912,109 @@ const featureRegistry=[
     "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-recommend_domain_techniques"
   },
   {
+    "id": "agentic-research",
+    "name": "Agentic Research Orchestrator",
+    "description": "Start/Continue memilih specialist berikutnya dari state, scope, proposal dan evidence.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "dashboard",
+      "research-details"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agentic-research"
+  },
+  {
+    "id": "agent-review",
+    "name": "Review Queue",
+    "description": "Review AI proposals dan native action approvals sebelum canonical data berubah.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "review-queue"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-review"
+  },
+  {
+    "id": "manual-analysis",
+    "name": "Manual Analysis",
+    "description": "Observation, Assessment, Correction, Research Idea, Potential Root Cause, Next Test Suggestion dan Notes peneliti.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "manual-analysis"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#manual-analysis"
+  },
+  {
+    "id": "agent-history",
+    "name": "Agent History",
+    "description": "Audit action/result/status/timestamp, researcher decision, tools dan estimated cost.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "agent-history"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-history"
+  },
+  {
+    "id": "tool-inventory",
+    "name": "Tool Inventory",
+    "description": "Installed/version/path/capabilities/agent permissions untuk perangkat lokal.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "tool-inventory"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tool-inventory"
+  },
+  {
+    "id": "agentic-settings",
+    "name": "Agentic AI Settings",
+    "description": "Flag gabungan AI/Agentic, supervised mode, budget/steps/local access dan target policy.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "agentic-settings"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agentic-settings"
+  },
+  {
+    "id": "research-environment",
+    "name": "Target Research Environment",
+    "description": "Optional testing metadata, accounts, authentication profiles, encrypted secret refs and target-specific rules.",
+    "purpose": "Separate target metadata from secrets and enforce explicit program rules.",
+    "status": "Partial",
+    "routes": [
+      "research-environment"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#research-environment"
+  },
+  {
+    "id": "agent-message",
+    "name": "Agent Message",
+    "description": "Right group conversation with mentions above input, attachments and model selection.",
+    "purpose": "Analyze selected research without leaving the workspace.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-message"
+  },
+  {
     "id": "tech_01",
     "name": "State-Machine & Context Confusion",
     "description": "Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.",
@@ -11319,15 +11431,301 @@ class SecretRedactor {
   }
 }
 
+// SOURCE: services/research-integrity
+// Change detection only, not an authentication signature. Full canonical content stays local.
+function researchFingerprint(value){
+  const text=JSON.stringify(value);let a=2166136261,b=2246822507;
+  for(let i=0;i<text.length;i++){const c=text.charCodeAt(i);a=Math.imul(a^c,16777619);b=Math.imul(b^c,3266489909);}
+  return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0')+':'+text.length;
+}
+function observationFingerprint(row){
+  const ignored=new Set(['createdAt','updatedAt','reportMarkdown','reportSourceFingerprint','agentReportProposalId']);
+  return researchFingerprint(Object.fromEntries(Object.keys(row).filter(k=>!ignored.has(k)).sort().map(k=>[k,row[k]])));
+}
+function reportSourceFingerprint(target,finding){
+  return researchFingerprint({target:[target.name,target.platform,target.asset,target.environment,target.version],finding:observationFingerprint(finding),technique:target.techniques.find(t=>t.id===finding.techniqueId)||null,evidence:(finding.evidenceIds||[]).map(id=>{const row=target.evidence.find(e=>e.id===id);return row?observationFingerprint(row):null;})});
+}
+
+// SOURCE: services/share-review
+
+
+function prepareShare(value){
+  const encode=v=>typeof v==='string'?v:JSON.stringify(v,null,2);
+  const original=encode(value),redacted=encode(typeof value==='string'?SecretRedactor.redact(value):SecretRedactor.context(value));
+  return {original,redacted,sensitive:original!==redacted};
+}
+function reviewForSharing(value,{allowOriginal=false,label='Export'}={}){
+  const prepared=prepareShare(value);if(!prepared.sensitive)return Promise.resolve(prepared.original);
+  return new Promise(resolve=>{
+    let selected=null;const dialog=el('dialog',{class:'editor','aria-label':'Review sensitive data'},el('h2',{},'Review sensitive data before '+label),el('p',{class:'notice'},'Tokens, cookies, credentials, or personal data were detected. Review the redacted preview; redaction can also remove identifiers needed for restoring a backup.'),el('pre',{},prepared.redacted),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Use Redacted',()=>{selected=prepared.redacted;dialog.close();},'primary'),allowOriginal?button('Export Original Backup',()=>{if(confirm('Original backup contains sensitive data in plaintext. Keep this file private. Continue?')){selected=prepared.original;dialog.close();}},'danger'):null));
+    dialog.addEventListener('close',()=>{dialog.remove();resolve(selected);},{once:true});document.body.append(dialog);dialog.showModal();
+  });
+}
+
+// SOURCE: services/message-attachments
+
+
+const attachmentLimits={count:3,textLength:60000,totalText:90000,fileBytes:750000,totalBytes:1000000};
+const attachmentAccept='.txt,.md,.json,.csv,.log,.har,.http,.yaml,.yml,.xml,.html,.js,.ts,.py,.sql,.png,.jpg,.jpeg,.webp';
+const attachmentTextExtensions=/\.(txt|md|json|csv|log|har|http|yaml|yml|xml|html|js|ts|py|sql)$/i;
+const attachmentImageTypes=['image/png','image/jpeg','image/webp'];
+function validateMessageAttachments(files=[]){
+  if(!Array.isArray(files)||files.length>attachmentLimits.count)throw new Error('Maksimal tiga file per pesan.');
+  let bytes=0,textLength=0;const ids=new Set();
+  for(const file of files){
+    if(!file||Object.keys(file).some(k=>!['id','name','type','size','text','data'].includes(k))||typeof file.id!=='string'||!file.id||file.id.length>120||ids.has(file.id)||typeof file.name!=='string'||!file.name||file.name.length>180||!Number.isInteger(file.size)||file.size<1||file.size>attachmentLimits.fileBytes)throw new Error('Lampiran tidak valid atau melebihi 750 KB.');
+    ids.add(file.id);bytes+=file.size;
+    if(file.type==='text/plain'){
+      if(typeof file.text!=='string'||!file.text.trim()||file.text.length>attachmentLimits.textLength||file.text.includes('\u0000')||file.data!==undefined)throw new Error('File teks harus UTF-8, tidak kosong, dan maksimal 60.000 karakter.');
+      textLength+=file.text.length;
+    }else{
+      if(!attachmentImageTypes.includes(file.type)||typeof file.data!=='string'||file.text!==undefined||file.data.length>1000000||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(file.data))throw new Error('Format gambar tidak valid. Gunakan PNG, JPEG, atau WebP.');
+      const decoded=Math.floor(file.data.length*3/4)-(file.data.endsWith('==')?2:file.data.endsWith('=')?1:0);
+      const header=atob(file.data.slice(0,24));
+      if(decoded!==file.size||!(file.type==='image/png'?file.data.startsWith('iVBORw0KGgo'):file.type==='image/jpeg'?file.data.startsWith('/9j/'):header.startsWith('RIFF')&&header.slice(8,12)==='WEBP'))throw new Error('Isi gambar tidak sesuai metadata.');
+    }
+  }
+  if(bytes>attachmentLimits.totalBytes||textLength>attachmentLimits.totalText)throw new Error('Total lampiran maksimal 1 MB atau 90.000 karakter teks.');
+  return files;
+}
+async function readMessageAttachment(file){
+  if(file.size<1||file.size>attachmentLimits.fileBytes)throw new Error('File kosong atau melebihi 750 KB.');
+  const name=SecretRedactor.redact(file.name).slice(0,180);
+  let result;
+  if(attachmentImageTypes.includes(file.type)){
+    const bytes=new Uint8Array(await file.arrayBuffer());let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);
+    result={id:uuid(),name,type:file.type,size:file.size,data:btoa(binary)};
+  }else{
+    if(!attachmentTextExtensions.test(file.name))throw new Error('Gunakan file teks, log, JSON/HAR, kode, PNG, JPEG, atau WebP. PDF dan file biner belum didukung.');
+    const text=new TextDecoder('utf-8',{fatal:true}).decode(await file.arrayBuffer());
+    result={id:uuid(),name,type:'text/plain',size:file.size,text:SecretRedactor.redact(text)};
+  }
+  validateMessageAttachments([result]);return result;
+}
+function attachmentMetadata(file){return {id:file.id,name:SecretRedactor.redact(file.name),type:file.type,size:file.size,preview:file.type==='text/plain'?SecretRedactor.redact(file.text).slice(0,600):'Image sent as shown; original not stored in conversation.'};}
+
+// SOURCE: services/message-contract
+
+const validatorContextKinds=['target','scope','actor','object','boundary','technique','hypothesis','test','evidence','finding','report'];
+function validateMessageRecord(row){
+  const fields=['id','message','agent','targetId','researchSessionId','timestamp','status','sender','contextRefs','tags','answer','proposalIds','runId','model','attachments','members'];
+  if(!row||Object.keys(row).some(k=>!fields.includes(k)))throw new Error('Unknown message field.');
+  if(!row||['id','message','agent','targetId','researchSessionId','timestamp','status'].some(k=>typeof row[k]!=='string')||!row.id||!row.targetId||!row.researchSessionId||row.message.length>12000||!['researcher','agent'].includes(row.sender)||!['sent','completed','error','paused'].includes(row.status)||!Array.isArray(row.contextRefs)||row.contextRefs.length>12||row.contextRefs.some(r=>!validatorContextKinds.includes(r.kind)||typeof r.id!=='string'||!r.id||r.id.length>120)||!Array.isArray(row.tags)||row.tags.length>16||row.tags.some(t=>typeof t!=='string'||t.length>100))throw new Error('Agent message tidak valid.');
+  if(JSON.stringify(SecretRedactor.context(row))!==JSON.stringify(row))throw new Error('Agent message mengandung data sensitif.');
+  if(['id','targetId','researchSessionId'].some(k=>row[k].length>120)||row.agent.length>40||!Number.isFinite(Date.parse(row.timestamp)))throw new Error('Message metadata tidak valid.');
+  if(row.proposalIds!==undefined&&(!Array.isArray(row.proposalIds)||row.proposalIds.length>8||row.proposalIds.some(id=>typeof id!=='string'||id.length>120)))throw new Error('Message proposal references tidak valid.');
+  if(row.runId!==undefined&&(typeof row.runId!=='string'||!row.runId||row.runId.length>120)||row.model!==undefined&&(typeof row.model!=='string'||!row.model||row.model.length>180))throw new Error('Message run/model tidak valid.');
+  if(row.members!==undefined&&(!Array.isArray(row.members)||row.members.length>4||row.members.some(id=>typeof id!=='string'||id.length>40)))throw new Error('Message members tidak valid.');
+  if(row.attachments!==undefined&&(!Array.isArray(row.attachments)||row.attachments.length>3||row.attachments.some(file=>!file||Object.keys(file).some(k=>!['id','name','type','size','preview'].includes(k))||typeof file.id!=='string'||!file.id||file.id.length>120||typeof file.name!=='string'||!file.name||file.name.length>180||!['text/plain','image/png','image/jpeg','image/webp'].includes(file.type)||!Number.isInteger(file.size)||file.size<1||file.size>750000||typeof file.preview!=='string'||file.preview.length>600)))throw new Error('Message attachment metadata tidak valid.');
+  if(row.answer!==undefined){if(!row.answer||Object.keys(row.answer).some(k=>!['finding','reason','risk','nextStep','details','priority','evidenceIds'].includes(k))||['finding','reason','risk','nextStep','details','priority'].some(k=>typeof row.answer[k]!=='string'||row.answer[k].length>(k==='details'?8000:1000))||!['Critical','Important','Interesting','Informational'].includes(row.answer.priority)||!Array.isArray(row.answer.evidenceIds)||row.answer.evidenceIds.length>4||row.answer.evidenceIds.some(k=>typeof k!=='string'||k.length>120))throw new Error('Message answer tidak valid.');}
+  return row;
+}
+function validateMessageMemory(memory){if(!memory||Object.keys(memory).some(k=>!['throughId','text'].includes(k))||typeof memory.throughId!=='string'||typeof memory.text!=='string'||memory.throughId.length>120||memory.text.length>1600||JSON.stringify(SecretRedactor.context(memory))!==JSON.stringify(memory))throw new Error('Conversation memory tidak valid.');return memory;}
+
+// SOURCE: services/agent-schema
+
+// Shared data contracts. Decisions and observations are separate from model inference.
+const agentStages=[
+  ['target-intelligence','Target Intelligence Agent','Target Intelligence','INTELLIGENCE_READY'],
+  ['domain-knowledge','Domain Knowledge Agent','Domain Knowledge','INTELLIGENCE_READY'],
+  ['scope','Scope Agent','Scope','SCOPE_VALIDATED'],
+  ['attack-surface','Attack Surface Agent','Attack Surface','SURFACE_MAPPED'],
+  ['trust-boundary','Trust Boundary Agent','Trust Boundaries','BOUNDARIES_MAPPED'],
+  ['technique','Technique Agent','Techniques','TECHNIQUES_SELECTED'],
+  ['hypothesis','Hypothesis Agent','Research Questions & Hypotheses','HYPOTHESES_READY'],
+  ['test-planner','Test Planner Agent','Test Planning','TEST_PLANNED'],
+  ['evidence','Evidence Agent','Evidence Analysis','EVIDENCE_READY'],
+  ['finding','Finding Agent','Finding Analysis','FINDING_REVIEW'],
+  ['false-positive','False Positive Agent','False Positive Review','FINDING_REVIEW'],
+  ['duplicate','Duplicate Agent','Duplicate Review','FINDING_REVIEW'],
+  ['report','Report Agent','Report','REPORT_READY']
+];
+const researchStates=['TARGET_CREATED','INTELLIGENCE_READY','SCOPE_VALIDATED','SURFACE_MAPPED','BOUNDARIES_MAPPED','TECHNIQUES_SELECTED','HYPOTHESES_READY','TEST_PLANNED','WAITING_REVIEW','WAITING_APPROVAL','TESTING','EVIDENCE_READY','FINDING_REVIEW','REPORT_READY','COMPLETED','PAUSED','RUNNING'];
+const proposalKinds=['knowledge','actor','object','boundary','technique','tool-recommendation','question','hypothesis','test-plan','evidence-analysis','potential-finding','false-positive','duplicate','report','scope-question','uncertain-analysis'];
+const manualAnalysisTypes=['Observation','Assessment','Correction','Research Idea','Potential Root Cause','Next Test Suggestion','Notes'];
+const capabilityPermissions=['SAFE_AUTO','APPROVAL_REQUIRED','DENIED'];
+const adapterIds=['knowledge-search','json-parse','evidence-compare','http-request','browser','network-tool','package-install','root-command','destructive-action'];
+const agentContentFields=['name','authority','type','owner','tenant','state','sensitivity','from','to','channel','trust','invariant','expectedBehavior','potentialFailure','who','what','object','context','preconditions','steps','expectedResult','actualResult','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','vulnerabilityClass','reportMarkdown'];
+const aText={type:'string',maxLength:12000};
+const aObject=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+const AGENT_PROPOSAL_SCHEMA=aObject({kind:{type:'string',enum:proposalKinds},title:aText,analysis:aText,reason:aText,confidence:{type:'number',minimum:0,maximum:1},notes:aText,relatedTechniqueId:aText,relatedToolId:aText,relatedHypothesisId:aText,relatedTestId:aText,relatedFindingId:aText,evidenceIds:{type:'array',maxItems:12,items:aText},content:aObject(Object.fromEntries(agentContentFields.map(f=>[f,aText])))});
+const AGENT_ACTION_SCHEMA=aObject({adapter:{type:'string',enum:adapterIds},toolId:aText,goal:aText,reason:aText,input:aObject({query:aText,json:aText,leftEvidenceId:aText,rightEvidenceId:aText,url:aText}),risk:{type:'string',enum:['low','medium','high']},expectedResult:aText,stopConditions:{type:'array',maxItems:12,items:aText}});
+const AGENT_RESPONSE_SCHEMA=aObject({summary:aText,confidence:{type:'number',minimum:0,maximum:1},notes:aText,proposals:{type:'array',maxItems:8,items:AGENT_PROPOSAL_SCHEMA},actions:{type:'array',maxItems:3,items:AGENT_ACTION_SCHEMA},unknownInformation:{type:'array',maxItems:12,items:aText}});
+const emptyAgentContent=()=>Object.fromEntries(agentContentFields.map(k=>[k,'']));
+const emptyAgentResearch=()=>({state:'TARGET_CREATED',reason:'',currentTask:'',currentStage:'',completedStages:[],reviewQueue:[],manualAnalysis:[],history:[],runs:[],pendingActions:[],replanFrom:'',progress:0,revision:0});
+const builtinTools=()=>[
+  {id:'builtin-search',name:'Workspace Knowledge Search',installed:true,version:'2.0.0',path:'In-process adapter',capabilities:['knowledge-search'],agentAccess:'SAFE_AUTO',notes:'Selected local context only; no Internet search.'},
+  {id:'builtin-json',name:'Workspace JSON Parser',installed:true,version:'2.0.0',path:'In-process adapter',capabilities:['json-parsing'],agentAccess:'SAFE_AUTO',notes:'Bounded JSON parsing; no shell.'},
+  {id:'builtin-compare',name:'Workspace Evidence Comparator',installed:true,version:'2.0.0',path:'In-process adapter',capabilities:['evidence-comparison'],agentAccess:'SAFE_AUTO',notes:'Existing redacted evidence; no target interaction.'}
+];
+function agentSafeTree(value){
+  let nodes=0;
+  const walk=(v,depth=0)=>{if(++nodes>80000||depth>25)throw new Error('Agent data terlalu besar/dalam.');if(typeof v==='string'&&v.length>60000)throw new Error('Agent field terlalu panjang.');if(v&&typeof v==='object')for(const [key,child] of Object.entries(v)){if(['__proto__','constructor','prototype'].includes(key))throw new Error('Agent key tidak aman.');walk(child,depth+1);}};
+  walk(value);return value;
+}
+function validateAgentResponse(value){
+  agentSafeTree(value);
+  if(new TextEncoder().encode(JSON.stringify(value)).length>100000)throw new Error('Agent output terlalu besar.');
+  const check=(v,s)=>{if(s.type==='object'){if(!v||typeof v!=='object'||Array.isArray(v)||s.required.some(k=>!Object.hasOwn(v,k))||Object.keys(v).some(k=>!Object.hasOwn(s.properties,k)))throw new Error('Agent output object tidak valid.');for(const [k,c] of Object.entries(v))check(c,s.properties[k]);}
+    else if(s.type==='array'){if(!Array.isArray(v)||v.length>s.maxItems)throw new Error('Agent output array tidak valid.');v.forEach(c=>check(c,s.items));}
+    else if(typeof v!==s.type||s.type==='string'&&v.length>s.maxLength||s.type==='number'&&(!Number.isFinite(v)||v<s.minimum||v>s.maximum))throw new Error('Agent output field tidak valid.');
+    if(s.enum&&!s.enum.includes(v))throw new Error('Agent output enum tidak valid.');};
+  check(value,AGENT_RESPONSE_SCHEMA);return value;
+}
+function validateStructuredAgentAction(action){
+  agentSafeTree(action);
+  if(!action||typeof action.id!=='string'||!action.id||action.id.length>120)throw new Error('Action ID tidak valid.');
+  const core=Object.fromEntries(Object.keys(AGENT_ACTION_SCHEMA.properties).map(k=>[k,action[k]]));
+  validateAgentResponse({summary:'',confidence:1,notes:'',proposals:[],actions:[core],unknownInformation:[]});
+  if(action.approvalToken!==undefined&&(typeof action.approvalToken!=='string'||action.approvalToken.length>20000))throw new Error('Approval token tidak valid.');
+  return action;
+}
+function validateToolInventory(tools){
+  if(!Array.isArray(tools)||tools.length>100)throw new Error('Tool inventory tidak valid.');const ids=new Set();
+  for(const tool of tools){if(!tool||['id','name','version','path','notes'].some(k=>typeof tool[k]!=='string')||!tool.id||!tool.name.trim()||ids.has(tool.id)||typeof tool.installed!=='boolean'||!capabilityPermissions.includes(tool.agentAccess)||!Array.isArray(tool.capabilities)||tool.capabilities.some(c=>typeof c!=='string'))throw new Error('Tool inventory item tidak valid.');ids.add(tool.id);}
+  agentSafeTree(tools);return tools;
+}
+function validateAgentResearch(research){
+  agentSafeTree(research);
+  if(research?.messages!==undefined){if(!Array.isArray(research.messages)||research.messages.length>1000||new Set(research.messages.map(m=>m.id)).size!==research.messages.length)throw new Error('Conversation tidak valid.');research.messages.forEach(validateMessageRecord);}
+  if(research?.messageSessionId!==undefined&&(typeof research.messageSessionId!=='string'||!research.messageSessionId||research.messageSessionId.length>120))throw new Error('Conversation session tidak valid.');
+  if(research?.conversationSummary!==undefined)validateMessageMemory(research.conversationSummary);
+  if(!research||!researchStates.includes(research.state)||['reason','currentTask','currentStage','replanFrom'].some(k=>typeof research[k]!=='string')||!Number.isInteger(research.revision)||research.revision<0||!Number.isFinite(research.progress)||research.progress<0||research.progress>100)throw new Error('Research state tidak valid.');
+  for(const k of ['completedStages','reviewQueue','manualAnalysis','history','runs','pendingActions'])if(!Array.isArray(research[k])||research[k].length>2000)throw new Error('Research collection tidak valid.');
+  if(research.completedStages.some(id=>!agentStages.some(s=>s[0]===id)))throw new Error('Research stage tidak valid.');
+  const ids=new Set();
+  for(const row of [...research.reviewQueue,...research.manualAnalysis,...research.history,...research.runs,...research.pendingActions]){if(!row||typeof row.id!=='string'||!row.id||ids.has(row.id))throw new Error('Agent record ID tidak valid.');ids.add(row.id);}
+  for(const proposal of research.reviewQueue){if(!proposalKinds.includes(proposal.kind)||!['PROPOSED','ACCEPTED','EDITED','REJECTED'].includes(proposal.status)||!['ai','system'].includes(proposal.sourceType)||proposal.verified!==false||!Number.isFinite(proposal.confidence)||proposal.confidence<0||proposal.confidence>1||['title','analysis','reason','notes','source','agentId','createdAt'].some(k=>typeof proposal[k]!=='string')||!Array.isArray(proposal.evidenceIds)||proposal.evidenceIds.some(v=>typeof v!=='string')||!proposal.content||agentContentFields.some(k=>typeof proposal.content[k]!=='string'))throw new Error('Agent proposal tidak valid.');}
+  for(const row of research.manualAnalysis)if(!manualAnalysisTypes.includes(row.type)||['title','content','createdAt'].some(k=>typeof row[k]!=='string')||row.sourceType!=='researcher')throw new Error('Manual analysis tidak valid.');
+  for(const action of research.pendingActions)if(!adapterIds.includes(action.adapter)||!capabilityPermissions.includes(action.permission)||!['PROPOSED','APPROVED','EXECUTED','REJECTED','DENIED','FAILED'].includes(action.status)||['goal','reason','toolId','expectedResult','approvalToken','policyReason'].some(k=>typeof action[k]!=='string')||!['low','medium','high'].includes(action.risk)||!Array.isArray(action.stopConditions)||action.stopConditions.some(v=>typeof v!=='string')||!action.input||['query','json','leftEvidenceId','rightEvidenceId','url'].some(k=>typeof action.input[k]!=='string'))throw new Error('Action approval tidak valid.');
+  for(const row of research.history)if(['agent','task','startedAt','completedAt','status','resultSummary','researcherDecision'].some(k=>typeof row[k]!=='string')||!Array.isArray(row.toolsUsed)||row.toolsUsed.some(t=>typeof t!=='string')||!Number.isFinite(row.estimatedCostUSD)||row.estimatedCostUSD<0)throw new Error('Agent history tidak valid.');
+  for(const run of research.runs)if(!Number.isFinite(run.estimatedCostUSD)||run.estimatedCostUSD<0||!Number.isInteger(run.steps)||run.steps<0||typeof run.status!=='string')throw new Error('Agent run tidak valid.');
+  return research;
+}
+
+// SOURCE: services/environment
+
+const environmentRuleNames=['automationAllowed','authenticatedTestingAllowed','multipleAccountTestingAllowed','thirdPartyTestingAllowed','productionTestingAllowed','destructiveTestingAllowed','socialEngineeringAllowed','dosAllowed','scannerAllowed','customHeaderRequired','researcherIdentificationRequired'];
+const ruleChoices=['Unknown','Allowed','Not Allowed'];
+const authMethods=['None','Cookie','Bearer Token','API Key','Basic Auth','Custom Header','Manual'];
+const environmentTextFields=['name','baseUrl','allowedAssets','testTenant','ownedData','dummyIdentifiers','rateLimit','userAgent','researcherHeader','automationRestrictions','testingRestrictions','programRulesText','safeHarbor','knownIssues','outOfScopeNotes','specialInstructions','notes'];
+const emptyResearchEnvironment=()=>({...Object.fromEntries(environmentTextFields.map(k=>[k,''])),rules:Object.fromEntries(environmentRuleNames.map(k=>[k,'Unknown'])),accounts:[],profiles:[],headers:[]});
+const environmentSecretRef=(targetId,ownerId,kind)=>'secret://'+encodeURIComponent(targetId)+'/'+encodeURIComponent(ownerId)+'/'+kind;
+const sensitiveHeader=name=>/authorization|cookie|api[-_]?key|token|secret|password|session|csrf|xsrf/i.test(name);
+const fields={accounts:['id','name','role','purpose','username','tenant','ownership','notes','credentialRef'],profiles:['id','name','accountId','actorId','authType','tenant','ownership','purpose','notes','secretRef','cookieRef','cookieUpdatedAt','sessionStatus'],headers:['id','name','value','secretRef','secret','enabled']};
+function validateResearchEnvironment(env,target){
+  const fail=()=>{throw new Error('Research Environment metadata/reference tidak valid; raw secrets tidak boleh berada di workspace.');};
+  if(!env||typeof env!=='object'||Array.isArray(env)||Object.keys(env).some(k=>![...environmentTextFields,'rules','accounts','profiles','headers'].includes(k)))fail();
+  if(environmentTextFields.some(k=>typeof env[k]!=='string'||env[k].length>12000))fail();
+  const containsKnownSecret=value=>{const emailsRedacted=value.replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,'[REDACTED_EMAIL]');return SecretRedactor.redact(emailsRedacted)!==emailsRedacted;};
+  if(environmentTextFields.some(k=>containsKnownSecret(env[k])))fail();
+  if(!env.rules||Object.keys(env.rules).length!==environmentRuleNames.length||environmentRuleNames.some(k=>!ruleChoices.includes(env.rules[k])))fail();
+  const seen=new Set();
+  for(const [collection,keys] of Object.entries(fields)){
+    if(!Array.isArray(env[collection])||env[collection].length>50)fail();
+    for(const row of env[collection]){
+      if(!row||Object.keys(row).some(k=>!keys.includes(k))||keys.some(k=>['secret','enabled'].includes(k)?typeof row[k]!=='boolean':typeof row[k]!=='string'||row[k].length>12000)||!row.id||row.id.length>120||!row.name.trim()||seen.has(row.id))fail();seen.add(row.id);
+      const refs=collection==='accounts'?[['credentialRef','credential']]:collection==='profiles'?[['secretRef','auth'],['cookieRef','cookie']]:[['secretRef','header']];
+      for(const [key,kind] of refs)if(row[key]&&row[key]!==environmentSecretRef(target.id,row.id,kind))fail();
+      if(keys.filter(k=>!['username','credentialRef','secretRef','cookieRef'].includes(k)).some(k=>typeof row[k]==='string'&&containsKnownSecret(row[k])))fail();
+      if(collection==='profiles'&&(!authMethods.includes(row.authType)||!['Unknown','Expired'].includes(row.sessionStatus)||row.accountId&&!env.accounts.some(a=>a.id===row.accountId)||row.actorId&&!target.actors.some(a=>a.id===row.actorId)))fail();
+      if(collection==='headers'&&(sensitiveHeader(row.name)&&!row.secret||row.secret&&row.value||!row.secret&&row.secretRef||!/^[-!#$%&'*+.^_`|~0-9A-Za-z]+$/.test(row.name)||/[\r\n]/.test(row.value)))fail();
+    }
+  }
+  return env;
+}
+function environmentMetadata(target){
+  const env=target.researchEnvironment||emptyResearchEnvironment();
+  return SecretRedactor.context({name:env.name,baseUrl:env.baseUrl,allowedAssets:env.allowedAssets,testTenant:env.testTenant,ownedData:env.ownedData,dummyIdentifiers:env.dummyIdentifiers,rateLimit:env.rateLimit,userAgent:env.userAgent,researcherHeader:env.researcherHeader,rules:{...env.rules},automationRestrictions:env.automationRestrictions,testingRestrictions:env.testingRestrictions,programRulesText:env.programRulesText,safeHarbor:env.safeHarbor,knownIssues:env.knownIssues,outOfScopeNotes:env.outOfScopeNotes,specialInstructions:env.specialInstructions,notes:env.notes,
+    accounts:env.accounts.map(a=>({id:a.id,name:a.name,role:a.role,purpose:a.purpose,tenant:a.tenant,ownership:a.ownership,credentialConfigured:!!a.credentialRef})),
+    profiles:env.profiles.map(p=>({id:p.id,name:p.name,accountId:p.accountId,actorId:p.actorId,authType:p.authType,tenant:p.tenant,ownership:p.ownership,purpose:p.purpose,credentialConfigured:!!p.secretRef,cookieConfigured:!!p.cookieRef,sessionStatus:p.sessionStatus})),
+    headers:env.headers.map(h=>({name:h.name,enabled:h.enabled,secret:h.secret,configured:!!(h.secret?h.secretRef:h.value)}))});
+}
+function effectiveProgramRules(target){
+  const rules=target.researchEnvironment?.rules;
+  const choose=(key,legacy)=>rules?rules[key]==='Allowed':target.programRules?.[legacy]===true;
+  return {automationAllowed:choose('automationAllowed','automationAllowed'),dosAllowed:choose('dosAllowed','dosAllowed'),thirdPartyTesting:choose('thirdPartyTestingAllowed','thirdPartyTesting')};
+}
+function environmentReadiness(target){const e=target.researchEnvironment;return e?.baseUrl&&target.scope?.inScope?.trim()&&e.rateLimit.trim()&&e.rules.automationAllowed!=='Unknown'?'Ready':'Incomplete';}
+// Native local helpers need no environment. This gate is mandatory for future target adapters.
+function checkEnvironmentAction(metadata,action,{asset,scopeAllowed,toolAllowed,credentialAvailable=false}={}){
+  const result=(status,reason)=>({status,reason});
+  if(!metadata)return result('REQUIRES_REVIEW','Research Environment belum configured.');
+  if(scopeAllowed!==true)return result('REQUIRES_REVIEW','Asset/scope perlu diperiksa.');
+  const assets=metadata.allowedAssets.split(/\r?\n/).map(s=>s.trim().toLowerCase()).filter(Boolean);
+  if(!assets.includes(String(asset||'').trim().toLowerCase()))return result('REQUIRES_REVIEW','Asset tidak cocok tepat dengan allowed environment assets.');
+  if(toolAllowed!==true)return result('REQUIRES_REVIEW','Tool permission belum verified.');
+  const selectedProfile=action.authProfileId?metadata.profiles.find(p=>p.id===action.authProfileId):null;
+  const required=['automationAllowed',...(action.authProfileId&&selectedProfile?.authType!=='None'?['authenticatedTestingAllowed']:[]),...(action.multipleAccounts?['multipleAccountTestingAllowed']:[]),...(action.thirdParty?['thirdPartyTestingAllowed']:[]),...(action.production?['productionTestingAllowed']:[]),...(action.scanner?['scannerAllowed']:[])];
+  for(const key of required){if(metadata.rules[key]==='Not Allowed')return result('DENIED',key+' tidak diizinkan program.');if(metadata.rules[key]!=='Allowed')return result('REQUIRES_REVIEW',key+' masih Unknown.');}
+  if(action.destructive||action.dos||action.socialEngineering)return result('DENIED','Capability tidak didukung executor.');
+  if(!metadata.rateLimit.trim()||/^(unknown|n\/a|unspecified|\?)$/i.test(metadata.rateLimit.trim()))return result('REQUIRES_REVIEW','Rate limit belum diketahui.');
+  if(action.authProfileId){const p=metadata.profiles.find(p=>p.id===action.authProfileId);if(!p||p.authType!=='None'&&(!credentialAvailable||p.sessionStatus==='Expired'))return result('WAITING_FOR_ENVIRONMENT','Authentication Required: profile/credential belum tersedia atau expired.');}
+  if(metadata.rules.customHeaderRequired==='Unknown'||metadata.rules.researcherIdentificationRequired==='Unknown')return result('REQUIRES_REVIEW','Header/identification requirements masih Unknown.');
+  if(metadata.rules.customHeaderRequired==='Allowed'&&!metadata.headers.some(h=>h.enabled&&h.configured))return result('WAITING_FOR_ENVIRONMENT','Required custom header belum configured.');
+  if(metadata.rules.researcherIdentificationRequired==='Allowed'&&(!metadata.researcherHeader.trim()||!metadata.headers.some(h=>h.enabled&&h.configured&&h.name.toLowerCase()===metadata.researcherHeader.trim().toLowerCase())))return result('WAITING_FOR_ENVIRONMENT','Researcher identification header/value belum configured.');
+  return result('APPROVAL_REQUIRED','Environment checks satisfied; bound human approval and adapter checks remain required.');
+}
+const authenticationOptions=target=>[['','Optional / no authentication context'],...(target.researchEnvironment?.profiles||[]).map(p=>[p.id,p.name+' / '+p.authType])];
+const metaText={type:'string',maxLength:12000},metaBool={type:'boolean'};
+const metaObject=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+const metaRows=properties=>({type:'array',maxItems:50,items:metaObject(properties)});
+const ENVIRONMENT_METADATA_SCHEMA=metaObject({...Object.fromEntries(environmentTextFields.map(k=>[k,metaText])),rules:metaObject(Object.fromEntries(environmentRuleNames.map(k=>[k,{type:'string',enum:ruleChoices}]))),accounts:metaRows({...Object.fromEntries(['id','name','role','purpose','tenant','ownership'].map(k=>[k,metaText])),credentialConfigured:metaBool}),profiles:metaRows({...Object.fromEntries(['id','name','accountId','actorId','authType','tenant','ownership','purpose','sessionStatus'].map(k=>[k,metaText])),credentialConfigured:metaBool,cookieConfigured:metaBool}),headers:metaRows({name:metaText,enabled:metaBool,secret:metaBool,configured:metaBool})});
+function validateEnvironmentMetadata(metadata){
+  const check=(value,schema)=>{if(schema.type==='object'){if(!value||typeof value!=='object'||Array.isArray(value)||schema.required.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>!Object.hasOwn(schema.properties,k)))throw new Error('Environment context fields invalid.');for(const [key,s] of Object.entries(schema.properties))check(value[key],s);}else if(schema.type==='array'){if(!Array.isArray(value)||value.length>schema.maxItems)throw new Error('Environment context collection invalid.');value.forEach(row=>check(row,schema.items));}else if(typeof value!==schema.type||schema.maxLength&&value.length>schema.maxLength||schema.enum&&!schema.enum.includes(value))throw new Error('Environment context value invalid.');};
+  check(metadata,ENVIRONMENT_METADATA_SCHEMA);return metadata;
+}
+
+// SOURCE: services/secret-store
+// Separate encrypted IndexedDB vault. No plaintext fallback, export, logging or LLM access.
+const encode=new TextEncoder(),decode=new TextDecoder();
+class IndexedSecretStorage{
+  async db(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB)return reject(new Error('Secret vault requires IndexedDB.'));const r=indexedDB.open('universal-research-secret-vault',1);r.onupgradeneeded=()=>r.result.createObjectStore('vault');r.onsuccess=()=>resolve(r.result);r.onerror=r.onblocked=()=>reject(new Error('Secret vault storage unavailable.'));});}
+  async transaction(mode,key,value){const db=await this.db();try{return await new Promise((resolve,reject)=>{const tx=db.transaction('vault',mode),s=tx.objectStore('vault');const r=mode==='readonly'?s.get(key):value===undefined?s.delete(key):s.put(value,key);let output;r.onsuccess=()=>{output=r.result;};tx.oncomplete=()=>resolve(output);tx.onerror=tx.onabort=()=>reject(new Error('Secret vault storage failed.'));});}finally{db.close();}}
+  get(key){return this.transaction('readonly',key);}put(key,value){return this.transaction('readwrite',key,value);}delete(key){return this.transaction('readwrite',key);}
+  async initialize(meta){const db=await this.db();try{await new Promise((resolve,reject)=>{const tx=db.transaction('vault','readwrite'),store=tx.objectStore('vault'),r=store.get('metadata');r.onsuccess=()=>{if(r.result){tx.abort();return;}store.put(meta,'metadata');};tx.oncomplete=resolve;tx.onerror=tx.onabort=()=>reject(new Error('Vault initialized in another tab; unlock again.'));});}finally{db.close();}}
+}
+class SecretStore{
+  constructor(storage=new IndexedSecretStorage()){this.storage=storage;this.key=null;this.timer=null;this.generation=0;}
+  get unlocked(){return !!this.key;}
+  lock(){this.key=null;this.generation++;clearTimeout(this.timer);}
+  refresh(){clearTimeout(this.timer);this.timer=setTimeout(()=>this.lock(),600000);this.timer.unref?.();}
+  async derive(passphrase,salt){if(!globalThis.crypto?.subtle)throw new Error('Encrypted vault unavailable; use HTTPS or localhost.');const material=await crypto.subtle.importKey('raw',encode.encode(passphrase),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+  async unlock(passphrase){
+    if(typeof passphrase!=='string'||passphrase.length<12)throw new Error('Vault passphrase minimal 12 karakter.');this.lock();const generation=this.generation;
+    let meta=await this.storage.get('metadata'),key;
+    if(meta){try{key=await this.derive(passphrase,new Uint8Array(meta.salt));const value=await crypto.subtle.decrypt({name:'AES-GCM',iv:new Uint8Array(meta.iv),additionalData:encode.encode('vault-check-v1')},key,new Uint8Array(meta.check));if(decode.decode(value)!=='workspace-vault-v1')throw new Error();}catch{throw new Error('Vault passphrase salah atau vault rusak.');}}
+    else{const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));key=await this.derive(passphrase,salt);const check=await crypto.subtle.encrypt({name:'AES-GCM',iv,additionalData:encode.encode('vault-check-v1')},key,encode.encode('workspace-vault-v1'));meta={version:1,salt:[...salt],iv:[...iv],check:[...new Uint8Array(check)]};await this.storage.initialize(meta);}
+    if(this.generation!==generation)throw new Error('Vault locked during operation.');this.key=key;this.refresh();
+  }
+  async set(ref,binding,value){
+    if(!this.key)throw new Error('Unlock encrypted vault terlebih dahulu.');if(typeof value!=='string'||!value||value.length>16000)throw new Error('Secret wajib diisi, maksimal 16000 karakter.');
+    const key=this.key,generation=this.generation,iv=crypto.getRandomValues(new Uint8Array(12)),aad=encode.encode(JSON.stringify([ref,binding.targetId,binding.ownerId]));
+    const ciphertext=await crypto.subtle.encrypt({name:'AES-GCM',iv,additionalData:aad},key,encode.encode(value));if(generation!==this.generation)throw new Error('Vault locked during operation.');
+    await this.storage.put(ref,{version:1,targetId:binding.targetId,ownerId:binding.ownerId,iv:[...iv],ciphertext:[...new Uint8Array(ciphertext)],updatedAt:new Date().toISOString()});this.refresh();
+  }
+  async exists(ref,binding){const row=await this.storage.get(ref);return !!row&&row.targetId===binding.targetId&&row.ownerId===binding.ownerId;}
+  async getForAdapter(ref,binding){
+    if(!this.key)throw new Error('WAITING_FOR_ENVIRONMENT: vault locked.');const key=this.key,generation=this.generation,row=await this.storage.get(ref);
+    if(!row||row.targetId!==binding.targetId||row.ownerId!==binding.ownerId)throw new Error('WAITING_FOR_ENVIRONMENT: credential unavailable.');
+    try{const value=await crypto.subtle.decrypt({name:'AES-GCM',iv:new Uint8Array(row.iv),additionalData:encode.encode(JSON.stringify([ref,binding.targetId,binding.ownerId]))},key,new Uint8Array(row.ciphertext));if(generation!==this.generation)throw new Error();this.refresh();return decode.decode(value);}catch{throw new Error('Secret vault decrypt failed.');}
+  }
+  async remove(ref){if(ref)await this.storage.delete(ref);}
+}
+const secretStore=new SecretStore();
+if(globalThis.addEventListener)globalThis.addEventListener('pagehide',()=>secretStore.lock());
+
 // SOURCE: services/rules
 // MODULE: Hard program rules are authoritative; AI ranking receives only filtered candidates.
 const defaultProgramRules=()=>({automationAllowed:false,dosAllowed:false,thirdPartyTesting:false});
 const scopeStatuses=['within_supplied_scope','outside_supplied_scope','unclear_scope','requires_manual_review'];
 function assessScope(context) {
-  const asset=(context.target?.asset||'').trim().toLowerCase();
-  const excluded=(context.scope?.outOfScope||[]).map(v=>v.trim().toLowerCase());
+  const normalize=v=>String(v||'').trim().toLowerCase().replace(/\/$/,'');
+  const asset=normalize(context.target?.asset);
+  const excluded=(context.scope?.outOfScope||[]).map(normalize);
   if(asset && excluded.some(line=>line===asset))return {status:'outside_supplied_scope',reason:'Asset cocok dengan entri out-of-scope yang diberikan.'};
   if(!asset || !(context.scope?.inScope||[]).length)return {status:'unclear_scope',reason:'Asset atau daftar in-scope belum dicatat.'};
+  if(!(context.scope.inScope||[]).some(v=>normalize(v)===asset))return {status:'requires_manual_review',reason:'Asset belum cocok tepat dengan In Scope; wildcard/path/annotation memerlukan review dan pencatatan asset eksplisit.'};
   const auth=context.authorization||{};
   if(!auth.authorized || !auth.ownedAccountsOnly || !auth.ownedDataOnly)return {status:'requires_manual_review',reason:'Konfirmasi target, akun terotorisasi, dan kepemilikan data belum lengkap.'};
   return {status:'within_supplied_scope',reason:'Berdasarkan scope dan checklist yang dicatat peneliti; bukan validasi izin independen.'};
@@ -11352,6 +11750,7 @@ function policyFor(context) {
 }
 
 // SOURCE: services/context
+
 // MODULE: Explicit allowlist context builder; keys/config and unrelated targets never enter prompts.
 const lines=value=>String(value||'').split('\n').map(v=>v.trim()).filter(Boolean);
 function buildResearchContext(target,options={}) {
@@ -11361,7 +11760,7 @@ function buildResearchContext(target,options={}) {
     operation:options.operation||'research_advice',
     target:{program:target.name,platform:target.platform,asset:target.asset,environment:target.environment||'',version:target.version||''},
     authorization:{authorized:guard.inScope===true,ownedAccountsOnly:guard.account===true,ownedDataOnly:guard.data===true},
-    programRules:{automationAllowed:target.programRules?.automationAllowed===true,dosAllowed:target.programRules?.dosAllowed===true,thirdPartyTesting:target.programRules?.thirdPartyTesting===true},
+    programRules:effectiveProgramRules(target),
     scope:{inScope:lines(scope.inScope),outOfScope:lines(scope.outOfScope),testingRules:lines(scope.testingRestrictions),automationRules:lines(scope.automationRules),knownIssues:lines(scope.knownIssues),rateLimits:scope.rateLimits||'',safeHarbor:scope.safeHarbor||''},
     research:{goal:options.goal||'',technique:options.techniqueId?target.techniques.find(t=>t.id===options.techniqueId)?.name||'':'',hypothesis:options.hypothesisId?target.hypotheses.find(h=>h.id===options.hypothesisId)?.title||'':'',notes:options.notes||''},
     actors:target.actors.map(row=>choose(row,['name','authority','notes'])),
@@ -11421,7 +11820,7 @@ const DomainPackRepository={
 };
 const TargetIntelligenceService={
   get:target=>target?.intelligence||emptyIntelligence(),
-  update(store,target,values){store.updateTarget(target.id,{intelligence:{...this.get(target),...values}});},
+  update(store,target,values){store.updateTarget(target.id,{intelligence:{...this.get(target),...values}},{canonical:Object.keys(values).some(k=>k!=='suggestions')});},
   saveProfile(store,target,values){const previous=this.get(target).profile;const profile={...previous};for(const [key] of profileFields)if(values[key]!==undefined&&values[key]!==previous[key]?.value)profile[key]={value:values[key],...researcherProvenance()};this.update(store,target,{profile});},
   accept(store,target,item,edited={}){const intelligence=this.get(target);const record={...item,...edited,id:uuid(),status:'accepted',createdAt:now(),originId:item.id,generatedBy:item.sourceType==='ai'?'ai':'manual'};this.update(store,target,{items:[...intelligence.items,record]});return record;},
   remove(store,target,id){this.update(store,target,{items:this.get(target).items.filter(i=>i.id!==id)});}
@@ -11511,11 +11910,186 @@ function knowledgeSearch(workspace,query,targetId=''){
   }return results.slice(0,200);
 }
 
+// SOURCE: services/agent-context
+
+
+
+
+
+
+// Allowlist + per-collection caps. No other target, full DB, filesystem or provider config.
+function buildAgentContext(workspace,target){
+  const knowledge=buildKnowledgeContext(workspace,target,{domainId:target.intelligence.primaryDomainId});
+  knowledge.domains=DomainKnowledgeService.selected(workspace,target).slice(0,3).map(pack=>buildKnowledgeContext(workspace,target,{domainId:pack.id}).domains[0]);
+  knowledge.techniques=target.techniques.filter(t=>t.enabled).slice(0,20).map(t=>({id:t.id,libraryId:t.libraryId||'',name:t.name,securityInvariant:t.securityInvariant}));
+  const pick=(row,keys)=>({...Object.fromEntries(keys.map(k=>[k,typeof row[k]==='string'?row[k].slice(0,8000):row[k]??''])),sourceFingerprint:observationFingerprint(row)});
+  return {targetId:target.id,revision:target.researchRevision||0,knowledge,...(target.researchEnvironment?{environment:environmentMetadata(target)}:{}),sensitiveEvidenceIds:target.evidence.slice(-12).filter(e=>SecretRedactor.redact(e.content)!==e.content).map(e=>e.id),
+    hypotheses:target.hypotheses.slice(-20).map(r=>pick(r,['id','authProfileId','title','techniqueId','invariant','expectedBehavior','potentialFailure','who','what','object','state','authority','context','notes','status'])),
+    tests:target.testCases.slice(-20).map(r=>({...pick(r,['id','authProfileId','hypothesisId','techniqueId','title','preconditions','steps','expectedResult','actualResult','who','what','object','state','authority','context','result']),evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
+    evidence:target.evidence.slice(-12).map(r=>pick(r,['id','label','type','description','content','testCaseId','findingId'])),
+    findings:target.findings.slice(-12).map(r=>({...pick(r,['id','title','testCaseId','techniqueId','status','severity','startingAuthority','securityRestriction','protectedResource','rootCause','impact','expectedResult','actualResult','steps','who','what','object','state','authority','context']),evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
+    lessons:target.knowledgeBase.slice(-12).map(r=>pick(r,['id','category','title','content','source','rootCause','securityRestriction','affectedComponent','impact'])),
+    manualAnalysis:(target.agentResearch||emptyAgentResearch()).manualAnalysis.slice(-12).map(r=>pick(r,['id','type','title','content','sourceType','createdAt']))};
+}
+
+// SOURCE: services/agent-messages
+
+
+
+
+const messageAgents=[['general','General'],['orchestrator','Orchestrator'],...agentStages.map(([id,name])=>[({'target-intelligence':'target','domain-knowledge':'domain','attack-surface':'surface','trust-boundary':'boundary','test-planner':'test'})[id]||id,name])];
+const messageAgentDomains={general:'Coordinate the conversation and relevant specialists',orchestrator:'Automatic routing (legacy alias)',target:'Company context and target intelligence',domain:'Industry concepts and business flows',scope:'Scope, authorization and program rules',surface:'Actors, objects and attack surface',boundary:'Trust transitions and authority',technique:'Techniques and manual tools',hypothesis:'Invariants, hypotheses and variants',test:'Reviewed hypotheses and manual test plans',evidence:'Observations and control comparisons',finding:'Potential findings and evidence gaps','false-positive':'Alternative explanations and controls',duplicate:'Similar findings and duplicate risk',report:'Confirmed findings and reports'};
+const contextCollections={actor:'actors',object:'objects',boundary:'boundaries',technique:'techniques',hypothesis:'hypotheses',test:'testCases',evidence:'evidence',finding:'findings',report:'findings'};
+const messageContextKinds=['target','scope',...Object.keys(contextCollections)];
+function messageReferenceRows(target){
+  if(!target)return [];
+  return [{kind:'target',id:target.id,label:target.name},{kind:'scope',id:target.id,label:'Scope & rules'},...Object.entries(contextCollections).flatMap(([kind,key])=>target[key].map(row=>({kind,id:row.id,label:row.title||row.label||row.name||[row.from,row.to].filter(Boolean).join(' → ')})))];
+}
+function parseMessageTags(text,target){
+  const agents=[...text.matchAll(/(?:^|\s)@([\w-]+)/g)].map(m=>m[1]);
+  const uniqueAgents=[...new Set(agents)];
+  if(agents.some(a=>!messageAgents.some(([id])=>id===a))||uniqueAgents.length>4)throw new Error('Pilih maksimal empat @agent yang tersedia.');
+  const contextRefs=[],tags=[];
+  for(const match of text.matchAll(/(?:^|\s)#([\w-]+)(?::([^\s,;]+))?/g)){
+    const [,kind,rawId]=match,id=rawId?.replace(/[.!?]+$/,'');
+    if(messageContextKinds.includes(kind)){
+      const resolved=id||(['target','scope'].includes(kind)?target.id:'');
+      if(!resolved||!messageReferenceRows(target).some(r=>r.kind===kind&&r.id===resolved))throw new Error('#'+kind+' perlu reference ID yang valid dari target aktif.');
+      if(!contextRefs.some(r=>r.kind===kind&&r.id===resolved))contextRefs.push({kind,id:resolved});
+    }else if(id)throw new Error('Jenis context reference tidak tersedia.');
+    else tags.push(kind);
+  }
+  if(contextRefs.length>12||tags.length>16)throw new Error('Maksimal 12 context references dan 16 tags.');
+  return {agent:agents[0]||'general',...(!agents.length||agents[0]==='general'?{routing:agents.length?'mentions':'auto'}:{}),...(uniqueAgents.length>1?{agents:uniqueAgents}:{}),contextRefs,tags:[...new Set(tags)]};
+}
+// All specialists are eligible. Automatic teams are bounded; explicit mentions select only those members.
+function planMessageAgents(message,refs=message.contextRefs||[]){
+  const explicit=message.agents||[message.agent||'general'];
+  if(explicit.length>4||explicit.some(alias=>!messageAgents.some(([id])=>id===alias)))throw new Error('Unknown specialist.');
+  if(message.routing==='mentions'||!explicit.some(alias=>['general','orchestrator'].includes(alias)))return [...new Set(explicit.map(alias=>routeMessageAgent(alias,message.text,refs)))];
+  const query=message.text.toLowerCase(),scores=new Map();
+  const add=(id,score)=>scores.set(id,(scores.get(id)||0)+score);
+  const domains=[['target-intelligence',/company|perusahaan|target|business model|produk/i],['domain-knowledge',/domain|industry|industri|settlement|ledger|glossary|istilah|business flow|alur bisnis/i],['scope',/scope|izin|rules|allowed|authorization checklist|otorisasi/i],['attack-surface',/surface|permukaan|actor|aktor|object|objek|endpoint|mapping|pemetaan/i],['trust-boundary',/boundary|batas trust|trust|authority|otoritas/i],['technique',/technique|teknik|tool|alat/i],['hypothesis',/hypothes|hipotes|invariant|variant|kemungkinan/i],['test-planner',/test plan|rencana test|rencana uji|generate test|susun.*test|precondition|langkah.*uji/i],['evidence',/evidence|bukti|observation|observasi|compare|pembanding|control|kontrol|hasil test/i],['finding',/finding|temuan|root cause|akar masalah|impact|dampak/i],['false-positive',/false.?positive|alternatif|alternative|penjelasan lain/i],['duplicate',/duplicat|duplikat|similar finding/i],['report',/report|laporan|draft/i]];
+  for(const [id,pattern] of domains)if(pattern.test(query))add(id,4);
+  const byKind={target:'target-intelligence',scope:'scope',actor:'attack-surface',object:'attack-surface',boundary:'trust-boundary',technique:'technique',hypothesis:'hypothesis',test:'evidence',evidence:'evidence',finding:'finding',report:'report'};
+  for(const ref of refs)add(byKind[ref.kind]||'target-intelligence',['target','scope'].includes(ref.kind)?1:2);
+  const selected=explicit.filter(alias=>!['general','orchestrator'].includes(alias)).map(alias=>routeMessageAgent(alias,message.text,refs));
+  const relevant=[...scores].sort((a,b)=>b[1]-a[1]).filter(([,score])=>score>=2).map(([id])=>id);
+  return ['general',...[...new Set([...selected,...relevant])].slice(0,3)];
+}
+function routeMessageAgent(alias,text,refs=[]){
+  const ids={'target':'target-intelligence',domain:'domain-knowledge',surface:'attack-surface',boundary:'trust-boundary',test:'test-planner'};
+  if(alias!=='orchestrator')return ids[alias]||alias;
+  const query=text.toLowerCase();
+  if(/false.?positive/.test(query))return 'false-positive';
+  if(/duplicat|duplikat/.test(query))return 'duplicate';
+  if(/report|laporan/.test(query)||refs.some(r=>r.kind==='report'))return 'report';
+  if(/scope|izin|rules|allowed/.test(query))return 'scope';
+  if(/generate test|test plan|rencana test/.test(query))return 'test-planner';
+  const focus=refs.findLast(r=>!['target','scope'].includes(r.kind))?.kind;
+  if(['finding','evidence','hypothesis','boundary','technique'].includes(focus))return ids[focus]||focus;
+  if(focus==='test')return 'evidence';
+  if(focus==='actor'||focus==='object')return 'attack-surface';
+  if(/domain|settlement|terminolog|jelaskan/.test(query))return 'domain-knowledge';
+  if(/hypothes|hipotes|variant|kemungkinan/.test(query))return 'hypothesis';
+  return 'target-intelligence';
+}
+// Extractive local memory: no background model calls and no private reasoning.
+function summarizeMessageMemory(messages,previous){
+  const older=messages.slice(0,-4),throughId=older.at(-1)?.id||'';
+  if(previous?.throughId===throughId)return previous;
+  return {throughId,text:SecretRedactor.redact(older.slice(-10).map(m=>m.sender+': '+m.message.slice(0,140)).join('\n')).slice(0,1600)};
+}
+const AgentMessageService={
+  list:target=>target?.agentResearch?.messages||[],
+  append(store,target,values){
+    const research=structuredClone(target.agentResearch),messages=research.messages||[];
+    if(messages.length>=1000)throw new Error('Conversation penuh (1000 pesan). Ekspor lalu gunakan Clear conversation.');
+    research.messageSessionId||=uuid();
+    const row=SecretRedactor.context({id:uuid(),timestamp:now(),researchSessionId:research.messageSessionId,targetId:target.id,contextRefs:[],tags:[],status:'sent',...values});validateMessageRecord(row);
+    research.messages=[...messages,row];research.conversationSummary=summarizeMessageMemory(research.messages,research.conversationSummary);store.updateResearch(target.id,research);return row;
+  },
+  clear(store,target){const research=structuredClone(target.agentResearch);research.messages=[];research.messageSessionId=uuid();research.conversationSummary={throughId:'',text:''};store.updateResearch(target.id,research);}
+};
+
+// SOURCE: services/related-terms
+
+
+const relatedVocabulary=[['authorization','Access Control','Ownership','Authority','Permission','BOLA','BFLA','Privilege'],['settlement','Clearing','Ledger','Reconciliation','Transfer','Reversal','Transaction'],['async','Worker','Queue','Revocation','Lifecycle','State']];
+const normalizeRelated=value=>String(value||'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+class RelatedTermService{
+  constructor(){this.cache=new Map();this.index=[];this.version='';}
+  search({term,target,workspace}){
+    const key=normalizeRelated(term),version=target.id+':'+target.researchRevision+':'+target.updatedAt+':'+workspace.updatedAt;
+    if(this.version!==version){this.version=version;this.cache.clear();this.index=[];
+      const add=(term,source,related=[],reference=null)=>{if(term)this.index.push({term,source,related,reference});};
+      for(const pack of DomainKnowledgeService.selected(workspace,target))for(const item of pack.terminology)add(item.term,'Terminology · '+pack.name,item.relatedTerms||[]);
+      for(const pack of DomainKnowledgeService.selected(workspace,target)){for(const term of pack.coreConcepts)add(term,'Domain Knowledge · '+pack.name);for(const row of [...pack.securityInvariants,...pack.businessFlows])add(row.title,'Domain Knowledge · '+pack.name);}
+      for(const row of target.techniques)add(row.name,'Technique Library',[row.securityInvariant||'']);
+      for(const row of target.intelligence.items.filter(i=>i.status==='accepted'))add(row.title,'Target Knowledge');
+      for(const ref of messageReferenceRows(target))add(ref.label,'Workspace',[],{kind:ref.kind,id:ref.id});
+    }
+    if(this.cache.has(key))return this.cache.get(key);
+    if(key.length<2)return {term,related:[]};
+    const found=new Map(),put=(label,source,score,reference=null)=>{if(!label||normalizeRelated(label)===key||label.length>100)return;const previous=found.get(normalizeRelated(label));if(!previous||previous.score<score)found.set(normalizeRelated(label),{term:label,source,score,...(reference?{reference}:{})});};
+    // Exact terminology edges precede generic local vocabulary and substring similarity.
+    for(const row of this.index)if(normalizeRelated(row.term)===key)for(const other of row.related)put(other,row.source,.98);
+    for(const group of relatedVocabulary)if(group.some(t=>normalizeRelated(t)===key))for(const other of group)put(other,group[0]==='settlement'?'Domain vocabulary (generic)':'Local terminology',.91);
+    const tokens=key.split(' ').filter(t=>t.length>2);
+    for(const row of this.index){const text=normalizeRelated(row.term),count=tokens.filter(t=>text.includes(t)).length;if(text.includes(key)||count)put(row.term,row.source,text.includes(key)?.85:.5+count/Math.max(tokens.length,1)*.25,row.reference);}
+    const result={term,related:[...found.values()].sort((a,b)=>b.score-a.score||a.term.localeCompare(b.term)).slice(0,8)};
+    if(this.cache.size>=100)this.cache.delete(this.cache.keys().next().value);this.cache.set(key,result);return result;
+  }
+}
+
+// SOURCE: services/research-context-builder
+
+
+
+class ResearchContextBuilder{
+  build({workspace,target,page,contextRefs,message,recentMessages=[],summary=''}){
+    const ids={};for(const kind of Object.keys(contextCollections))ids[kind]=new Set();
+    const references=messageReferenceRows(target);
+    for(const ref of contextRefs){if(!references.some(r=>r.kind===ref.kind&&r.id===ref.id))throw new Error('Context reference sudah dihapus atau bukan target aktif.');ids[ref.kind]?.add(ref.id);}
+    const add=(kind,id)=>{if(id)ids[kind].add(id);};
+    for(const id of ids.report)add('finding',id);
+    const selectedFindings=target.findings.filter(r=>ids.finding.has(r.id));
+    for(const row of selectedFindings){add('test',row.testCaseId);add('technique',row.techniqueId);for(const id of (row.evidenceIds||[]).slice(0,4))add('evidence',id);}
+    for(const row of target.evidence.filter(r=>ids.evidence.has(r.id))){add('test',row.testCaseId);add('finding',row.findingId);}
+    for(const row of target.testCases.filter(r=>ids.test.has(r.id))){add('hypothesis',row.hypothesisId);add('technique',row.techniqueId);for(const id of (row.evidenceIds||[]).slice(0,4))add('evidence',id);}
+    for(const row of target.hypotheses.filter(r=>ids.hypothesis.has(r.id)))add('technique',row.techniqueId);
+    const query=[message,...selectedFindings.map(f=>f.title)].join(' ').toLowerCase(),tokens=query.split(/[^\p{L}\p{N}]+/u).filter(t=>t.length>3&&!['finding','evidence','hypothesis','jelaskan','analisis'].includes(t));
+    const rank=rows=>rows.map((row,index)=>({row,index,score:tokens.filter(t=>[row.term,row.title,row.name,row.content,row.securityInvariant].filter(Boolean).join(' ').toLowerCase().includes(t)).length})).filter(r=>r.score>0).sort((a,b)=>b.score-a.score||a.index-b.index).map(r=>r.row);
+    const choose=(kind,limit)=>target[contextCollections[kind]].filter(r=>ids[kind].has(r.id)).slice(0,limit);
+    const profile={};for(const key of ['company','businessModel'])if(target.intelligence.profile[key]?.value)profile[key]=target.intelligence.profile[key];
+    for(const [key,value] of Object.entries(target.intelligence.profile))if(Object.keys(profile).length<3&&value.value&&tokens.some(token=>key.toLowerCase().includes(token)))profile[key]=value;
+    const selected={...target,actors:choose('actor',3),objects:choose('object',3),boundaries:choose('boundary',3),hypotheses:choose('hypothesis',4),testCases:choose('test',4),evidence:choose('evidence',4),findings:choose('finding',4),knowledgeBase:rank(target.knowledgeBase).slice(0,2),techniques:[...choose('technique',4),...rank(target.techniques.filter(t=>t.enabled&&!ids.technique.has(t.id))).slice(0,2)].slice(0,4),intelligence:{...target.intelligence,profile,items:rank(target.intelligence.items.filter(r=>r.status==='accepted')).slice(0,4)},agentResearch:{...target.agentResearch,manualAnalysis:target.agentResearch.manualAnalysis.slice(-3)}};
+    // Preserve actor/object mapping only when its name is used by a selected research record.
+    for(const key of ['actors','objects'])for(const row of target[key])if(selected[key].length<3&&[...selected.hypotheses,...selected.testCases,...selected.findings].some(r=>(key==='actors'?r.who:r.object)===row.name)&&!selected[key].some(r=>r.id===row.id))selected[key].push(row);
+    const context=buildAgentContext(workspace,selected);
+    context.knowledge.actors=context.knowledge.actors.map((row,index)=>({...row,id:selected.actors[index].id}));
+    context.knowledge.objects=context.knowledge.objects.map((row,index)=>({...row,id:selected.objects[index].id}));
+    if(context.environment){const profiles=new Set([...selected.hypotheses,...selected.testCases].map(r=>r.authProfileId).filter(Boolean));context.environment.profiles=context.environment.profiles.filter(p=>profiles.has(p.id));const accounts=new Set(context.environment.profiles.map(p=>p.accountId));context.environment.accounts=context.environment.accounts.filter(a=>accounts.has(a.id));}
+    for(const ref of contextRefs){const key=({actor:'actors',object:'objects',boundary:'boundaries',technique:'techniques',hypothesis:'hypotheses',test:'tests',evidence:'evidence',finding:'findings',report:'findings'})[ref.kind];if(key&&!(['actor','object','boundary','technique'].includes(ref.kind)?context.knowledge[key]:context[key]).some(r=>r.id===ref.id))throw new Error('Terlalu banyak #'+ref.kind+' references. Pilih maksimal '+(['actor','object','boundary'].includes(ref.kind)?3:4)+'.');}
+    context.knowledge.research={...context.knowledge.research,question:message.slice(0,4000),level:'Advanced',notes:'Current page: '+page+'; selected references only. Missing information is Unknown.'};
+    context.knowledge.domains=context.knowledge.domains.slice(0,1).map(domain=>{const out={...domain,coreConcepts:domain.coreConcepts.slice(0,2)};for(const [key,value] of Object.entries(domain))if(Array.isArray(value)&&key!=='coreConcepts')out[key]=rank(value).slice(0,key==='terminology'?4:key==='businessFlows'?1:2);return out;});
+    context.knowledge.domainCatalog=context.knowledge.domains.map(d=>({id:d.id,name:d.name}));
+    // Explicit report references alone may include a small existing report draft.
+    for(const row of context.findings)if(ids.report.has(row.id))row.reportMarkdown=(target.findings.find(f=>f.id===row.id)?.reportMarkdown||'').slice(0,4000);
+    const trim=(value,key='')=>typeof value==='string'?value.slice(0,['id','targetId'].includes(key)?120:['content','actualResult','steps','reportMarkdown'].includes(key)?4000:1600):Array.isArray(value)?value.map(v=>trim(v)):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([k,v])=>[k,trim(v,k)])):value;
+    // Scope is authoritative. Never truncate a rule or exclusion and accidentally loosen policy.
+    const scope=context.knowledge.scope;const safe=SecretRedactor.context(trim(context));safe.knowledge.scope=SecretRedactor.context(scope);
+    if(JSON.stringify(safe).length>90000)throw new Error('Selected context terlalu besar. Kurangi references atau ringkas scope.');
+    const recent=recentMessages.filter(m=>m.targetId===target.id&&m.status!=='error'&&(m.contextRefs.some(r=>contextRefs.some(c=>c.kind===r.kind&&c.id===r.id))||!contextRefs.some(r=>!['target','scope'].includes(r.kind)))).slice(-4).map(m=>({sender:m.sender,agent:m.agent,message:m.message.slice(0,1200)}));
+    return {context:safe,memory:SecretRedactor.context({summary:summary.slice(0,1600),recent}),researchState:{state:target.agentResearch.state,currentStage:target.agentResearch.currentStage,currentTask:target.agentResearch.currentTask.slice(0,300),progress:target.agentResearch.progress}};
+  }
+}
+
 // SOURCE: services/ai-client
 
 
 // MODULE: Optional localhost bridge. Config and request token remain session-memory only.
-const aiConnection={baseURL:'',token:'',status:'Disabled',enabled:false,configured:false,provider:'',model:'',privacyMode:'REDACTED_CLOUD',redactSecrets:true};
+const aiConnection={baseURL:'',token:'',status:'Disabled',enabled:false,configured:false,provider:'',model:'',models:[],privacyMode:'REDACTED_CLOUD',redactSecrets:true,agentic:{enabled:false,configured:false,maxSteps:8}};
 async function connectBackend(url) {
   const parsed=new URL(url);
   if(!['http:','https:'].includes(parsed.protocol)||!['127.0.0.1','localhost','[::1]'].includes(parsed.hostname)||parsed.username||parsed.password||parsed.pathname!=='/'||parsed.search||parsed.hash)throw new Error('Backend harus berupa origin localhost.');
@@ -11523,7 +12097,8 @@ async function connectBackend(url) {
   if(!response.ok)throw new Error('Backend localhost tidak dapat dihubungkan.');
   const config=await response.json();
   if(typeof config.enabled!=='boolean'||typeof config.configured!=='boolean'||typeof config.requestToken!=='string')throw new Error('Safe config backend tidak valid.');
-  Object.assign(aiConnection,{baseURL:parsed.origin,token:config.requestToken,status:config.status,enabled:config.enabled,configured:config.configured,provider:config.provider,model:config.model,privacyMode:config.privacyMode,redactSecrets:config.redactSecrets});
+  Object.assign(aiConnection,{baseURL:parsed.origin,token:config.requestToken,status:config.status,enabled:config.enabled,configured:config.configured,provider:config.provider,model:config.model,privacyMode:config.privacyMode,redactSecrets:config.redactSecrets,agentic:config.agentic||{enabled:false,configured:false}});
+  aiConnection.models=Array.isArray(config.models)?config.models.filter(id=>typeof id==='string'):[config.model];
   return aiConnection;
 }
 async function requestAdvice(context,privacyMode) {
@@ -11538,8 +12113,90 @@ async function requestKnowledge(context,privacyMode){
   if(!aiConnection.enabled||!aiConnection.configured)throw new Error('AI disabled atau misconfigured.');
   try{const response=await fetch(aiConnection.baseURL+'/api/knowledge',{method:'POST',headers:{'Content-Type':'application/json','X-Workspace-Token':aiConnection.token},body:JSON.stringify({context,privacyMode}),signal:AbortSignal.timeout(65000),credentials:'omit'});const data=await response.json();if(!response.ok){aiConnection.status=data.status||'Provider Error';throw new Error(data.error||'Provider Error');}aiConnection.status='Connected';return validateKnowledgeResponse(data.response);}catch(error){if(!['Disabled','Misconfigured'].includes(aiConnection.status))aiConnection.status='Provider Error';throw error;}
 }
+async function agentPost(path,payload,timeout=15000,signal){
+  if(!aiConnection.baseURL||!aiConnection.token)throw new Error('Connect localhost backend terlebih dahulu.');
+  const response=await fetch(aiConnection.baseURL+path,{method:'POST',headers:{'Content-Type':'application/json','X-Workspace-Token':aiConnection.token},body:JSON.stringify(payload),signal:signal?AbortSignal.any([signal,AbortSignal.timeout(timeout)]):AbortSignal.timeout(timeout),credentials:'omit'});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||'Agent service gagal.');return data;
+}
+
+// SOURCE: services/agent-research
+
+
+
+
+
+const AgentResearchService={
+  get:target=>target.agentResearch||emptyAgentResearch(),
+  update(store,target,research,canonical=false){validateAgentResearch(research);store.updateResearch(target.id,research,{canonical});},
+  addManual(store,target,values){const research=structuredClone(this.get(target));const phase=values.replanFrom||(values.type==='Correction'?'target-intelligence':'hypothesis');research.manualAnalysis.push({id:uuid(),type:values.type,title:values.title,content:values.content,sourceType:'researcher',createdAt:now()});research.replanFrom=phase;research.state='PAUSED';research.reason='Manual analysis has priority; Continue replans from '+phase+'.';research.revision++;for(const p of research.reviewQueue.filter(p=>p.status==='PROPOSED'))p.stale=true;this.update(store,target,research,true);},
+  decide(store,target,id,decision,values={}){
+    const research=structuredClone(this.get(target)),proposal=research.reviewQueue.find(p=>p.id===id);
+    if(!proposal||proposal.status!=='PROPOSED')throw new Error('Proposal sudah diputuskan/tidak ditemukan.');
+    const beforeRevision=target.researchRevision;
+    if(decision!=='REJECT'&&(proposal.stale||proposal.contextRevision!==beforeRevision))throw new Error('Context berubah; replan sebelum menerima proposal ini.');
+    let canonicalId='';
+    if(decision!=='REJECT'){
+      for(const [field,rows] of [['relatedTechniqueId',target.techniques],['relatedHypothesisId',target.hypotheses]])if(values[field]!==undefined){if(values[field]&&!rows.some(r=>r.id===values[field]||r.libraryId===values[field]))throw new Error('Related record tidak valid.');proposal[field]=values[field];}
+      const title=(values.title??proposal.title).trim(),content={...proposal.content,...values};if(!title)throw new Error('Title wajib diisi.');
+      const technique=target.techniques.find(t=>t.id===proposal.relatedTechniqueId||t.libraryId===proposal.relatedTechniqueId);
+      const provenance={sourceType:proposal.sourceType==='ai'?'ai':'researcher',source:proposal.source,confidence:proposal.confidence,verified:false,notes:proposal.notes};
+      if(proposal.kind==='tool-recommendation'&&!store.get().toolInventory.some(t=>t.id===proposal.relatedToolId&&t.installed&&t.agentAccess!=='DENIED'&&t.capabilities.includes(content.type)))throw new Error('Tool unavailable; inventory/capability berubah.');
+      const metadata={agentProposalId:proposal.id,knowledgeProvenance:provenance,notes:values.notes||proposal.notes};
+      if(proposal.kind==='actor'){if(!content.name.trim())throw new Error('Actor name wajib diisi.');canonicalId=store.upsert(target.id,'actors',{name:content.name,authority:content.authority,...metadata}).id;}
+      else if(proposal.kind==='object'){if(!content.name.trim())throw new Error('Object name wajib diisi.');canonicalId=store.upsert(target.id,'objects',{name:content.name,type:content.type||'Custom',owner:content.owner,tenant:content.tenant,state:content.state,sensitivity:content.sensitivity,...metadata}).id;}
+      else if(proposal.kind==='boundary'){if(!content.from.trim()||!content.to.trim())throw new Error('Boundary from/to wajib diisi.');canonicalId=store.upsert(target.id,'boundaries',{from:content.from,to:content.to,channel:content.channel,authority:content.authority,trust:content.trust||'restricted',...metadata}).id;}
+      else if(proposal.kind==='technique'){if(!technique)throw new Error('Pilih existing technique yang valid.');canonicalId=store.upsert(target.id,'techniques',{id:technique.id,enabled:true,notes:proposal.analysis+'\n'+(values.notes||proposal.notes),agentProposalId:proposal.id}).id;}
+      else if(proposal.kind==='hypothesis'){
+        if(!content.invariant.trim()||!content.expectedBehavior.trim())throw new Error('Invariant dan expected behavior wajib diisi.');
+        canonicalId=store.upsert(target.id,'hypotheses',{title,techniqueId:technique?.id||'',invariant:content.invariant,expectedBehavior:content.expectedBehavior,potentialFailure:content.potentialFailure,who:content.who,what:content.what,object:content.object,state:content.state,authority:content.authority,context:content.context,status:'idea',queue:'Next',priority:'medium',confidence:'low',...metadata}).id;
+      }else if(proposal.kind==='test-plan'){
+        const h=target.hypotheses.find(h=>h.id===proposal.relatedHypothesisId);if(!h||!content.steps.trim())throw new Error('Reviewed hypothesis dan langkah test wajib tersedia.');
+        canonicalId=store.upsert(target.id,'testCases',{title,hypothesisId:h.id,authProfileId:h.authProfileId||'',techniqueId:technique?.id||h.techniqueId||'',preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult||h.expectedBehavior,actualResult:'',result:'not-tested',timestamp:now(),who:content.who||h.who,what:content.what||h.what,object:content.object||h.object,state:content.state||h.state,authority:content.authority||h.authority,context:content.context||h.context,evidenceIds:[],...(h.knowledgeLinks?{knowledgeLinks:{...h.knowledgeLinks}}:{}),...metadata}).id;
+      }else if(proposal.kind==='potential-finding'){
+        const snapshot=proposal.observationSnapshot,test=target.testCases.find(t=>t.id===proposal.relatedTestId);
+        const validTest=snapshot&&test&&(snapshot.testFingerprint?snapshot.testFingerprint===observationFingerprint(test):test.actualResult===snapshot.actualResult&&test.result===snapshot.testResult);
+        const validEvidence=snapshot&&proposal.evidenceIds.length&&proposal.evidenceIds.every(id=>snapshot.evidence.some(e=>e.id===id&&target.evidence.some(live=>live.id===id&&(e.sourceFingerprint?observationFingerprint(live)===e.sourceFingerprint:SecretRedactor.redact((live.content||'').slice(0,8000))===e.content))));
+        if(!proposal.analysisCompleted||!validTest||!validEvidence)throw new Error('Observation/evidence berubah atau analisis false positive/duplicate belum lengkap. Replan diperlukan.');
+        for(const k of ['actualResult','expectedResult','steps','who','what','object','state','authority','context'])content[k]=test[k]||'';
+        if(['startingAuthority','securityRestriction','protectedResource','expectedResult','actualResult','steps','impact'].some(k=>!content[k].trim()))throw new Error('Lengkapi authority, restriction, resource, expected/actual, steps dan impact sebelum menerima finding.');
+        canonicalId=store.upsert(target.id,'findings',{title,status:decision==='CONFIRM_FINDING'?'confirmed':'draft',severity:'Unknown',techniqueId:technique?.id||test.techniqueId||'',testCaseId:test.id,startingAuthority:content.startingAuthority,securityRestriction:content.securityRestriction,protectedResource:content.protectedResource,unauthorizedOutcome:content.unauthorizedOutcome||content.actualResult,rootCause:content.rootCause,impact:content.impact,vulnerabilityClass:content.vulnerabilityClass,preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult,actualResult:content.actualResult,who:content.who,what:content.what,object:content.object,state:content.state,authority:content.authority,context:content.context,evidenceIds:[...proposal.evidenceIds],researchNotes:proposal.falsePositiveAnalysis+'\nDuplicate Risk: '+proposal.duplicateRisk,agentProposalId:proposal.id,...(test.knowledgeLinks?{knowledgeLinks:{...test.knowledgeLinks}}:{})}).id;
+      }else if(proposal.kind==='report'){
+        const finding=target.findings.find(f=>f.id===proposal.relatedFindingId);if(!finding||finding.status!=='confirmed'||!finding.evidenceIds?.length||!content.reportMarkdown.trim())throw new Error('Confirmed finding/evidence/report tidak tersedia.');
+        if(proposal.findingFingerprint&&proposal.findingFingerprint!==observationFingerprint(finding))throw new Error('Finding berubah; replan report sebelum menerima.');
+        canonicalId=store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:content.reportMarkdown,reportSourceFingerprint:reportSourceFingerprint(target,finding),agentReportProposalId:proposal.id}).id;
+      }else if(['knowledge','question'].includes(proposal.kind)){
+        canonicalId=TargetIntelligenceService.accept(store,target,{id:proposal.id,kind:proposal.kind==='question'?'question':'explanation',title,content:values.analysis??proposal.analysis,...provenance,domainId:target.intelligence.primaryDomainId,flowId:'',invariantId:'',techniqueId:technique?.libraryId||technique?.id||'',steps:[]}).id;
+      }else if(content.type==='sensitive-review'){research.sensitiveReviewedKey=content.context;}
+      else canonicalId=store.upsert(target.id,'notes',{title,content:values.analysis??proposal.analysis,type:'agent-review',source:proposal.source,agentProposalId:proposal.id}).id;
+      proposal.title=title;proposal.content=content;
+    }
+    proposal.status=decision==='REJECT'?'REJECTED':decision==='EDIT'?'EDITED':'ACCEPTED';proposal.decision=decision;proposal.canonicalId=canonicalId;proposal.reviewedAt=now();
+    // Only a reviewed mutation can advance the other proposals from this same batch.
+    for(const sibling of research.reviewQueue)if(sibling.status==='PROPOSED'&&!sibling.stale&&sibling.contextRevision===beforeRevision)sibling.contextRevision=target.researchRevision;
+    research.pendingActions=structuredClone(target.agentResearch.pendingActions);
+    research.history.push({id:uuid(),agent:proposal.agentId,task:proposal.title,startedAt:now(),completedAt:now(),status:proposal.status,toolsUsed:[],resultSummary:'Researcher decision: '+decision,researcherDecision:decision,estimatedCostUSD:0});research.revision++;
+    const pending=research.reviewQueue.some(p=>p.status==='PROPOSED'&&!p.stale);
+    research.state=pending?'WAITING_REVIEW':'PAUSED';research.reason=pending?'Needs your review.':'Review selesai. Continue Research untuk replan dan melanjutkan.';
+    this.update(store,target,research);return canonicalId;
+  }
+};
+function compactAgentResearch(research){
+  const clone=structuredClone(research);
+  // Conversation belongs to the message channel, never the sequential research payload.
+  delete clone.messages;delete clone.messageSessionId;delete clone.conversationSummary;
+  clone.reviewQueue=clone.reviewQueue.filter(p=>p.status==='PROPOSED'||clone.reviewQueue.slice(-12).some(v=>v.id===p.id)).slice(-60);
+  clone.pendingActions=clone.pendingActions.filter(a=>a.status==='PROPOSED'||clone.pendingActions.slice(-8).some(v=>v.id===a.id)).slice(-30);
+  clone.history=clone.history.slice(-12);clone.runs=clone.runs.slice(-8);clone.manualAnalysis=clone.manualAnalysis.slice(-12);return clone;
+}
+function mergeAgentResearch(original,returned){
+  const merged={...original,...returned};
+  for(const key of ['reviewQueue','pendingActions','history','runs','manualAnalysis']){const byId=new Map(original[key].map(row=>[row.id,row]));for(const row of returned[key])byId.set(row.id,row);merged[key]=[...byId.values()];}
+  validateAgentResearch(merged);return merged;
+}
 
 // SOURCE: storage
+
+
 
 
 
@@ -11569,6 +12226,7 @@ function migrateWorkspace(input) {
   walk(input);
   if(typeof input.applicationVersion!=='string' || typeof input.updatedAt!=='string' || !Array.isArray(input.targets)) fail('Metadata/root workspace tidak valid.');
   const data=JSON.parse(JSON.stringify(input));
+  data.toolInventory??=builtinTools();validateToolInventory(data.toolInventory);
   data.domainPacks??=[];
   if(!Array.isArray(data.domainPacks))fail('Domain packs tidak valid.');
   const packIds=new Set();for(const pack of data.domainPacks){validateDomainPack(pack);if(packIds.has(pack.id))fail('Domain pack ID duplikat.');packIds.add(pack.id);}
@@ -11594,7 +12252,11 @@ function migrateWorkspace(input) {
   const textFields=['name','title','platform','programUrl','asset','environment','version','status','owner','tenant','state','sensitivity','from','to','trust','authority','description','hypothesisTemplate','testTemplate','stopCondition','rarity','difficulty','domain','invariant','expectedBehavior','potentialFailure','who','what','object','context','priority','confidence','queue','preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes','result','timestamp','severity','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','mitigation','researchNotes','type','label','path','content','createdAt','updatedAt','techniqueId','hypothesisId','testCaseId'];
   for(const target of data.targets) {
     entity(target,'Target');
+    target.agentResearch??=emptyAgentResearch();validateAgentResearch(target.agentResearch);
+    if(target.agentResearch.messages?.some(m=>m.targetId!==target.id))throw new Error('Conversation target tidak valid.');
+    target.researchRevision??=0;if(!Number.isInteger(target.researchRevision)||target.researchRevision<0)fail('Research revision tidak valid.');
     target.intelligence??=emptyIntelligence();validateIntelligence(target.intelligence);
+    if(target.researchEnvironment!==undefined)validateResearchEnvironment(target.researchEnvironment,target);
     for(const suggestion of target.intelligence.suggestions){entity(suggestion,'Knowledge suggestion');if(!['pending','accepted','rejected'].includes(suggestion.status)||!knowledgeOperations.some(o=>o[0]===suggestion.operation))fail('Knowledge suggestion tidak valid.');validateKnowledgeResponse(suggestion.response);}
     if(typeof target.name!=='string' || !target.name.trim() || !plain(target.scope)) fail('Nama/scope target tidak valid.');
     if(!plain(target.programRules) || ['automationAllowed','dosAllowed','thirdPartyTesting'].some(key=>typeof target.programRules[key]!=='boolean'))fail('Program rules tidak valid.');
@@ -11625,6 +12287,7 @@ function migrateWorkspace(input) {
     }
     for(const field of [...textFields,'customNotes']) if(target[field]!==undefined && typeof target[field]!=='string') fail('Target.'+field+' harus berupa teks.');
     const check=(value,rows,label)=>{if(value && !rows.some(r=>r.id===value)) fail('Referensi '+label+' tidak ditemukan.');};
+    for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId!==undefined){if(typeof row.authProfileId!=='string')fail('Authentication profile reference harus teks.');check(row.authProfileId,target.researchEnvironment?.profiles||[],'authentication profile');}
     for(const h of target.hypotheses) check(h.techniqueId,target.techniques,'technique');
     for(const t of target.testCases) {check(t.hypothesisId,target.hypotheses,'hypothesis');check(t.techniqueId,target.techniques,'technique');check(t.boundaryId,target.boundaries,'boundary');}
     for(const f of target.findings) {check(f.testCaseId,target.testCases,'test case');check(f.techniqueId,target.techniques,'technique');}
@@ -11650,34 +12313,57 @@ function openDatabase() {
     request.onsuccess=()=>{const db=request.result;db.onversionchange=()=>{db.close();databasePromise=null;};resolve(db);};
   });return databasePromise;
 }
-async function writeLocal(workspace) {
-  const db=await openDatabase();
-  return new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readwrite');tx.objectStore('workspace').put(workspace,'primary');tx.oncomplete=()=>resolve();tx.onabort=tx.onerror=()=>reject(new Error('Penulisan IndexedDB gagal (quota atau permission).'));});
+function createStorageSession(open=openDatabase,storage=()=>globalThis.localStorage){
+  let baseline;
+  const writerId=globalThis.crypto?.randomUUID?.()||String(Math.random()).slice(2);
+  const recovery={warning:'',data:null};
+  const journalText=workspace=>JSON.stringify({format:'workspace-journal-v3',baseRevision:baseline??0,writerId,workspace});
+  const quarantine=raw=>{try{storage().setItem(JOURNAL_KEY+'-quarantine-'+writerId,raw);if(storage().getItem(JOURNAL_KEY)===raw)storage().removeItem(JOURNAL_KEY);}catch{}recovery.warning='Journal recovery tidak valid/berkonflik; primary dipertahankan. Export Recovery Data untuk memeriksa salinan.';};
+  async function write(workspace,{preservePrimary}={}){
+    const db=await open();
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('workspace','readwrite'),s=tx.objectStore('workspace'),r=s.get('revision');let next,error;
+      r.onsuccess=()=>{const current=r.result??0;if(baseline!==undefined&&current!==baseline){error=new Error('Workspace berubah di tab lain. Export perubahan lokal, lalu reload sebelum mengedit.');error.code='STORAGE_CONFLICT';tx.abort();return;}next=current+1;if(preservePrimary!==undefined)s.put(preservePrimary,'recovery-primary');s.put(workspace,'primary');s.put(next,'revision');};
+      tx.oncomplete=()=>{baseline=next;resolve();};tx.onabort=tx.onerror=()=>reject(error||new Error('Penulisan IndexedDB gagal (quota atau permission).'));
+    });
+  }
+  async function read(){
+    recovery.warning='';const db=await open();
+    const [stored,revision]=await new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readonly'),s=tx.objectStore('workspace'),a=s.get('primary'),b=s.get('revision');tx.oncomplete=()=>resolve([a.result,b.result??0]);tx.onerror=tx.onabort=()=>reject(new Error('Pembacaan IndexedDB gagal.'));});
+    baseline=revision;let raw,legacy;try{raw=storage().getItem(JOURNAL_KEY);if(!stored&&!raw)legacy=storage().getItem(STORAGE_KEY);}catch{}
+    recovery.data={primary:stored??null,journal:raw??null,legacy:legacy??null,revision};
+    let primary,primaryError,pending;
+    try{if(stored)primary=migrateWorkspace(stored);}catch(error){primaryError=error;}
+    if(raw){try{if(new Blob([raw]).size>21000000)throw new Error('Journal terlalu besar.');const parsed=JSON.parse(raw);if(parsed.format==='workspace-journal-v3'){if(parsed.baseRevision!==revision)throw new Error('Journal berasal dari revisi lama.');pending=migrateWorkspace(parsed.workspace);}else if(!stored||!primary||String(parsed.updatedAt)>String(stored.updatedAt))pending=parseWorkspace(raw);}catch{quarantine(raw);}}
+    if(pending){await write(pending,{...(primaryError?{preservePrimary:stored}:{})});try{if(storage().getItem(JOURNAL_KEY)===raw)storage().removeItem(JOURNAL_KEY);}catch{}return pending;}
+    if(primary){if(stored.schemaVersion!==SCHEMA_VERSION)await write(primary);return primary;}
+    if(legacy){const migrated=parseWorkspace(legacy);await write(migrated);return migrated;}
+    if(primaryError||raw)throw new Error('Tidak ada salinan workspace valid; editing/autosave diblokir sampai Import Backup.');
+    return null;
+  }
+  return {read,write,journalText,recovery};
 }
-async function readLocal() {
-  const db=await openDatabase();
-  const stored=await new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readonly');const request=tx.objectStore('workspace').get('primary');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(new Error('Pembacaan IndexedDB gagal.'));});
-  let journal,legacy;try{journal=localStorage.getItem(JOURNAL_KEY);if(!stored&&!journal)legacy=localStorage.getItem(STORAGE_KEY);}catch{} // Journal is optional, IDB remains primary.
-  const workspace=journal?parseWorkspace(journal):stored?migrateWorkspace(stored):legacy?parseWorkspace(legacy):null;
-  if(workspace && (journal||legacy||stored?.schemaVersion!==SCHEMA_VERSION)) {await writeLocal(workspace);if(journal)try{localStorage.removeItem(JOURNAL_KEY);}catch{}}
-  return workspace;
-}
+const localSession=createStorageSession();
+const storageRecovery=localSession.recovery;
+const readLocal=()=>localSession.read();
+const writeLocal=workspace=>localSession.write(workspace);
 function makePersistence(write=writeLocal,delay=350) {
-  let timer,pending=null,running=null;
+  let timer,journalTimer,pending=null,running=null,blockedError=null;
   const listeners=new Set();
-  const notify=(status,error)=>listeners.forEach(fn=>fn({status,error,lastSaved:status==='saved'?new Date().toISOString():null}));
+  const notify=(status,error)=>listeners.forEach(fn=>fn({status,error,blocked:!!blockedError,lastSaved:status==='saved'?new Date().toISOString():null}));
+  const journal=snapshot=>{const text=localSession.journalText(snapshot);try{localStorage.setItem(JOURNAL_KEY,text);}catch{}return text;};
   async function flush() {
-    clearTimeout(timer);if(running)return running;if(!pending)return true;
+    clearTimeout(timer);clearTimeout(journalTimer);if(blockedError){notify('error',blockedError);return false;}if(running)return running;if(!pending)return true;
     running=(async()=>{
       while(pending) {
-        const snapshot=pending;pending=null;notify('saving');
-        try {await write(snapshot);if(!pending){try{if(localStorage.getItem(JOURNAL_KEY)===JSON.stringify(snapshot))localStorage.removeItem(JOURNAL_KEY);}catch{}notify('saved');}}
-        catch(error){if(!pending)pending=snapshot;notify('error',error.message);return false;}
+        const snapshot=JSON.parse(JSON.stringify(pending));pending=null;const raw=journal(snapshot);notify('saving');
+        try {await write(snapshot);if(!pending){try{if(localStorage.getItem(JOURNAL_KEY)===raw)localStorage.removeItem(JOURNAL_KEY);}catch{}notify('saved');}}
+        catch(error){if(!pending)pending=snapshot;if(error.code==='STORAGE_CONFLICT')blockedError=error.message;notify('error',error.message);return false;}
       }return true;
     })();
     try{return await running;}finally{running=null;}
   }
-  return {schedule(workspace){pending=JSON.parse(JSON.stringify(workspace));try{localStorage.setItem(JOURNAL_KEY,JSON.stringify(pending));}catch{}notify('unsaved');clearTimeout(timer);timer=setTimeout(flush,delay);},flush,isDirty:()=>!!pending||!!running,subscribe(fn){listeners.add(fn);}};
+  return {schedule(workspace){pending=workspace;if(blockedError){notify('error',blockedError);return;}notify('unsaved');clearTimeout(timer);clearTimeout(journalTimer);journalTimer=setTimeout(()=>{if(pending)journal(pending);},Math.min(80,delay));timer=setTimeout(flush,delay);},flush,isDirty:()=>!!pending||!!running,isBlocked:()=>!!blockedError,subscribe(fn){listeners.add(fn);}};
 }
 // PURPOSE: File handles stay in memory. JSON is written only through an explicit user gesture.
 const connectedFile={handle:null};
@@ -11697,32 +12383,45 @@ async function saveConnected(workspace) {
 
 
 
+
+
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
-const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'1.0.0',updatedAt:now(),domainPacks:[],targets:[]});
+const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'2.0.0',updatedAt:now(),domainPacks:[],toolInventory:builtinTools(),targets:[]});
 function newTarget(values) {
-  return {id:uuid(),name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),intelligence:emptyIntelligence(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
+  return {id:uuid(),agentResearch:emptyAgentResearch(),researchRevision:0,name:'',platform:'Bugcrowd',programUrl:'',asset:'',environment:'',version:'',status:'active',createdAt:now(),updatedAt:now(),intelligence:emptyIntelligence(),scope:{guard:{}},programRules:{automationAllowed:false,dosAllowed:false,thirdPartyTesting:false},actors:[],objects:[],boundaries:[],techniques:DEFAULT_TECHNIQUES.map(item=>({...item,id:uuid(),libraryId:item.id,enabled:true,tested:false,interesting:false,notes:'',securityInvariant:item.securityInvariant||item.hypothesisTemplate,dimensions:['who','what','object','state','authority','context'],falsePositiveIndicators:['Periksa role efektif, kepemilikan data, state terbaru, dan respons backend.'],stopConditions:[item.stopCondition],researchPriority:50,duplicateRisk:50,testingCost:50})),hypotheses:[],testCases:[],findings:[],evidence:[],notes:[],knowledgeBase:[],aiSuggestions:[],helperRecords:[],...values};
 }
-function createStore(initial=freshWorkspace()) {
+function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
   let state=migrateWorkspace(initial); const listeners=new Set();
+  const writable=()=>{if(readOnly)throw new Error('Workspace read-only: pulihkan data melalui Import Backup sebelum mengedit.');};
   function notify() {listeners.forEach(fn=>fn(state));}
-  function touch(target) {state.updatedAt=now();if(target) target.updatedAt=state.updatedAt;notify();}
+  function invalidate(target){for(const p of target.agentResearch.reviewQueue)if(p.status==='PROPOSED')p.stale=true;for(const a of target.agentResearch.pendingActions)if(a.status==='PROPOSED'){a.status='DENIED';a.approvalToken='';a.policyReason='Canonical context changed; review a fresh action.';}}
+  function touch(target,canonical=true) {state.updatedAt=now();if(target){target.updatedAt=state.updatedAt;if(canonical){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}}notify();}
   return {
     get:()=>state, subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
     target:id=>state.targets.find(t=>t.id===id),
-    addTarget(values){const target=newTarget(values);state.targets.push(target);touch(target);return target;},
-    updateTarget(id,values){const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target);},
-    deleteTarget(id){state.targets=state.targets.filter(t=>t.id!==id);touch();},
-    saveDomainPack(pack){validateDomainPack(pack);const index=state.domainPacks.findIndex(p=>p.id===pack.id);if(index<0)state.domainPacks.push(pack);else state.domainPacks[index]=pack;touch();},
-    removeDomainPack(id){state.domainPacks=state.domainPacks.filter(p=>p.id!==id);touch();},
+    isReadOnly:()=>readOnly,
+    lock(){readOnly=true;},
+    addTarget(values){writable();const target=newTarget(values);target.agentResearch??=emptyAgentResearch();target.researchRevision??=0;state.targets.push(target);touch(target);return target;},
+    updateTarget(id,values,{canonical=true}={}){writable();const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target,canonical);},
+    updateResearch(id,research,{canonical=false}={}){writable();validateAgentResearch(research);const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');if(research.messages?.some(m=>m.targetId!==id))throw new Error('Conversation target tidak valid.');target.agentResearch=structuredClone(research);touch(target,canonical);},
+    updateEnvironment(id,environment){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchEnvironment(environment,target);target.researchEnvironment=structuredClone(environment);for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId&&!environment.profiles.some(p=>p.id===row.authProfileId))row.authProfileId='';touch(target);},
+    saveTool(tool){writable();const tools=state.toolInventory.filter(t=>t.id!==tool.id);tools.push(tool);validateToolInventory(tools);state.toolInventory=tools;for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
+    removeTool(id){writable();state.toolInventory=state.toolInventory.filter(t=>t.id!==id);for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
+    deleteTarget(id){writable();state.targets=state.targets.filter(t=>t.id!==id);touch();},
+    saveDomainPack(pack){writable();validateDomainPack(pack);const index=state.domainPacks.findIndex(p=>p.id===pack.id);if(index<0)state.domainPacks.push(pack);else state.domainPacks[index]=pack;for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
+    removeDomainPack(id){writable();state.domainPacks=state.domainPacks.filter(p=>p.id!==id);for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
     upsert(targetId,collection,values){
+      writable();
       if(!collections.includes(collection)) throw new Error('Collection tidak dikenal.');
       const target=this.target(targetId);let row=target[collection].find(v=>v.id===values.id);
       if(row) Object.assign(row,values,{updatedAt:now()});
       else {row={id:uuid(),createdAt:now(),updatedAt:now(),...values};target[collection].push(row);}
-      touch(target);return row;
+      touch(target,collection!=='aiSuggestions');return row;
     },
     remove(targetId,collection,id){
+      writable();
       const target=this.target(targetId);target[collection]=target[collection].filter(v=>v.id!==id);
+      if(collection==='actors')for(const p of target.researchEnvironment?.profiles||[])if(p.actorId===id)p.actorId='';
       // PURPOSE: Remove dangling relationships without deleting independent research records.
       if(collection==='hypotheses') for(const test of target.testCases) if(test.hypothesisId===id) test.hypothesisId='';
       if(collection==='boundaries')for(const test of target.testCases)if(test.boundaryId===id)test.boundaryId='';
@@ -11732,15 +12431,15 @@ function createStore(initial=freshWorkspace()) {
       if(collection==='evidence') for(const row of [...target.testCases,...target.findings]) row.evidenceIds=(row.evidenceIds||[]).filter(v=>v!==id);
       touch(target);
     },
-    replace(input){state=migrateWorkspace(input);notify();},
-    reset(){state=freshWorkspace();notify();}
+    replace(input,{recover=false}={}){if(!recover)writable();const validated=migrateWorkspace(input);state=validated;if(recover)readOnly=false;notify();},
+    reset(){writable();state=freshWorkspace();notify();}
   };
 }
 
 // SOURCE: router
 // MODULE: Hash navigation works on HTTP and file:// without a server router.
-const routes=[['dashboard','Dashboard'],['targets','Target'],['scope','Scope'],['attack-surface','Attack Surface'],['boundaries','Trust Boundaries'],['actors','Actors'],['objects','Objects'],['target-intelligence','Target Intelligence'],['domain-knowledge','Domain Knowledge'],['terminology','Terminology'],['business-flows','Business Flows'],['critical-assets','Critical Assets'],['research-questions','Research Questions'],['techniques','Techniques'],['hypotheses','Hypotheses'],['tests','Test Cases'],['queue','Research Queue'],['findings','Findings'],['evidence','Evidence'],['reports','Reports'],['ai','Research Assistant'],['ai-techniques','Technique Advisor'],['ai-tools','Tool Advisor'],['ai-gaps','AI Gap Analyzer'],['ai-findings','Finding Analyzer'],['notes','Research Notes'],['knowledge','Knowledge Base'],['tools','Tool Knowledge'],['helpers','Internal Helpers'],['coverage','Research Gaps'],['settings','Settings'],['ai-provider','AI Provider'],['backup','Backup']];
-const navigationGroups=[['Workspace',['dashboard']],['Research',['targets','scope','attack-surface','boundaries','actors','objects']],['Intelligence',['target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions']],['Testing',['techniques','hypotheses','tests','queue']],['Results',['findings','evidence','reports']],['AI',['ai','ai-techniques','ai-tools','ai-gaps','ai-findings']],['Knowledge',['notes','knowledge','tools','helpers','coverage']],['System',['settings','ai-provider','backup']]];
+const routes=[['dashboard','Dashboard'],['research-details','Research Details'],['review-queue','Review Queue'],['manual-analysis','Manual Analysis'],['agent-history','Agent History'],['tool-inventory','Tool Inventory'],['agentic-settings','Agentic AI'],['targets','Target'],['research-environment','Research Environment'],['scope','Scope'],['attack-surface','Attack Surface'],['boundaries','Trust Boundaries'],['actors','Actors'],['objects','Objects'],['target-intelligence','Target Intelligence'],['domain-knowledge','Domain Knowledge'],['terminology','Terminology'],['business-flows','Business Flows'],['critical-assets','Critical Assets'],['research-questions','Research Questions'],['techniques','Techniques'],['hypotheses','Hypotheses'],['tests','Test Cases'],['queue','Research Queue'],['findings','Findings'],['evidence','Evidence'],['reports','Reports'],['ai','Research Assistant'],['ai-techniques','Technique Advisor'],['ai-tools','Tool Advisor'],['ai-gaps','AI Gap Analyzer'],['ai-findings','Finding Analyzer'],['notes','Research Notes'],['knowledge','Knowledge Base'],['tools','Tool Knowledge'],['helpers','Internal Helpers'],['coverage','Research Gaps'],['settings','Settings'],['ai-provider','AI Provider'],['backup','Backup']];
+const navigationGroups=[['Workspace',['dashboard','review-queue','manual-analysis']],['Research Progress',['research-details','agent-history']],['Research',['targets','research-environment','scope','attack-surface','boundaries','actors','objects']],['Intelligence',['target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions']],['Testing',['techniques','hypotheses','tests','queue']],['Results',['findings','evidence','reports']],['AI',['ai','ai-techniques','ai-tools','ai-gaps','ai-findings']],['Knowledge',['notes','knowledge','tools','helpers','coverage']],['System',['settings','agentic-settings','tool-inventory','ai-provider','backup']]];
 const currentRoute=()=>{const key=location.hash.slice(1).split('?')[0];return routes.some(r=>r[0]===key)?key:'dashboard';};
 function routeTo(key) {if(currentRoute()===key) window.dispatchEvent(new Event('hashchange'));else location.hash=key;}
 
@@ -11782,7 +12481,7 @@ function formulaSuggestions(form,target) {
 
 
 
-const targetFields=[['name','Program Name','required'],['platform','Platform','select',['Bugcrowd','HackerOne','Intigriti','Private','Other']],['programUrl','Program URL'],['asset','Target / Asset'],['environment','Environment'],['version','Version / Build'],['status','Status','select',['active','paused','archived']],['customNotes','Custom Notes','textarea']];
+const targetFields=[['name','Program Name','required'],['platform','Platform','select',['Bugcrowd','HackerOne','Intigriti','Private','Private Program','Other']],['programUrl','Program URL'],['asset','Target / Asset'],['environment','Environment'],['version','Version / Build'],['status','Status','select',['active','paused','archived']],['customNotes','Custom Notes','textarea']];
 function editTarget(ctx,target) {editDialog(target?'Edit Target':'Create Target',targetFields,target||{},values=>{if(target)ctx.store.updateTarget(target.id,values);else ctx.selectTarget(ctx.store.addTarget(values).id);ctx.render();});}
 function renderTargets(ctx) {
   const root=el('div');root.append(ctx.heading('Target','Profil program dan aset untuk setiap engagement.',button('+ Create Target',()=>editTarget(ctx),'primary')));
@@ -11790,11 +12489,285 @@ function renderTargets(ctx) {
   if(!list.length)root.append(empty('Belum ada target. Buat target pertama untuk mulai menyusun riset.'));
   for(const target of list)root.append(panel(target.name,el('div',{class:'badges'},badge(target.platform),badge(target.status)),el('p',{},target.asset||'Asset belum diisi'),el('p',{class:'muted'},'Environment: '+(target.environment||'—')+' · Build: '+(target.version||'—')),el('p',{class:'muted'},target.programUrl||''),el('p',{class:'muted'},target.customNotes||''),el('div',{class:'actions'},button(target.id===ctx.targetId?'Target aktif':'Pilih target',()=>{ctx.selectTarget(target.id);ctx.render();}),button('Edit',()=>editTarget(ctx,target)),button('Hapus',()=>{if(confirm('Hapus target "'+target.name+'" beserta seluruh research dan evidence? Ekspor backup sebelum melanjutkan.')){ctx.store.deleteTarget(target.id);ctx.selectTarget(ctx.store.get().targets[0]?.id||'');ctx.render();}},'danger'))));
   for(const target of list){
-    const areas=[['scope','Research'],['target-intelligence','Intelligence'],['tests','Testing'],['findings','Findings']];
+    const areas=[['research-environment','Research Environment'],['scope','Research'],['target-intelligence','Intelligence'],['tests','Testing'],['findings','Findings']];
     const controls=areas.map(([route,label])=>button(label,()=>{ctx.selectTarget(target.id);routeTo(route);ctx.render();}));
     root.append(panel(target.name+' — Target Areas',el('div',{class:'actions'},controls)));
   }
   return root;
+}
+
+// SOURCE: modules/research-environment
+
+
+
+
+
+
+const labels={name:'Environment Name',baseUrl:'Base URL',allowedAssets:'Allowed Domains / Assets (one exact asset per line)',testTenant:'Test Workspace / Organization / Tenant',ownedData:'Owned Test Data',dummyIdentifiers:'Dummy Identifiers',rateLimit:'Rate Limit',userAgent:'User-Agent Requirement',researcherHeader:'Researcher Identification Header',automationRestrictions:'Automation Restrictions',testingRestrictions:'Testing Restrictions',programRulesText:'Program Rules',safeHarbor:'Safe Harbor Notes',knownIssues:'Known Issues',outOfScopeNotes:'Out of Scope Notes',specialInstructions:'Special Instructions',notes:'Notes'};
+const ruleLabel=key=>key.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase());
+function envFor(target){return target.researchEnvironment||emptyResearchEnvironment();}
+function save(ctx,target,env){ctx.store.updateEnvironment(target.id,env);ctx.render();}
+function secretDialog(ctx,target,row,kind,refKey){
+  const d=el('dialog',{class:'editor'},el('h2',{},'Update Protected Secret'),el('p',{},'Encrypted vault only. Secret tidak masuk workspace JSON, AI, report atau evidence. Existing value tidak ditampilkan.'));
+  const f=el('form',{class:'form-grid'}),input=el('input',{type:'password',name:'secret',required:true,autocomplete:'new-password','aria-label':'Secret Value',maxlength:16000}),error=el('p',{class:'error wide',role:'alert'}),submit=el('button',{type:'submit',class:'primary'},'Save Protected Secret');
+  f.append(el('label',{class:'wide'},'Secret Value',input),error,el('div',{class:'actions wide'},button('Cancel',()=>d.close()),submit));d.append(f);document.body.append(d);
+  f.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;error.textContent='';try{const ref=environmentSecretRef(target.id,row.id,kind);await secretStore.set(ref,{targetId:target.id,ownerId:row.id},input.value);const env=structuredClone(envFor(target)),collection=kind==='credential'?'accounts':kind==='header'?'headers':'profiles',current=env[collection].find(r=>r.id===row.id);if(!current)throw new Error('Record changed; reload environment.');current[refKey]=ref;if(collection==='profiles'){current.sessionStatus='Unknown';if(kind==='cookie'||current.authType==='Cookie')current.cookieUpdatedAt=now();}save(ctx,target,env);d.close();}catch(e){error.textContent=e.message;}finally{input.value='';submit.disabled=false;}});
+  d.addEventListener('close',()=>{input.value='';d.remove();});d.showModal();
+}
+function unlockDialog(ctx){
+  const d=el('dialog',{class:'editor'},el('h2',{},'Create / Unlock Encrypted Vault'),el('p',{},'Passphrase minimal 12 karakter. Simpan passphrase sendiri: tidak ada recovery atau plaintext fallback. Vault hanya tersedia pada browser/origin ini; workspace export tidak membackup secrets.'));
+  const f=el('form',{class:'form-grid'}),input=el('input',{type:'password',name:'passphrase',required:true,minlength:12,autocomplete:'new-password','aria-label':'Vault Passphrase'}),error=el('p',{class:'error wide',role:'alert'}),submit=el('button',{type:'submit',class:'primary'},'Unlock Vault');
+  f.append(el('label',{class:'wide'},'Vault Passphrase',input),error,el('div',{class:'actions wide'},button('Cancel',()=>d.close()),submit));d.append(f);document.body.append(d);f.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;try{await secretStore.unlock(input.value);d.close();ctx.render();}catch(e){error.textContent=e.message;}finally{input.value='';submit.disabled=false;}});d.addEventListener('close',()=>{input.value='';d.remove();});d.showModal();
+}
+function editRow(ctx,target,collection,previous){
+  const env=envFor(target);let fields,defaults;
+  if(collection==='accounts'){fields=[['name','Account Name','required'],['role','Account Role'],['purpose','Purpose'],['username','Username'],['tenant','Tenant'],['ownership','Object Ownership'],['notes','Notes','textarea']];defaults={name:'',role:'',purpose:'',username:'',tenant:'',ownership:'',notes:'',credentialRef:''};}
+  else if(collection==='profiles'){fields=[['name','Profile Name','required'],['accountId','Authorized Account','select',[['','Anonymous / no account'],...env.accounts.map(a=>[a.id,a.name])]],['actorId','Actor','select',[['','Optional actor'],...target.actors.map(a=>[a.id,a.name])]],['authType','Authentication Method','select',authMethods],['tenant','Tenant'],['ownership','Object Ownership'],['purpose','Purpose'],['sessionStatus','Session Status (not verified)','select',['Unknown','Expired']],['notes','Notes','textarea']];defaults={name:'',accountId:'',actorId:'',authType:'None',tenant:'',ownership:'',purpose:'',notes:'',secretRef:'',cookieRef:'',cookieUpdatedAt:'',sessionStatus:'Unknown'};}
+  else{fields=[['name','Header Name','required'],['secret','Secret','select',[['yes','Yes'],['no','No']]],['value','Non-secret Value'],['enabled','Enabled','select',[['yes','Yes'],['no','No']]]];defaults={name:'',value:'',secret:true,enabled:true,secretRef:''};}
+  editDialog(previous?'Edit '+collection:'Add '+collection,fields,{...defaults,...previous,...(collection==='headers'?{secret:previous?.secret===false?'no':'yes',enabled:previous?.enabled===false?'no':'yes'}:{})},values=>{
+    const updated=structuredClone(envFor(target)),row={...defaults,...previous,...values,id:previous?.id||uuid()};
+    if(collection==='headers'){row.secret=values.secret==='yes'||sensitiveHeader(row.name);row.enabled=values.enabled==='yes';if(row.secret&&row.value)throw new Error('Simpan secret header melalui Update Header Secret; Value harus kosong.');if(!row.secret)row.secretRef='';}
+    if(collection==='profiles'&&previous&&previous.authType!==row.authType){row.secretRef='';row.sessionStatus='Unknown';}
+    updated[collection]=updated[collection].filter(r=>r.id!==row.id);updated[collection].push(row);save(ctx,target,updated);
+  });
+}
+async function removeRow(ctx,target,collection,row){
+  if(!confirm('Remove '+row.name+' dan secret references terkait?'))return;
+  try{const env=structuredClone(envFor(target));const affected=[row];env[collection]=env[collection].filter(r=>r.id!==row.id);
+    if(collection==='accounts'){for(const p of env.profiles.filter(p=>p.accountId===row.id)){affected.push({...p});p.accountId='';p.secretRef='';p.cookieRef='';p.sessionStatus='Unknown';}}
+    save(ctx,target,env);for(const item of affected)for(const key of ['credentialRef','secretRef','cookieRef'])await secretStore.remove(item[key]);
+  }catch(e){ctx.toast(e.message);}
+}
+function renderResearchEnvironment(ctx,target){
+  const env=envFor(target),root=el('div',{},ctx.heading('Research Environment','Optional authorized testing context per target. Metadata dan encrypted secrets terpisah.'));
+  root.append(panel('Environment Status',badge('Environment: '+environmentReadiness(target)),el('p',{},'Test Accounts: '+env.accounts.length+' · Authentication: '+env.profiles.length+' profiles · Headers: '+env.headers.length),el('p',{},'Sessions: Unknown sampai benar-benar diverifikasi. Imported secret references belum membuktikan secret tersedia pada perangkat ini.')));
+  root.append(panel('Program',el('p',{},target.platform+' / '+target.name),el('p',{},target.programUrl||'Program URL: optional'),button('Edit Program',()=>editTarget(ctx,target))));
+  root.append(panel('Scope & Rules',el('p',{},'Existing Scope adalah sumber scope. Structured rules di environment menjadi sumber rule ketika environment dikonfigurasi; Unknown tidak memberi izin.'),button('Open Scope',()=>routeTo('scope')),button('Edit Structured Rules',()=>editDialog('Program Rules',environmentRuleNames.map(k=>[k,ruleLabel(k),'select',ruleChoices]),env.rules,values=>save(ctx,target,{...structuredClone(envFor(target)),rules:values}))),el('dl',{class:'details'},environmentRuleNames.map(k=>[el('dt',{},ruleLabel(k)),el('dd',{},env.rules[k])]))));
+  for(const [title,keys] of [['Testing Environment',['name','baseUrl','allowedAssets','testTenant','ownedData','dummyIdentifiers','rateLimit','userAgent','researcherHeader']],['Restrictions',['automationRestrictions','testingRestrictions','programRulesText','safeHarbor','knownIssues','outOfScopeNotes','specialInstructions','notes']]])root.append(panel(title,button('Edit '+title,()=>editDialog(title,keys.map(k=>[k,labels[k],'textarea']),env,values=>save(ctx,target,{...structuredClone(envFor(target)),...values}))),el('dl',{class:'details'},keys.map(k=>[el('dt',{},labels[k]),el('dd',{},env[k]||'Optional / Unknown')]))));
+  const vault=panel('Secrets',badge(secretStore.unlocked?'Protected · Vault Unlocked':'Encrypted Vault Locked'),el('p',{},'AES-GCM encrypted IndexedDB; key hanya di memory. Auto-lock setelah 10 menit idle dan ketika page ditutup. Tidak ada secure secret export atau remote credential executor pada versi ini.'),button('Create / Unlock Vault',()=>unlockDialog(ctx)),button('Lock Vault',()=>{secretStore.lock();ctx.render();}));root.append(vault);
+  for(const [collection,title] of [['accounts','Test Accounts'],['profiles','Authentication'],['headers','Headers']]){
+    const section=panel(title,button('Add '+title,()=>editRow(ctx,target,collection),'primary'));
+    for(const row of env[collection]){
+      const card=el('article',{class:'record'},el('h3',{},row.name),el('div',{class:'badges'},badge(row.role||row.authType||'Custom Header'),badge(collection==='accounts'?'Credential: '+(row.credentialRef?'Configured (reference)':'Not configured'):collection==='profiles'?'Authentication: '+(row.secretRef?'Configured (reference)':'Not configured'):row.secret?'Secret: '+(row.secretRef?'Configured (reference)':'Not configured'):'Non-secret')));
+      if(collection==='accounts')card.append(el('p',{},'Username: '+row.username+' · Purpose: '+row.purpose+' · Tenant: '+row.tenant+' · Ownership: '+row.ownership));
+      if(collection==='profiles')card.append(el('p',{},'Actor: '+(target.actors.find(a=>a.id===row.actorId)?.name||'Unknown')+' · Account: '+(env.accounts.find(a=>a.id===row.accountId)?.name||'Anonymous')),el('p',{},'Session Cookie: '+(row.cookieRef||row.authType==='Cookie'&&row.secretRef?'Configured (reference)':'Not configured')+' · Status: '+row.sessionStatus+' · Last Updated: '+(row.cookieUpdatedAt||'Unknown')));
+      if(collection==='headers')card.append(el('p',{},row.secret?'Value: [MASKED]':'Value: '+row.value),badge(row.enabled?'Enabled':'Disabled'));
+      const actions=el('div',{class:'actions'},button('Edit',()=>editRow(ctx,target,collection,row)),button('Remove',()=>removeRow(ctx,target,collection,row),'danger'));
+      if(collection==='accounts')actions.append(button('Update Credential',()=>secretDialog(ctx,target,row,'credential','credentialRef')));
+      if(collection==='profiles'){actions.append(button('Update Authentication Secret',()=>secretDialog(ctx,target,row,'auth','secretRef')),button('Update Session Cookie',()=>secretDialog(ctx,target,row,'cookie','cookieRef')));}
+      if(collection==='headers'&&row.secret)actions.append(button('Update Header Secret',()=>secretDialog(ctx,target,row,'header','secretRef')));
+      card.append(actions);section.append(card);
+    }if(!env[collection].length)section.append(empty('Optional; no configured records.'));root.append(section);
+  }
+  root.append(panel('Role / Account Matrix',el('div',{class:'environment-matrix'},el('table',{},el('thead',{},el('tr',{},['Actor','Account','Role','Tenant','Object Ownership','Authentication'].map(s=>el('th',{},s)))),el('tbody',{},env.profiles.map(p=>{const account=env.accounts.find(a=>a.id===p.accountId);return el('tr',{},[target.actors.find(a=>a.id===p.actorId)?.name||'Unknown',account?.name||'Anonymous',account?.role||'Unknown',p.tenant||account?.tenant||'Unknown',p.ownership||account?.ownership||'Unknown',p.name+' / '+p.authType].map(s=>el('td',{},s)));}))))));
+  return root;
+}
+
+// SOURCE: modules/agent-message-panel
+
+
+
+
+
+
+
+
+
+
+const panelStatusLabels={RUNNING:'Researching',WAITING_REVIEW:'Waiting Review',WAITING_APPROVAL:'Waiting Approval',PAUSED:'Paused',COMPLETED:'Completed',ERROR:'Error',FINDING_REVIEW:'Waiting Review'};
+const pageContextKinds={actors:'actor',objects:'object',boundaries:'boundary',techniques:'technique',hypotheses:'hypothesis',queue:'hypothesis',tests:'test',evidence:'evidence',findings:'finding',reports:'report',scope:'scope'};
+const messageActionSets={evidence:[['Analyze','@evidence analisis evidence terpilih'],['Compare','@evidence tentukan control pembanding yang diperlukan'],['Potential Finding','@finding nilai apakah observation mendukung potential finding']],hypothesis:[['Explain','@hypothesis jelaskan invariant ini'],['Generate Test','@test susun manual test plan dari hypothesis ini'],['Find Variant','@hypothesis cari variant yang relevan']],finding:[['Analyze','@finding analisis finding ini'],['False Positive','@false-positive periksa penjelasan alternatif'],['Duplicate Check','@duplicate periksa risiko duplicate'],['Report','@report susun draft report dari finding confirmed ini']],report:[['Explain','@report jelaskan gap laporan ini'],['Review','@report review kelengkapan report dan evidence']]};
+function createAgentMessagePanel(ctx){
+  let enabled=false,mode='collapsed',fingerprint='',targetKey='',autoRefs=[],removed=new Set(),historyOffset=0,conversationKey='',timer,suggestions=[],suggestionIndex=0,completion=null,lastError='',lastDraft='',paused=false,controller;
+  let attachments=[],lastFiles=[],lastModel='',lastRunId='',readingFiles=false,modelsLoading=false,modelKey='',progressTimer;
+  try{mode=localStorage.getItem('research-agent-panel')||'collapsed';}catch{}
+  if(!['open','collapsed','closed'].includes(mode))mode='collapsed';
+  const relatedService=new RelatedTermService(),builder=new ResearchContextBuilder(),mobile=matchMedia('(max-width: 760px)');
+  const iconButton=(label,icon,click)=>{const node=button(companionIcon(icon),click,'agent-icon-button');node.setAttribute('aria-label',label);node.title=label;return node;};
+  const launcher=iconButton('Open Agent Message','message-square-text',()=>setMode('open'));launcher.id='agent-message-launcher';launcher.setAttribute('aria-controls','agent-message-panel');
+  const agentName=el('strong',{}),task=el('p',{class:'agent-task'}),status=el('span',{class:'agent-message-status',role:'status','aria-live':'polite'});
+  const conversation=el('div',{class:'agent-conversation','aria-label':'Recent Agent Messages'}),contextArea=el('div',{class:'agent-context-chips'}),quick=el('div',{class:'agent-quick-actions'}),relatedArea=el('div',{class:'agent-related-terms'});
+  const input=el('textarea',{id:'agent-message-input',rows:'3',maxlength:'6000',placeholder:'Ask about this research… @agent #reference','aria-label':'Message Agent','aria-autocomplete':'list','aria-controls':'agent-message-suggestions','aria-expanded':'false',autocomplete:'off'});
+  const list=el('div',{id:'agent-message-suggestions',class:'agent-suggestions',role:'listbox','aria-label':'Agent and context suggestions',hidden:true});
+  const send=button(el('span',{},companionIcon('send'),'Send'),()=>void sendMessage(),'primary'),pause=iconButton('Pause message','pause',()=>cancelMessage('Paused by researcher.'));
+  const feedback=el('p',{class:'agent-message-feedback',role:'status','aria-live':'polite'});
+  const fileInput=el('input',{id:'agent-message-files',type:'file',multiple:true,accept:attachmentAccept,hidden:true,'aria-label':'Attach files'});
+  const fileArea=el('div',{class:'agent-attachments'}),routing=el('small',{class:'agent-routing','aria-live':'polite'});
+  const addFiles=iconButton('Add files','plus',()=>fileInput.click());
+  const modelSelect=el('select',{id:'agent-message-model','aria-label':'LLM model',title:'Model for the next message'});
+  const refreshModels=iconButton('Refresh models','refresh-cw',()=>void loadModels());
+  modelSelect.addEventListener('change',()=>{try{localStorage.setItem('research-chat-model:'+aiConnection.provider,modelSelect.value);}catch{}feedback.textContent='Next message: '+modelSelect.value;});
+  const composer=el('form',{class:'agent-message-composer',onsubmit:event=>{event.preventDefault();void sendMessage();}},fileArea,routing,el('div',{class:'agent-input-wrap'},list,input),fileInput,el('div',{class:'agent-composer-tools'},addFiles,modelSelect,refreshModels),el('div',{class:'actions'},send,pause,el('small',{},'Enter send · Shift+Enter newline')),feedback);
+  const contextDetails=el('details',{},el('summary',{},'Context details'),el('div',{class:'agent-context-preview'}));
+  const header=el('header',{class:'agent-message-header'},el('strong',{},'Agent Message'),el('div',{class:'actions'},iconButton('Collapse Agent Message','panel-right-close',()=>setMode('collapsed')),iconButton('Close Agent Message','x',()=>setMode('closed'))));
+  const guideURL=new URL('../docs/AGENTIC_RESEARCH_GUIDE.html#agent-message',document.querySelector('script[src$="loader.js"]').src).href;
+  const panel=el('aside',{id:'agent-message-panel',class:'agent-message-panel','aria-label':'Agent Message',hidden:true},header,el('div',{class:'agent-current'},agentName,status,task),el('section',{class:'agent-context'},el('small',{},'Context'),contextArea,contextDetails),quick,conversation,relatedArea,composer,el('details',{class:'agent-message-options'},el('summary',{},'Options & shortcuts'),el('p',{},'Ctrl/⌘ K commands · @ agent · # context · Esc dismiss'),button('Clear conversation',()=>{const target=ctx.store.target(ctx.targetId);if(ctx.agentBusy||ctx.agentMessageBusy){feedback.textContent='Wait for the current analysis or pause it.';return;}if(target&&confirm('Clear this target’s conversation? Export a backup first if needed.')){AgentMessageService.clear(ctx.store,target);sync();}}),el('a',{href:guideURL,target:'_blank',rel:'noopener'},'Message guide')));
+  const overlay=el('div',{class:'agent-message-overlay',hidden:true,onclick:()=>setMode('collapsed')});document.body.append(overlay,launcher,panel);
+  function currentTarget(){return ctx.store.target(ctx.targetId);}
+  function chatAgentName(id){return id==='general'?'General':agentStages.find(s=>s[0]===id)?.[1]||id||'General';}
+  function updateModels(){
+    const key=aiConnection.provider+':'+aiConnection.models.join(',');if(key===modelKey)return;modelKey=key;
+    let previous=modelSelect.value;try{previous||=localStorage.getItem('research-chat-model:'+aiConnection.provider)||'';}catch{}
+    modelSelect.replaceChildren(...aiConnection.models.map(id=>el('option',{value:id},id)));
+    modelSelect.value=aiConnection.models.includes(previous)?previous:aiConnection.model;
+  }
+  async function loadModels(){
+    if(modelsLoading||ctx.agentMessageBusy||ctx.agentBusy)return;modelsLoading=true;refreshModels.disabled=true;const origin=aiConnection.baseURL,provider=aiConnection.provider;
+    feedback.textContent='Loading models from '+provider+'…';
+    try{const result=await agentPost('/api/agent/models',{},15000);if(origin!==aiConnection.baseURL||provider!==aiConnection.provider)return;
+      if(!Array.isArray(result.models)||!result.models.length||result.models.some(id=>typeof id!=='string'||id.length>180))throw new Error('Invalid catalog');
+      aiConnection.models=result.models;updateModels();feedback.textContent=result.source+' · '+result.models.length+' models. Availability does not guarantee image/structured-output support.';
+    }catch{feedback.textContent='Could not refresh models. Configured models remain available.';}finally{modelsLoading=false;refreshModels.disabled=false;sync();}
+  }
+  function renderAttachments(){
+    fileArea.replaceChildren(...attachments.map(file=>el('div',{class:'agent-attachment'},el('div',{class:'record-header'},el('small',{},file.name+' · '+Math.ceil(file.size/1024)+' KB'),iconButton('Remove file '+file.name,'x',()=>{attachments=attachments.filter(row=>row.id!==file.id);renderAttachments();})),file.type==='text/plain'?el('details',{},el('summary',{},'Preview redacted text'),el('pre',{},file.text.slice(0,4000))):el('div',{},el('img',{src:'data:'+file.type+';base64,'+file.data,alt:file.name}),el('small',{},'Image sent as shown; check sensitive information.')))));
+  }
+  async function attachFiles(files){
+    if(!files.length||readingFiles||ctx.agentMessageBusy||ctx.agentBusy||ctx.store.isReadOnly())return;
+    const target=currentTarget();if(!target){feedback.textContent='Select a target before attaching files.';return;}
+    if(files.length+attachments.length>3){feedback.textContent='Maximum three files per message.';return;}
+    readingFiles=true;sync();feedback.textContent='Reading files…';
+    try{const selected=await Promise.all(files.map(readMessageAttachment));if(currentTarget()!==target)return;
+      const next=[...attachments,...selected];validateMessageAttachments(next);attachments=next;renderAttachments();feedback.textContent='Files ready. Text is redacted; images are sent as shown.';
+    }catch(error){feedback.textContent=error.message||'Could not read the selected file.';}finally{fileInput.value='';readingFiles=false;sync();}
+  }
+  fileInput.addEventListener('change',()=>void attachFiles([...fileInput.files]));
+  input.addEventListener('paste',event=>{const files=[...event.clipboardData?.files||[]];if(files.length){event.preventDefault();void attachFiles(files);}});
+  composer.addEventListener('dragover',event=>{if([...event.dataTransfer.types].includes('Files')){event.preventDefault();composer.classList.add('dragging');}});
+  composer.addEventListener('dragleave',()=>composer.classList.remove('dragging'));
+  composer.addEventListener('drop',event=>{if(event.dataTransfer.files.length){event.preventDefault();composer.classList.remove('dragging');void attachFiles([...event.dataTransfer.files]);}});
+  function openReview(){routeTo('review-queue');if(mobile.matches)setMode('collapsed');}
+  function closeSuggestions(){list.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');suggestions=[];completion=null;}
+  function activeRefs(){const target=currentTarget();if(!target)return [];let explicit=[];try{explicit=parseMessageTags(input.value,target).contextRefs;}catch{}const refs=[...autoRefs.filter(r=>!removed.has(r.kind+':'+r.id)),...explicit];return refs.filter((r,i)=>refs.findIndex(v=>v.kind===r.kind&&v.id===r.id)===i).slice(0,12);}
+  function updateContext(){
+    const target=currentTarget(),refs=activeRefs(),all=messageReferenceRows(target);contextArea.replaceChildren(...refs.map(ref=>{const label=all.find(r=>r.kind===ref.kind&&r.id===ref.id)?.label||ref.id;const remove=iconButton('Remove '+ref.kind+' context','x',()=>{removed.add(ref.kind+':'+ref.id);const token='#'+ref.kind+':'+ref.id;input.value=input.value.split(token).join('').replace(new RegExp('#'+ref.kind+'(?=\\s|$)','g'),'').trim();updateContext();updateRelated();});return el('span',{class:'agent-context-chip'},el('span',{},ref.kind+' · '+label),remove);}));
+    if(!refs.length)contextArea.append(el('small',{class:'muted'},'Target & page only. Add #reference.'));
+    const box=contextDetails.querySelector('.agent-context-preview');box.replaceChildren(el('small',{},'Target: '+(target?.name||'None')+' · Page: '+(ctx.route||'dashboard')),refs.map(ref=>el('small',{},ref.kind+': '+(all.find(r=>r.kind===ref.kind&&r.id===ref.id)?.label||'Unknown')+' · '+ref.id)),el('small',{},'Selected records + linked test/hypothesis/evidence (max 4 each). Relevant knowledge; up to 4 recent messages. Scope rules always included. Secrets redacted.'));
+    const kind=refs.findLast(r=>!['target','scope'].includes(r.kind))?.kind;
+    const actions=messageActionSets[kind]||[['Explain','jelaskan context research saat ini'],['Next Step','apa next step manual yang paling relevan?']];
+    quick.replaceChildren(...actions.map(([label,value])=>button(label,()=>{input.value=value;closeSuggestions();input.focus();updateContext();})),button('Related Terms',()=>{updateRelated(true);input.focus();}));
+    try{const parsed=parseMessageTags(input.value,target),team=planMessageAgents({...parsed,text:input.value},refs);routing.textContent=(parsed.routing!=='mentions'&&['general','orchestrator'].includes(parsed.agent)?'Auto · ':'To · ')+team.map(chatAgentName).join(' + ');}catch{routing.textContent=target?'Type @ to choose agents · # to add context':'Select a target to chat';}
+  }
+  function updateRelated(force=false){
+    const target=currentTarget();if(!target)return;
+    const selected=input.value.slice(input.selectionStart,input.selectionEnd).trim(),tokens=input.value.trim().split(/\s+/),term=selected||tokens.at(-1)?.replace(/^[@#]/,'')||messageReferenceRows(target).find(r=>r.kind===activeRefs().at(-1)?.kind&&r.id===activeRefs().at(-1)?.id)?.label||'';
+    const result=relatedService.search({term,target,workspace:ctx.store.get()});relatedArea.replaceChildren();
+    if(!result.related.length){if(force)relatedArea.append(el('small',{class:'muted'},'No local match. Select a term or ask @domain for semantic analysis.'));return;}
+    relatedArea.append(el('small',{},'Related · local lookup'),el('div',{class:'agent-tags'},result.related.map(row=>{const token=row.reference?'#'+row.reference.kind+':'+row.reference.id:'#'+row.term.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'-');const action=button(row.term,()=>{input.value=input.value.trim()+' '+token+' ';input.focus();updateContext();},'agent-tag');action.title=row.source+' · local similarity '+row.score.toFixed(2);return action;})));
+  }
+  function completeSuggestions(){
+    closeSuggestions();const target=currentTarget();if(!target)return;
+    const prefix=input.value.slice(0,input.selectionStart),match=prefix.match(/(?:^|\s)([@#])([^\s]*)$/);if(!match)return;
+    const [,type,query]=match,needle=query.toLowerCase();completion={start:prefix.length-query.length-1,end:input.selectionStart};
+    suggestions=type==='@'?messageAgents.filter(([alias,name])=>(alias+' '+name).toLowerCase().includes(needle)).map(([alias,name])=>({token:'@'+alias,label:'@'+alias+' · '+name})):messageReferenceRows(target).filter(r=>(r.kind+':'+r.id+' '+r.label).toLowerCase().includes(needle)).map(r=>({token:'#'+r.kind+':'+r.id,label:'#'+r.kind+' · '+r.label}));
+    suggestions=suggestions.slice(0,type==='@'?messageAgents.length:20);suggestionIndex=0;drawSuggestions();
+  }
+  function drawSuggestions(){
+    if(!suggestions.length){closeSuggestions();return;}
+    list.replaceChildren(...suggestions.map((row,index)=>el('div',{id:'agent-suggestion-'+index,role:'option','aria-selected':index===suggestionIndex?'true':'false',onmousedown:event=>event.preventDefault(),onclick:()=>chooseSuggestion(index)},el('span',{},row.label),row.token.startsWith('@')?el('small',{},messageAgentDomains[row.token.slice(1)]):null)));
+    list.hidden=false;input.setAttribute('aria-expanded','true');input.setAttribute('aria-activedescendant','agent-suggestion-'+suggestionIndex);
+    list.children[suggestionIndex]?.scrollIntoView({block:'nearest'});
+  }
+  function chooseSuggestion(index){if(!completion)return;input.setRangeText(suggestions[index].token+' ',completion.start,completion.end,'end');closeSuggestions();input.focus();updateContext();updateRelated();}
+  input.addEventListener('input',()=>{clearTimeout(timer);completeSuggestions();updateContext();timer=setTimeout(()=>updateRelated(),150);});
+  input.addEventListener('keydown',event=>{
+    if(event.isComposing)return;
+    if((event.ctrlKey||event.metaKey)&&event.key==='Enter'){event.preventDefault();void sendMessage();return;}
+    if(!list.hidden&&['ArrowDown','ArrowUp','Enter','Escape'].includes(event.key)){event.preventDefault();event.stopPropagation();if(event.key==='Escape')closeSuggestions();else if(event.key==='Enter')chooseSuggestion(suggestionIndex);else{suggestionIndex=(suggestionIndex+(event.key==='ArrowDown'?1:-1)+suggestions.length)%suggestions.length;drawSuggestions();}}
+    else if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();void sendMessage();}
+  });
+  function renderMessages(){
+    const target=currentTarget(),messages=AgentMessageService.list(target);if(!messages.length)historyOffset=0;
+    const end=Math.max(0,messages.length-historyOffset),start=Math.max(0,end-20),key=target?.id+':'+messages.length+':'+historyOffset+':'+messages.at(-1)?.id+':'+target?.agentResearch.revision+':'+ctx.agentMessageBusy?.agentId+':'+paused;
+    if(key===conversationKey)return;conversationKey=key;
+    const bottom=conversation.scrollHeight-conversation.scrollTop-conversation.clientHeight<80;conversation.replaceChildren();
+    if(start>0)conversation.append(button('Earlier messages ('+start+')',()=>{historyOffset+=20;conversationKey='';renderMessages();}));
+    if(!messages.length)conversation.append(el('p',{class:'muted'},'Ask about a selected record. Analysis stays here; proposals go to Review Queue.'));
+    for(const row of messages.slice(start,end)){
+      const answer=row.answer,name=row.sender==='researcher'?'You':chatAgentName(row.agent),card=el('article',{class:'agent-message '+(row.sender==='researcher'?'agent-question':'agent-answer'),'data-agent':row.agent,'data-run':row.runId||''},el('div',{class:'agent-bubble-header'},el('span',{class:'agent-avatar','aria-hidden':'true'},name.split(/\s+/).map(word=>word[0]).slice(0,2).join('')),el('strong',{},name),el('time',{datetime:row.timestamp},new Date(row.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))));
+      if(row.model)card.append(el('small',{class:'agent-bubble-model'},row.model));
+      if(row.sender==='researcher'&&row.members?.length)card.append(el('small',{class:'agent-bubble-model'},'To '+row.members.map(chatAgentName).join(' + ')));
+      if(answer){card.append(el('p',{class:'agent-answer-summary'},answer.finding));
+        if(row.proposalIds?.length){const pending=row.proposalIds.filter(id=>target.agentResearch.reviewQueue.some(p=>p.id===id&&p.status==='PROPOSED'&&!p.stale));card.append(button(pending.length?'Review ('+pending.length+')':'View review',openReview,pending.length?'primary':''));}
+        if(answer.details)card.append(el('details',{},el('summary',{},'Expand analysis'),el('small',{class:'agent-priority'},answer.priority),el('p',{class:'agent-expanded'},answer.details),el('dl',{},el('dt',{},'Reason'),el('dd',{},answer.reason),el('dt',{},'Evidence'),el('dd',{},answer.evidenceIds.length?answer.evidenceIds.map(id=>button(messageReferenceRows(target).find(r=>r.kind==='evidence'&&r.id===id)?.label||id,()=>select({kind:'evidence',id}))):'Not supplied / insufficient'),el('dt',{},'Risk'),el('dd',{},answer.risk),el('dt',{},'Next'),el('dd',{},answer.nextStep))));
+        const tags=[...new Set(answer.details.match(/#[a-z][\w-]{1,30}/gi)||[])].slice(0,4);if(tags.length)card.append(el('div',{class:'agent-tags'},tags.map(tag=>button(tag,()=>{input.value=input.value.trim()+' '+tag+' ';input.focus();updateContext();},'agent-tag'))));
+      }else card.append(el('p',{},row.message));
+      if(row.attachments?.length)card.append(el('div',{class:'agent-message-files'},row.attachments.map(file=>el('details',{},el('summary',{},'+ '+file.name+' · '+Math.ceil(file.size/1024)+' KB'),el('pre',{},file.preview)))));
+      if(['error','paused'].includes(row.status)&&row.sender==='agent')card.append(button('Retry',()=>{const question=messages.findLast(m=>m.sender==='researcher'&&(!row.runId||m.runId===row.runId)),retryModel=question?.model||row.model||lastModel;input.value=question?.message||lastDraft;attachments=question?.runId&&question.runId===lastRunId?[...lastFiles]:[];if(aiConnection.models.includes(retryModel))modelSelect.value=retryModel;renderAttachments();if(question?.attachments?.length&&!attachments.length)feedback.textContent='Reattach the original files before retrying; conversation stores previews only.';input.focus();updateContext();}));
+      const detail=el('details',{},el('summary',{},'View details'),el('small',{},new Date(row.timestamp).toLocaleString()),el('small',{},row.contextRefs.map(r=>'#'+r.kind+':'+r.id).join(' ')||'Target/page context'));card.append(detail);conversation.append(card);
+    }
+    if(historyOffset>0)conversation.append(button('Newer messages',()=>{historyOffset=Math.max(0,historyOffset-20);conversationKey='';renderMessages();}));
+    if(ctx.agentMessageBusy&&target&&ctx.agentMessageBusy.targetId===target.id&&!historyOffset)conversation.append(el('div',{class:'agent-thinking',role:'status'},chatAgentName(ctx.agentMessageBusy.agentId)+(paused?' · Paused':' is responding…')));
+    if(bottom)conversation.scrollTop=conversation.scrollHeight;
+  }
+  function cancelMessage(reason){
+    if(!ctx.agentMessageBusy)return;paused=true;controller?.abort();void agentPost('/api/agent/pause',{runId:ctx.agentMessageBusy.runId}).catch(()=>{});feedback.textContent=reason;
+  }
+  async function sendMessage(){
+    if(ctx.store.isReadOnly()||readingFiles||modelsLoading)return;
+    const target=currentTarget();if(!target||!enabled||ctx.agentBusy||ctx.agentMessageBusy||!input.value.trim()){feedback.textContent=ctx.agentBusy||ctx.agentMessageBusy?'An analysis is already running.':'Select a target and enter a message.';return;}
+    if(!aiConnection.agentic.configured){feedback.textContent='Provider not configured. Local lookup and manual research remain available.';return;}
+    let parsed,selected;
+    try{parsed=parseMessageTags(input.value,target);selected=builder.build({workspace:ctx.store.get(),target,page:ctx.route,contextRefs:activeRefs(),message:input.value,recentMessages:AgentMessageService.list(target),summary:target.agentResearch.conversationSummary?.text||''});}catch(error){feedback.textContent=error.message;return;}
+    const text=SecretRedactor.redact(input.value.trim()),refs=activeRefs(),revision=target.researchRevision,runId=uuid(),team=planMessageAgents({...parsed,text},refs),agentId=team[0],model=modelSelect.value||aiConnection.model,files=[...attachments],originalTarget=target;
+    try{validateMessageAttachments(files);}catch(error){feedback.textContent=error.message;return;}
+    if(AgentMessageService.list(target).length>999-team.length){feedback.textContent='Conversation full. Export and Clear conversation before sending.';return;}
+    historyOffset=0;try{AgentMessageService.append(ctx.store,target,{sender:'researcher',agent:agentId,runId,model,members:team,attachments:files.map(attachmentMetadata),message:text,contextRefs:refs,tags:parsed.tags});}catch(error){feedback.textContent=error.message;return;}
+    lastDraft=text;lastFiles=files;lastModel=model;lastRunId=runId;attachments=[];renderAttachments();input.value='';relatedArea.replaceChildren();closeSuggestions();lastError='';paused=false;controller=new AbortController();ctx.agentMessageBusy={runId,targetId:target.id,revision,agentId};sync();feedback.textContent='Team · '+team.map(chatAgentName).join(' + ');
+    let polling=false;progressTimer=setInterval(async()=>{if(polling||!ctx.agentMessageBusy||paused)return;polling=true;try{const progress=await agentPost('/api/agent/status',{runId},5000);if(ctx.agentMessageBusy?.runId===runId&&progress.research?.currentStage){ctx.agentMessageBusy.agentId=progress.research.currentStage;sync();}}catch{}finally{polling=false;}},1200);
+    const unsubscribe=ctx.store.subscribe(()=>{const live=ctx.store.target(target.id);if(!live||live!==originalTarget||live.researchRevision!==revision||ctx.targetId!==target.id)cancelMessage('Context changed; analysis cancelled.');});
+    try{
+      const result=await agentPost('/api/agent/message',{runId,context:selected.context,message:{text,agent:parsed.agent,...(parsed.agents?{agents:parsed.agents}:{}),...(parsed.routing?{routing:parsed.routing}:{}),model,attachments:files,contextRefs:refs,tags:parsed.tags},inventory:ctx.store.get().toolInventory,privacyMode:aiConnection.privacyMode,memory:selected.memory,researchState:selected.researchState},260000,controller.signal);
+      const live=ctx.store.target(target.id);if(paused||controller.signal.aborted||live!==target||live.researchRevision!==revision||ctx.targetId!==target.id)return;
+      const replies=result.replies||[result],research=structuredClone(live.agentResearch);research.reviewQueue.push(...result.proposals);research.history.push(...replies.map(reply=>reply.history));research.runs.push(result.run);research.revision++;
+      if(result.proposals.length){research.state='WAITING_REVIEW';research.reason='Agent message proposals need researcher review.';}
+      ctx.store.updateResearch(live.id,research);
+      for(const reply of replies)AgentMessageService.append(ctx.store,live,{sender:'agent',agent:reply.agentId,runId,model:reply.model||model,message:reply.answer.finding,answer:reply.answer,status:reply.status==='ERROR'?'error':reply.status==='PAUSED'?'paused':'completed',contextRefs:refs,tags:parsed.tags,proposalIds:reply.proposals.map(p=>p.id)});
+      lastError=result.status==='ERROR'?replies.find(reply=>reply.status==='ERROR')?.answer.finding||'Analysis failed.':'';feedback.textContent=result.status==='PAUSED'?replies.at(-1).answer.finding:result.proposals.length?'Needs your review.':replies.at(-1).answer.nextStep;
+    }catch{void agentPost('/api/agent/pause',{runId}).catch(()=>{});lastError=paused?'':'Analysis failed. Retry after checking provider settings.';const live=ctx.store.target(target.id);if(live===target&&live.researchRevision===revision)AgentMessageService.append(ctx.store,live,{sender:'agent',agent:agentId,runId,model,message:paused?'Analysis paused.':lastError,status:paused?'paused':'error',contextRefs:refs,tags:parsed.tags});feedback.textContent=paused?'Paused. You can continue manual research.':lastError;}
+    finally{clearInterval(progressTimer);unsubscribe();ctx.agentMessageBusy=null;controller=null;sync();}
+  }
+  function drawerState(){
+    const modal=enabled&&mode==='open'&&mobile.matches;overlay.hidden=!modal;document.body.classList.toggle('agent-drawer-open',modal);
+    for(const node of document.querySelectorAll('.sidebar,.main-shell'))node.inert=modal;
+    if(modal){panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');}else{panel.removeAttribute('role');panel.removeAttribute('aria-modal');}
+  }
+  function setMode(next){const hadFocus=panel.contains(document.activeElement);mode=next;try{localStorage.setItem('research-agent-panel',mode);}catch{}closeSuggestions();sync();if(mode==='open')input.focus();else if(hadFocus)launcher.focus();}
+  function select(ref){ctx.agentSelection={...ref,targetId:ctx.targetId,page:ctx.route};removed.clear();fingerprint='';setMode('open');}
+  function sync(){
+    enabled=aiConnection.enabled&&aiConnection.agentic.enabled;
+    document.body.classList.toggle('agent-messages-enabled',enabled);document.body.classList.toggle('agent-panel-open',enabled&&mode==='open');document.body.classList.toggle('agent-panel-closed',enabled&&mode==='closed');
+    launcher.hidden=!enabled||mode==='open';launcher.setAttribute('aria-expanded',String(enabled&&mode==='open'));panel.hidden=!enabled||mode!=='open';drawerState();if(!enabled){cancelMessage('Agentic disabled.');return;}
+    const target=currentTarget();if(targetKey!==ctx.targetId){if(ctx.agentMessageBusy)cancelMessage('Target changed; analysis cancelled.');targetKey=ctx.targetId;input.value='';attachments=[];lastFiles=[];lastDraft='';lastModel='';lastRunId='';renderAttachments();relatedArea.replaceChildren();historyOffset=0;removed.clear();lastError='';feedback.textContent='';fingerprint='';closeSuggestions();}
+    const selection=ctx.agentSelection?.targetId===ctx.targetId&&ctx.agentSelection.page===ctx.route?ctx.agentSelection:null,kind=pageContextKinds[ctx.route],candidates=messageReferenceRows(target).filter(r=>r.kind===kind);
+    const auto=selection&&messageReferenceRows(target).some(r=>r.kind===selection.kind&&r.id===selection.id)?selection:ctx.route==='reports'&&ctx.reportFindingId?{kind:'report',id:ctx.reportFindingId}:candidates.length===1?candidates[0]:null;
+    const nextFingerprint=ctx.targetId+':'+ctx.route+':'+auto?.kind+':'+auto?.id;
+    if(fingerprint!==nextFingerprint){if(fingerprint&&ctx.agentMessageBusy)cancelMessage('Selected page/context changed; analysis cancelled.');fingerprint=nextFingerprint;removed.clear();autoRefs=auto?[{kind:auto.kind,id:auto.id}]:target?[{kind:'target',id:target.id}]:[];closeSuggestions();}
+    const research=target?.agentResearch,lastMessage=AgentMessageService.list(target).findLast(m=>m.sender==='agent'),busy=ctx.agentMessageBusy||ctx.agentBusy,currentId=ctx.agentMessageBusy?.agentId||ctx.agentPreview?.currentStage||lastMessage?.agent||research?.currentStage;
+    const waiting=research?.pendingActions.some(a=>a.status==='PROPOSED')?'Waiting Approval':research?.reviewQueue.some(p=>p.status==='PROPOSED'&&!p.stale)?'Waiting Review':'';
+    agentName.textContent=chatAgentName(currentId);task.textContent=busy?'Analyzing selected research context':!waiting&&lastMessage?.proposalIds?.length?'Review complete. Continue manual research or ask a follow-up.':lastMessage?.answer?.nextStep||research?.currentTask||'General + specialists · Ask or mention an agent';status.textContent=busy?(paused?'Paused':ctx.agentMessageBusy?'Thinking':'Researching'):lastError||lastMessage?.status==='error'?'Error':waiting||({completed:'Completed',paused:'Paused'})[lastMessage?.status]||panelStatusLabels[research?.state]||'Idle';
+    updateModels();send.disabled=!!busy||!target||readingFiles||modelsLoading||ctx.store.isReadOnly()||!aiConnection.agentic.configured;pause.hidden=!ctx.agentMessageBusy;
+    addFiles.disabled=!!busy||!target||readingFiles||ctx.store.isReadOnly();modelSelect.disabled=!!busy||modelsLoading||!aiConnection.agentic.configured;refreshModels.disabled=!!busy||modelsLoading||!aiConnection.agentic.configured;
+    updateContext();renderMessages();
+    if(!aiConnection.agentic.configured)feedback.textContent='Provider not configured. Local lookup and manual research are available.';
+  }
+  function commandPalette(){
+    if(!enabled||document.querySelector('dialog[open]'))return;
+    const query=el('input',{type:'search','aria-label':'Search agent commands',placeholder:'Agent or workspace record…'}),results=el('div',{class:'agent-command-results'}),close=iconButton('Close commands','x',()=>dialog.close()),dialog=el('dialog',{class:'agent-command-palette','aria-label':'Agent commands'},el('div',{class:'record-header'},el('h2',{},'Research commands'),close),query,results),previous=document.activeElement;
+    const all=[{label:'Open Agent Message',run:()=>setMode('open')},{label:'Review Queue',run:openReview},...messageAgents.map(([alias,name])=>({label:'@'+alias+' · '+name,run:()=>{setMode('open');input.value='@'+alias+' ';input.focus();}})),...messageReferenceRows(currentTarget()).map(ref=>({label:'#'+ref.kind+' · '+ref.label,run:()=>select(ref)}))];
+    const draw=()=>{results.replaceChildren(...all.filter(row=>row.label.toLowerCase().includes(query.value.toLowerCase())).slice(0,10).map(row=>button(row.label,()=>{dialog.close();row.run();})));};
+    query.addEventListener('input',draw);query.addEventListener('keydown',event=>{if(event.key==='ArrowDown'){event.preventDefault();results.querySelector('button')?.focus();}if(event.key==='Enter'){event.preventDefault();results.querySelector('button')?.click();}});results.addEventListener('keydown',event=>{if(['ArrowDown','ArrowUp'].includes(event.key)){event.preventDefault();const rows=[...results.querySelectorAll('button')],index=rows.indexOf(document.activeElement);rows[(index+(event.key==='ArrowDown'?1:-1)+rows.length)%rows.length]?.focus();}});
+    dialog.addEventListener('close',()=>{dialog.remove();if(document.activeElement===document.body)previous?.focus();});document.body.append(dialog);draw();dialog.showModal();query.focus();
+  }
+  document.addEventListener('keydown',event=>{
+    if(!enabled||document.querySelector('dialog[open]'))return;
+    if((event.ctrlKey||event.metaKey)&&!event.altKey&&event.key.toLowerCase()==='k'&&!event.target.isContentEditable&&(!event.target.matches('input,textarea,select')||event.target===input)){event.preventDefault();commandPalette();return;}
+    if(event.key==='Escape'&&mode==='open'){event.preventDefault();if(!list.hidden)closeSuggestions();else setMode('collapsed');}
+    if(event.key==='Tab'&&mode==='open'&&mobile.matches){const nodes=[...panel.querySelectorAll('button,input,textarea,select,summary,a')].filter(n=>!n.disabled&&n.getClientRects().length),first=nodes[0],last=nodes.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}
+  });
+  mobile.addEventListener('change',drawerState);
+  ctx.store.subscribe(()=>{if(enabled)sync();});
+  return {sync,select,open:()=>setMode('open')};
 }
 
 // SOURCE: modules/scope
@@ -11804,6 +12777,7 @@ const scopeFields=[['inScope','In Scope','textarea'],['outOfScope','Out of Scope
 const guards=[['inScope','Target confirmed in-scope'],['account','Testing account authorized'],['data','Testing data owned'],['automation','Automation rules understood'],['rateLimits','Rate limits understood'],['destructive','Restrictions reviewed / destructive testing understood'],['knownIssues','Known issues reviewed']];
 function renderScope(ctx,target) {
   const root=el('div',{},ctx.heading('Scope & Engagement Guard','Catat batas engagement sebelum menjalankan pengujian manual.'));
+  if(target.researchEnvironment)root.append(el('p',{class:'notice'},'Structured rules pada Research Environment menjadi source of truth untuk target ini. Unknown tidak mengizinkan automation; checkbox legacy di bawah tidak mengganti structured rules.'),el('a',{href:'#research-environment'},'Review Research Environment Rules'));
   const checks=el('div',{class:'checklist'});
   for(const [key,label] of guards) {const input=el('input',{type:'checkbox','aria-label':label});input.checked=!!target.scope.guard?.[key];input.addEventListener('change',()=>ctx.store.updateTarget(target.id,{scope:{...target.scope,guard:{...target.scope.guard,[key]:input.checked}}}));checks.append(el('label',{},input,label));}
   root.append(panel('Engagement Guard',ctx.help('engagement-guard'),el('p',{class:'muted'},'Checklist dokumentasi manual. Catatan ini tidak memvalidasi target secara otomatis.'),checks));
@@ -11829,7 +12803,7 @@ function renderAttackSurface(ctx,target) {
     const section=panel(title,button('+ Tambah',()=>edit(),'primary'));
     if(collection==='actors')section.append(el('p',{class:'muted'},'Peran umum: Anonymous, User, Viewer, Member, Editor, Admin, Owner, Service Account. Nama custom juga didukung.'));
     if(!target[collection].length)section.append(empty());
-    for(const row of target[collection])section.append(el('div',{class:collection==='boundaries'?'boundary':'record'},collection==='boundaries'?el('div',{},el('strong',{},row.from),el('span',{class:'arrow'},' → '),el('strong',{},row.to)):el('h3',{},row.name),el('div',{},el('div',{class:'badges'},[row.type,row.trust,row.state,row.authority,row.sensitivity].filter(Boolean).map(badge)),row.owner?el('p',{},'Owner: '+row.owner):null,row.tenant?el('p',{},'Tenant: '+row.tenant):null,el('p',{class:'muted'},row.notes||''),el('div',{class:'actions'},button('Edit',()=>edit(row)),button('Hapus',()=>{if(confirm('Hapus catatan ini?')){ctx.store.remove(target.id,collection,row.id);ctx.render();}},'danger')))));
+    for(const row of target[collection])section.append(el('div',{class:collection==='boundaries'?'boundary':'record','data-agent-kind':({actors:'actor',objects:'object',boundaries:'boundary'})[collection],'data-agent-id':row.id},collection==='boundaries'?el('div',{},el('strong',{},row.from),el('span',{class:'arrow'},' → '),el('strong',{},row.to)):el('h3',{},row.name),el('div',{},el('div',{class:'badges'},[row.type,row.trust,row.state,row.authority,row.sensitivity].filter(Boolean).map(badge)),row.owner?el('p',{},'Owner: '+row.owner):null,row.tenant?el('p',{},'Tenant: '+row.tenant):null,el('p',{class:'muted'},row.notes||''),el('div',{class:'actions'},button('Edit',()=>edit(row)),button('Hapus',()=>{if(confirm('Hapus catatan ini?')){ctx.store.remove(target.id,collection,row.id);ctx.render();}},'danger')))));
     if(collection==='boundaries')for(const row of target.boundaries)if(row.channel)section.append(el('p',{class:'muted'},row.from+' → '+row.to+' · Channel: '+row.channel));
     grid.append(section);
   }
@@ -11856,7 +12830,7 @@ function renderTechniques(ctx,target) {
     const toggles=el('div',{class:'actions'});
     for(const [key,label] of [['enabled','Enabled'],['tested','Tested'],['interesting','Interesting']]) {const input=el('input',{type:'checkbox','aria-label':label+' '+row.name});input.checked=!!row[key];input.addEventListener('change',()=>{ctx.store.upsert(target.id,'techniques',{id:row.id,[key]:input.checked});ctx.render();});toggles.append(el('label',{class:'actions'},input,label));}
     const detail=el('details',{class:'technique-details'},el('summary',{},'Invariant / hypothesis / test / signals / false positives / stop'),ctx.help(row.libraryId||'technique-library'),el('dl',{class:'details'},['securityInvariant','hypothesisTemplate','testTemplate','signals','falsePositiveIndicators','stopCondition','notes'].map(key=>[el('dt',{},({securityInvariant:'Security Invariant',hypothesisTemplate:'Hypothesis',testTemplate:'Test',signals:'Signal',falsePositiveIndicators:'False Positive Indicators',stopCondition:'Stop Condition',notes:'Notes'})[key]),el('dd',{},Array.isArray(row[key])?row[key].join('\n'):row[key]||'—')])));
-    root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
+    root.append(el('article',{class:'record','data-agent-kind':'technique','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
   }
   return root;
 }
@@ -11865,11 +12839,12 @@ function renderTechniques(ctx,target) {
 
 
 
+
 const hypothesisStatuses=['idea','planned','testing','interesting','confirmed','rejected','duplicate','out-of-scope'];
 const queueStages=['Backlog','Next','Testing','Interesting','Done'];
 const techniqueOptions=target=>[['','— Pilih technique —'],...target.techniques.map(t=>[t.id,t.name])];
 function editHypothesis(ctx,target,row,defaults={}) {
-  const fields=[['title','Title','required'],['techniqueId','Technique','select',techniqueOptions(target)],['invariant','Security Invariant','textarea'],['expectedBehavior','Expected Behavior','textarea'],['potentialFailure','Potential Failure / Hypothesis','textarea'],...formulaFields(target),['priority','Priority','select',['high','medium','low']],['confidence','Confidence','select',['low','medium','high']],['status','Status','select',hypothesisStatuses],['queue','Research Queue','select',queueStages],['notes','Notes','textarea']];
+  const fields=[['authProfileId','Authentication Context','select',authenticationOptions(target)],['title','Title','required'],['techniqueId','Technique','select',techniqueOptions(target)],['invariant','Security Invariant','textarea'],['expectedBehavior','Expected Behavior','textarea'],['potentialFailure','Potential Failure / Hypothesis','textarea'],...formulaFields(target),['priority','Priority','select',['high','medium','low']],['confidence','Confidence','select',['low','medium','high']],['status','Status','select',hypothesisStatuses],['queue','Research Queue','select',queueStages],['notes','Notes','textarea']];
   editDialog(row?'Edit Hypothesis':'Create Hypothesis',fields,{priority:'medium',confidence:'low',status:'idea',queue:'Backlog',...defaults,...row},values=>{ctx.store.upsert(target.id,'hypotheses',{...(defaults.knowledgeLinks?{knowledgeLinks:defaults.knowledgeLinks}:{}),...row,...values});ctx.render();},form=>formulaSuggestions(form,target));
 }
 function researchFilters(ctx,target,key,statuses,extra=[]) {
@@ -11888,7 +12863,7 @@ function renderHypotheses(ctx,target) {
   }
   root.append(queue);
   if(!rows.length)root.append(empty());
-  for(const row of rows)root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Buat Test Case',()=>editTest(ctx,target,null,row),'primary'),button('Edit',()=>editHypothesis(ctx,target,row)),ctx.deleteButton(target,'hypotheses',row))),el('div',{class:'badges'},badge(row.status),badge('Priority: '+row.priority),badge('Confidence: '+row.confidence),badge(target.techniques.find(t=>t.id===row.techniqueId)?.name||'Tanpa technique')),formulaView(row),el('dl',{class:'details'},el('dt',{},'Invariant'),el('dd',{},row.invariant||'—'),el('dt',{},'Expected Behavior'),el('dd',{},row.expectedBehavior||'—'),el('dt',{},'Potential Failure · dugaan'),el('dd',{},row.potentialFailure||'—'),el('dt',{},'Notes'),el('dd',{},row.notes||'—'))));
+  for(const row of rows)root.append(el('article',{class:'record','data-agent-kind':'hypothesis','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Buat Test Case',()=>editTest(ctx,target,null,row),'primary'),button('Edit',()=>editHypothesis(ctx,target,row)),ctx.deleteButton(target,'hypotheses',row))),el('div',{class:'badges'},badge(row.status),badge('Priority: '+row.priority),badge('Confidence: '+row.confidence),badge(target.techniques.find(t=>t.id===row.techniqueId)?.name||'Tanpa technique')),formulaView(row),el('dl',{class:'details'},el('dt',{},'Invariant'),el('dd',{},row.invariant||'—'),el('dt',{},'Expected Behavior'),el('dd',{},row.expectedBehavior||'—'),el('dt',{},'Potential Failure · dugaan'),el('dd',{},row.potentialFailure||'—'),el('dt',{},'Notes'),el('dd',{},row.notes||'—'))));
   return root;
 }
 
@@ -11898,20 +12873,21 @@ function renderHypotheses(ctx,target) {
 
 
 
+
 const resultOptions=[['not-tested','NOT TESTED'],['passed','PASS · kontrol bekerja'],['failed','FAIL · invariant gagal'],['interesting','INCONCLUSIVE · perlu investigasi'],['vulnerability','VULNERABILITY · hasil dikonfirmasi peneliti']];
 const resultLabel=value=>resultOptions.find(r=>r[0]===value)?.[1]||value;
 function editTest(ctx,target,row,hypothesis) {
-  const fields=[['title','Title','required'],['hypothesisId','Hypothesis','select',[['','— Tanpa hypothesis —'],...target.hypotheses.map(h=>[h.id,h.title])]],['techniqueId','Technique','select',techniqueOptions(target)],['preconditions','Preconditions','textarea'],['steps','Steps (satu langkah per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],...formulaFields(target),['requestNotes','Request Notes','textarea'],['responseNotes','Response Notes','textarea'],['result','Security Control','select',resultOptions],['timestamp','Timestamp (ISO / catatan waktu)']];
+  const fields=[['authProfileId','Authentication Context','select',authenticationOptions(target)],['title','Title','required'],['hypothesisId','Hypothesis','select',[['','— Tanpa hypothesis —'],...target.hypotheses.map(h=>[h.id,h.title])]],['techniqueId','Technique','select',techniqueOptions(target)],['preconditions','Preconditions','textarea'],['steps','Steps (satu langkah per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],...formulaFields(target),['requestNotes','Request Notes','textarea'],['responseNotes','Response Notes','textarea'],['result','Security Control','select',resultOptions],['timestamp','Timestamp (ISO / catatan waktu)']];
   const defaults={result:'not-tested',timestamp:now()};
   fields.push(['boundaryId','Trust Boundary','select',[['','— Tanpa boundary —'],...target.boundaries.map(b=>[b.id,b.from+' → '+b.to])]],['notes','Research Notes','textarea']);
-  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
+  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId','authProfileId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
   editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);});
 }
 function renderTests(ctx,target) {
   const root=el('div',{},ctx.heading('Test Cases','Catat langkah dan hasil pengujian manual. FAIL berarti security invariant gagal.',button('+ Create Test Case',()=>editTest(ctx,target),'primary')));
   root.append(ctx.filters('tests',[['techniqueId','Technique',target.techniques.map(t=>[t.id,t.name])],['result','Security Control',resultOptions],['who','Actor',target.actors.map(a=>a.name)],['object','Object',target.objects.map(o=>o.name)]]));
   const rows=ctx.filtered(target.testCases,'tests');if(!rows.length)root.append(empty());
-  for(const row of rows)root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Attach Evidence',()=>editEvidence(ctx,target,null,{testCaseId:row.id})),button('Promote to Finding',()=>promoteTest(ctx,target,row),'primary'),button('Edit',()=>editTest(ctx,target,row)),ctx.deleteButton(target,'testCases',row))),el('div',{class:'badges'},badge(resultLabel(row.result)),badge(dateLabel(row.timestamp)),badge(target.hypotheses.find(h=>h.id===row.hypothesisId)?.title||'Tanpa hypothesis')),formulaView(row),el('details',{class:'technique-details'},el('summary',{},'Langkah, hasil, dan evidence'),el('dl',{class:'details'},['preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes'].map(key=>[el('dt',{},({preconditions:'Preconditions',steps:'Steps',expectedResult:'Expected Result',actualResult:'Actual Result',requestNotes:'Request Notes',responseNotes:'Response Notes'})[key]),el('dd',{},row[key]||'—')])),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence'))))));
+  for(const row of rows)root.append(el('article',{class:'record','data-agent-kind':'test','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Attach Evidence',()=>editEvidence(ctx,target,null,{testCaseId:row.id})),button('Promote to Finding',()=>promoteTest(ctx,target,row),'primary'),button('Edit',()=>editTest(ctx,target,row)),ctx.deleteButton(target,'testCases',row))),el('div',{class:'badges'},badge(resultLabel(row.result)),badge(dateLabel(row.timestamp)),badge(target.hypotheses.find(h=>h.id===row.hypothesisId)?.title||'Tanpa hypothesis')),formulaView(row),el('details',{class:'technique-details'},el('summary',{},'Langkah, hasil, dan evidence'),el('dl',{class:'details'},['preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes'].map(key=>[el('dt',{},({preconditions:'Preconditions',steps:'Steps',expectedResult:'Expected Result',actualResult:'Actual Result',requestNotes:'Request Notes',responseNotes:'Response Notes'})[key]),el('dd',{},row[key]||'—')])),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence'))))));
   return root;
 }
 
@@ -11951,7 +12927,7 @@ function editEvidence(ctx,target,row,defaults={}) {
 function renderEvidence(ctx,target) {
   const root=el('div',{},ctx.heading('Evidence','Metadata file dan teks observasi yang mendukung hasil riset.',button('+ Attach Evidence',()=>editEvidence(ctx,target),'primary')),el('div',{class:'notice'},'Periksa redaksi secrets dan data pribadi. Workspace JSON memuat teks evidence; file screenshot/video hanya direferensikan lewat path.'));
   if(!target.evidence.length)root.append(empty());
-  for(const row of target.evidence)root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},row.label),el('div',{class:'actions'},button('Edit',()=>editEvidence(ctx,target,row)),ctx.deleteButton(target,'evidence',row))),badge(row.type),el('p',{class:'muted'},row.path||''),el('p',{},row.description||''),el('pre',{},row.content||'')));
+  for(const row of target.evidence)root.append(el('article',{class:'record','data-agent-kind':'evidence','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.label),el('div',{class:'actions'},button('Edit',()=>editEvidence(ctx,target,row)),ctx.deleteButton(target,'evidence',row))),badge(row.type),el('p',{class:'muted'},row.path||''),el('p',{},row.description||''),el('pre',{},row.content||'')));
   return root;
 }
 
@@ -12055,11 +13031,13 @@ function renderFindings(ctx,target) {
   const root=el('div',{},ctx.heading('Findings','Temuan yang dapat ditinjau, dilengkapi evidence, lalu disusun menjadi laporan.',button('+ Create Finding',()=>editFinding(ctx,target),'primary')));
   root.append(researchFilters(ctx,target,'findings',findingStatuses,[['severity','Severity',severities]]));
   const rows=ctx.filtered(target.findings,'findings');if(!rows.length)root.append(empty());
-  for(const row of rows)root.append(el('article',{class:'record'},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Generate Report',()=>{ctx.reportFindingId=row.id;routeTo('reports');},'primary'),button('Attach Evidence',()=>editEvidence(ctx,target,null,{findingId:row.id})),button('Edit',()=>editFinding(ctx,target,row)),ctx.deleteButton(target,'findings',row))),el('div',{class:'badges'},badge(row.status),badge('Researcher Estimate: '+row.severity),badge(row.vulnerabilityClass||'Belum diklasifikasi')),el('dl',{class:'details'},el('dt',{},'Unauthorized Outcome'),el('dd',{},row.unauthorizedOutcome||'—'),el('dt',{},'Impact'),el('dd',{},row.impact||'Belum dicatat'),el('dt',{},'Root Cause · hipotesis'),el('dd',{},row.rootCause||'Belum dicatat')),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence')))));
+  for(const row of rows)root.append(el('article',{class:'record','data-agent-kind':'finding','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Generate Report',()=>{ctx.reportFindingId=row.id;routeTo('reports');},'primary'),button('Attach Evidence',()=>editEvidence(ctx,target,null,{findingId:row.id})),button('Edit',()=>editFinding(ctx,target,row)),ctx.deleteButton(target,'findings',row))),el('div',{class:'badges'},badge(row.status),badge('Researcher Estimate: '+row.severity),badge(row.vulnerabilityClass||'Belum diklasifikasi')),el('dl',{class:'details'},el('dt',{},'Unauthorized Outcome'),el('dd',{},row.unauthorizedOutcome||'—'),el('dt',{},'Impact'),el('dd',{},row.impact||'Belum dicatat'),el('dt',{},'Root Cause · hipotesis'),el('dd',{},row.rootCause||'Belum dicatat')),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence')))));
   return root;
 }
 
 // SOURCE: modules/reports
+
+
 
 
 function renderReports(ctx,target) {
@@ -12071,10 +13049,170 @@ function renderReports(ctx,target) {
   editor.value=finding.reportMarkdown??generateIndonesianReport(target,finding);
   const preview=el('div');let previewTimer;
   const updatePreview=()=>preview.replaceChildren(markdownPreview(editor.value));updatePreview();
-  editor.addEventListener('input',()=>{ctx.store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:editor.value});clearTimeout(previewTimer);previewTimer=setTimeout(updatePreview,150);});
-  const controls=el('div',{class:'report-controls panel'},select,el('div',{class:'actions'},button('Generate Report',()=>{if(finding.reportMarkdown!==undefined&&!confirm('Ganti draft yang diedit dengan template terbaru dari finding?'))return;editor.value=generateIndonesianReport(target,finding);ctx.store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:editor.value});updatePreview();},'primary'),button('Copy Markdown',async()=>{try {if(navigator.clipboard && window.isSecureContext)await navigator.clipboard.writeText(editor.value);else {editor.focus();editor.select();if(!document.execCommand('copy'))throw new Error('Silakan pilih dan salin teks laporan secara manual.');}ctx.toast('Markdown disalin.');}catch(error){ctx.toast(error.message);}}),button('Download .md',()=>download('report.md',editor.value,'text/markdown')),button('Download .txt',()=>download('report.txt',editor.value)),button('Download .html',()=>download('report.html','<!doctype html><html lang="id"><meta charset="utf-8"><title>'+escapeHTML(finding.title)+'</title><body><pre style="white-space:pre-wrap;font:16px/1.6 system-ui;max-width:900px;margin:40px auto">'+escapeHTML(editor.value)+'</pre></body></html>','text/html')),button('Print',()=>{updatePreview();window.print();})));
+  const sourceStatus=el('p',{role:'status'}),isStale=()=>finding.reportMarkdown!==undefined&&finding.reportSourceFingerprint!==reportSourceFingerprint(target,finding);
+  const updateSourceStatus=()=>{sourceStatus.className=isStale()?'notice':'muted';sourceStatus.textContent=isStale()?'Draft stale / source unreviewed. Finding, target, technique, or evidence changed; regenerate or review sources before sharing.':'Draft follows the reviewed source version.';};updateSourceStatus();
+  editor.addEventListener('input',()=>{const source=finding.reportMarkdown===undefined?reportSourceFingerprint(target,finding):finding.reportSourceFingerprint;ctx.store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:editor.value,...(source?{reportSourceFingerprint:source}:{})});clearTimeout(previewTimer);previewTimer=setTimeout(updatePreview,150);updateSourceStatus();});
+  const share=async()=>{if(isStale()&&!confirm('Draft sources changed or have not been reviewed. Review this draft before sharing. Continue?'))return null;return reviewForSharing(editor.value,{label:'report sharing'});};
+  const controls=el('div',{class:'report-controls panel'},select,sourceStatus,el('div',{class:'actions'},button('Generate Report',()=>{if(finding.reportMarkdown!==undefined&&!confirm('Ganti draft yang diedit dengan template terbaru dari finding?'))return;editor.value=generateIndonesianReport(target,finding);ctx.store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:editor.value,reportSourceFingerprint:reportSourceFingerprint(target,finding)});updatePreview();updateSourceStatus();},'primary'),button('Mark Sources Reviewed',()=>{ctx.store.upsert(target.id,'findings',{id:finding.id,reportMarkdown:editor.value,reportSourceFingerprint:reportSourceFingerprint(target,finding)});updateSourceStatus();}),button('Copy Markdown',async()=>{try {const text=await share();if(text===null)return;if(navigator.clipboard && window.isSecureContext)await navigator.clipboard.writeText(text);else {const copy=el('textarea',{},text);document.body.append(copy);copy.focus();copy.select();const copied=document.execCommand('copy');copy.remove();if(!copied)throw new Error('Clipboard unavailable; download the redacted Markdown.');}ctx.toast('Markdown disalin.');}catch(error){ctx.toast(error.message);}}),button('Download .md',async()=>{const text=await share();if(text!==null)download('report.md',text,'text/markdown');}),button('Download .txt',async()=>{const text=await share();if(text!==null)download('report.txt',text);}),button('Download .html',async()=>{const text=await share();if(text!==null)download('report.html','<!doctype html><html lang="id"><meta charset="utf-8"><title>'+escapeHTML(prepareShare(finding.title).redacted)+'</title><body><pre style="white-space:pre-wrap;font:16px/1.6 system-ui;max-width:900px;margin:40px auto">'+escapeHTML(text)+'</pre></body></html>','text/html');}),button('Print',async()=>{const text=await share();if(text===null)return;preview.replaceChildren(markdownPreview(text));window.print();updatePreview();})));
   controls.append(el('p',{class:'muted'},'Generate ulang setelah mengubah finding/evidence. Draft yang diedit disimpan otomatis. Pastikan seluruh secrets telah dire­daksi.'));
   root.append(controls,el('div',{class:'report-layout'},editor,preview));return root;
+}
+
+// SOURCE: modules/agent-research
+
+
+
+
+
+
+
+
+
+
+
+const pendingReviews=research=>research.reviewQueue.filter(p=>p.status==='PROPOSED'&&!p.stale);
+function agentViewState(ctx,target){return ctx.agentBusy?.targetId===target.id&&ctx.agentPreview||AgentResearchService.get(target);}
+function agentActionButton(label,handler,disabled=false,className=''){const control=button(label,handler,className);control.disabled=disabled;return control;}
+function agentAvailable(){return !!(aiConnection.enabled&&aiConnection.agentic.enabled&&aiConnection.agentic.configured);}
+async function pauseResearch(ctx){
+  if(!ctx.agentBusy)return;try{await agentPost('/api/agent/pause',{runId:ctx.agentBusy.runId});ctx.toast('Pause diminta; output setelah pause tidak diterapkan.');}catch(error){ctx.toast(error.message);}
+}
+function previewAgentRun(ctx,target){
+  if(ctx.agentBusy||ctx.agentMessageBusy||!agentAvailable()){ctx.toast('Aktifkan AI_ENABLED dan AGENTIC_AI_ENABLED pada backend localhost.');return;}
+  const context=SecretRedactor.context(buildAgentContext(ctx.store.get(),target));
+  const dialog=el('dialog',{class:'editor'},el('h2',{},'Review Agentic Research Context'),el('p',{class:'notice'},'Selected target, capped domain/research data, evidence dan manual analysis. Manual corrections memiliki priority lebih tinggi dari AI inference. Semua context dire­daksi. Agent hanya analysis/planning dan native local adapters; tidak ada target/network execution.'));
+  const form=el('form',{class:'form-grid'});field(form,['agentPrivacy','Privacy Mode','select',['LOCAL_ONLY','REDACTED_CLOUD','CLOUD']],aiConnection.privacyMode);
+  form.append(el('pre',{class:'wide'},JSON.stringify(context,null,2)),el('div',{class:'actions wide'},button('Cancel',()=>dialog.close()),el('button',{type:'submit',class:'primary'},'Start Supervised Research')));
+  form.addEventListener('submit',event=>{event.preventDefault();const privacyMode=form.elements.agentPrivacy.value;if(privacyMode==='LOCAL_ONLY'&&aiConnection.provider!=='ollama'){ctx.toast('LOCAL_ONLY memerlukan Ollama localhost.');return;}dialog.close();void continueAgentRun(ctx,target,context,privacyMode);});
+  dialog.append(form);dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();
+}
+async function continueAgentRun(ctx,target,context,privacyMode){
+  const runId=uuid(),research=compactAgentResearch(AgentResearchService.get(target)),revision=target.researchRevision||0;
+  const payload={runId,context,research,inventory:ctx.store.get().toolInventory,privacyMode};
+  if(new TextEncoder().encode(JSON.stringify(payload)).length>280000){ctx.toast('Selected research payload melebihi 280 KB. Kurangi catatan/evidence panjang sebelum mengirim.');return;}
+  ctx.agentBusy={runId,targetId:target.id,revision};ctx.agentPreview={...research,state:'RUNNING',currentTask:'Planning next research task…'};ctx.render();
+  let polling=false;
+  const poll=setInterval(async()=>{if(polling||!ctx.agentBusy)return;polling=true;try{const status=await agentPost('/api/agent/status',{runId});if(status.research){ctx.agentPreview=status.research;if(['dashboard','research-details','agent-history'].includes(ctx.route))ctx.render();}}catch{}finally{polling=false;}},1000);
+  const unsubscribe=ctx.store.subscribe(()=>{const current=ctx.store.target(target.id);if(!current||current!==target||current.researchRevision!==revision){if(ctx.agentBusy&&!ctx.agentBusy.stale){ctx.agentBusy.stale=true;void agentPost('/api/agent/pause',{runId}).catch(()=>{});}}});
+  try{
+    const response=await agentPost('/api/agent/run',payload,Math.min(600000,(aiConnection.agentic.maxSteps||8)*65000+15000));validateAgentResearch(response.research);
+    const current=ctx.store.target(target.id);
+    if(current&&current===target&&current.researchRevision===revision)AgentResearchService.update(ctx.store,current,mergeAgentResearch(AgentResearchService.get(current),response.research));
+    else if(current){const preserved=structuredClone(AgentResearchService.get(current));preserved.history.push({id:uuid(),agent:'Orchestrator',task:'Context changed',startedAt:now(),completedAt:now(),status:'PAUSED',toolsUsed:[],resultSummary:'Run output discarded because canonical research/manual analysis changed.',researcherDecision:'',estimatedCostUSD:response.research.runs.find(r=>r.id===runId)?.estimatedCostUSD||0});preserved.state='PAUSED';preserved.reason='Context berubah; hasil run ditahan. Continue untuk replan.';AgentResearchService.update(ctx.store,current,preserved);}
+    ctx.toast(response.research.reason);
+  }catch(error){const current=ctx.store.target(target.id);if(current){const research=structuredClone(AgentResearchService.get(current));research.state='PAUSED';research.reason='Run interrupted: '+error.message;AgentResearchService.update(ctx.store,current,research);}ctx.toast(error.message);void agentPost('/api/agent/pause',{runId}).catch(()=>{});}
+  finally{clearInterval(poll);unsubscribe();ctx.agentBusy=null;ctx.agentPreview=null;ctx.render();}
+}
+function researchControls(ctx,target){
+  const research=AgentResearchService.get(target);
+  return el('div',{class:'actions agent-primary'},agentActionButton(research.runs.length?'Continue Research':'Start Research',()=>previewAgentRun(ctx,target),!!(ctx.agentBusy||ctx.agentMessageBusy)||!agentAvailable(),'primary'),button('Review Queue ('+pendingReviews(research).length+')',()=>routeTo('review-queue')),button('Manual Analysis',()=>routeTo('manual-analysis')),ctx.agentBusy?button('Pause Research',()=>pauseResearch(ctx)):null);
+}
+function stageProgress(research){
+  return el('ol',{class:'agent-stage-progress'},agentStages.map(([id,,label])=>el('li',{class:research.completedStages.includes(id)?'complete':research.currentStage===id?'current':''},el('span',{},research.completedStages.includes(id)?'✓':research.currentStage===id?'→':'○'),label)));
+}
+function historyTable(research,limit=30){
+  const root=el('div');
+  for(const row of research.history.slice(-limit).reverse())root.append(el('article',{class:'record'},el('div',{class:'badges'},badge(row.agent),badge(row.status),badge(dateLabel(row.completedAt||row.startedAt))),el('h3',{},row.task),el('p',{},row.resultSummary),el('small',{class:'muted'},'Tools: '+(row.toolsUsed?.join(', ')||'None')+' · Decision: '+(row.researcherDecision||'Pending / not required')+' · Estimated reservation: $'+Number(row.estimatedCostUSD||0).toFixed(4))));
+  if(!research.history.length)root.append(empty('Belum ada activity. History berisi action/result/status/timestamp, tanpa private chain-of-thought.'));return root;
+}
+function renderAgentDashboard(ctx,target){
+  const research=agentViewState(ctx,target),phase=agentStages.find(s=>s[0]===research.currentStage)?.[2]||'Target Created';
+  const root=el('div',{},ctx.heading('Research Dashboard',target.name+' · Agents research. Researcher reviews and decides.'));
+  root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
+  root.append(researchControls(ctx,target));
+  const progress=el('progress',{max:100,value:research.progress,'aria-label':'Research stage progress'});
+  root.append(panel('Research Progress',el('strong',{class:'agent-percent'},research.progress+'%'),progress,el('p',{},'Current Phase: '+phase),el('p',{},'Current Task: '+(research.currentTask||'Ready to start supervised research.')),el('p',{class:'muted'},research.reason),el('div',{class:'badges'},badge(ctx.agentBusy?'Running':research.state),badge('Execution: Supervised'),badge('No target requests')),el('details',{},el('summary',{},'Research stages'),stageProgress(research))));
+  root.append(el('div',{class:'stats'},[['Needs Your Review',pendingReviews(research).length],['Potential Findings',pendingReviews(research).filter(p=>p.kind==='potential-finding').length],['Manual Analysis',research.manualAnalysis.length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length]].map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
+  const nextWork=panel('Next Manual Work',el('p',{class:'muted'},'Agent progress does not replace manual testing or evidence.'));
+  const tasks=[...target.testCases.filter(t=>!t.result||t.result==='not-tested').slice(0,3).map(row=>({row,route:'tests',kind:'Test'})),...target.hypotheses.filter(h=>['Next','Testing'].includes(h.queue)).slice(0,3).map(row=>({row,route:'hypotheses',kind:'Hypothesis'}))];
+  for(const {row,route,kind} of tasks)nextWork.append(button(kind+': '+row.title,()=>{ctx.filterState[route]={query:row.title};routeTo(route);}));
+  if(!tasks.length)nextWork.append(el('p',{},'No pending manual tasks recorded. Add a hypothesis or review coverage gaps.'));
+  nextWork.append(el('div',{class:'badges'},coverageAnalysis(target).coverage.map(g=>badge(g.label+': '+g.covered+' / '+g.total))),button('Review Coverage Gaps',()=>routeTo('coverage')));root.append(nextWork);
+  root.append(panel('Important Discoveries',research.history.length?research.history.slice(-2).map(h=>el('p',{},h.resultSummary.slice(0,500))):el('p',{class:'muted'},'Observations, uncertainty dan draft analisis akan muncul setelah research berjalan.')),panel('System Status',el('p',{},'Agentic AI: '+(agentAvailable()?ctx.agentBusy?'Running':'Ready':'Disabled / Misconfigured')),el('p',{},'Available tools: '+ctx.store.get().toolInventory.filter(t=>t.installed&&t.agentAccess!=='DENIED').length+' / '+ctx.store.get().toolInventory.length),el('p',{},'Today estimated reservations: '+(Number.isFinite(research.dailyEstimatedCostUSD)?'$'+research.dailyEstimatedCostUSD.toFixed(4):'Unknown until a run')),el('small',{class:'muted'},'Stage progress is workflow completion, bukan security coverage. Actual provider billing: Unknown.')));
+  root.append(el('details',{class:'panel'},el('summary',{},'Agent Activity'),historyTable(research,6)),panel('Research Workspace',el('div',{class:'actions'},[['research-details','Research Details'],['evidence','Evidence'],['findings','Findings'],['reports','Reports'],['knowledge','Knowledge'],['tool-inventory','Tool Inventory'],['agent-history','Agent History'],['agentic-settings','Agentic Settings']].map(([route,title])=>button(title,()=>routeTo(route))))));return root;
+}
+function editAgentProposal(ctx,target,proposal,decision){
+  const techniques=[['','Unknown / pilih technique'],...target.techniques.map(t=>[t.id,t.name])],base=[['title','Title','required']],notes=[['notes','Researcher Review Notes','textarea']];
+  let fields;
+  if(proposal.kind==='actor')fields=[...base,...actorFields];
+  else if(proposal.kind==='object')fields=[...base,...objectFields];
+  else if(proposal.kind==='boundary')fields=[...base,...boundaryFields];
+  else if(proposal.kind==='hypothesis')fields=[...base,['relatedTechniqueId','Technique','select',techniques],['invariant','Security Invariant','textarea'],['expectedBehavior','Expected Behavior','textarea'],['potentialFailure','Potential Failure / Hypothesis','textarea'],...formulaFields(target),...notes];
+  else if(proposal.kind==='test-plan')fields=[...base,['relatedHypothesisId','Reviewed Hypothesis','select',target.hypotheses.map(h=>[h.id,h.title])],['relatedTechniqueId','Technique','select',techniques],['preconditions','Preconditions','textarea'],['steps','Manual Test Steps','textarea'],['expectedResult','Expected Result','textarea'],...formulaFields(target),...notes];
+  else if(proposal.kind==='potential-finding')fields=[...base,['startingAuthority','Starting Authority','textarea'],['securityRestriction','Broken Security Invariant / Restriction','textarea'],['protectedResource','Protected Resource'],...formulaFields(target),['preconditions','Preconditions','textarea'],['steps','Steps','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Observed Result','textarea'],['rootCause','Potential Root Cause','textarea'],['impact','Observed Impact','textarea'],['vulnerabilityClass','Potential Class'],...notes];
+  else if(proposal.kind==='report')fields=[...base,['reportMarkdown','Report Draft — replaces selected finding draft after Save','textarea'],...notes];
+  else if(proposal.kind==='technique')fields=[...base,['relatedTechniqueId','Existing Technique','select',techniques],['analysis','Review Reason','textarea'],...notes];
+  else if(proposal.kind==='tool-recommendation')fields=[...base,['analysis','Manual Tool Recommendation','textarea'],...notes];
+  else fields=[...base,['analysis','Analysis / researcher edit','textarea'],...notes];
+  const values={...proposal.content,title:proposal.title,analysis:proposal.analysis,notes:proposal.notes,relatedTechniqueId:target.techniques.find(t=>t.id===proposal.relatedTechniqueId||t.libraryId===proposal.relatedTechniqueId)?.id||'',relatedHypothesisId:proposal.relatedHypothesisId};
+  if(['actor','object'].includes(proposal.kind)&&!values.name)values.name=proposal.title;
+  editDialog((decision==='CONFIRM_FINDING'?'Confirm Finding':decision==='EDIT'?'Edit Proposal':'Review / Accept Proposal')+' — '+proposal.kind,fields,values,edited=>{AgentResearchService.decide(ctx.store,target,proposal.id,decision,edited);ctx.render();});
+}
+function reviewProposalCard(ctx,target,proposal){
+  const card=panel(proposal.title,el('div',{class:'badges'},badge(proposal.kind),badge(proposal.sourceType==='ai'?'AI INFERENCE · AI GENERATED':'LOCAL POLICY'),badge('Confidence '+Math.round(proposal.confidence*100)+'%'),badge(proposal.stale?'Stale — replan required':proposal.status)),el('p',{},proposal.analysis),el('p',{class:'muted'},'Reason: '+proposal.reason),el('p',{class:'muted'},proposal.notes));
+  const technique=target.techniques.find(t=>t.id===proposal.relatedTechniqueId||t.libraryId===proposal.relatedTechniqueId);
+  card.append(el('p',{},'Target: '+target.name+' · Technique: '+(technique?.name||'Unknown')),el('p',{},'Evidence: '+(proposal.evidenceIds.map(id=>target.evidence.find(e=>e.id===id)?.label||'Missing').join(', ')||'None supplied')),el('small',{class:'muted'},'Recommended Decision: '+(proposal.recommendedDecision||'Researcher review')));
+  if(proposal.kind==='tool-recommendation')card.append(el('p',{},'Tool: '+(ctx.store.get().toolInventory.find(t=>t.id===proposal.relatedToolId)?.name||'Tool unavailable')+' · Required capability: '+proposal.content.type+' · Execution mode: Manual'));
+  if(proposal.kind==='potential-finding')card.append(el('dl',{class:'details'},['securityRestriction','who','object','state','expectedResult','actualResult','rootCause','impact'].map(k=>[el('dt',{},k),el('dd',{},proposal.content[k]||'Unknown')])),el('p',{},'False Positive Analysis: '+(proposal.falsePositiveAnalysis||'Pending')),el('p',{},'Duplicate Risk: '+(proposal.duplicateRisk||'Pending')));
+  if(proposal.status==='PROPOSED'){
+    const blocked=!!(ctx.agentBusy||ctx.agentMessageBusy)||proposal.stale;
+    const controls=el('div',{class:'actions'},agentActionButton('Accept',()=>editAgentProposal(ctx,target,proposal,'ACCEPT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted,'primary'),agentActionButton(proposal.kind==='potential-finding'?'Edit Analysis':'Edit',()=>editAgentProposal(ctx,target,proposal,'EDIT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted),agentActionButton('Reject',()=>{AgentResearchService.decide(ctx.store,target,proposal.id,'REJECT');ctx.render();},!!(ctx.agentBusy||ctx.agentMessageBusy),'danger'));
+    if(proposal.kind==='potential-finding')controls.prepend(agentActionButton('Confirm Finding',()=>editAgentProposal(ctx,target,proposal,'CONFIRM_FINDING'),blocked||!proposal.analysisCompleted,'primary'),agentActionButton('Need More Testing',()=>{AgentResearchService.decide(ctx.store,target,proposal.id,'REJECT');AgentResearchService.addManual(ctx.store,target,{type:'Next Test Suggestion',title:'Need more testing: '+proposal.title,content:'Perlu evidence tambahan sebelum menyimpulkan invariant failure. '+proposal.analysis,replanFrom:'evidence'});ctx.render();},blocked));
+    card.append(controls);
+  }return card;
+}
+async function approveLocalAction(ctx,target,action,decision='APPROVE_ONCE'){
+  try{
+    const revision=target.researchRevision,context=SecretRedactor.context(buildAgentContext(ctx.store.get(),target));const data=await agentPost('/api/agent/action',{action,context,inventory:ctx.store.get().toolInventory,decision});
+    if(ctx.store.target(target.id)!==target||target.researchRevision!==revision)throw new Error('Context changed; local result discarded. Review a fresh action.');
+    const research=structuredClone(AgentResearchService.get(target)),current=research.pendingActions.find(a=>a.id===action.id);if(!current)return;
+    current.status='EXECUTED';current.result=SecretRedactor.redact(data.result.result);current.resultEvidenceIds=data.result.evidenceIds;current.approvalToken='';current.researcherDecision=decision;
+    research.history.push({id:uuid(),agent:'Local Tool Adapter',task:action.goal,startedAt:now(),completedAt:now(),status:'EXECUTED',toolsUsed:[action.adapter],resultSummary:data.result.summary,researcherDecision:decision,estimatedCostUSD:0});research.state='PAUSED';research.reason='Local action selesai. Continue Research untuk analisis berikutnya.';AgentResearchService.update(ctx.store,target,research);ctx.render();
+  }catch(error){ctx.toast(error.message);}
+}
+function editLocalAction(ctx,target,action){
+  editDialog('Edit Local Action',[['goal','Goal','required'],['reason','Reason','textarea'],['query','Local Knowledge Query'],['json','JSON Input (local parsing)','textarea'],['leftEvidenceId','Left Evidence','select',[['','None'],...target.evidence.map(e=>[e.id,e.label])]],['rightEvidenceId','Right Evidence','select',[['','None'],...target.evidence.map(e=>[e.id,e.label])]]],{...action.input,goal:action.goal,reason:action.reason},values=>{
+    const revised={...action,goal:values.goal,reason:values.reason,input:{...action.input,query:values.query,json:values.json,leftEvidenceId:values.leftEvidenceId,rightEvidenceId:values.rightEvidenceId}};
+    void agentPost('/api/agent/review-action',{action:revised,context:SecretRedactor.context(buildAgentContext(ctx.store.get(),target)),inventory:ctx.store.get().toolInventory}).then(({action})=>{const research=structuredClone(AgentResearchService.get(target));research.pendingActions=research.pendingActions.map(a=>a.id===action.id?action:a);AgentResearchService.update(ctx.store,target,research);ctx.render();}).catch(error=>ctx.toast(error.message));
+  });
+}
+function actionApprovalCard(ctx,target,action){
+  const card=panel('Action Approval — '+action.goal,el('div',{class:'badges'},badge(action.status),badge(action.permission)),el('p',{},'Target: '+target.name),el('p',{},'Tool: '+(ctx.store.get().toolInventory.find(t=>t.id===action.toolId)?.name||'Unavailable')),el('p',{},'Capability: '+action.capability),el('p',{},'Reason: '+action.reason),el('p',{},'Scope Status: '+action.policyReason),el('p',{},'Risk: '+action.risk),el('p',{},'Expected Result: '+action.expectedResult),el('p',{},'Stop Conditions: '+action.stopConditions.join(' · ')),el('details',{},el('summary',{},'Exact structured input'),el('pre',{},JSON.stringify(action.input,null,2))));
+  if(action.status==='PROPOSED')card.append(el('div',{class:'actions'},agentActionButton('Approve Once',()=>approveLocalAction(ctx,target,action),!!(ctx.agentBusy||ctx.agentMessageBusy),'primary'),agentActionButton('Approve Plan',async()=>{const actions=AgentResearchService.get(target).pendingActions.filter(a=>a.planId===action.planId&&a.status==='PROPOSED');if(actions.length>3){ctx.toast('Plan maksimal tiga local actions.');return;}for(const item of actions)await approveLocalAction(ctx,target,item,'APPROVE_PLAN');},!!(ctx.agentBusy||ctx.agentMessageBusy)),agentActionButton('Edit',()=>editLocalAction(ctx,target,action),!!(ctx.agentBusy||ctx.agentMessageBusy)),agentActionButton('Reject Action',()=>{const research=structuredClone(AgentResearchService.get(target));research.pendingActions=research.pendingActions.map(a=>a.id===action.id?{...a,status:'REJECTED',approvalToken:'',researcherDecision:'REJECT'}:a);AgentResearchService.update(ctx.store,target,research);ctx.render();},!!(ctx.agentBusy||ctx.agentMessageBusy),'danger')));
+  if(action.result)card.append(el('details',{},el('summary',{},'Local result'),el('pre',{},action.result)));return card;
+}
+function editInventoryTool(ctx,previous){
+  editDialog(previous?'Edit Tool Inventory':'Manual Tool Entry',[['name','Tool Name','required'],['installed','Installed','select',[['yes','Yes'],['no','No']]],['version','Version'],['path','Path (metadata only)'],['capabilities','Capabilities (comma separated)'],['agentAccess','Agent Access','select',capabilityPermissions],['notes','Notes','textarea']],{installed:'no',agentAccess:'APPROVAL_REQUIRED',...previous,installed:previous?.installed?'yes':'no',capabilities:previous?.capabilities.join(', ')||''},values=>{ctx.store.saveTool({...values,id:previous?.id||uuid(),installed:values.installed==='yes',capabilities:values.capabilities.split(',').map(v=>v.trim()).filter(Boolean)});ctx.render();});
+}
+function renderToolInventory(ctx){
+  const root=el('div',{},ctx.heading('Tool Inventory','Tools yang dicatat untuk perangkat Anda. Native adapters tersedia; executable/path inventory tidak dijalankan oleh agent.',button('Manual Tool Entry',()=>editInventoryTool(ctx),'primary')));
+  root.append(panel('Local Detection',el('p',{},'Detect Installed Tools / Versions memeriksa fixed version commands pada perangkat backend localhost. Tidak menginstal tool atau menghubungi target.'),agentActionButton('Detect Installed Tools / Versions',async()=>{try{const {tools}=await agentPost('/api/tools/detect',{});for(const tool of tools){const previous=ctx.store.get().toolInventory.find(t=>t.name===tool.name);ctx.store.saveTool(previous?{...previous,installed:tool.installed,version:tool.version,path:tool.path}:tool);}ctx.toast('Inventory perangkat backend diperbarui.');ctx.render();}catch(error){ctx.toast(error.message);}},!aiConnection.baseURL||aiConnection.agentic.localToolAccess===false)));
+  for(const tool of ctx.store.get().toolInventory)root.append(panel(tool.name,el('div',{class:'badges'},badge(tool.installed?'Installed / Available':'Tool unavailable'),badge(tool.agentAccess)),el('p',{},'Version: '+(tool.version||'Unknown')),el('p',{},'Path: '+(tool.path||'Unknown')),el('p',{},'Capabilities: '+tool.capabilities.join(', ')),el('p',{class:'muted'},tool.notes),el('div',{class:'actions'},button('Edit Tool',()=>editInventoryTool(ctx,tool)),button('Remove Tool',()=>{if(confirm('Hapus tool inventory ini? Adapter terkait akan dianggap unavailable.')){ctx.store.removeTool(tool.id);ctx.render();}},'danger'))));return root;
+}
+function renderAgenticSettings(ctx){
+  const config=aiConnection.agentic;
+  const root=el('div',{},ctx.heading('Agentic AI Settings','Flags dan batas backend. AI keys tetap hanya pada .env server.'));
+  const settings=[['Agentic AI Enabled',config.enabled?'Yes':'No'],['Provider Configured',config.configured?'Yes':'No'],['Execution Mode','Supervised'],['Human Approval','Required for proposals and permission-gated local actions'],['Max Steps',config.maxSteps||8],['Run Budget','$'+(config.runBudgetUSD??.25)],['Daily Budget','$'+(config.dailyBudgetUSD??2)],['Per-call Reservation','$'+(config.callBudgetUSD??.03)],['Local Tool Access',config.localToolAccess===false?'Denied':'Native adapters + fixed local detection'],['Target Interaction','No external adapter available'],['Current Policy','Scope → hard rules → inventory permission → bound approval → native adapter']];
+  root.append(panel('Current Agentic Policy',el('dl',{class:'details'},settings.map(([label,value])=>[el('dt',{},label),el('dd',{},String(value))])),el('p',{class:'muted'},'AGENT_ALLOW_TARGET_REQUESTS='+String(config.allowTargetRequests||false)+' tidak membuka network/shell access. External execution belum tersedia.'),el('p',{class:'muted'},'Budget adalah estimasi konservatif yang dikonfigurasi, bukan tagihan nyata provider. Reservasi persist di backend dan dihitung harian UTC; failed calls tetap dihitung.'),el('div',{class:'actions'},button('AI Provider Settings',()=>routeTo('ai-provider')),button('Tool Inventory',()=>routeTo('tool-inventory')))));
+  root.append(panel('Configure Backend',el('pre',{},'AI_ENABLED=true\nAGENTIC_AI_ENABLED=true\nAGENT_MAX_STEPS=8\nAGENT_RUN_BUDGET_USD=0.25\nAGENT_DAILY_BUDGET_USD=2.00\nAGENT_CALL_BUDGET_USD=0.03\nAGENT_ALLOW_LOCAL_TOOLS=true\nAGENT_ALLOW_TARGET_REQUESTS=false'),el('p',{},'Edit .env backend, isi provider/model yang existing, lalu restart dan Connect Backend. AI_ENABLED=false selalu menonaktifkan Agentic AI.')));return root;
+}
+function renderAgentResearch(ctx,target){
+  const titles={'review-queue':'Review Queue','manual-analysis':'Manual Analysis','research-details':'Research Details','agent-history':'Agent History'};
+  const research=agentViewState(ctx,target),root=el('div',{},ctx.heading(titles[ctx.route],target.name+' · Progress, review, evidence, researcher decisions.'));
+  root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
+  root.append(researchControls(ctx,target));
+  if(ctx.route==='review-queue'){
+    for(const proposal of research.reviewQueue.filter(p=>p.status==='PROPOSED').slice().reverse())root.append(reviewProposalCard(ctx,target,proposal));
+    for(const action of research.pendingActions.filter(a=>['PROPOSED','DENIED','FAILED'].includes(a.status)))root.append(actionApprovalCard(ctx,target,action));
+    if(!research.reviewQueue.some(p=>p.status==='PROPOSED')&&!research.pendingActions.some(a=>a.status==='PROPOSED'))root.append(empty('Review queue kosong. Continue Research atau tambahkan manual analysis.'));
+  }else if(ctx.route==='manual-analysis'){
+    root.append(panel('Researcher Analysis',el('p',{class:'muted'},'Observation, assessment, corrections dan ideas memiliki prioritas tinggi di context agent berikutnya.'),button('+ Add Manual Analysis',()=>editDialog('Manual Analysis',[['type','Type','select',manualAnalysisTypes],['title','Title','required'],['content','Researcher Analysis','textarea'],['replanFrom','Re-analyze from Phase','select',agentStages.map(([id,,label])=>[id,label])]],{type:'Observation',replanFrom:'hypothesis'},values=>{AgentResearchService.addManual(ctx.store,target,values);ctx.render();}),'primary')));
+    for(const row of research.manualAnalysis.slice().reverse())root.append(panel(row.title,badge('RESEARCHER INPUT · '+row.type),el('p',{},row.content),el('small',{},dateLabel(row.createdAt))));
+  }else if(ctx.route==='agent-history'){
+    root.append(panel('Run Budgets & Outcomes',research.runs.slice().reverse().map(run=>el('p',{},dateLabel(run.startedAt)+' · '+run.status+' · '+run.steps+' steps · Estimated $'+run.estimatedCostUSD.toFixed(4)+' · Actual cost Unknown'))),historyTable(research,200),panel('Tool Activity',research.pendingActions.map(action=>actionApprovalCard(ctx,target,action))));
+  }else{
+    root.append(panel('Current Research',badge(research.state),el('p',{},research.currentTask||'Not started'),el('p',{},research.reason),stageProgress(research),button('Replan Research',()=>editDialog('Replan Research',[['phase','From Phase','select',agentStages.map(([id,,label])=>[id,label])],['reason','Researcher Reason','textarea']],{phase:'target-intelligence'},values=>{AgentResearchService.addManual(ctx.store,target,{type:'Correction',title:'Research plan correction',content:values.reason,replanFrom:values.phase});ctx.render();}))),panel('Reviewed Proposals',research.reviewQueue.filter(p=>p.status!=='PROPOSED').slice(-30).reverse().map(p=>el('p',{},p.title+' · '+p.status+' · '+p.decision))));
+  }return root;
 }
 
 // SOURCE: modules/dashboard
@@ -12083,9 +13221,13 @@ function renderReports(ctx,target) {
 
 
 
+
+
 function renderDashboard(ctx,target) {
+  if(target&&ctx.aiConnection.agentic.enabled&&ctx.aiConnection.agentic.configured)return renderAgentDashboard(ctx,target);
   const root=el('div',{},ctx.heading('Research Dashboard',target?'Riset terstruktur, dari invariant hingga evidence.':'Buat workspace untuk memulai riset manual lintas program.',button(target?'+ New Hypothesis':'+ Create Target',()=>target?editHypothesis(ctx,target):editTarget(ctx),'primary')));
   if(!target){root.append(panel('Mulai dengan sebuah target',el('p',{class:'muted'},'Tentukan program dan scope, petakan actor serta object, pilih technique, lalu dokumentasikan pengujian. Seluruh data disimpan di browser ini.'),el('div',{class:'workflow'},['Target','Scope','Attack Surface','Technique','Hypothesis','Test','Finding','Report'].map((v,i)=>[i?'→ ':null,badge(v)]))),panel('Universal Formula',formulaView({who:'Actor',what:'Action',object:'Resource',state:'Lifecycle',authority:'Permission',context:'Environment'})));return root;}
+  root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
   const metrics=[['Hypotheses',target.hypotheses.length],['Tested',target.testCases.filter(t=>t.result!=='not-tested').length],['Interesting',target.testCases.filter(t=>t.result==='interesting').length+target.hypotheses.filter(h=>h.status==='interesting').length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length],['Rejected',target.hypotheses.filter(h=>h.status==='rejected').length+target.findings.filter(f=>f.status==='rejected').length],['Out of Scope',target.hypotheses.filter(h=>h.status==='out-of-scope').length+target.findings.filter(f=>f.status==='out-of-scope').length]];
   root.append(el('div',{class:'stats'},metrics.map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
   root.append(panel('Research Coverage',el('div',{class:'badges'},coverageAnalysis(target).coverage.map(group=>badge(group.label+': '+group.covered+' / '+group.total))),el('a',{href:'#coverage'},'Review untested actors, objects, states, boundaries, dan techniques →')));
@@ -12121,6 +13263,7 @@ function renderNotes(ctx,target) {
 
 
 
+
 function renderSettings(ctx) {
   const root=el('div',{},ctx.heading(ctx.route==='ai-provider'?'AI Provider':ctx.route==='backup'?'Backup & Restore':'Settings & System Health','Core lokal dengan IndexedDB. Backend AI opsional dan tidak menjalankan pengujian target.'));
   const ai=ctx.aiConnection;
@@ -12129,9 +13272,9 @@ function renderSettings(ctx) {
   root.append(panel('Optional AI Provider',el('p',{class:'muted'},'Provider, model, dan API key diatur hanya di .env backend. AI_ENABLED=false tidak menginisialisasi provider. Connected menunjukkan konfigurasi siap; status dapat berubah setelah request provider.'),location.protocol==='file:'?el('p',{class:'notice'},'Untuk AI, jalankan Node backend dan buka http://127.0.0.1:3001. Core file:// tetap offline; backend menolak Origin null.'):backendForm));
   root.append(panel('Workspace backups',el('p',{class:'muted'},'Export berisi seluruh target, research, evidence teks, serta draft laporan. Import mengganti workspace setelah validasi dan confirmation.'),el('div',{class:'actions'},button('Export Workspace',ctx.exportWorkspace,'primary'),button('Import Workspace',ctx.importWorkspace),button('Export Backup',()=>ctx.exportWorkspace(true)),button('Import Backup',ctx.importWorkspace))));
   const filePanel=panel('Optional · Connect workspace.json',el('p',{class:'muted'},'File ditulis hanya saat Anda menekan Save to workspace.json. Browser meminta izin native. Hubungan file perlu dibuat kembali setelah reload.'));
-  if(window.showSaveFilePicker)filePanel.append(el('p',{},connectedFile.handle?'Terhubung: '+connectedFile.handle.name:'Belum ada file terhubung.'),el('div',{class:'actions'},button('Connect workspace.json',async()=>{try {await connectFile();ctx.render();}catch(error){if(error.name!=='AbortError')ctx.toast(error.message);}}),connectedFile.handle?button('Save to workspace.json',async()=>{try{await saveConnected(ctx.store.get());ctx.toast('Workspace ditulis ke '+connectedFile.handle.name);}catch(error){ctx.toast('Gagal menulis file: '+error.message);}}):null));
+  if(window.showSaveFilePicker)filePanel.append(el('p',{},connectedFile.handle?'Terhubung: '+connectedFile.handle.name:'Belum ada file terhubung.'),el('div',{class:'actions'},button('Connect workspace.json',async()=>{try {await connectFile();ctx.render();}catch(error){if(error.name!=='AbortError')ctx.toast(error.message);}}),connectedFile.handle?button('Save to workspace.json',async()=>{try{const text=await reviewForSharing(structuredClone(ctx.store.get()),{allowOriginal:true,label:'connected backup'});if(text===null)return;await saveConnected(JSON.parse(text));ctx.toast('Workspace ditulis ke '+connectedFile.handle.name);}catch(error){ctx.toast('Gagal menulis file: '+error.message);}}):null));
   else filePanel.append(el('p',{class:'notice'},'File System Access API tidak tersedia di browser/context ini. Local persistence dan JSON export tetap tersedia.'));
-  root.append(filePanel,panel('Data & privacy',el('p',{},'schemaVersion: 2.0.0 · workspace applicationVersion: '+ctx.store.get().applicationVersion+' / running application: 1.0.0'),el('p',{class:'muted'},'IndexedDB menyimpan data tanpa enkripsi. Journal localStorage opsional membantu recovery ketika tab ditutup. Backup rutin; storage browser dapat dihapus atau penuh.'),el('p',{class:'muted'},'Aplikasi tidak membaca file evidence dari path dan tidak menghubungi aset target. Context AI hanya dikirim setelah Preview dan Send; secrets dire­daksi pada mode REDACTED_CLOUD.'),el('a',{href:ctx.playbookUrl,target:'_blank',rel:'noopener'},'Buka dokumentasi playbook asli ↗')),panel('Reset Workspace',el('p',{class:'muted'},'Menghapus seluruh target dan research dari workspace aktif browser ini. File backup yang sudah diunduh tetap tersedia. Salinan legacy v1 dipertahankan sebagai sumber recovery.'),button('Reset Workspace',()=>{if(confirm('Reset seluruh workspace lokal? Semua target, hypothesis, test, finding, evidence, knowledge, AI suggestion, dan draft laporan akan dihapus. Export Backup sebelum melanjutkan.')){ctx.store.reset();ctx.selectTarget('');ctx.render();}},'danger')));
+  root.append(filePanel,panel('Data & privacy',el('p',{},'schemaVersion: 2.0.0 · workspace applicationVersion: '+ctx.store.get().applicationVersion+' / running application: 2.0.0'),el('p',{class:'muted'},'IndexedDB menyimpan data tanpa enkripsi. Journal localStorage opsional membantu recovery ketika tab ditutup. Backup rutin; storage browser dapat dihapus atau penuh.'),el('p',{class:'muted'},'Aplikasi tidak membaca file evidence dari path dan tidak menghubungi aset target. Context AI hanya dikirim setelah Preview dan Send; secrets dire­daksi pada mode REDACTED_CLOUD.'),el('a',{href:ctx.playbookUrl,target:'_blank',rel:'noopener'},'Buka dokumentasi playbook asli ↗')),panel('Reset Workspace',el('p',{class:'muted'},'Menghapus seluruh target dan research dari workspace aktif browser ini. File backup yang sudah diunduh tetap tersedia. Salinan legacy v1 dipertahankan sebagai sumber recovery.'),button('Reset Workspace',()=>{if(confirm('Reset seluruh workspace lokal? Semua target, hypothesis, test, finding, evidence, knowledge, AI suggestion, dan draft laporan akan dihapus. Export Backup sebelum melanjutkan.')){ctx.store.reset();ctx.selectTarget('');ctx.render();}},'danger')));
   return root;
 }
 
@@ -12271,9 +13414,10 @@ function renderAI(ctx,target) {
     const context=buildResearchContext(target,options),redact=options.privacyMode==='REDACTED_CLOUD'||aiConnection.redactSecrets;
     const prepared=redact?SecretRedactor.context(context):context;
     const dialog=el('dialog',{class:'editor'},el('h2',{},'Review AI Context · '+options.privacyMode),el('p',{class:'notice'},options.privacyMode==='LOCAL_ONLY'?'Context dikirim melalui backend localhost ke Ollama localhost.':'Context ini akan dikirim ke '+aiConnection.provider+' melalui backend. Review redaksi, scope, dan evidence sebelum melanjutkan.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send for Analysis',async()=>{
-      dialog.close();ctx.aiBusy=true;ctx.render();
+      const revision=target.researchRevision;dialog.close();ctx.aiBusy=true;ctx.render();
       try {
         const response=validateAIOutput(await requestAdvice(prepared,options.privacyMode));
+        if(ctx.store.target(target.id)!==target||target.researchRevision!==revision)throw new Error('Context changed; AI response discarded. Send a fresh analysis.');
         // DATA CONTRACT: Only a suggestion record is saved; no research field is overwritten.
         ctx.store.upsert(target.id,'aiSuggestions',{operation:options.operation,status:'pending',provider:aiConnection.provider,model:aiConnection.model,privacyMode:options.privacyMode,sourceFindingId:options.findingId||'',response,createdAt:now()});ctx.toast('AI suggestion siap direview. Tidak ada finding/hypothesis yang diubah otomatis.');
       }catch(error){ctx.toast(error.message);}finally{ctx.aiBusy=false;ctx.render();}
@@ -12458,8 +13602,8 @@ function intelligenceAI(ctx,target,pack){
     const context=buildKnowledgeContext(ctx.store.get(),target,{operation:values.knowledgeOperation,question:values.knowledgeQuestion,notes:values.knowledgeNotes,domainId:pack.id,term:values.knowledgeTerm,flowId:values.knowledgeFlow,hypothesisId:values.knowledgeHypothesis,level:ctx.domainLevel||'Beginner'});
     const prepared=values.knowledgePrivacy==='REDACTED_CLOUD'||aiConnection.redactSecrets?SecretRedactor.context(context):context;
     const dialog=el('dialog',{class:'editor'},el('h2',{},'Review Target Knowledge Context'),el('p',{class:'notice'},'Hanya selected target/domain/flow/term dan capped context ditampilkan. Tidak ada browsing perusahaan otomatis. Review semua data sebelum Send.'),el('pre',{},JSON.stringify(prepared,null,2)),el('div',{class:'actions'},button('Cancel',()=>dialog.close()),button('Send Knowledge Analysis',async()=>{
-      dialog.close();ctx.knowledgeBusy=true;ctx.render();
-      try{const response=await requestKnowledge(prepared,values.knowledgePrivacy);TargetIntelligenceService.update(ctx.store,target,{suggestions:[...target.intelligence.suggestions,{id:uuid(),operation:values.knowledgeOperation,status:'pending',provider:aiConnection.provider,model:aiConnection.model,privacyMode:values.knowledgePrivacy,response,createdAt:now(),decisions:{}}]});ctx.toast('AI knowledge pending. Review sebelum menerima; belum ada model riset yang diubah.');}catch(error){ctx.toast(error.message);}finally{ctx.knowledgeBusy=false;ctx.render();}
+      const revision=target.researchRevision;dialog.close();ctx.knowledgeBusy=true;ctx.render();
+      try{const response=await requestKnowledge(prepared,values.knowledgePrivacy);if(ctx.store.target(target.id)!==target||target.researchRevision!==revision)throw new Error('Context changed; knowledge response discarded. Send a fresh analysis.');TargetIntelligenceService.update(ctx.store,target,{suggestions:[...target.intelligence.suggestions,{id:uuid(),operation:values.knowledgeOperation,status:'pending',provider:aiConnection.provider,model:aiConnection.model,privacyMode:values.knowledgePrivacy,response,createdAt:now(),decisions:{}}]});ctx.toast('AI knowledge pending. Review sebelum menerima; belum ada model riset yang diubah.');}catch(error){ctx.toast(error.message);}finally{ctx.knowledgeBusy=false;ctx.render();}
     },'primary')));dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();
   });section.append(form);return section;
 }
@@ -12555,10 +13699,14 @@ function renderIntelligence(ctx,target){
 
 
 
+
+
+
+
 // MODULE: App composition. Research modules share a small context instead of owning persistence.
 let initial,startupError='';
-try {initial=await readLocal();}catch(error){startupError='Data lokal tidak dapat dimuat: '+error.message+' Data lama tidak ditimpa otomatis. Ekspor/perbaiki backup sebelum melakukan perubahan.';}
-const store=createStore(initial||undefined), persistence=makePersistence();
+try {initial=await readLocal();}catch(error){startupError='Data lokal tidak dapat dimuat: '+error.message;}
+const store=createStore(initial||undefined,{readOnly:!!startupError}), persistence=makePersistence();
 const view=document.getElementById('view'),targetSelect=document.getElementById('target-select'),fileInput=document.getElementById('json-file'),searchInput=document.getElementById('global-search');
 const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filterState:{},search:'',
   aiConnection,persistence,storageHealthy:!startupError,
@@ -12574,7 +13722,7 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     search.addEventListener('change',()=>{ctx.filterState[key]={...ctx.filterState[key],query:search.value};ctx.render();});container.append(search);
     for(const [name,label,options] of definitions) {const select=el('select',{'aria-label':'Filter '+label},el('option',{value:''},'Semua '+label),options.map(option=>{const [value,text]=Array.isArray(option)?option:[option,option];return el('option',{value},text);}));select.value=state[name]||'';select.addEventListener('change',()=>{ctx.filterState[key]={...ctx.filterState[key],[name]:select.value};ctx.render();});container.append(select);}return container;},
   filtered(rows,key){const filters=ctx.filterState[key]||{};return rows.filter(row=>Object.entries(filters).every(([name,value])=>!value || (name==='query'?JSON.stringify(row).toLowerCase().includes(value.toLowerCase()):row[name]===value)));},
-  exportWorkspace(backup=false){void persistence.flush();download(backup?'backup-'+new Date().toISOString().slice(0,10)+'.json':'workspace.json',JSON.stringify(store.get(),null,2),'application/json');ctx.toast('Workspace JSON diekspor.');},
+  async exportWorkspace(backup=false){const snapshot=structuredClone(store.get()),text=await reviewForSharing(snapshot,{allowOriginal:true,label:'workspace export'});if(text===null)return;void persistence.flush();download(backup===true?'backup-'+new Date().toISOString().slice(0,10)+'.json':'workspace.json',text,'application/json');ctx.toast('Workspace JSON diekspor.');},
   importWorkspace(){fileInput.value='';fileInput.click();},
   render(){
     const state=store.get();if(!store.target(ctx.targetId))ctx.targetId=state.targets[0]?.id||'';
@@ -12585,10 +13733,20 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     else if(route==='dashboard')content=renderDashboard(ctx,target);
     else if(route==='targets')content=renderTargets(ctx);
     else if(['settings','ai-provider','backup'].includes(route))content=renderSettings(ctx);
+    else if(route==='tool-inventory')content=renderToolInventory(ctx);
+    else if(route==='agentic-settings')content=renderAgenticSettings(ctx);
     else if(!target)content=el('div',{},ctx.heading(routes.find(r=>r[0]===route)[1],'Buat atau pilih target terlebih dahulu.',button('+ Create Target',()=>editTarget(ctx),'primary')),empty('Tidak ada target aktif.'));
-    else {const renders={'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
+    else {const renders={'research-environment':renderResearchEnvironment,'research-details':renderAgentResearch,'review-queue':renderAgentResearch,'manual-analysis':renderAgentResearch,'agent-history':renderAgentResearch,'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
     view.replaceChildren(content);
-    if(startupError)view.prepend(el('div',{class:'notice',role:'alert'},startupError));
+    if(aiConnection.enabled&&aiConnection.agentic.enabled)for(const record of view.querySelectorAll('[data-agent-kind][data-agent-id]')){
+      const action=button('Ask Agent',()=>agentMessages.select({kind:record.dataset.agentKind,id:record.dataset.agentId}),'agent-context-action');
+      (record.querySelector('.record-header .actions')||record).append(action);
+      record.addEventListener('focusin',()=>{ctx.agentSelection={kind:record.dataset.agentKind,id:record.dataset.agentId,targetId:ctx.targetId,page:ctx.route};agentMessages.sync();});
+      record.addEventListener('click',()=>{ctx.agentSelection={kind:record.dataset.agentKind,id:record.dataset.agentId,targetId:ctx.targetId,page:ctx.route};agentMessages.sync();});
+    }
+    agentMessages.sync();
+    if(startupError||storageRecovery.warning||persistence.isBlocked())view.prepend(el('div',{class:'notice',role:'alert'},startupError||storageRecovery.warning||'Tab lain menyimpan workspace. Export perubahan lokal lalu reload.',el('div',{class:'actions'},button('Import Backup',ctx.importWorkspace),button('Export Recovery Data',async()=>{const text=await reviewForSharing({storage:storageRecovery.data,local:store.get()},{allowOriginal:true,label:'recovery export'});if(text!==null)download('workspace-recovery.json',text,'application/json');}))));
+    if(store.isReadOnly())for(const control of view.querySelectorAll('button,input,select,textarea'))if(!['Import Backup','Export Recovery Data'].includes(control.textContent))control.disabled=true;
   }
 };
 function renderSearch() {
@@ -12605,17 +13763,18 @@ function renderNavigation() {
     for(const key of keys)nav.append(el('a',{href:'#'+key},routes.find(r=>r[0]===key)[1]));
   }
 }
+const agentMessages=createAgentMessagePanel(ctx);
 renderNavigation();
-store.subscribe(state=>persistence.schedule(state));
+store.subscribe(state=>{if(!store.isReadOnly())persistence.schedule(state);});
 let lastSaved=initial?.updatedAt||'';
 function renderSaveStatus(event) {if(event.lastSaved)lastSaved=event.lastSaved;const labels={saved:'● Saved locally',unsaved:'○ Unsaved changes',saving:'◌ Saving...',error:'⚠ Unsaved · storage error'};const status=document.getElementById('save-status');status.replaceChildren(el('span',{},labels[event.status]),el('small',{},'Last saved: '+dateLabel(lastSaved)));if(event.status==='error')ctx.toast('Autosave gagal: '+event.error+'. Export Workspace untuk backup.');}
-persistence.subscribe(event=>{ctx.storageHealthy=event.status!=='error';renderSaveStatus(event);});renderSaveStatus({status:startupError?'error':'saved'});
+persistence.subscribe(event=>{ctx.storageHealthy=event.status!=='error';if(event.blocked&&!store.isReadOnly()){store.lock();ctx.render();}renderSaveStatus(event);});renderSaveStatus({status:startupError?'error':'saved',error:startupError});
 window.addEventListener('hashchange',()=>{ctx.search='';searchInput.value='';ctx.render();});
 targetSelect.addEventListener('change',()=>{ctx.selectTarget(targetSelect.value);ctx.render();});
 let searchTimer;searchInput.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{ctx.search=searchInput.value;ctx.render();},180);});
 document.getElementById('export-workspace').addEventListener('click',()=>ctx.exportWorkspace());
 document.getElementById('import-workspace').addEventListener('click',ctx.importWorkspace);
-fileInput.addEventListener('change',async()=>{const file=fileInput.files[0];if(!file)return;try{if(file.size>20000000)throw new Error('File JSON melebihi 20 MB.');const imported=parseWorkspace(await file.text());if(!confirm('Import mengganti workspace saat ini dengan '+imported.targets.length+' target. Sudah mengekspor backup?'))return;store.replace(imported);ctx.selectTarget(imported.targets[0]?.id||'');ctx.filterState={};ctx.searchTarget='';const saved=await persistence.flush();ctx.render();ctx.toast(saved?'Workspace berhasil diimpor.':'Workspace diimpor ke memory; IndexedDB gagal. Export backup.');}catch(error){ctx.toast('Import ditolak: '+error.message);}});
+fileInput.addEventListener('change',async()=>{const file=fileInput.files[0];if(!file)return;try{if(persistence.isBlocked())throw new Error('Reload dahulu agar data terbaru dari tab lain dimuat.');if(file.size>20000000)throw new Error('File JSON melebihi 20 MB.');const imported=parseWorkspace(await file.text());if(!confirm('Import mengganti workspace saat ini dengan '+imported.targets.length+' target. Sudah mengekspor backup?'))return;startupError='';storageRecovery.warning='';store.replace(imported,{recover:true});ctx.selectTarget(imported.targets[0]?.id||'');ctx.filterState={};ctx.searchTarget='';const saved=await persistence.flush();ctx.render();ctx.toast(saved?'Workspace berhasil diimpor.':'Workspace diimpor ke memory; IndexedDB gagal. Export backup.');}catch(error){ctx.toast('Import ditolak: '+error.message);}});
 window.addEventListener('pagehide',()=>persistence.flush());
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistence.flush();});
 window.addEventListener('beforeunload',event=>{if(persistence.isDirty()){void persistence.flush();event.preventDefault();event.returnValue='Perubahan sedang disimpan. Tunggu Saved locally atau export backup.';}});

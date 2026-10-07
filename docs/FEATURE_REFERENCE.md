@@ -1,6 +1,6 @@
 # Feature Reference
 
-Referensi pengguna untuk aplikasi 1.0.0, schema 2.0.0. Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.
+Referensi pengguna untuk aplikasi 2.0.0, schema 2.0.0. Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.
 
 **Active:** fungsi tersedia dengan prasyarat yang dijelaskan. **Partial:** fungsi tersedia dengan kemampuan terbatas. **Coming Soon:** placeholder belum berfungsi; tidak ada menu placeholder pada versi yang diaudit. AI tanpa konfigurasi berstatus Disabled/Misconfigured, bukan Coming Soon.
 
@@ -85,6 +85,14 @@ Mulai dari [User Guide](USER_GUIDE.md) atau ikuti [Workflow Example SaaS](WORKFL
 - [Generate Security Invariants](#knowledge-op-generate_security_invariants) — Active
 - [Generate Research Questions](#knowledge-op-generate_domain_questions) — Active
 - [Recommend Techniques — Domain](#knowledge-op-recommend_domain_techniques) — Active
+- [Agentic Research Orchestrator](#agentic-research) — Active
+- [Review Queue](#agent-review) — Active
+- [Manual Analysis](#manual-analysis) — Active
+- [Agent History](#agent-history) — Active
+- [Tool Inventory](#tool-inventory) — Active
+- [Agentic AI Settings](#agentic-settings) — Active
+- [Target Research Environment](#research-environment) — Partial
+- [Agent Message](#agent-message) — Active
 - [State-Machine & Context Confusion](#tech_01) — Active
 - [Async Authorization / Queue Revalidation](#tech_02) — Active
 - [Approval / Capability Context Confusion](#tech_03) — Active
@@ -2526,7 +2534,7 @@ Otomatis ketika mengubah data; export sebelum pindah browser/origin.
 
 ## Input
 
-Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 1.0.0 dan timestamps.
+Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 2.0.0 dan timestamps.
 
 ## Output
 
@@ -2708,7 +2716,7 @@ Route aktif, helper/operation pilihan dan metadata featureRegistry.
 
 ## Output
 
-Dialog help dan tautan langsung ke bagian referensi; halaman HTML dokumentasi lokal dengan daftar isi dan navigasi empat panduan.
+Dialog help dan tautan langsung ke bagian referensi; halaman HTML dokumentasi lokal dengan daftar isi dan navigasi lima panduan.
 
 ## Cara Menggunakan
 
@@ -3584,6 +3592,371 @@ AI Knowledge Assistant → Target Intelligence → existing mapping/hypothesis w
 ## Tips
 
 Output memakai schema knowledge yang sama; bagian yang tidak relevan dapat kosong. Tidak ada fetch perusahaan atau eksekusi test. Accept bukan verifikasi fakta.
+<a id="agentic-research"></a>
+
+# Agentic Research Orchestrator
+
+Status: Active
+
+## Fungsi
+
+Start/Continue memilih specialist berikutnya dari state, scope, proposal dan evidence.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Progress, current task, bounded runs dan review stop; bukan otomatis testing target.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="agent-review"></a>
+
+# Review Queue
+
+Status: Active
+
+## Fungsi
+
+Review AI proposals dan native action approvals sebelum canonical data berubah.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Accept/Edit/Reject, Confirm Finding dengan evidence serta false-positive/duplicate analysis; signed local approvals.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="manual-analysis"></a>
+
+# Manual Analysis
+
+Status: Active
+
+## Fungsi
+
+Observation, Assessment, Correction, Research Idea, Potential Root Cause, Next Test Suggestion dan Notes peneliti.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Input priority tinggi, stale proposal invalidation dan re-analysis dari phase pilihan.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="agent-history"></a>
+
+# Agent History
+
+Status: Active
+
+## Fungsi
+
+Audit action/result/status/timestamp, researcher decision, tools dan estimated cost.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Run outcomes dan concise summaries; tidak ada private chain-of-thought.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="tool-inventory"></a>
+
+# Tool Inventory
+
+Status: Active
+
+## Fungsi
+
+Installed/version/path/capabilities/agent permissions untuk perangkat lokal.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Manual entry dan fixed local detection; tidak memasang atau menjalankan path AI.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="agentic-settings"></a>
+
+# Agentic AI Settings
+
+Status: Active
+
+## Fungsi
+
+Flag gabungan AI/Agentic, supervised mode, budget/steps/local access dan target policy.
+
+## Kenapa Feature Ini Penting
+
+Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.
+
+## Kapan Digunakan
+
+Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.
+
+## Input
+
+Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.
+
+## Output
+
+Safe backend configuration tanpa API key; external adapters belum tersedia.
+
+## Cara Menggunakan
+
+1. Read Agentic Guide.
+2. Configure flags/provider.
+3. Start/Continue dan review context.
+4. Review/edit/reject proposals.
+5. Tambahkan manual analysis/evidence.
+6. Continue sampai report review atau completed.
+
+## Contoh
+
+Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.
+
+## Hubungan dengan Feature Lain
+
+ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.
+
+## Tips
+
+AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.
+<a id="research-environment"></a>
+
+# Target Research Environment
+
+Status: Partial
+
+## Fungsi
+
+Optional testing metadata, accounts, authentication profiles, encrypted secret refs and target-specific rules.
+
+## Kenapa Feature Ini Penting
+
+Separate target metadata from secrets and enforce explicit program rules.
+
+## Kapan Digunakan
+
+When configuring authorized testing; manual research works without credentials.
+
+## Input
+
+Program/scope, account roles, authentication method, headers, rules, restrictions and vault passphrase.
+
+## Output
+
+Per-target metadata, role/account matrix, protected credential references and policy review states.
+
+## Cara Menggunakan
+
+1. Target -> Research Environment.
+2. Configure metadata/rules/accounts/profiles.
+3. Unlock vault and update protected secrets.
+4. Select authentication context in hypothesis/test.
+
+## Contoh
+
+Owned SaaS lab uses two dummy accounts; no real target request.
+
+## Hubungan dengan Feature Lain
+
+Reuses Target/Scope/Policy/Agentic/SecretRedactor/Workspace Storage.
+
+## Tips
+
+Encrypted local vault only. Export excludes secrets. Remote execution, session verification and secure secret export unavailable.
+<a id="agent-message"></a>
+
+# Agent Message
+
+Status: Active
+
+## Fungsi
+
+Right group conversation with mentions above input, attachments and model selection.
+
+## Kenapa Feature Ini Penting
+
+Analyze selected research without leaving the workspace.
+
+## Kapan Digunakan
+
+When both AI flags are enabled; local lookup works without a configured provider.
+
+## Input
+
+Active target/page, up to four @specialists, #record:id, selected model and optional files.
+
+## Output
+
+Concise analysis, redacted target/session conversation and review proposals.
+
+## Cara Menggunakan
+
+1. Select target and open a record.
+2. Ask Agent; adjust context chips.
+3. Type @finding and #evidence reference.
+4. Enter sends a bounded group analysis; Shift+Enter adds a line.
+5. Review proposal in Review Queue; close/collapse to continue research.
+
+## Contoh
+
+Owned dummy finding and evidence; no target request.
+
+## Hubungan dengan Feature Lain
+
+Reuses ResearchOrchestrator, specialists, ledger, redactor, policy and canonical review workflow.
+
+## Tips
+
+Related Terms/autocomplete are local. Ctrl/Cmd+K commands; Escape dismisses suggestions/drawer. General + up to three relevant specialists without tags; explicit tags select members. Per-agent model/history. Text and PNG/JPEG/WebP files with preview; PDF unsupported. Model selection is validated server-side. History window 20 messages, max 1000 per target. Mobile drawer; disabled UI hidden. No tool execution or auto-confirmed findings.
 <a id="tech_01"></a>
 
 # State-Machine & Context Confusion

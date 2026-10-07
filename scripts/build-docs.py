@@ -7,7 +7,7 @@ from urllib.parse import urlsplit
 from feature_catalog import FEATURES, TECHNIQUE_EXAMPLES, TOOL_DESCRIPTIONS
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ('USER_GUIDE', 'FEATURE_REFERENCE', 'WORKFLOW_GUIDE', 'TARGET_INTELLIGENCE_GUIDE')
+DOCS = ('USER_GUIDE', 'FEATURE_REFERENCE', 'WORKFLOW_GUIDE', 'TARGET_INTELLIGENCE_GUIDE', 'AGENTIC_RESEARCH_GUIDE', 'RESEARCH_ENVIRONMENT_GUIDE')
 SECTIONS = [('Fungsi', 'description'), ('Kenapa Feature Ini Penting', 'purpose'),
             ('Kapan Digunakan', 'when'), ('Input', 'inputs'), ('Output', 'outputs'),
             ('Cara Menggunakan', 'how'), ('Contoh', 'example'),
@@ -38,7 +38,7 @@ def build():
     ids = [f['id'] for f in features]
     if len(ids) != len(set(ids)):
         raise ValueError('Duplicate feature id')
-    intro = '# Feature Reference\n\nReferensi pengguna untuk aplikasi 1.0.0, schema 2.0.0. '
+    intro = '# Feature Reference\n\nReferensi pengguna untuk aplikasi 2.0.0, schema 2.0.0. '
     intro += 'Nama UI saat ini Universal Research Workspace. Isi mengikuti modul frontend, storage, backend, policy, katalog dan adapter yang diimplementasikan.\n\n'
     intro += '**Active:** fungsi tersedia dengan prasyarat yang dijelaskan. **Partial:** fungsi tersedia dengan kemampuan terbatas. '
     intro += '**Coming Soon:** placeholder belum berfungsi; tidak ada menu placeholder pada versi yang diaudit. '
@@ -85,7 +85,7 @@ def build():
         body, headings, anchors = render(markdown)
         all_pages[name] = anchors
         nav = ' '.join(f'<a href="{doc}.html">{label}</a>' for doc, label in
-                       [('USER_GUIDE', 'User Guide'), ('FEATURE_REFERENCE', 'Feature Reference'), ('WORKFLOW_GUIDE', 'Workflow Guide'), ('TARGET_INTELLIGENCE_GUIDE', 'Intelligence Guide')])
+                       [('USER_GUIDE', 'User Guide'), ('FEATURE_REFERENCE', 'Feature Reference'), ('WORKFLOW_GUIDE', 'Workflow Guide'), ('TARGET_INTELLIGENCE_GUIDE', 'Intelligence Guide'), ('AGENTIC_RESEARCH_GUIDE', 'Agentic Guide'), ('RESEARCH_ENVIRONMENT_GUIDE', 'Environment Guide')])
         toc = ''.join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for level, label, anchor in headings if level <= 2)
         page = f'''<!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -93,7 +93,7 @@ def build():
 <title>{name.replace('_', ' ').title()} — Research Workspace</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/documentation.css"></head>
 <body><header><strong>RESEARCH WORKSPACE / LEARN</strong><nav aria-label="Dokumentasi">{nav}</nav><a href="{name}.md" download>Download Markdown</a></header>
 <main><details class="contents"><summary>Daftar isi</summary><ul>{toc}</ul></details><article>{body}</article></main>
-<footer>Dokumentasi aplikasi 1.0.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>'''
+<footer>Dokumentasi aplikasi 2.0.0 · Local first · Gunakan Ctrl+F untuk mencari.</footer></body></html>'''
         (output / (name + '.html')).write_text(page, encoding='utf-8', newline='\n')
         (output / (name + '.md')).write_bytes((ROOT / 'docs' / (name + '.md')).read_bytes())
     for name in DOCS:

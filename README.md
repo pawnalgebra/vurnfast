@@ -1,6 +1,6 @@
-# Advanced Bug Bounty Research Workspace · v1.0.0
+# Advanced Bug Bounty Research Workspace · v2.0.0
 
-Rilis aplikasi pertama adalah **v1.0.0**. Schema workspace tetap **2.0.0**, terpisah dari versi rilis aplikasi; backup dan migrasi data existing tetap didukung.
+Rilis **v2.0.0** menambahkan Agentic AI Research ke fitur v1.0.0. Schema workspace tetap **2.0.0**, terpisah dari versi rilis aplikasi; backup dan migrasi data existing tetap didukung.
 
 Platform local-first untuk riset bug bounty manual lintas program: target → scope/rules → actors/objects/trust boundaries → techniques → hypotheses → test cases → evidence → findings → laporan Indonesia. **Researcher First · AI Optional · Program Rules First · Evidence Required.**
 
@@ -12,8 +12,19 @@ Core tetap offline dan tidak bergantung backend. AI memberi rekomendasi dan draf
 - [FEATURE_REFERENCE](docs/FEATURE_REFERENCE.md): fungsi, input, output, contoh, hubungan, status Active/Partial, dan batasan setiap fitur, helper, operasi AI, serta 20 teknik bawaan.
 - [WORKFLOW_GUIDE](docs/WORKFLOW_GUIDE.md): latihan Example SaaS dalam 20 langkah, dengan alur AI aktif dan tanpa AI.
 - [TARGET_INTELLIGENCE_GUIDE](docs/TARGET_INTELLIGENCE_GUIDE.md): profil bisnis, provenance, 13 domain pack, glossary, critical transitions, dan latihan Finance tanpa AI.
+- [AGENTIC_RESEARCH_GUIDE](docs/AGENTIC_RESEARCH_GUIDE.md): supervised orchestrator, 13 specialist, review/manual analysis, tool permissions, history, stop conditions dan estimated budgets.
 
-Di aplikasi, tombol **?** menyediakan tooltip singkat dan dialog bantuan. **View Documentation** membuka bagian terkait dalam dokumentasi HTML lokal; bekerja pada file://, HTTP statis folder client, dan backend Fastify. Halaman dokumentasi mempunyai daftar isi, tautan empat panduan, dan download Markdown.
+Di aplikasi, tombol **?** menyediakan tooltip singkat dan dialog bantuan. **View Documentation** membuka bagian terkait dalam dokumentasi HTML lokal; bekerja pada file://, HTTP statis folder client, dan backend Fastify. Halaman dokumentasi mempunyai daftar isi, tautan lima panduan, dan download Markdown.
+
+## Agentic AI Research — v2
+
+Agent Message tersedia di kanan ketika kedua AI flags aktif. Autocomplete `@agent`/`#reference` muncul tepat di atas input; Enter mengirim, Shift+Enter menambah baris. Percakapan grup menampilkan identitas, waktu dan model setiap agent. Tanpa tag, General mengajak hingga tiga specialist sesuai pertanyaan/context; hingga empat mention memilih anggota secara eksplisit. Tombol + mendukung file teks/kode/log/JSON/HAR dan gambar PNG/JPEG/WebP, preview/remove, paste dan drop. Model selector mengirim pilihan ke provider; Refresh models mengambil katalog provider, atau batasi pilihan dengan `AI_ALLOWED_MODELS`. Setiap panggilan memakai budget/policy/review existing. Detail: [Agent Message Guide](docs/AGENTIC_RESEARCH_GUIDE.md#agent-message).
+
+Default `AI_ENABLED=false` dan `AGENTIC_AI_ENABLED=false`. AI=true + Agentic=false mempertahankan Copilot manual; AI=false selalu menonaktifkan agentic, termasuk bila flag agentic=true. Jika kedua flags aktif dan provider configured, Dashboard menampilkan Start/Continue Research, Review Queue dan Manual Analysis. Orchestrator backend memilih 13 specialist, berhenti untuk review/approval/testing/uncertainty/policy/limits, lalu melanjutkan setelah keputusan peneliti. Actors/objects/boundaries/hypotheses/test plans/potential findings/report adalah proposals sebelum diterapkan ke koleksi existing.
+
+Tool Inventory mendukung manual entry dan fixed local version detection. Native knowledge-search/JSON-parse/evidence-compare adapters mempunyai SAFE_AUTO/APPROVAL_REQUIRED/DENIED policy; signed approvals terikat pada exact action/scope dan sekali pakai. Tidak ada unrestricted shell, instalasi otomatis atau external target execution. `AGENT_ALLOW_TARGET_REQUESTS=false` adalah default; true tetap tidak menjalankan HTTP/browser/network karena external adapters belum tersedia pada rilis ini. Tool network yang direkomendasikan dijalankan manual oleh peneliti.
+
+`AGENT_MAX_STEPS=8`, `AGENT_RUN_BUDGET_USD=0.25`, `AGENT_DAILY_BUDGET_USD=2.00`, `AGENT_CALL_BUDGET_USD=0.03` mengontrol reservasi **estimasi yang dikonfigurasi**, bukan harga model/tagihan aktual. Reservasi sebelum call tersimpan di `.runtime/agent-cost-ledger.json` untuk cap harian UTC yang bertahan saat restart. Actual billed cost Unknown. Evidence dan false-positive/duplicate review diperlukan sebelum Confirm Finding; konfirmasi/severity tetap keputusan peneliti. Detail setup, latihan lengkap dan batasan tersedia di Agentic Guide.
 
 ## How to Learn This System
 
@@ -126,7 +137,7 @@ File System Access tetap opsional: Connect workspace.json → Save to workspace.
 ```json
 {
   "schemaVersion": "2.0.0",
-  "applicationVersion": "1.0.0",
+  "applicationVersion": "2.0.0",
   "updatedAt": "ISO-8601",
   "targets": [],
   "domainPacks": []
@@ -220,9 +231,12 @@ npm test
 python scripts/build-knowledge.py
 python scripts/build.py
 python tests/browser.py --chrome "C:/Program Files/Google/Chrome/Application/chrome.exe" --node "C:/path/to/modern/node.exe"
+python tests/reliability-browser.py --chrome "C:/Program Files/Google/Chrome/Application/chrome.exe" --node "C:/path/to/modern/node.exe"
 ```
 
 Node tests meliputi disabled/enabled/misconfigured/error provider, semua adapter dengan transport mock, migration, exact JSON round trip, validation, redaction, rules/tool filtering, context allowlist, reporting, autosave/write queue, CORS/host/token/body limits dan private files.
+
+Reliability regressions mencakup recovery journal/primary, atomic revision check antar-tab, proposal stale dan sibling review, dependent phase re-analysis, hasil native tool, finding Message dengan observation panjang, report source version, policy scope konsisten, serta preview redaksi. `tests/reliability-browser.py` memverifikasi IndexedDB asli, read-only recovery/Import Backup, konflik dua tab termasuk Send Agent disabled, dan download report/backup yang direview. Penilaian setelah perbaikan tersedia di [AUDIT.md](AUDIT.md).
 
 Browser test menggunakan profile sementara di `.qa/`, menjalankan workflow manual di file:// dan HTTP ES Modules, download aktual, IndexedDB/reload, v1 localStorage migration, invalid import, KB/helpers, mobile, console errors, real Fastify disabled, serta enabled mock provider acceptance flows. Mock server berada hanya di tests, bukan config runtime. Tidak ada panggilan live cloud pada tests. Hentikan server test setelah selesai; `.qa/` di-ignore Git.
 
@@ -239,3 +253,7 @@ Untuk menambah teknik, gunakan Custom Technique per target atau edit library def
 - Tidak ada CVSS/VRT mapping, HAR/Burp import, evidence bundling, automatic screenshot management, Git integration atau team sync. Extension point berada di services, templates, schema migration dan catalog.
 
 Researcher menjalankan pengujian manual sesuai program rules. AI suggests. Rules constrain. Researcher decides. System records. Evidence proves.
+
+## Optional Target Research Environment
+
+Target -> Research Environment adds accounts, authentication profiles, headers, tenant/data metadata and tri-state program rules. Secrets live in a separate encrypted local vault; workspace export includes references only. Remote credential execution and Active-session verification are not available. See [Research Environment Guide](docs/RESEARCH_ENVIRONMENT_GUIDE.md).

@@ -636,7 +636,7 @@ add('workspace-storage', 'Workspace Storage dan Autosave',
     'IndexedDB sebagai autosave utama, journal recovery opsional, dan JSON portabel schema v2.',
     'Mempertahankan catatan lokal serta mendukung recovery/migrasi dan perpindahan origin.',
     'Otomatis ketika mengubah data; export sebelum pindah browser/origin.',
-    'Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 1.0.0 dan timestamps.',
+    'Seluruh target/koleksi riset; schemaVersion 2.0.0, applicationVersion 2.0.0 dan timestamps.',
     'Snapshot IndexedDB; indikator Unsaved/Saving/Saved locally/error dan Last saved; journal localStorage opsional; migrasi v1 mempertahankan IDs/content.',
     '1. Buat/edit catatan.\n2. Tunggu Saved locally.\n3. Jika error, export snapshot memory sebagai backup.\n4. Import backup jika pindah origin.\n5. Hindari pengeditan concurrent di beberapa tab.',
     'Example SaaS dapat direload pada origin sama; berpindah file:// ke http://127.0.0.1:3001 memerlukan export/import jika storage berbeda.',
@@ -681,7 +681,7 @@ add('in-app-help', 'Contextual Help dan Documentation',
     'Membantu pengguna belajar fitur dari tempat mereka sedang bekerja.',
     'Saat membuka menu/operation/helper yang belum dipahami.',
     'Route aktif, helper/operation pilihan dan metadata featureRegistry.',
-    'Dialog help dan tautan langsung ke bagian referensi; halaman HTML dokumentasi lokal dengan daftar isi dan navigasi empat panduan.',
+    'Dialog help dan tautan langsung ke bagian referensi; halaman HTML dokumentasi lokal dengan daftar isi dan navigasi lima panduan.',
     '1. Arahkan pointer ke ? untuk tooltip.\n2. Klik ? untuk description/purpose/status.\n3. View Documentation membuka bagian yang sesuai.\n4. Ikuti tautan User Guide/Workflow Guide bila perlu.',
     'Pada Trust Boundaries, ? menjelaskan perpindahan trust/authority dan membuka referensi boundary.',
     'Metadata bersama menghasilkan UI help, status, dan Feature Reference. Seluruh menu, helper, dan operasi AI mempunyai entry.',
@@ -794,3 +794,24 @@ for operation,name,description,when,outputs in KNOWLEDGE_OPS:
         'Gunakan Example Finance dan domain Finance untuk latihan. Architecture/roles yang tidak supplied tidak boleh dianggap confirmed.',
         'AI Knowledge Assistant → Target Intelligence → existing mapping/hypothesis workflow setelah persetujuan.',
         'Output memakai schema knowledge yang sama; bagian yang tidak relevan dapat kosong. Tidak ada fetch perusahaan atau eksekusi test. Accept bukan verifikasi fakta.',operation=operation)
+
+
+AGENTIC_FEATURES=[
+ ('agentic-research','Agentic Research Orchestrator',['dashboard','research-details'],'Start/Continue memilih specialist berikutnya dari state, scope, proposal dan evidence.','Progress, current task, bounded runs dan review stop; bukan otomatis testing target.'),
+ ('agent-review','Review Queue',['review-queue'],'Review AI proposals dan native action approvals sebelum canonical data berubah.','Accept/Edit/Reject, Confirm Finding dengan evidence serta false-positive/duplicate analysis; signed local approvals.'),
+ ('manual-analysis','Manual Analysis',['manual-analysis'],'Observation, Assessment, Correction, Research Idea, Potential Root Cause, Next Test Suggestion dan Notes peneliti.','Input priority tinggi, stale proposal invalidation dan re-analysis dari phase pilihan.'),
+ ('agent-history','Agent History',['agent-history'],'Audit action/result/status/timestamp, researcher decision, tools dan estimated cost.','Run outcomes dan concise summaries; tidak ada private chain-of-thought.'),
+ ('tool-inventory','Tool Inventory',['tool-inventory'],'Installed/version/path/capabilities/agent permissions untuk perangkat lokal.','Manual entry dan fixed local detection; tidak memasang atau menjalankan path AI.'),
+ ('agentic-settings','Agentic AI Settings',['agentic-settings'],'Flag gabungan AI/Agentic, supervised mode, budget/steps/local access dan target policy.','Safe backend configuration tanpa API key; external adapters belum tersedia.')]
+for feature_id,name,feature_routes,description,outputs in AGENTIC_FEATURES:
+    add(feature_id,name,description,'Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.',
+        'Setelah Create Target, scope/rules/guard dan knowledge tersedia; pages manual/history tetap offline.',
+        'Selected target/context, researcher analysis, program rules, evidence, inventory dan bounded settings.',outputs,
+        '1. Read Agentic Guide.\n2. Configure flags/provider.\n3. Start/Continue dan review context.\n4. Review/edit/reject proposals.\n5. Tambahkan manual analysis/evidence.\n6. Continue sampai report review atau completed.',
+        'Example SaaS Lab memakai owned dummy accounts: invariant -> hypothesis -> manual test -> observation/evidence -> reviewed finding.',
+        'ResearchOrchestrator dan 13 specialists memakai provider/rules/knowledge/store serta canonical modules existing.',
+        'AI_ENABLED=false menonaktifkan agentic walau flag agentic=true. Native local adapters saja; HTTP/browser/network/installation/root/destructive execution denied. Budget adalah estimasi, actual billing Unknown. Tidak ada company fact atau confirmed finding otomatis.',routes=feature_routes)
+
+add('research-environment','Target Research Environment','Optional testing metadata, accounts, authentication profiles, encrypted secret refs and target-specific rules.','Separate target metadata from secrets and enforce explicit program rules.','When configuring authorized testing; manual research works without credentials.','Program/scope, account roles, authentication method, headers, rules, restrictions and vault passphrase.','Per-target metadata, role/account matrix, protected credential references and policy review states.','1. Target -> Research Environment.\n2. Configure metadata/rules/accounts/profiles.\n3. Unlock vault and update protected secrets.\n4. Select authentication context in hypothesis/test.','Owned SaaS lab uses two dummy accounts; no real target request.','Reuses Target/Scope/Policy/Agentic/SecretRedactor/Workspace Storage.','Encrypted local vault only. Export excludes secrets. Remote execution, session verification and secure secret export unavailable.',routes=['research-environment'],status='Partial')
+
+add('agent-message','Agent Message','Right group conversation with mentions above input, attachments and model selection.','Analyze selected research without leaving the workspace.','When both AI flags are enabled; local lookup works without a configured provider.','Active target/page, up to four @specialists, #record:id, selected model and optional files.','Concise analysis, redacted target/session conversation and review proposals.','1. Select target and open a record.\n2. Ask Agent; adjust context chips.\n3. Type @finding and #evidence reference.\n4. Enter sends a bounded group analysis; Shift+Enter adds a line.\n5. Review proposal in Review Queue; close/collapse to continue research.','Owned dummy finding and evidence; no target request.','Reuses ResearchOrchestrator, specialists, ledger, redactor, policy and canonical review workflow.','Related Terms/autocomplete are local. Ctrl/Cmd+K commands; Escape dismisses suggestions/drawer. General + up to three relevant specialists without tags; explicit tags select members. Per-agent model/history. Text and PNG/JPEG/WebP files with preview; PDF unsupported. Model selection is validated server-side. History window 20 messages, max 1000 per target. Mobile drawer; disabled UI hidden. No tool execution or auto-confirmed findings.',routes=[])

@@ -11,7 +11,7 @@ export const DomainPackRepository={
 };
 export const TargetIntelligenceService={
   get:target=>target?.intelligence||emptyIntelligence(),
-  update(store,target,values){store.updateTarget(target.id,{intelligence:{...this.get(target),...values}});},
+  update(store,target,values){store.updateTarget(target.id,{intelligence:{...this.get(target),...values}},{canonical:Object.keys(values).some(k=>k!=='suggestions')});},
   saveProfile(store,target,values){const previous=this.get(target).profile;const profile={...previous};for(const [key] of profileFields)if(values[key]!==undefined&&values[key]!==previous[key]?.value)profile[key]={value:values[key],...researcherProvenance()};this.update(store,target,{profile});},
   accept(store,target,item,edited={}){const intelligence=this.get(target);const record={...item,...edited,id:uuid(),status:'accepted',createdAt:now(),originId:item.id,generatedBy:item.sourceType==='ai'?'ai':'manual'};this.update(store,target,{items:[...intelligence.items,record]});return record;},
   remove(store,target,id){this.update(store,target,{items:this.get(target).items.filter(i=>i.id!==id)});}

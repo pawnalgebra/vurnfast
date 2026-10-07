@@ -1,10 +1,12 @@
 # Advanced Bug Bounty Research Workspace
 
+V2 menambahkan [Agentic AI Research](AGENTIC_RESEARCH_GUIDE.md): Start/Continue otomatis memilih specialist berikutnya, dengan review queue, manual analysis, tool inventory, history dan estimated budgets. Kedua flags AI/Agentic harus aktif untuk menjalankan orchestrator; semua core manual tetap tersedia.
+
 Pelajari bisnis sebelum menguji teknologi: buka **Target Intelligence** untuk profil dan klasifikasi sektor, lalu **Domain Knowledge**, **Terminology**, dan **Business Flows**. Panduan [Target Intelligence & Domain Knowledge](TARGET_INTELLIGENCE_GUIDE.md) menyediakan latihan Finance manual, provenance, custom packs, serta 11 operasi AI knowledge yang terpisah dari Research Assistant. Semua pembelajaran domain bekerja tanpa AI.
 
 ## Apa Itu Sistem Ini
 
-Aplikasi ini membantu peneliti menyusun riset bug bounty: mencatat izin, memetakan sistem, merumuskan dugaan, mendokumentasikan pengujian manual, dan menghasilkan laporan. Nama yang tampil pada aplikasi saat ini adalah **Universal Research Workspace**. Panduan ini mengikuti implementasi aplikasi versi 1.0.0 dengan schema workspace 2.0.0.
+Aplikasi ini membantu peneliti menyusun riset bug bounty: mencatat izin, memetakan sistem, merumuskan dugaan, mendokumentasikan pengujian manual, dan menghasilkan laporan. Nama yang tampil pada aplikasi saat ini adalah **Universal Research Workspace**. Panduan ini mengikuti implementasi aplikasi versi 2.0.0 dengan schema workspace 2.0.0.
 
 Alur utama:
 
@@ -102,7 +104,7 @@ Engagement Guard memiliki tujuh checklist: target in-scope, akun authorized, dat
 
 **Hard Program Rules** mempunyai tiga izin eksplisit: automation, DoS, dan testing pihak ketiga. Semuanya default false. Memahami aturan automation tidak berarti automation diizinkan. AI tidak dapat mengubah flags ini. Rules program tetap menentukan tindakan yang boleh dilakukan.
 
-Scope Checker dan advisor memakai asset, daftar scope, serta tiga konfirmasi pertama untuk gating. Pemeriksaan out-of-scope hanya mencocokkan entri teks asset secara utuh setelah normalisasi huruf/spasi; tidak memahami wildcard, path, atau semua kondisi program. Status `within_supplied_scope` berarti sesuai catatan yang diberikan, bukan validasi izin independen. Review ketujuh checklist tetap diperlukan.
+Scope Checker, Copilot, dan Agentic memakai evaluator yang sama: asset harus cocok tepat dengan entri In Scope setelah normalisasi huruf/spasi/trailing slash, tidak cocok dengan Out of Scope, dan memiliki tiga konfirmasi izin pertama. Wildcard, annotation, atau path yang belum cocok memerlukan review dan pencatatan asset eksplisit. Status `within_supplied_scope` mengikuti catatan peneliti, bukan validasi izin independen. Review ketujuh checklist tetap diperlukan.
 
 ## Cara Mapping Attack Surface
 
@@ -284,6 +286,10 @@ KB tersimpan per target. Global Search dapat menemukan lessons/KB lintas target;
 ## Backup dan Restore Workspace
 
 IndexedDB adalah autosave lokal browser. `workspace.json` adalah backup portabel yang Anda ekspor; file root bukan database yang selalu ditulis aplikasi. Tunggu indikator **Saved locally** dan waktu Last saved. Jika storage error, Export Workspace untuk menyelamatkan snapshot memory saat ini.
+
+Journal dipadatkan setelah jeda typing sekitar 80 ms dan primary setelah 350 ms; flush ketika tab disembunyikan/ditutup. Journal rusak atau dari revisi lama dikarantina dan tidak menimpa primary valid. Jika semua salinan tidak valid, editor read-only: gunakan **Export Recovery Data**, lalu **Import Backup** yang valid. Konflik save antar-tab memblokir penulisan tab stale; export perubahan lokal dan reload sebelum melanjutkan. Aplikasi belum menggabungkan perubahan antar-tab otomatis.
+
+Export/connected-file memeriksa pola data sensitif dan menawarkan preview **Use Redacted**. Redacted JSON dapat mengubah identifier; **Export Original Backup** tersedia setelah konfirmasi tambahan untuk backup privat yang lossless. Reports memakai preview redaksi sebelum copy/download/print; pola yang tidak dikenal tetap perlu review manual. Draft report menampilkan status stale ketika sumber berubah; Generate Report atau Mark Sources Reviewed hanya setelah memeriksa sumber terbaru.
 
 1. Tekan **↓ Export** pada header atau **Backup → Export Workspace/Export Backup**. Simpan JSON di lokasi yang Anda kelola.
 2. Sebelum restore, ekspor workspace saat ini.

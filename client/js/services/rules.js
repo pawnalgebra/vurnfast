@@ -2,10 +2,12 @@
 export const defaultProgramRules=()=>({automationAllowed:false,dosAllowed:false,thirdPartyTesting:false});
 export const scopeStatuses=['within_supplied_scope','outside_supplied_scope','unclear_scope','requires_manual_review'];
 export function assessScope(context) {
-  const asset=(context.target?.asset||'').trim().toLowerCase();
-  const excluded=(context.scope?.outOfScope||[]).map(v=>v.trim().toLowerCase());
+  const normalize=v=>String(v||'').trim().toLowerCase().replace(/\/$/,'');
+  const asset=normalize(context.target?.asset);
+  const excluded=(context.scope?.outOfScope||[]).map(normalize);
   if(asset && excluded.some(line=>line===asset))return {status:'outside_supplied_scope',reason:'Asset cocok dengan entri out-of-scope yang diberikan.'};
   if(!asset || !(context.scope?.inScope||[]).length)return {status:'unclear_scope',reason:'Asset atau daftar in-scope belum dicatat.'};
+  if(!(context.scope.inScope||[]).some(v=>normalize(v)===asset))return {status:'requires_manual_review',reason:'Asset belum cocok tepat dengan In Scope; wildcard/path/annotation memerlukan review dan pencatatan asset eksplisit.'};
   const auth=context.authorization||{};
   if(!auth.authorized || !auth.ownedAccountsOnly || !auth.ownedDataOnly)return {status:'requires_manual_review',reason:'Konfirmasi target, akun terotorisasi, dan kepemilikan data belum lengkap.'};
   return {status:'within_supplied_scope',reason:'Berdasarkan scope dan checklist yang dicatat peneliti; bukan validasi izin independen.'};

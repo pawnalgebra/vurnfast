@@ -914,6 +914,109 @@ export const featureRegistry=[
     "documentation": "docs/FEATURE_REFERENCE.html#knowledge-op-recommend_domain_techniques"
   },
   {
+    "id": "agentic-research",
+    "name": "Agentic Research Orchestrator",
+    "description": "Start/Continue memilih specialist berikutnya dari state, scope, proposal dan evidence.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "dashboard",
+      "research-details"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agentic-research"
+  },
+  {
+    "id": "agent-review",
+    "name": "Review Queue",
+    "description": "Review AI proposals dan native action approvals sebelum canonical data berubah.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "review-queue"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-review"
+  },
+  {
+    "id": "manual-analysis",
+    "name": "Manual Analysis",
+    "description": "Observation, Assessment, Correction, Research Idea, Potential Root Cause, Next Test Suggestion dan Notes peneliti.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "manual-analysis"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#manual-analysis"
+  },
+  {
+    "id": "agent-history",
+    "name": "Agent History",
+    "description": "Audit action/result/status/timestamp, researcher decision, tools dan estimated cost.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "agent-history"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-history"
+  },
+  {
+    "id": "tool-inventory",
+    "name": "Tool Inventory",
+    "description": "Installed/version/path/capabilities/agent permissions untuk perangkat lokal.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "tool-inventory"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#tool-inventory"
+  },
+  {
+    "id": "agentic-settings",
+    "name": "Agentic AI Settings",
+    "description": "Flag gabungan AI/Agentic, supervised mode, budget/steps/local access dan target policy.",
+    "purpose": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+    "status": "Active",
+    "routes": [
+      "agentic-settings"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agentic-settings"
+  },
+  {
+    "id": "research-environment",
+    "name": "Target Research Environment",
+    "description": "Optional testing metadata, accounts, authentication profiles, encrypted secret refs and target-specific rules.",
+    "purpose": "Separate target metadata from secrets and enforce explicit program rules.",
+    "status": "Partial",
+    "routes": [
+      "research-environment"
+    ],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#research-environment"
+  },
+  {
+    "id": "agent-message",
+    "name": "Agent Message",
+    "description": "Right group conversation with mentions above input, attachments and model selection.",
+    "purpose": "Analyze selected research without leaving the workspace.",
+    "status": "Active",
+    "routes": [],
+    "operation": null,
+    "helper": null,
+    "documentation": "docs/FEATURE_REFERENCE.html#agent-message"
+  },
+  {
     "id": "tech_01",
     "name": "State-Machine & Context Confusion",
     "description": "Uji kombinasi state yang valid secara individual tetapi tidak boleh coexist dalam satu transaksi.",

@@ -4,6 +4,7 @@ export const scopeFields=[['inScope','In Scope','textarea'],['outOfScope','Out o
 export const guards=[['inScope','Target confirmed in-scope'],['account','Testing account authorized'],['data','Testing data owned'],['automation','Automation rules understood'],['rateLimits','Rate limits understood'],['destructive','Restrictions reviewed / destructive testing understood'],['knownIssues','Known issues reviewed']];
 export function renderScope(ctx,target) {
   const root=el('div',{},ctx.heading('Scope & Engagement Guard','Catat batas engagement sebelum menjalankan pengujian manual.'));
+  if(target.researchEnvironment)root.append(el('p',{class:'notice'},'Structured rules pada Research Environment menjadi source of truth untuk target ini. Unknown tidak mengizinkan automation; checkbox legacy di bawah tidak mengganti structured rules.'),el('a',{href:'#research-environment'},'Review Research Environment Rules'));
   const checks=el('div',{class:'checklist'});
   for(const [key,label] of guards) {const input=el('input',{type:'checkbox','aria-label':label});input.checked=!!target.scope.guard?.[key];input.addEventListener('change',()=>ctx.store.updateTarget(target.id,{scope:{...target.scope,guard:{...target.scope.guard,[key]:input.checked}}}));checks.append(el('label',{},input,label));}
   root.append(panel('Engagement Guard',ctx.help('engagement-guard'),el('p',{class:'muted'},'Checklist dokumentasi manual. Catatan ini tidak memvalidasi target secara otomatis.'),checks));

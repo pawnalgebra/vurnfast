@@ -2,6 +2,8 @@ import {validateAIOutput} from './services/ai-schema.js';
 import {DEFAULT_TECHNIQUES} from './technique-data.js';
 import {validateDomainPack,validateIntelligence,emptyIntelligence} from './services/domain-schema.js';
 import {validateKnowledgeResponse,knowledgeOperations} from './services/knowledge-schema.js';
+import {emptyAgentResearch,builtinTools,validateAgentResearch,validateToolInventory} from './services/agent-schema.js';
+import {validateResearchEnvironment} from './services/environment.js';
 // MODULE: Persistence and migration boundary.
 // DATA CONTRACT: v1 -> v2 migration preserves IDs, research content, timestamps and extensions.
 export const SCHEMA_VERSION='2.0.0';
@@ -27,6 +29,7 @@ export function migrateWorkspace(input) {
   walk(input);
   if(typeof input.applicationVersion!=='string' || typeof input.updatedAt!=='string' || !Array.isArray(input.targets)) fail('Metadata/root workspace tidak valid.');
   const data=JSON.parse(JSON.stringify(input));
+  data.toolInventory??=builtinTools();validateToolInventory(data.toolInventory);
   data.domainPacks??=[];
   if(!Array.isArray(data.domainPacks))fail('Domain packs tidak valid.');
   const packIds=new Set();for(const pack of data.domainPacks){validateDomainPack(pack);if(packIds.has(pack.id))fail('Domain pack ID duplikat.');packIds.add(pack.id);}
@@ -52,7 +55,11 @@ export function migrateWorkspace(input) {
   const textFields=['name','title','platform','programUrl','asset','environment','version','status','owner','tenant','state','sensitivity','from','to','trust','authority','description','hypothesisTemplate','testTemplate','stopCondition','rarity','difficulty','domain','invariant','expectedBehavior','potentialFailure','who','what','object','context','priority','confidence','queue','preconditions','steps','expectedResult','actualResult','requestNotes','responseNotes','result','timestamp','severity','affectedComponent','affectedVersion','vulnerabilityClass','startingAuthority','securityRestriction','protectedResource','unauthorizedOutcome','rootCause','impact','mitigation','researchNotes','type','label','path','content','createdAt','updatedAt','techniqueId','hypothesisId','testCaseId'];
   for(const target of data.targets) {
     entity(target,'Target');
+    target.agentResearch??=emptyAgentResearch();validateAgentResearch(target.agentResearch);
+    if(target.agentResearch.messages?.some(m=>m.targetId!==target.id))throw new Error('Conversation target tidak valid.');
+    target.researchRevision??=0;if(!Number.isInteger(target.researchRevision)||target.researchRevision<0)fail('Research revision tidak valid.');
     target.intelligence??=emptyIntelligence();validateIntelligence(target.intelligence);
+    if(target.researchEnvironment!==undefined)validateResearchEnvironment(target.researchEnvironment,target);
     for(const suggestion of target.intelligence.suggestions){entity(suggestion,'Knowledge suggestion');if(!['pending','accepted','rejected'].includes(suggestion.status)||!knowledgeOperations.some(o=>o[0]===suggestion.operation))fail('Knowledge suggestion tidak valid.');validateKnowledgeResponse(suggestion.response);}
     if(typeof target.name!=='string' || !target.name.trim() || !plain(target.scope)) fail('Nama/scope target tidak valid.');
     if(!plain(target.programRules) || ['automationAllowed','dosAllowed','thirdPartyTesting'].some(key=>typeof target.programRules[key]!=='boolean'))fail('Program rules tidak valid.');
@@ -83,6 +90,7 @@ export function migrateWorkspace(input) {
     }
     for(const field of [...textFields,'customNotes']) if(target[field]!==undefined && typeof target[field]!=='string') fail('Target.'+field+' harus berupa teks.');
     const check=(value,rows,label)=>{if(value && !rows.some(r=>r.id===value)) fail('Referensi '+label+' tidak ditemukan.');};
+    for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId!==undefined){if(typeof row.authProfileId!=='string')fail('Authentication profile reference harus teks.');check(row.authProfileId,target.researchEnvironment?.profiles||[],'authentication profile');}
     for(const h of target.hypotheses) check(h.techniqueId,target.techniques,'technique');
     for(const t of target.testCases) {check(t.hypothesisId,target.hypotheses,'hypothesis');check(t.techniqueId,target.techniques,'technique');check(t.boundaryId,target.boundaries,'boundary');}
     for(const f of target.findings) {check(f.testCaseId,target.testCases,'test case');check(f.techniqueId,target.techniques,'technique');}
@@ -108,34 +116,57 @@ export function openDatabase() {
     request.onsuccess=()=>{const db=request.result;db.onversionchange=()=>{db.close();databasePromise=null;};resolve(db);};
   });return databasePromise;
 }
-export async function writeLocal(workspace) {
-  const db=await openDatabase();
-  return new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readwrite');tx.objectStore('workspace').put(workspace,'primary');tx.oncomplete=()=>resolve();tx.onabort=tx.onerror=()=>reject(new Error('Penulisan IndexedDB gagal (quota atau permission).'));});
+export function createStorageSession(open=openDatabase,storage=()=>globalThis.localStorage){
+  let baseline;
+  const writerId=globalThis.crypto?.randomUUID?.()||String(Math.random()).slice(2);
+  const recovery={warning:'',data:null};
+  const journalText=workspace=>JSON.stringify({format:'workspace-journal-v3',baseRevision:baseline??0,writerId,workspace});
+  const quarantine=raw=>{try{storage().setItem(JOURNAL_KEY+'-quarantine-'+writerId,raw);if(storage().getItem(JOURNAL_KEY)===raw)storage().removeItem(JOURNAL_KEY);}catch{}recovery.warning='Journal recovery tidak valid/berkonflik; primary dipertahankan. Export Recovery Data untuk memeriksa salinan.';};
+  async function write(workspace,{preservePrimary}={}){
+    const db=await open();
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('workspace','readwrite'),s=tx.objectStore('workspace'),r=s.get('revision');let next,error;
+      r.onsuccess=()=>{const current=r.result??0;if(baseline!==undefined&&current!==baseline){error=new Error('Workspace berubah di tab lain. Export perubahan lokal, lalu reload sebelum mengedit.');error.code='STORAGE_CONFLICT';tx.abort();return;}next=current+1;if(preservePrimary!==undefined)s.put(preservePrimary,'recovery-primary');s.put(workspace,'primary');s.put(next,'revision');};
+      tx.oncomplete=()=>{baseline=next;resolve();};tx.onabort=tx.onerror=()=>reject(error||new Error('Penulisan IndexedDB gagal (quota atau permission).'));
+    });
+  }
+  async function read(){
+    recovery.warning='';const db=await open();
+    const [stored,revision]=await new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readonly'),s=tx.objectStore('workspace'),a=s.get('primary'),b=s.get('revision');tx.oncomplete=()=>resolve([a.result,b.result??0]);tx.onerror=tx.onabort=()=>reject(new Error('Pembacaan IndexedDB gagal.'));});
+    baseline=revision;let raw,legacy;try{raw=storage().getItem(JOURNAL_KEY);if(!stored&&!raw)legacy=storage().getItem(STORAGE_KEY);}catch{}
+    recovery.data={primary:stored??null,journal:raw??null,legacy:legacy??null,revision};
+    let primary,primaryError,pending;
+    try{if(stored)primary=migrateWorkspace(stored);}catch(error){primaryError=error;}
+    if(raw){try{if(new Blob([raw]).size>21000000)throw new Error('Journal terlalu besar.');const parsed=JSON.parse(raw);if(parsed.format==='workspace-journal-v3'){if(parsed.baseRevision!==revision)throw new Error('Journal berasal dari revisi lama.');pending=migrateWorkspace(parsed.workspace);}else if(!stored||!primary||String(parsed.updatedAt)>String(stored.updatedAt))pending=parseWorkspace(raw);}catch{quarantine(raw);}}
+    if(pending){await write(pending,{...(primaryError?{preservePrimary:stored}:{})});try{if(storage().getItem(JOURNAL_KEY)===raw)storage().removeItem(JOURNAL_KEY);}catch{}return pending;}
+    if(primary){if(stored.schemaVersion!==SCHEMA_VERSION)await write(primary);return primary;}
+    if(legacy){const migrated=parseWorkspace(legacy);await write(migrated);return migrated;}
+    if(primaryError||raw)throw new Error('Tidak ada salinan workspace valid; editing/autosave diblokir sampai Import Backup.');
+    return null;
+  }
+  return {read,write,journalText,recovery};
 }
-export async function readLocal() {
-  const db=await openDatabase();
-  const stored=await new Promise((resolve,reject)=>{const tx=db.transaction('workspace','readonly');const request=tx.objectStore('workspace').get('primary');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(new Error('Pembacaan IndexedDB gagal.'));});
-  let journal,legacy;try{journal=localStorage.getItem(JOURNAL_KEY);if(!stored&&!journal)legacy=localStorage.getItem(STORAGE_KEY);}catch{} // Journal is optional, IDB remains primary.
-  const workspace=journal?parseWorkspace(journal):stored?migrateWorkspace(stored):legacy?parseWorkspace(legacy):null;
-  if(workspace && (journal||legacy||stored?.schemaVersion!==SCHEMA_VERSION)) {await writeLocal(workspace);if(journal)try{localStorage.removeItem(JOURNAL_KEY);}catch{}}
-  return workspace;
-}
+const localSession=createStorageSession();
+export const storageRecovery=localSession.recovery;
+export const readLocal=()=>localSession.read();
+export const writeLocal=workspace=>localSession.write(workspace);
 export function makePersistence(write=writeLocal,delay=350) {
-  let timer,pending=null,running=null;
+  let timer,journalTimer,pending=null,running=null,blockedError=null;
   const listeners=new Set();
-  const notify=(status,error)=>listeners.forEach(fn=>fn({status,error,lastSaved:status==='saved'?new Date().toISOString():null}));
+  const notify=(status,error)=>listeners.forEach(fn=>fn({status,error,blocked:!!blockedError,lastSaved:status==='saved'?new Date().toISOString():null}));
+  const journal=snapshot=>{const text=localSession.journalText(snapshot);try{localStorage.setItem(JOURNAL_KEY,text);}catch{}return text;};
   async function flush() {
-    clearTimeout(timer);if(running)return running;if(!pending)return true;
+    clearTimeout(timer);clearTimeout(journalTimer);if(blockedError){notify('error',blockedError);return false;}if(running)return running;if(!pending)return true;
     running=(async()=>{
       while(pending) {
-        const snapshot=pending;pending=null;notify('saving');
-        try {await write(snapshot);if(!pending){try{if(localStorage.getItem(JOURNAL_KEY)===JSON.stringify(snapshot))localStorage.removeItem(JOURNAL_KEY);}catch{}notify('saved');}}
-        catch(error){if(!pending)pending=snapshot;notify('error',error.message);return false;}
+        const snapshot=JSON.parse(JSON.stringify(pending));pending=null;const raw=journal(snapshot);notify('saving');
+        try {await write(snapshot);if(!pending){try{if(localStorage.getItem(JOURNAL_KEY)===raw)localStorage.removeItem(JOURNAL_KEY);}catch{}notify('saved');}}
+        catch(error){if(!pending)pending=snapshot;if(error.code==='STORAGE_CONFLICT')blockedError=error.message;notify('error',error.message);return false;}
       }return true;
     })();
     try{return await running;}finally{running=null;}
   }
-  return {schedule(workspace){pending=JSON.parse(JSON.stringify(workspace));try{localStorage.setItem(JOURNAL_KEY,JSON.stringify(pending));}catch{}notify('unsaved');clearTimeout(timer);timer=setTimeout(flush,delay);},flush,isDirty:()=>!!pending||!!running,subscribe(fn){listeners.add(fn);}};
+  return {schedule(workspace){pending=workspace;if(blockedError){notify('error',blockedError);return;}notify('unsaved');clearTimeout(timer);clearTimeout(journalTimer);journalTimer=setTimeout(()=>{if(pending)journal(pending);},Math.min(80,delay));timer=setTimeout(flush,delay);},flush,isDirty:()=>!!pending||!!running,isBlocked:()=>!!blockedError,subscribe(fn){listeners.add(fn);}};
 }
 // PURPOSE: File handles stay in memory. JSON is written only through an explicit user gesture.
 export const connectedFile={handle:null};

@@ -1,11 +1,15 @@
+import {environmentReadiness} from '../services/environment.js';
 import {el,button,panel,badge,formulaView,empty} from '../utils.js';
 import {routeTo} from '../router.js';
 import {editHypothesis} from './hypotheses.js';
 import {editTarget} from './targets.js';
 import {coverageAnalysis} from '../services/analysis.js';
+import {renderAgentDashboard} from './agent-research.js';
 export function renderDashboard(ctx,target) {
+  if(target&&ctx.aiConnection.agentic.enabled&&ctx.aiConnection.agentic.configured)return renderAgentDashboard(ctx,target);
   const root=el('div',{},ctx.heading('Research Dashboard',target?'Riset terstruktur, dari invariant hingga evidence.':'Buat workspace untuk memulai riset manual lintas program.',button(target?'+ New Hypothesis':'+ Create Target',()=>target?editHypothesis(ctx,target):editTarget(ctx),'primary')));
   if(!target){root.append(panel('Mulai dengan sebuah target',el('p',{class:'muted'},'Tentukan program dan scope, petakan actor serta object, pilih technique, lalu dokumentasikan pengujian. Seluruh data disimpan di browser ini.'),el('div',{class:'workflow'},['Target','Scope','Attack Surface','Technique','Hypothesis','Test','Finding','Report'].map((v,i)=>[i?'→ ':null,badge(v)]))),panel('Universal Formula',formulaView({who:'Actor',what:'Action',object:'Resource',state:'Lifecycle',authority:'Permission',context:'Environment'})));return root;}
+  root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
   const metrics=[['Hypotheses',target.hypotheses.length],['Tested',target.testCases.filter(t=>t.result!=='not-tested').length],['Interesting',target.testCases.filter(t=>t.result==='interesting').length+target.hypotheses.filter(h=>h.status==='interesting').length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length],['Rejected',target.hypotheses.filter(h=>h.status==='rejected').length+target.findings.filter(f=>f.status==='rejected').length],['Out of Scope',target.hypotheses.filter(h=>h.status==='out-of-scope').length+target.findings.filter(f=>f.status==='out-of-scope').length]];
   root.append(el('div',{class:'stats'},metrics.map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
   root.append(panel('Research Coverage',el('div',{class:'badges'},coverageAnalysis(target).coverage.map(group=>badge(group.label+': '+group.covered+' / '+group.total))),el('a',{href:'#coverage'},'Review untested actors, objects, states, boundaries, dan techniques →')));

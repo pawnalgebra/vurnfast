@@ -10,6 +10,8 @@ export function resolveConfig(env={}) {
   const keyNames={openai:'OPENAI_API_KEY',anthropic:'ANTHROPIC_API_KEY',gemini:'GEMINI_API_KEY'};
   const modelNames={openai:'OPENAI_MODEL',anthropic:'ANTHROPIC_MODEL',gemini:'GEMINI_MODEL',ollama:'OLLAMA_MODEL'};
   const model=env[modelNames[provider]]||'',key=env[keyNames[provider]]||'';
+  const modelAllowlist=[...new Set(String(env.AI_ALLOWED_MODELS||'').split(',').map(id=>id.trim()).filter(id=>/^[A-Za-z0-9._:/-]{1,180}$/.test(id)))].slice(0,100);
+  const models=[...new Set([model,...modelAllowlist].filter(Boolean))];
   const privacyMode=env.AI_PRIVACY_MODE||'REDACTED_CLOUD';
   let configured=!!model && (provider==='ollama'||!!key) && Object.hasOwn(modelNames,provider);
   const baseURL=env.OLLAMA_BASE_URL||'http://127.0.0.1:11434';
@@ -17,8 +19,12 @@ export function resolveConfig(env={}) {
   if(!['LOCAL_ONLY','REDACTED_CLOUD','CLOUD'].includes(privacyMode)||(privacyMode==='LOCAL_ONLY'&&provider!=='ollama'))configured=false;
   const host=env.SERVER_HOST||'127.0.0.1';if(!['127.0.0.1','localhost','::1'].includes(host))throw new Error('SERVER_HOST harus loopback untuk platform lokal ini.');
   const port=Number(env.SERVER_PORT||3001);if(!Number.isInteger(port)||port<1||port>65535)throw new Error('SERVER_PORT tidak valid.');
-  return {enabled,provider,model,key,baseURL,privacyMode,redactSecrets:env.AI_REDACT_SECRETS!=='false',configured,host,port};
+  const bounded=(value,fallback,min,max)=>{const number=Number(value);return value!==undefined&&Number.isFinite(number)&&number>=min&&number<=max?number:fallback;};
+  const agentic={enabled:enabled&&env.AGENTIC_AI_ENABLED==='true',executionMode:'Supervised',humanApproval:true,
+    maxSteps:Math.floor(bounded(env.AGENT_MAX_STEPS,8,1,32)),runBudgetUSD:bounded(env.AGENT_RUN_BUDGET_USD,.25,0,100),dailyBudgetUSD:bounded(env.AGENT_DAILY_BUDGET_USD,2,0,1000),callBudgetUSD:bounded(env.AGENT_CALL_BUDGET_USD,.03,.000001,100),
+    localToolAccess:env.AGENT_ALLOW_LOCAL_TOOLS!=='false',allowTargetRequests:env.AGENT_ALLOW_TARGET_REQUESTS==='true',externalAdaptersAvailable:false,costAccounting:'Conservative configured estimate; actual provider billing unknown'};
+  return {enabled,provider,model,models,modelAllowlist,key,baseURL,privacyMode,redactSecrets:env.AI_REDACT_SECRETS!=='false',configured,host,port,agentic};
 }
 export function safeConfig(config,status) {
-  return {enabled:config.enabled,provider:config.provider,model:config.model,configured:config.enabled&&config.configured,privacyMode:config.privacyMode,redactSecrets:config.redactSecrets,status:status||(!config.enabled?'Disabled':!config.configured?'Misconfigured':'Connected')};
+  return {enabled:config.enabled,provider:config.provider,model:config.model,models:config.models,configured:config.enabled&&config.configured,privacyMode:config.privacyMode,redactSecrets:config.redactSecrets,status:status||(!config.enabled?'Disabled':!config.configured?'Misconfigured':'Connected'),agentic:{...config.agentic,configured:config.agentic.enabled&&config.configured}};
 }

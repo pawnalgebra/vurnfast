@@ -14,7 +14,7 @@ class CDP:
         response=b''
         while b'\r\n\r\n' not in response:response+=self.sock.recv(1)
         assert b'101' in response,response
-        self.sequence=0;self.errors=[]
+        self.sequence=0;self.errors=[];self.requests=[]
     def exact(self,n):
         data=b''
         while len(data)<n:
@@ -37,6 +37,8 @@ class CDP:
         self.sock.sendall(frame+mask+bytes(c^mask[i%4] for i,c in enumerate(payload)))
         while True:
             message=self.receive()
+            if message.get('method')=='Network.requestWillBeSent':
+                request=message['params']['request'];self.requests.append({'url':request['url'],'postData':request.get('postData','')})
             if message.get('method')=='Runtime.exceptionThrown':self.errors.append(message['params'])
             if message.get('method')=='Log.entryAdded' and message['params']['entry']['level']=='error':self.errors.append(message['params']['entry'])
             if message.get('id')==ident:
@@ -53,7 +55,14 @@ class CDP:
                 if not any(word in str(error) for word in ['navigated','context','closed']):raise
                 time.sleep(.1)
         raise RuntimeError('Browser navigation did not settle')
-    def go(self,url):self.call('Page.navigate',{'url':url});self.wait(800)
+    def go(self,url):
+        self.call('Page.navigate',{'url':url});self.wait(800)
+        for _ in range(30):
+            if self.js("!!document.querySelector('h1')"):return
+            message=self.js("document.getElementById('view')?.textContent||''")
+            if message.startswith('Aplikasi gagal dimuat:'):raise RuntimeError(message)
+            self.wait(150)
+        raise RuntimeError('Application/document heading did not load: '+url)
     def route(self,key):self.js('location.hash='+json.dumps(key));self.wait(100)
     def click(self,label):self.js(f"(()=>{{const b=[...document.querySelectorAll('button')].find(b=>b.textContent==={json.dumps(label)});if(!b)throw Error('Missing button: '+{json.dumps(label)});b.click();}})()");self.wait(60)
     def submit(self,values):
@@ -82,7 +91,7 @@ def run(chrome,node='node'):
             except Exception:time.sleep(.2)
         else:raise RuntimeError('Chrome DevTools did not start')
         c=CDP(next(page['webSocketDebuggerUrl'] for page in pages if page['type']=='page'))
-        c.call('Runtime.enable');c.call('Page.enable');c.call('Log.enable')
+        c.call('Runtime.enable');c.call('Page.enable');c.call('Log.enable');c.call('Network.enable')
         c.call('Browser.setDownloadBehavior',{'behavior':'allow','downloadPath':str(output)})
         c.go(ROOT.joinpath('index.html').as_uri());assert c.js("document.querySelector('h1').textContent")=='Research Dashboard'
         def verify_help():
@@ -94,13 +103,13 @@ def run(chrome,node='node'):
             c.click('×');c.go(href)
             assert c.js("!!document.getElementById(location.hash.slice(1))"),href
             assert c.js("document.querySelector('article').textContent.includes('Kenapa Feature Ini Penting')")
-            assert c.js("document.querySelectorAll('nav a').length")==4
+            assert c.js("document.querySelectorAll('nav a').length")==6
             c.go(origin)
         verify_help()
         c.js('window.confirm=()=>true')
         c.click('+ Create Target');c.submit({'name':'Example SaaS','platform':'Private','asset':'app.example.test'})
         assert c.state()['targets'][0]['name']=='Example SaaS'
-        c.route('scope');c.js("const scopeInput=document.querySelector('[name=inScope]');scopeInput.value='app.example.test (authorized test environment)';scopeInput.dispatchEvent(new Event('input'));for(const label of ['Target confirmed in-scope','Testing account authorized','Testing data owned'])document.querySelector('input[aria-label=\"'+label+'\"]').click()");c.wait()
+        c.route('scope');c.js("const scopeInput=document.querySelector('[name=inScope]');scopeInput.value='app.example.test';scopeInput.dispatchEvent(new Event('input'));for(const label of ['Target confirmed in-scope','Testing account authorized','Testing data owned'])document.querySelector('input[aria-label=\"'+label+'\"]').click()");c.wait()
         c.route('attack-surface');c.click('+ Tambah');c.submit({'name':'Owner'})
         c.click('+ Tambah');c.submit({'name':'Member'})
         c.js("document.querySelectorAll('.panel')[1].querySelector('button').click()");c.submit({'name':'Approval','type':'Approval','owner':'Owner','state':'Used'})
@@ -166,7 +175,7 @@ def run(chrome,node='node'):
         # Attempt HTML injection via notes remains plain text.
         c.route('notes');assert c.js("document.querySelectorAll('#view img').length")==0
         # Every sidebar route is rendered without runtime errors.
-        for route in ['dashboard','targets','scope','attack-surface','actors','objects','boundaries','target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions','techniques','hypotheses','tests','queue','evidence','findings','reports','notes','knowledge','tools','helpers','coverage','ai','ai-techniques','ai-tools','ai-gaps','ai-findings','settings','ai-provider','backup']:
+        for route in ['dashboard','research-details','review-queue','manual-analysis','agent-history','tool-inventory','agentic-settings','targets','scope','attack-surface','actors','objects','boundaries','target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions','techniques','hypotheses','tests','queue','evidence','findings','reports','notes','knowledge','tools','helpers','coverage','ai','ai-techniques','ai-tools','ai-gaps','ai-findings','settings','ai-provider','backup']:
             c.route(route);assert c.js("!!document.querySelector('main h1')"),route
             assert c.js("!!document.querySelector('.page-heading .documentation-link')"),route
         c.route('helpers')
@@ -197,9 +206,9 @@ def run(chrome,node='node'):
         c.call('Page.reload');c.wait(900);migrated=c.state();assert migrated['schemaVersion']=='2.0.0';assert migrated['targets'][0]['id']==legacy['targets'][0]['id'];assert migrated['targets'][0]['findings']==legacy['targets'][0]['findings']
         assert json.loads(c.js("localStorage.getItem('universal-bounty-workspace-v1')"))==legacy
         print('PASS browser migration: v1 localStorage -> v2 IndexedDB; legacy source retained.')
-        def launch_backend(script,enabled):
+        def launch_backend(script,enabled,agentic=False):
             probe=socket.socket();probe.bind(('127.0.0.1',0));backend_port=probe.getsockname()[1];probe.close()
-            env={**os.environ,'QA_PORT':str(backend_port),'SERVER_PORT':str(backend_port),'AI_ENABLED':'true' if enabled else 'false'}
+            env={**os.environ,'QA_PORT':str(backend_port),'SERVER_PORT':str(backend_port),'AI_ENABLED':'true' if enabled else 'false','QA_AGENTIC':'true' if agentic else 'false'}
             backend=subprocess.Popen([node,str(ROOT/script)],cwd=ROOT,env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0));backends.append(backend)
             for attempt in range(70):
                 try:
@@ -210,6 +219,7 @@ def run(chrome,node='node'):
             raise RuntimeError('Backend not ready')
         disabled_url=launch_backend(Path('server/index.js'),False)
         c.go(disabled_url);verify_help();c.js('window.confirm=()=>true');import_data(json.dumps(exported));c.route('reports')
+        assert c.js("document.getElementById('agent-message-panel').hidden && document.getElementById('agent-message-launcher').hidden && !document.body.classList.contains('agent-messages-enabled')")
         assert c.js("document.querySelector('.report-editor').value")==report
         assert c.js("document.querySelectorAll('#navigation a[href=\"#ai\"]').length")==0
         c.route('settings');assert 'Disabled' in c.js("document.querySelector('#view').textContent")
@@ -217,6 +227,7 @@ def run(chrome,node='node'):
         print('PASS real Fastify AI_DISABLED: manual report, restore and disabled navigation.')
         enabled_url=launch_backend(Path('tests/mock-server.mjs'),True)
         c.go(enabled_url);c.js('window.confirm=()=>true');import_data(json.dumps(exported));c.route('ai')
+        assert c.js("document.getElementById('agent-message-panel').hidden && !document.body.classList.contains('agent-messages-enabled')")
         assert c.js("document.querySelectorAll('#navigation a[href=\"#ai\"]').length")==1
         c.js("(()=>{const s=document.querySelector('#view form').elements.operation;s.value='false_positive_analysis';s.dispatchEvent(new Event('change'));})()")
         assert c.js("document.querySelector('.operation-help a').hash")=='#ai-false-positive'
@@ -255,6 +266,155 @@ def run(chrome,node='node'):
         assert not c.errors,c.errors
         image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'intelligence.png').write_bytes(base64.b64decode(image))
         print('PASS Intelligence AI mock: selected/redacted context, inference provenance, no automatic model mutations, item Accept/Edit, sector review, Reject, reload.')
+        agent_url=launch_backend(Path('tests/mock-server.mjs'),True,True)
+        c.go(agent_url);c.js('window.confirm=()=>true');import_data(json.dumps(exported))
+        c.route('scope');c.js("(()=>{const f=document.querySelector('[name=inScope]');f.value='app.example.test';f.dispatchEvent(new Event('input'));})()");c.wait(500)
+        def agent_run():
+            c.route('dashboard')
+            label='Continue Research' if c.state()['targets'][0]['agentResearch']['runs'] else 'Start Research'
+            c.click(label);c.click('Start Supervised Research');c.wait(1300)
+            return c.state()['targets'][0]['agentResearch']
+        c.route('tool-inventory')
+        c.js("(()=>{const p=[...document.querySelectorAll('.panel')].find(p=>p.textContent.includes('Workspace JSON Parser'));[...p.querySelectorAll('button')].find(b=>b.textContent==='Edit Tool').click()})()")
+        c.submit({'agentAccess':'APPROVAL_REQUIRED'})
+        baseline=c.state()['targets'][0]
+        research=agent_run();assert research['state']=='WAITING_REVIEW',research
+        if any(p['status']=='PROPOSED' and p['content']['type']=='sensitive-review' for p in research['reviewQueue']):
+            c.route('review-queue');c.click('Accept');c.submit({'notes':'Reviewed redacted owned dummy evidence.'});research=agent_run()
+        assert any(p['kind']=='actor' and p['status']=='PROPOSED' for p in research['reviewQueue']),research
+        assert len(c.state()['targets'][0]['actors'])==len(baseline['actors'])
+        c.route('review-queue');c.click('Edit');c.submit({'title':'QA Reviewed Actor','name':'QA Reviewed Agent Reader'})
+        assert len(c.state()['targets'][0]['actors'])==len(baseline['actors'])+1
+        research=agent_run();assert research['state']=='WAITING_APPROVAL',research
+        c.route('review-queue');c.click('Approve Once');c.wait(700)
+        assert c.state()['targets'][0]['agentResearch']['pendingActions'][-1]['status']=='EXECUTED'
+        agent_run();c.route('review-queue');c.click('Accept');c.submit({'title':'QA Agent Hypothesis reviewed'})
+        c.route('manual-analysis');c.click('+ Add Manual Analysis');c.submit({'type':'Correction','title':'Owned dummy fixture only','content':'Use observed dummy evidence and researcher corrections.','replanFrom':'test-planner'})
+        agent_run();c.route('review-queue');c.click('Accept');c.submit({'title':'QA Reviewed Manual Plan'})
+        assert c.state()['targets'][0]['testCases'][-1]['actualResult']==''
+        research=agent_run();assert research['state']=='FINDING_REVIEW',research
+        assert len(c.state()['targets'][0]['findings'])==len(baseline['findings'])
+        c.route('review-queue');c.click('Confirm Finding');c.submit({'title':'QA Confirmed Agent Finding'})
+        finding=c.state()['targets'][0]['findings'][-1];assert finding['status']=='confirmed' and finding['severity']=='Unknown'
+        agent_run();c.route('review-queue');c.click('Accept');c.submit({'reportMarkdown':'# Researcher Reviewed Agent Report\n\nOwned dummy fixture only.'})
+        research=agent_run();assert research['state']=='COMPLETED',research
+        assert len(research['completedStages'])==13
+        saved=c.state();c.call('Page.reload');c.wait(900);assert c.state()==saved
+        c.call('Emulation.setDeviceMetricsOverride',{'width':390,'height':844,'deviceScaleFactor':1,'mobile':True})
+        for route in ['dashboard','review-queue','manual-analysis','tool-inventory','agent-history']:
+            c.route(route);assert c.js('document.documentElement.scrollWidth<=window.innerWidth'),route
+        c.call('Emulation.setDeviceMetricsOverride',{'width':1440,'height':1000,'deviceScaleFactor':1,'mobile':False});c.route('dashboard')
+        image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'agentic.png').write_bytes(base64.b64decode(image))
+        assert not c.errors,c.errors
+        print('PASS Agentic v2: supervised stages, proposal edits, signed local approval, manual correction, test plan, evidence-backed confirmation, reviewed report, completion, reload and mobile.')
+        c.route('research-environment');c.click('Add Test Accounts');c.submit({'name':'Environment Account A','role':'Member','purpose':'Owned resource owner','username':'dummy-environment-user','tenant':'Tenant A','ownership':'Owner'})
+        c.click('Add Authentication');account=c.state()['targets'][0]['researchEnvironment']['accounts'][0]
+        actor=c.state()['targets'][0]['actors'][0]
+        c.submit({'name':'Environment Cookie Profile','accountId':account['id'],'actorId':actor['id'],'authType':'Cookie','tenant':'Tenant A','ownership':'Owner'})
+        c.click('Create / Unlock Vault');c.submit({'passphrase':'DUMMY QA vault passphrase 123'})
+        c.click('Update Credential');c.submit({'secret':'DUMMY_ENV_PASSWORD_123'})
+        c.click('Update Authentication Secret');c.submit({'secret':'session=DUMMY_ENV_COOKIE_123'})
+        c.click('Update Session Cookie');c.submit({'secret':'session=DUMMY_ENV_SECOND_COOKIE_456'})
+        c.click('Add Headers');c.submit({'name':'Authorization','secret':'yes','enabled':'yes'})
+        c.click('Update Header Secret');c.submit({'secret':'Bearer DUMMY_ENV_TOKEN_789'})
+        c.click('Add Headers');c.submit({'name':'X-Researcher-ID','secret':'no','value':'dummy-researcher','enabled':'yes'})
+        env=c.state()['targets'][0]['researchEnvironment'];assert env['profiles'][0]['sessionStatus']=='Unknown';assert all(v=='Unknown' for v in env['rules'].values())
+        for secret in ['DUMMY_ENV_PASSWORD_123','DUMMY_ENV_COOKIE_123','DUMMY_ENV_SECOND_COOKIE_456','DUMMY_ENV_TOKEN_789']:
+            assert secret not in json.dumps(c.state()) and secret not in c.js('document.body.textContent')
+        vault=c.js("new Promise((resolve,reject)=>{const r=indexedDB.open('universal-research-secret-vault',1);r.onsuccess=()=>{const db=r.result,q=db.transaction('vault').objectStore('vault').getAll();q.onsuccess=()=>{db.close();resolve(q.result)};q.onerror=reject};r.onerror=reject})")
+        assert any('ciphertext' in row for row in vault)
+        assert all(secret not in json.dumps(vault) for secret in ['DUMMY_ENV_PASSWORD_123','DUMMY_ENV_TOKEN_789'])
+        c.route('hypotheses');c.click('Edit');c.submit({'authProfileId':env['profiles'][0]['id']})
+        assert c.state()['targets'][0]['hypotheses'][0]['authProfileId']==env['profiles'][0]['id']
+        saved=c.state();c.call('Page.reload');c.wait(850);c.route('research-environment');assert c.state()==saved;assert 'Encrypted Vault Locked' in c.js('document.body.textContent')
+        c.click('Create / Unlock Vault');c.submit({'passphrase':'DUMMY QA vault passphrase 123'});c.click('Lock Vault')
+        c.js('window.confirm=()=>true');c.route('settings');c.click('Reset Workspace');c.wait();import_data(json.dumps(saved));assert c.state()==saved
+        c.route('research-environment');c.call('Emulation.setDeviceMetricsOverride',{'width':390,'height':844,'deviceScaleFactor':1,'mobile':True})
+        assert c.js('document.documentElement.scrollWidth<=window.innerWidth'),'environment mobile overflow'
+        c.call('Emulation.setDeviceMetricsOverride',{'width':1440,'height':1000,'deviceScaleFactor':1,'mobile':False})
+        image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'research-environment.png').write_bytes(base64.b64decode(image))
+        assert not c.errors,c.errors
+        print('PASS Target Environment: account/profile matrix, encrypted credentials/cookies/headers, masking, Unknown rules/sessions, authentication selection, vault reload/unlock, exact reset/import and mobile.')
+        # Expert flow: Finding -> Ask Agent -> keyboard references -> concise answer -> Review.
+        c.route('findings');baseline=c.state()['targets'][0];finding=baseline['findings'][0];evidence=baseline['evidence'][0]
+        c.js("document.querySelector('#view article.record .agent-context-action').click()")
+        assert c.js("!document.getElementById('agent-message-panel').hidden")
+        assert finding['title'] in c.js("document.querySelector('.agent-context-chips').textContent")
+        def type_message(text):
+            c.js("(()=>{const i=document.getElementById('agent-message-input');i.value="+json.dumps(text)+";i.focus();i.setSelectionRange(i.value.length,i.value.length);i.dispatchEvent(new Event('input'));})()");c.wait(220)
+        def message_key(key,ctrl=False):
+            c.js("document.getElementById('agent-message-input').dispatchEvent(new KeyboardEvent('keydown',{key:"+json.dumps(key)+",ctrlKey:"+str(ctrl).lower()+",bubbles:true,cancelable:true}))");c.wait(80)
+        before_calls=len([r for r in c.requests if r['url'].endswith('/api/agent/message')])
+        c.js("window.messageMainBefore=document.querySelector('#view').firstElementChild")
+        type_message('authorization');assert 'BOLA' in c.js("document.querySelector('.agent-related-terms').textContent")
+        type_message('@');assert not c.js("document.getElementById('agent-message-suggestions').hidden")
+        message_key('ArrowDown');assert c.js("document.getElementById('agent-message-input').getAttribute('aria-activedescendant')")=='agent-suggestion-1'
+        message_key('Escape');assert c.js("document.getElementById('agent-message-suggestions').hidden") and not c.js("document.getElementById('agent-message-panel').hidden")
+        type_message('@finding');message_key('Enter');assert c.js("document.getElementById('agent-message-input').value").startswith('@finding ')
+        type_message('@finding review #evidence:');assert not c.js("document.getElementById('agent-message-suggestions').hidden")
+        message_key('Enter');assert '#evidence:'+evidence['id'] in c.js("document.getElementById('agent-message-input').value")
+        assert c.js("window.messageMainBefore===document.querySelector('#view').firstElementChild")
+        assert len([r for r in c.requests if r['url'].endswith('/api/agent/message')])==before_calls
+        type_message('@finding review #evidence:'+evidence['id']+'\nAuthorization: Bearer PRIVATE_MESSAGE_CONTEXT')
+        message_key('Enter',True);c.wait(1100)
+        state=c.state()['targets'][0];messages=state['agentResearch'].get('messages',[])
+        assert len(messages)==2,{'messages':messages,'feedback':c.js("document.querySelector('.agent-message-feedback').textContent")}
+        assert state['findings']==baseline['findings'],'Message must not mutate findings'
+        assert all(m['targetId']==state['id'] and m['researchSessionId'] and m['contextRefs'] for m in messages)
+        assert 'PRIVATE_MESSAGE_CONTEXT' not in json.dumps(messages)
+        request=[r for r in c.requests if r['url'].endswith('/api/agent/message')][-1];payload=json.loads(request['postData']);assert 'PRIVATE_MESSAGE_CONTEXT' not in request['postData'];assert len(payload['context']['findings'])==1 and len(payload['context']['knowledge']['domains'])==1
+        assert 'Possible authorization lifecycle issue' in c.js("document.querySelector('.agent-conversation').textContent")
+        assert c.js("document.querySelector('.agent-message-status').textContent")=='Waiting Review'
+        for width in [1024,1440]:
+            c.call('Emulation.setDeviceMetricsOverride',{'width':width,'height':1000,'deviceScaleFactor':1,'mobile':False});c.wait(80)
+            assert c.js('document.documentElement.scrollWidth<=window.innerWidth'), 'message desktop overflow at '+str(width)
+        image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'agent-message-desktop.png').write_bytes(base64.b64decode(image))
+        c.js("document.querySelector('.agent-conversation button.primary').click()");c.wait(150);assert c.js('location.hash')=='#review-queue'
+        c.js("(()=>{const p=[...document.querySelectorAll('#view .panel')].find(n=>n.textContent.includes('QA Message Control Review'));[...p.querySelectorAll('button')].find(b=>b.textContent==='Reject').click()})()");c.wait(500)
+        assert c.state()['targets'][0]['agentResearch']['reviewQueue'][-1]['status']=='REJECTED'
+        c.js("document.querySelector('[aria-label=\"Collapse Agent Message\"]').click()");c.call('Page.reload');c.wait(900)
+        assert c.js("document.getElementById('agent-message-panel').hidden && !document.getElementById('agent-message-launcher').hidden")
+        c.js("document.getElementById('agent-message-launcher').click()");assert 'Possible authorization lifecycle issue' in c.js("document.querySelector('.agent-conversation').textContent")
+        c.js("document.querySelector('[aria-label=\"Close Agent Message\"]').click()");c.call('Page.reload');c.wait(900);assert c.js("document.body.classList.contains('agent-panel-closed')")
+        c.route('reports');c.js("document.getElementById('agent-message-launcher').click()");assert 'report' in c.js("document.querySelector('.agent-context-chips').textContent")
+        c.js("document.getElementById('agent-message-input').dispatchEvent(new KeyboardEvent('keydown',{key:'k',ctrlKey:true,bubbles:true,cancelable:true}))");assert c.js("!!document.querySelector('.agent-command-palette[open]')")
+        c.js("document.querySelector('.agent-command-palette').close()")
+        c.call('Emulation.setDeviceMetricsOverride',{'width':390,'height':844,'deviceScaleFactor':1,'mobile':True});c.wait(100)
+        assert c.js("document.querySelector('.main-shell').inert && document.querySelector('.agent-message-panel').getAttribute('aria-modal')==='true'")
+        assert c.js('document.documentElement.scrollWidth<=window.innerWidth'),'message mobile overflow'
+        c.js("[...document.querySelectorAll('.agent-conversation button')].find(b=>b.textContent==='View review').click()");c.wait(100)
+        assert c.js("location.hash==='#review-queue' && document.getElementById('agent-message-panel').hidden && !document.querySelector('.main-shell').inert")
+        c.js("document.getElementById('agent-message-launcher').click()")
+        c.js("document.querySelector('.agent-message-options').open=true;document.querySelector('.agent-message-panel a').focus();document.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}))")
+        assert c.js("document.activeElement.getAttribute('aria-label')")=='Collapse Agent Message'
+        image=c.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data'];(output/'agent-message-mobile.png').write_bytes(base64.b64decode(image))
+        c.js("document.getElementById('agent-message-input').dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}))")
+        assert c.js("!document.querySelector('.main-shell').inert && document.getElementById('agent-message-panel').hidden")
+        c.call('Emulation.setDeviceMetricsOverride',{'width':1440,'height':1000,'deviceScaleFactor':1,'mobile':False});c.route('findings');c.js("document.querySelector('#view article.record .agent-context-action').click()")
+        c.js("document.querySelector('.agent-context-chip button').click()");assert 'finding' not in c.js("document.querySelector('.agent-context-chips').textContent")
+        saved=c.state();c.call('Page.reload');c.wait(900);assert c.state()==saved and not c.js("document.getElementById('agent-message-panel').hidden")
+        # A stale, slow reply must never add review proposals or block manual work.
+        review_count=len(saved['targets'][0]['agentResearch']['reviewQueue']);before_calls=len([r for r in c.requests if r['url'].endswith('/api/agent/message')])
+        type_message('@finding QA delayed message');message_key('Enter',True);message_key('Enter',True);c.route('notes');c.wait(1300)
+        state=c.state()['targets'][0];assert len(state['agentResearch']['reviewQueue'])==review_count
+        assert len([r for r in c.requests if r['url'].endswith('/api/agent/message')])==before_calls+1
+        assert state['agentResearch']['messages'][-1]['status']=='paused' and c.js("!!document.querySelector('.scratchpad')")
+        type_message('@finding QA failed message');message_key('Enter',True);c.wait(700)
+        assert c.state()['targets'][0]['agentResearch']['messages'][-1]['status']=='error'
+        assert c.js("document.querySelector('.agent-message-status').textContent")=='Error'
+        assert 'PRIVATE_MOCK_UPSTREAM' not in json.dumps(c.state()) and 'PRIVATE_MOCK_UPSTREAM' not in c.js('document.body.textContent')
+        assert c.js("[...document.querySelectorAll('.agent-conversation button')].some(b=>b.textContent==='Retry')")
+        # Import a long redacted discussion without AI calls; the DOM stays at 20 rows.
+        history=c.state();research=history['targets'][0]['agentResearch']
+        for index in range(45):research['messages'].append({'id':'qa-history-'+str(index),'sender':'researcher','agent':'orchestrator','message':'Owned local history '+str(index),'targetId':history['targets'][0]['id'],'researchSessionId':research['messageSessionId'],'contextRefs':[],'tags':[],'timestamp':'2026-10-07T00:00:00.000Z','status':'sent'})
+        c.js('window.confirm=()=>true')
+        c.js("(()=>{const f=document.getElementById('json-file');const d=new DataTransfer();d.items.add(new File(["+json.dumps(json.dumps(history))+"],'history.json',{type:'application/json'}));f.files=d.files;f.dispatchEvent(new Event('change'));})()");c.wait(700)
+        assert c.js("document.querySelectorAll('.agent-conversation article').length")==20
+        c.js("[...document.querySelectorAll('.agent-conversation button')].find(b=>b.textContent.startsWith('Earlier messages')).click()")
+        assert c.js("document.querySelectorAll('.agent-conversation article').length")==20
+        c.click('Newer messages');assert c.js("document.querySelectorAll('.agent-conversation article').length")==20
+        assert not c.errors,c.errors
+        print('PASS Agent Message: disabled cleanup, local lookup without requests, stable main DOM, @/# keyboard completion, selected context/redaction, concise analysis, review/reject, preferences/reload, report context, palette, desktop/mobile focus/escape, stale cancellation, duplicate-send prevention, error/retry and bounded history.')
     finally:
         for backend in backends:
             backend.terminate()

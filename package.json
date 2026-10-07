@@ -1,6 +1,6 @@
 {
   "name": "universal-research-workspace",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "engines": { "node": ">=20.19" },
@@ -8,7 +8,9 @@
     "start": "node server/index.js",
     "build": "python scripts/build.py",
     "test": "node tests/run.mjs",
-    "test:browser": "python tests/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\""
+    "test:browser": "python tests/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
+    "test:browser:reliability": "python tests/reliability-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
+    "test:browser:group-chat": "python tests/group-chat-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\""
   },
   "dependencies": { "fastify": "^5.12.5", "@fastify/static": "^10.1.5" }
 }
