@@ -1,3 +1,4 @@
+import {routeTo} from '../router.js';
 import {el,button,badge,empty} from '../utils.js';
 import {editDialog} from '../forms.js';
 import {editHypothesis} from './hypotheses.js';
@@ -17,7 +18,7 @@ export function renderTechniques(ctx,target) {
     const toggles=el('div',{class:'actions'});
     for(const [key,label] of [['enabled','Enabled'],['tested','Tested'],['interesting','Interesting']]) {const input=el('input',{type:'checkbox','aria-label':label+' '+row.name});input.checked=!!row[key];input.addEventListener('change',()=>{ctx.store.upsert(target.id,'techniques',{id:row.id,[key]:input.checked});ctx.render();});toggles.append(el('label',{class:'actions'},input,label));}
     const detail=el('details',{class:'technique-details'},el('summary',{},'Invariant / hypothesis / test / signals / false positives / stop'),ctx.help(row.libraryId||'technique-library'),el('dl',{class:'details'},['securityInvariant','hypothesisTemplate','testTemplate','signals','falsePositiveIndicators','stopCondition','notes'].map(key=>[el('dt',{},({securityInvariant:'Security Invariant',hypothesisTemplate:'Hypothesis',testTemplate:'Test',signals:'Signal',falsePositiveIndicators:'False Positive Indicators',stopCondition:'Stop Condition',notes:'Notes'})[key]),el('dd',{},Array.isArray(row[key])?row[key].join('\n'):row[key]||'—')])));
-    root.append(el('article',{class:'record','data-agent-kind':'technique','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
+    root.append(el('article',{class:'record','data-agent-kind':'technique','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Manual Tools',()=>{ctx.toolTechniqueId=row.id;routeTo('tools');}),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
   }
   return root;
 }

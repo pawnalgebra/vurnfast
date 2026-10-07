@@ -1,0 +1,565 @@
+{
+  "scenarios": 22,
+  "variants": 66,
+  "method": "Structural relationship IDs, constraint applicability, supported evidence, chain hops and discriminating test dimensions; labels evaluator-only",
+  "totals": {
+    "expectedRelations": 22,
+    "foundRelations": 22,
+    "returnedRelations": 22,
+    "relevantHypotheses": 88,
+    "hypotheses": 88,
+    "benign": 22,
+    "benignCorrect": 22,
+    "missing": 22,
+    "unknownCorrect": 22,
+    "grounded": 22,
+    "groundable": 22,
+    "qualityTests": 22,
+    "testCases": 22,
+    "chains": 22,
+    "unsupportedClaims": 0,
+    "outputs": 66
+  },
+  "metrics": {
+    "relationshipRecall": 1,
+    "relationshipPrecision": 1,
+    "hypothesisRelevance": 1,
+    "falsePositiveRate": 0,
+    "benignControlAccuracy": 1,
+    "unknownRecognition": 1,
+    "evidenceGrounding": 1,
+    "nextTestQuality": 1,
+    "chainDiscoveryRate": 1,
+    "unsupportedClaimRate": 0
+  },
+  "results": [
+    {
+      "scenario": 1,
+      "name": "Cross Tenant",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 2,
+      "name": "Revocation + Async",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 21
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 21
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 21
+        }
+      ]
+    },
+    {
+      "scenario": 3,
+      "name": "Race / Double Execution",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 27
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 27
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 27
+        }
+      ]
+    },
+    {
+      "scenario": 4,
+      "name": "Approval Version Binding",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 5,
+      "name": "Cross Surface",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 21
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 21
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 21
+        }
+      ]
+    },
+    {
+      "scenario": 6,
+      "name": "Ownership Transfer",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 7,
+      "name": "Role Downgrade",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 21
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 21
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 21
+        }
+      ]
+    },
+    {
+      "scenario": 8,
+      "name": "Invitation Lifecycle",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 9,
+      "name": "Session State Change",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 10,
+      "name": "Object Restore",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 11,
+      "name": "Webhook Ownership",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 12,
+      "name": "Cache Isolation",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 13,
+      "name": "Multi-Step Business Workflow",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 14,
+      "name": "Authority Delegation",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 21
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 21
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 21
+        }
+      ]
+    },
+    {
+      "scenario": 15,
+      "name": "State Rollback",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 16,
+      "name": "Tenant + Async",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 17,
+      "name": "Ownership + Webhook + Version",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 18,
+      "name": "Invitation + Session",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 19,
+      "name": "Approval + Restore",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    },
+    {
+      "scenario": 20,
+      "name": "Delegation + Surface",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 21
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 21
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 21
+        }
+      ]
+    },
+    {
+      "scenario": 21,
+      "name": "Transaction + Rollback",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 27
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 27
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 27
+        }
+      ]
+    },
+    {
+      "scenario": 22,
+      "name": "Cache + Ownership",
+      "variants": [
+        {
+          "variant": "suspicious",
+          "status": "VIOLATED",
+          "relationships": 1,
+          "chains": 16
+        },
+        {
+          "variant": "benign",
+          "status": "SATISFIED",
+          "relationships": 0,
+          "chains": 16
+        },
+        {
+          "variant": "missing",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "relationships": 1,
+          "chains": 16
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {analyzeAdvancedResearch} from './advanced-research.js';
 import {validateMessageRecord} from './message-contract.js';
 import {agentStages} from './agent-schema.js';
 import {SecretRedactor} from './redactor.js';
@@ -5,10 +6,12 @@ import {uuid,now} from '../utils.js';
 export const messageAgents=[['general','General'],['orchestrator','Orchestrator'],...agentStages.map(([id,name])=>[({'target-intelligence':'target','domain-knowledge':'domain','attack-surface':'surface','trust-boundary':'boundary','test-planner':'test'})[id]||id,name])];
 export const messageAgentDomains={general:'Coordinate the conversation and relevant specialists',orchestrator:'Automatic routing (legacy alias)',target:'Company context and target intelligence',domain:'Industry concepts and business flows',scope:'Scope, authorization and program rules',surface:'Actors, objects and attack surface',boundary:'Trust transitions and authority',technique:'Techniques and manual tools',hypothesis:'Invariants, hypotheses and variants',test:'Reviewed hypotheses and manual test plans',evidence:'Observations and control comparisons',finding:'Potential findings and evidence gaps','false-positive':'Alternative explanations and controls',duplicate:'Similar findings and duplicate risk',report:'Confirmed findings and reports'};
 export const contextCollections={actor:'actors',object:'objects',boundary:'boundaries',technique:'techniques',hypothesis:'hypotheses',test:'testCases',evidence:'evidence',finding:'findings',report:'findings'};
-export const messageContextKinds=['target','scope',...Object.keys(contextCollections)];
+export const messageContextKinds=['target','scope','chain','constraint','signal','unknown',...Object.keys(contextCollections)];
 export function messageReferenceRows(target){
   if(!target)return [];
-  return [{kind:'target',id:target.id,label:target.name},{kind:'scope',id:target.id,label:'Scope & rules'},...Object.entries(contextCollections).flatMap(([kind,key])=>target[key].map(row=>({kind,id:row.id,label:row.title||row.label||row.name||[row.from,row.to].filter(Boolean).join(' → ')})))];
+  const discovery=target.researchModel?analyzeAdvancedResearch(target).discovery:null;
+  const discoveries=discovery?Object.entries({chain:discovery.chains,constraint:discovery.constraints,signal:discovery.relationships,unknown:discovery.unknowns}).flatMap(([kind,rows])=>rows.map(r=>({kind,id:r.id,label:r.summary||r.question||r.category||r.id}))):[];
+  return [...discoveries,{kind:'target',id:target.id,label:target.name},{kind:'scope',id:target.id,label:'Scope & rules'},...Object.entries(contextCollections).flatMap(([kind,key])=>target[key].map(row=>({kind,id:row.id,label:row.title||row.label||row.name||[row.from,row.to].filter(Boolean).join(' → ')})))];
 }
 export function parseMessageTags(text,target){
   const agents=[...text.matchAll(/(?:^|\s)@([\w-]+)/g)].map(m=>m[1]);
@@ -36,7 +39,7 @@ export function planMessageAgents(message,refs=message.contextRefs||[]){
   const add=(id,score)=>scores.set(id,(scores.get(id)||0)+score);
   const domains=[['target-intelligence',/company|perusahaan|target|business model|produk/i],['domain-knowledge',/domain|industry|industri|settlement|ledger|glossary|istilah|business flow|alur bisnis/i],['scope',/scope|izin|rules|allowed|authorization checklist|otorisasi/i],['attack-surface',/surface|permukaan|actor|aktor|object|objek|endpoint|mapping|pemetaan/i],['trust-boundary',/boundary|batas trust|trust|authority|otoritas/i],['technique',/technique|teknik|tool|alat/i],['hypothesis',/hypothes|hipotes|invariant|variant|kemungkinan/i],['test-planner',/test plan|rencana test|rencana uji|generate test|susun.*test|precondition|langkah.*uji/i],['evidence',/evidence|bukti|observation|observasi|compare|pembanding|control|kontrol|hasil test/i],['finding',/finding|temuan|root cause|akar masalah|impact|dampak/i],['false-positive',/false.?positive|alternatif|alternative|penjelasan lain/i],['duplicate',/duplicat|duplikat|similar finding/i],['report',/report|laporan|draft/i]];
   for(const [id,pattern] of domains)if(pattern.test(query))add(id,4);
-  const byKind={target:'target-intelligence',scope:'scope',actor:'attack-surface',object:'attack-surface',boundary:'trust-boundary',technique:'technique',hypothesis:'hypothesis',test:'evidence',evidence:'evidence',finding:'finding',report:'report'};
+  const byKind={chain:'hypothesis',constraint:'hypothesis',signal:'hypothesis',unknown:'false-positive',target:'target-intelligence',scope:'scope',actor:'attack-surface',object:'attack-surface',boundary:'trust-boundary',technique:'technique',hypothesis:'hypothesis',test:'evidence',evidence:'evidence',finding:'finding',report:'report'};
   for(const ref of refs)add(byKind[ref.kind]||'target-intelligence',['target','scope'].includes(ref.kind)?1:2);
   const selected=explicit.filter(alias=>!['general','orchestrator'].includes(alias)).map(alias=>routeMessageAgent(alias,message.text,refs));
   const relevant=[...scores].sort((a,b)=>b[1]-a[1]).filter(([,score])=>score>=2).map(([id])=>id);

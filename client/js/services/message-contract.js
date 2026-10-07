@@ -1,5 +1,5 @@
 import {SecretRedactor} from './redactor.js';
-const validatorContextKinds=['target','scope','actor','object','boundary','technique','hypothesis','test','evidence','finding','report'];
+const validatorContextKinds=['target','scope','actor','object','boundary','technique','hypothesis','test','evidence','finding','report','chain','constraint','signal','unknown'];
 export function validateMessageRecord(row){
   const fields=['id','message','agent','targetId','researchSessionId','timestamp','status','sender','contextRefs','tags','answer','proposalIds','runId','model','attachments','members'];
   if(!row||Object.keys(row).some(k=>!fields.includes(k)))throw new Error('Unknown message field.');

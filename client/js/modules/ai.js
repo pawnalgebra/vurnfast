@@ -9,13 +9,16 @@ import {routeTo} from '../router.js';
 import {generateIndonesianReport} from '../templates/report-id.js';
 import {operationFeatures} from '../feature-registry.js';
 import {DomainKnowledgeService} from '../services/domain-knowledge.js';
+import {localAdviceOperations} from '../services/local-advice.js';
+import {renderCoverage} from './coverage.js';
 export const aiOperations=[['research_advice','Research Assistant'],['analyze_scope','Analyze Scope'],['recommend_techniques','Technique Advisor'],['recommend_tools','Tool Advisor'],['recommend_helpers','Helper Advisor'],['research_questions','Research Questions'],['generate_hypotheses','Hypothesis Generator'],['analyze_finding','Finding Analyzer'],['false_positive_analysis','False Positive Analyzer'],['duplicate_analysis','Duplicate Analyzer'],['gap_analysis','Gap Analyzer'],['improve_report','Report Assistant'],['evidence_summary','Evidence Summarizer'],['safe_next_steps','Safe Next Steps'],['identify_restrictions','Restrictions']];
 const routeOperations={'ai-techniques':'recommend_techniques','ai-tools':'recommend_tools','ai-gaps':'gap_analysis','ai-findings':'analyze_finding'};
 export function renderAI(ctx,target) {
+  if(ctx.route==='ai-gaps')return renderCoverage(ctx,target);
   const root=el('div',{},ctx.heading('AI Research Assistant','AI suggests. Rules constrain. Researcher decides. Semua output adalah draft untuk review.'));
   if(!aiConnection.enabled||!aiConnection.configured){root.append(panel('AI: '+aiConnection.status,el('p',{class:'muted'},'Workflow manual tetap tersedia. Konfigurasi provider dan model di .env backend, lalu hubungkan dari AI Provider Settings.'),button('AI Provider Settings',()=>routeTo('ai-provider'))));return root;}
   const form=el('form',{class:'form-grid'});
-  field(form,['operation','Operation','select',aiOperations],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
+  field(form,['operation','Operation','select',aiOperations.filter(([id])=>!localAdviceOperations.includes(id))],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
   const operationHelp=el('div',{class:'wide operation-help'});
   const updateOperationHelp=()=>operationHelp.replaceChildren(ctx.help(operationFeatures[form.elements.operation.value]));
   updateOperationHelp();form.elements.operation.addEventListener('change',updateOperationHelp);form.append(operationHelp);

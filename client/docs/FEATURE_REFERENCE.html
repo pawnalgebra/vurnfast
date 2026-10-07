@@ -119,7 +119,7 @@
 <h1 id="dashboard-heading">Dashboard</h1>
 <p>Status: Active</p>
 <h2 id="fungsi">Fungsi</h2>
-<p>Ringkasan jumlah catatan, progress teknik, coverage, dan antrean target aktif.</p>
+<p>Next manual work for the selected target, followed by optional relationship analysis and recorded coverage.</p>
 <h2 id="kenapa-feature-ini-penting">Kenapa Feature Ini Penting</h2>
 <p>Membantu memilih pekerjaan berikutnya berdasarkan riset yang sudah dicatat.</p>
 <h2 id="kapan-digunakan">Kapan Digunakan</h2>
@@ -127,20 +127,20 @@
 <h2 id="input">Input</h2>
 <p>CURRENT TARGET; hypotheses, test cases, findings, actors, objects, states, boundaries dan enabled techniques.</p>
 <h2 id="output">Output</h2>
-<p>Hypotheses total; Tested; Interesting; Confirmed Findings; Rejected; Out of Scope; rasio coverage; progress bar per technique; antrean Next/Testing/Interesting.</p>
+<p>Scope review, hypothesis refinement, pending manual tests, missing evidence, result/finding review or report work. Agent progress and coverage remain optional details.</p>
 <h2 id="cara-menggunakan">Cara Menggunakan</h2>
 <ol>
-<li>Pilih target di header.</li>
-<li>Buka Dashboard.</li>
-<li>Baca metrik, coverage dan queue.</li>
-<li>Buka Research Gaps atau buat hypothesis berikutnya.</li>
+<li>Select target.</li>
+<li>Follow Next Manual Work.</li>
+<li>Record actual results/evidence.</li>
+<li>Review findings and prepare reports.</li>
 </ol>
 <h2 id="contoh">Contoh</h2>
 <p>Example SaaS memiliki dua actor dan satu test Member; Actor Coverage dapat menunjukkan 1 / 2.</p>
 <h2 id="hubungan-dengan-feature-lain">Hubungan dengan Feature Lain</h2>
 <p>Membaca data modul riset; tautan menuju Scope, mapping, Techniques, Hypotheses, Tests, Evidence, Findings, Reports dan Coverage.</p>
 <h2 id="tips">Tips</h2>
-<p>Interesting menjumlah hypothesis status interesting dan test result interesting, sehingga bukan jumlah kasus unik. Confirmed Findings hanya menghitung status confirmed, bukan reported/resolved. Tested menghitung test selain not-tested. Progress bar adalah hasil tercatat / seluruh test yang dibuat per technique; bukan quota semua kemungkinan. AI status dan System Health berada di Settings, bukan panel Dashboard.</p>
+<p>Recorded coverage and agent progress are not security assurance. Technique progress bars and duplicate formula/summary widgets were removed.</p>
 <a id="targets" class="section-anchor"></a>
 <h1 id="target-management">Target Management</h1>
 <p>Status: Active</p>
@@ -435,7 +435,7 @@
 <h1 id="research-queue">Research Queue</h1>
 <p>Status: Active</p>
 <h2 id="fungsi-12">Fungsi</h2>
-<p>Antrean hypothesis dalam lima tahap pekerjaan yang dipilih manual.</p>
+<p>Optional planning view of the same hypotheses, available inside the Hypotheses page.</p>
 <h2 id="kenapa-feature-ini-penting-12">Kenapa Feature Ini Penting</h2>
 <p>Memisahkan rencana prioritas berikutnya dari status kebenaran dugaan.</p>
 <h2 id="kapan-digunakan-12">Kapan Digunakan</h2>
@@ -457,7 +457,7 @@
 <h2 id="hubungan-dengan-feature-lain-12">Hubungan dengan Feature Lain</h2>
 <p>Queue milik Hypotheses; Dashboard menampilkan Next/Testing/Interesting.</p>
 <h2 id="tips-12">Tips</h2>
-<p>Tidak ada drag-and-drop atau transisi otomatis. Done dapat berisi dugaan rejected maupun confirmed; Queue Done tidak sama dengan finding reported.</p>
+<p>The queue is collapsed on Hypotheses and available through the existing #queue deep link. Queue/status data remain distinct and preserved.</p>
 <a id="evidence" class="section-anchor"></a>
 <h1 id="evidence-heading">Evidence</h1>
 <p>Status: Active</p>
@@ -508,9 +508,9 @@
 <h2 id="contoh-14">Contoh</h2>
 <p>Example SaaS: Component Export Worker; Resource Export Demo; outcome akun B memperoleh file setelah revoke hanya jika benar teramati. Root cause snapshot authorization tetap hipotesis.</p>
 <h2 id="hubungan-dengan-feature-lain-14">Hubungan dengan Feature Lain</h2>
-<p>Affected Target berasal dari current target, bukan field independen. Source test/hypothesis menyediakan draft; checklist/analyzers/Reports memakai finding.</p>
+<p>Evidence -&gt; Finding -&gt; inline completeness/alternative/duplicate review -&gt; Report. Manual duplicate details remain available from each finding.</p>
 <h2 id="tips-14">Tips</h2>
-<p>Root cause tidak otomatis terbukti. P1–P5 bukan CVSS atau keputusan program. Menyimpan/mempromosikan tidak otomatis confirmed. Request/response notes test tidak langsung menjadi field finding; lampirkan bukti yang relevan.</p>
+<p>Inline completeness and text similarity do not establish validity, severity or duplicate status. Root cause remains a hypothesis and confirmation remains a researcher decision.</p>
 <a id="reports" class="section-anchor"></a>
 <h1 id="report-generator">Report Generator</h1>
 <p>Status: Active</p>
@@ -681,9 +681,9 @@
 <h2 id="contoh-20">Contoh</h2>
 <p>Owner → export → Project Demo diizinkan; Member revoked → export → Project Demo harus ditolak.</p>
 <h2 id="hubungan-dengan-feature-lain-20">Hubungan dengan Feature Lain</h2>
-<p>Menggunakan nama mapping sebagai teks; hasil menjadi referensi manual untuk hypothesis/test.</p>
+<p>Saved expected-control rows can open a reviewed Hypothesis, then a manual Test and Evidence.</p>
 <h2 id="tips-20">Tips</h2>
-<p>Partial: belum menghasilkan matriks seluruh kombinasi atau test otomatis. Row tidak menambah coverage dan tidak memverifikasi permission aktual.</p>
+<p>Review Hypothesis copies expected controls into an editable draft. It does not infer permissions or confirm a vulnerability.</p>
 <a id="helper-state-transition" class="section-anchor"></a>
 <h1 id="state-transition-builder">State Transition Builder</h1>
 <p>Status: Partial</p>
@@ -707,9 +707,9 @@
 <h2 id="contoh-21">Contoh</h2>
 <p>active → revoked; action Owner mencabut Member; invariant Member tidak menerima export baru sesudah revoke efektif.</p>
 <h2 id="hubungan-dengan-feature-lain-21">Hubungan dengan Feature Lain</h2>
-<p>Memberi bahan untuk Hypotheses/Tests dan mapping lifecycle manual.</p>
+<p>Saved transitions can open a reviewed Hypothesis with state/authority context.</p>
 <h2 id="tips-21">Tips</h2>
-<p>Partial: row manual, bukan graph/state machine yang dieksekusi. Tidak mengubah object state target atau coverage secara otomatis.</p>
+<p>Expected transitions are researcher notes, not observations. Review the hypothesis before manual tests.</p>
 <a id="helper-trust-boundary" class="section-anchor"></a>
 <h1 id="trust-boundary-mapper">Trust Boundary Mapper</h1>
 <p>Status: Active</p>
@@ -734,7 +734,7 @@
 <h2 id="hubungan-dengan-feature-lain-22">Hubungan dengan Feature Lain</h2>
 <p>Memakai Boundaries yang sama dengan Attack Surface/Tests/Coverage.</p>
 <h2 id="tips-22">Tips</h2>
-<p>Ini shortcut modul, bukan generator graph atau mapping otomatis.</p>
+<p>Compatibility launcher retained but hidden in the normal helper picker. Map boundaries directly under Attack Surface.</p>
 <a id="helper-evidence-comparator" class="section-anchor"></a>
 <h1 id="evidence-comparator">Evidence Comparator</h1>
 <p>Status: Partial</p>
@@ -916,7 +916,7 @@
 <h2 id="hubungan-dengan-feature-lain-29">Hubungan dengan Feature Lain</h2>
 <p>Shortcut ke Report Generator yang sama; tidak membuat template atau penyimpanan terpisah.</p>
 <h2 id="tips-29">Tips</h2>
-<p>Membuka helper tidak langsung menyimpan draft. Periksa redaksi evidence dan field kosong sebelum export.</p>
+<p>Compatibility launcher retained but hidden in the normal helper picker. Findings -&gt; Generate Report opens the canonical report workspace.</p>
 <a id="helper-gap-analyzer" class="section-anchor"></a>
 <h1 id="research-gap-analyzer-helper">Research Gap Analyzer — Helper</h1>
 <p>Status: Partial</p>
@@ -942,7 +942,7 @@
 <h2 id="hubungan-dengan-feature-lain-30">Hubungan dengan Feature Lain</h2>
 <p>Memakai Coverage service yang sama, berbeda dari AI Gap Analyzer.</p>
 <h2 id="tips-30">Tips</h2>
-<p>Partial: menghitung catatan, bukan seluruh kombinasi atau inspeksi evidence. Missing revocation/async/cross-surface memakai kata technique/state.</p>
+<p>Compatibility view retained but hidden in the normal helper picker. Dashboard -&gt; Research Gaps uses the same analysis.</p>
 <a id="coverage" class="section-anchor"></a>
 <h1 id="research-gaps-dan-research-coverage">Research Gaps dan Research Coverage</h1>
 <p>Status: Partial</p>
@@ -967,9 +967,9 @@
 <h2 id="contoh-31">Contoh</h2>
 <p>Actor 1 / 2: Member mempunyai hasil test, Owner belum. Boundary 0 / 1 tetap nol jika test tidak memilih boundary walau context menyebut API → Worker.</p>
 <h2 id="hubungan-dengan-feature-lain-31">Hubungan dengan Feature Lain</h2>
-<p>Dashboard dan helper Gap Analyzer memakai perhitungan sama; AI Gap Analyzer memberi saran draft tambahan.</p>
+<p>One deterministic analyzer powers recorded coverage, the legacy gap helper and #ai-gaps compatibility view.</p>
 <h2 id="tips-31">Tips</h2>
-<p>Partial: PASS/FAIL/INCONCLUSIVE/VULNERABILITY semua dihitung sebagai tercatat, bukan aman. Actor/object/state teks harus cocok persis; teknik/boundary lewat ID. 0 / 0 berarti belum dipetakan, bukan complete. Pesan lifecycle membaca kata nama technique + test.state, bukan langkah/evidence; tidak mengukur setiap kombinasi.</p>
+<p>Partial recorded coverage only. Actor/object IDs take precedence; legacy WHO/OBJECT snapshots fall back to names. Lifecycle messages are heuristic, not proof of untested vulnerability classes.</p>
 <a id="research-priority" class="section-anchor"></a>
 <h1 id="research-priority-heading">Research Priority</h1>
 <p>Status: Active</p>
@@ -1108,20 +1108,20 @@
 <div class="table-scroll"><table>
 <tr><th>Operation</th><th>Label UI / referensi</th><th>Kapan</th><th>Output utama</th></tr>
 <tr><td><code>research_advice</code></td><td><a href="#ai">Research Assistant</a></td><td>Sesudah target/scope/mapping terisi atau ketika arah riset belum jelas.</td><td>Structured JSON scope assessment/rules, recommendations, safe next steps/avoid/stop/missing context, confidence 0–1, questions/hypotheses/finding analysis/research priority/gaps/report draft; field tidak relevan dapat kosong.</td></tr>
-<tr><td><code>analyze_scope</code></td><td><a href="#ai-analyze-scope">AI Analyze Scope</a></td><td>Sesudah mengisi Scope dan ketika ketentuan belum jelas.</td><td>Scope assessment dari hard policy, rules, missingContext, pertanyaan dan saran review.</td></tr>
+<tr><td><code>analyze_scope</code></td><td><a href="#ai-analyze-scope">AI Analyze Scope</a></td><td>Sesudah mengisi Scope dan ketika ketentuan belum jelas.</td><td>Supplied-scope assessment, recorded restrictions, missing external verification and stop conditions.</td></tr>
 <tr><td><code>recommend_techniques</code></td><td><a href="#ai-techniques">AI Technique Advisor</a></td><td>Sesudah mapping atau saat memilih prioritas baru.</td><td>recommendedTechniques: name, priority 0–100, reason, securityInvariant; researchPriority umum dan missing context.</td></tr>
 <tr><td><code>recommend_tools</code></td><td><a href="#ai-tools">AI Tool Advisor</a></td><td>Sesudah memilih technique dan sebelum menyiapkan test manual.</td><td>toolSuggestions dengan id/name/category/purpose/usageMode manual/whyUseful/scopeWarning; tool di luar kandidat dihapus.</td></tr>
-<tr><td><code>recommend_helpers</code></td><td><a href="#ai-helper-advisor">AI Helper Advisor</a></td><td>Saat mapping, evidence preparation, atau review finding.</td><td>helperSuggestions id/name/purpose yang harus cocok katalog internal.</td></tr>
+<tr><td><code>recommend_helpers</code></td><td><a href="#ai-helper-advisor">AI Helper Advisor</a></td><td>Saat mapping, evidence preparation, atau review finding.</td><td>Existing helper IDs/names matching mapped context, evidence and findings.</td></tr>
 <tr><td><code>research_questions</code></td><td><a href="#ai-questions">AI Research Questions</a></td><td>Saat mapping awal atau hasil test masih inconclusive.</td><td>researchQuestions dan missingContext serta struktur umum AI.</td></tr>
 <tr><td><code>generate_hypotheses</code></td><td><a href="#ai-hypothesis-generator">AI Hypothesis Generator</a></td><td>Sesudah mapping/technique selection dan sebelum test.</td><td>Draft title/technique/invariant/expectedBehavior/potentialFailure/enam dimensi; tombol Review Hypothesis membuka editor.</td></tr>
 <tr><td><code>analyze_finding</code></td><td><a href="#ai-findings">AI Finding Analyzer</a></td><td>Sesudah finding draft dan evidence disiapkan.</td><td>findingAnalysis: assessment, potentialClass, brokenInvariant, potentialRootCause, falsePositiveChecks, missingEvidence, potentialImpact, duplicateRisk, safeValidation; priority/confidence umum.</td></tr>
 <tr><td><code>false_positive_analysis</code></td><td><a href="#ai-false-positive">AI False Positive Analyzer</a></td><td>Sesudah finding draft dan sebelum confirmation/report.</td><td>falsePositiveChecks, missingEvidence, safeValidation dan assessment Hypothesis pada finding analysis.</td></tr>
 <tr><td><code>duplicate_analysis</code></td><td><a href="#ai-duplicate">AI Duplicate Analyzer</a></td><td>Sesudah finding dan known issues/KB pembanding tersedia.</td><td>duplicateRisk Likely Unique/Possible Variant/Likely Duplicate/Unknown dalam findingAnalysis, confidence/missing context dan saran review.</td></tr>
-<tr><td><code>gap_analysis</code></td><td><a href="#ai-gaps">AI Gap Analyzer</a></td><td>Saat merencanakan sesi baru setelah mencatat hasil test.</td><td>gapAnalysis, researchQuestions, safeNextSteps dan priority draft.</td></tr>
+<tr><td><code>gap_analysis</code></td><td><a href="#ai-gaps">AI Gap Analyzer</a></td><td>Saat merencanakan sesi baru setelah mencatat hasil test.</td><td>Recorded dimensions and untested mapped entries, without a model call.</td></tr>
 <tr><td><code>improve_report</code></td><td><a href="#ai-report-assistant">AI Report Assistant</a></td><td>Sesudah report awal dan finding/evidence direview.</td><td>reportDraft, tombol Preview / Edit Report Draft; Save memperbarui reportMarkdown sumber dan menandai suggestion accepted.</td></tr>
 <tr><td><code>evidence_summary</code></td><td><a href="#ai-evidence-summary">AI Evidence Summarizer</a></td><td>Sesudah evidence redacted dan sebelum analisis/report.</td><td>Saran naratif dalam structured result, terutama findingAnalysis/safeNextSteps/missingContext bila relevan. Tidak ada field terpisah evidenceSummary atau artifact ringkasan otomatis.</td></tr>
 <tr><td><code>safe_next_steps</code></td><td><a href="#ai-safe-next-steps">AI Safe Next Steps</a></td><td>Ketika hasil inconclusive atau missing evidence masih ada.</td><td>safeNextSteps, avoid, stopConditions dan missingContext.</td></tr>
-<tr><td><code>identify_restrictions</code></td><td><a href="#ai-restrictions">AI Restrictions</a></td><td>Sebelum test dan setiap rules/arsitektur berubah.</td><td>rules final dari policy, avoid, stopConditions, missing context dan saran review.</td></tr>
+<tr><td><code>identify_restrictions</code></td><td><a href="#ai-restrictions">AI Restrictions</a></td><td>Sebelum test dan setiap rules/arsitektur berubah.</td><td>Recorded policy restrictions and manual review limits.</td></tr>
 <tr><td><code>generate_target_knowledge</code></td><td><a href="#knowledge-op-generate_target_knowledge">Generate Target Knowledge</a></td><td>Sebelum mapping riset target.</td><td>items berjenis overview/model/actor/object/asset/data/flow/term/boundary/invariant/question dan unknownInformation.</td></tr>
 <tr><td><code>analyze_target</code></td><td><a href="#knowledge-op-analyze_target">Analyze Target</a></td><td>Saat profil target mulai lengkap.</td><td>Penjelasan, missing/unknown informasi dan pertanyaan review.</td></tr>
 <tr><td><code>suggest_domains</code></td><td><a href="#knowledge-op-suggest_domains">Suggest Domain</a></td><td>Sebelum menentukan sektor utama.</td><td>suggestedDomains dengan reason/confidence; klasifikasi akhir harus disetujui peneliti.</td></tr>
@@ -1138,7 +1138,7 @@
 <h1 id="ai-analyze-scope-heading">AI Analyze Scope</h1>
 <p>Status: Active</p>
 <h2 id="fungsi-37">Fungsi</h2>
-<p>Saran review scope dan konteks izin berdasarkan catatan yang supplied.</p>
+<p>Compatibility operation using the local scope/policy checker, without a provider call.</p>
 <h2 id="kenapa-feature-ini-penting-37">Kenapa Feature Ini Penting</h2>
 <p>Mengidentifikasi informasi scope/rules yang masih kurang sebelum menyusun test.</p>
 <h2 id="kapan-digunakan-37">Kapan Digunakan</h2>
@@ -1146,20 +1146,15 @@
 <h2 id="input-37">Input</h2>
 <p>Operation analyze_scope; profil target, scope/guard/rules, research goal/notes.</p>
 <h2 id="output-37">Output</h2>
-<p>Scope assessment dari hard policy, rules, missingContext, pertanyaan dan saran review.</p>
+<p>Supplied-scope assessment, recorded restrictions, missing external verification and stop conditions.</p>
 <h2 id="cara-menggunakan-37">Cara Menggunakan</h2>
-<ol>
-<li>Research Assistant → Analyze Scope.</li>
-<li>Isi pertanyaan batas izin.</li>
-<li>Preview → Send.</li>
-<li>Perbaiki Scope/Guard sendiri dari hasil review.</li>
-</ol>
+<p>Use Scope or Scope Checker. The existing analyze_scope API operation delegates to local processing.</p>
 <h2 id="contoh-37">Contoh</h2>
 <p>Tanyakan informasi yang kurang untuk memastikan export-worker Example SaaS termasuk scope laboratorium.</p>
 <h2 id="hubungan-dengan-feature-lain-37">Hubungan dengan Feature Lain</h2>
 <p>Rules Engine menetapkan assessment final; AI tidak mengubah scope atau flags.</p>
 <h2 id="tips-37">Tips</h2>
-<p>Tidak mengambil halaman program atau memastikan izin secara independen. Assessment supplied scope memakai batasan Scope Checker yang sama.</p>
+<p>Supplied rules are not independently verified. Use optional Research Assistant for interpretation requiring reasoning.</p>
 <a id="ai-techniques" class="section-anchor"></a>
 <h1 id="ai-technique-advisor">AI Technique Advisor</h1>
 <p>Status: Active</p>
@@ -1217,7 +1212,7 @@
 <h1 id="ai-helper-advisor-heading">AI Helper Advisor</h1>
 <p>Status: Active</p>
 <h2 id="fungsi-40">Fungsi</h2>
-<p>Merekomendasikan helper internal dari katalog yang sudah tersedia.</p>
+<p>Compatibility operation selecting relevant existing helpers from supplied records locally.</p>
 <h2 id="kenapa-feature-ini-penting-40">Kenapa Feature Ini Penting</h2>
 <p>Mengarahkan peneliti ke fitur pencatatan atau review yang sesuai kebutuhan.</p>
 <h2 id="kapan-digunakan-40">Kapan Digunakan</h2>
@@ -1225,20 +1220,15 @@
 <h2 id="input-40">Input</h2>
 <p>Operation recommend_helpers; target/mapping/research goal dan context.</p>
 <h2 id="output-40">Output</h2>
-<p>helperSuggestions id/name/purpose yang harus cocok katalog internal.</p>
+<p>Existing helper IDs/names matching mapped context, evidence and findings.</p>
 <h2 id="cara-menggunakan-40">Cara Menggunakan</h2>
-<ol>
-<li>Research Assistant → Helper Advisor.</li>
-<li>Isi kebutuhan.</li>
-<li>Preview → Send.</li>
-<li>Buka Internal Helpers dan pilih nama yang disarankan sendiri.</li>
-</ol>
+<p>Use Internal Helpers; recommend_helpers requires no model call.</p>
 <h2 id="contoh-40">Contoh</h2>
 <p>State Transition Builder untuk active → revoked; Finding Checklist sebelum laporan export.</p>
 <h2 id="hubungan-dengan-feature-lain-40">Hubungan dengan Feature Lain</h2>
 <p>HELPER_KB membatasi nama; helper lokal menyediakan action sebenarnya.</p>
 <h2 id="tips-40">Tips</h2>
-<p>Rekomendasi tidak menjalankan helper atau otomatis menyimpan row. Helper tetap dapat dipilih manual saat AI disabled.</p>
+<p>Selection does not execute a helper or create canonical records.</p>
 <a id="ai-questions" class="section-anchor"></a>
 <h1 id="ai-research-questions">AI Research Questions</h1>
 <p>Status: Active</p>
@@ -1376,7 +1366,7 @@
 <h1 id="ai-gap-analyzer">AI Gap Analyzer</h1>
 <p>Status: Active</p>
 <h2 id="fungsi-46">Fungsi</h2>
-<p>Saran gap riset dari mapping dan test yang supplied ke model.</p>
+<p>Merged with deterministic recorded research coverage; the #ai-gaps link remains supported.</p>
 <h2 id="kenapa-feature-ini-penting-46">Kenapa Feature Ini Penting</h2>
 <p>Membantu menanyakan actor/object/state/boundary atau lifecycle yang belum jelas.</p>
 <h2 id="kapan-digunakan-46">Kapan Digunakan</h2>
@@ -1384,20 +1374,15 @@
 <h2 id="input-46">Input</h2>
 <p>Operation gap_analysis; actor/object/boundary/technique/hypothesis/test context, goal/notes.</p>
 <h2 id="output-46">Output</h2>
-<p>gapAnalysis, researchQuestions, safeNextSteps dan priority draft.</p>
+<p>Recorded dimensions and untested mapped entries, without a model call.</p>
 <h2 id="cara-menggunakan-46">Cara Menggunakan</h2>
-<ol>
-<li>AI Gap Analyzer → pilih Operation yang benar.</li>
-<li>Preview → Send.</li>
-<li>Bandingkan saran dengan Research Gaps lokal.</li>
-<li>Buat hypothesis/test yang relevan.</li>
-</ol>
+<p>Dashboard -&gt; Research Gaps. The gap_analysis operation uses the same local analyzer.</p>
 <h2 id="contoh-46">Contoh</h2>
 <p>AI menyarankan membedakan execution worker dan download result setelah revoke pada Example SaaS.</p>
 <h2 id="hubungan-dengan-feature-lain-46">Hubungan dengan Feature Lain</h2>
 <p>Membaca context riset; tidak mengubah coverage lokal atau otomatis membuat test.</p>
 <h2 id="tips-46">Tips</h2>
-<p>AI suggestions bukan score coverage atau bukti semua kombinasi sudah diuji. Gunakan rasio lokal untuk catatan tercatat dan review semantic manual.</p>
+<p>Semantic research questions still belong in optional Research Assistant. Recorded counts are not security conclusions.</p>
 <a id="ai-report-assistant" class="section-anchor"></a>
 <h1 id="ai-report-assistant-heading">AI Report Assistant</h1>
 <p>Status: Active</p>
@@ -1481,7 +1466,7 @@
 <h1 id="ai-restrictions-heading">AI Restrictions</h1>
 <p>Status: Active</p>
 <h2 id="fungsi-50">Fungsi</h2>
-<p>Saran review pembatasan dari program rules dan scope yang dicatat.</p>
+<p>Compatibility operation that returns recorded hard rules locally, without a provider call.</p>
 <h2 id="kenapa-feature-ini-penting-50">Kenapa Feature Ini Penting</h2>
 <p>Membantu memeriksa batas yang mungkin terlupakan ketika menyusun test.</p>
 <h2 id="kapan-digunakan-50">Kapan Digunakan</h2>
@@ -1489,20 +1474,15 @@
 <h2 id="input-50">Input</h2>
 <p>Operation identify_restrictions; scope testing/automation rules, flags, rate limits, safe harbor dan research goal.</p>
 <h2 id="output-50">Output</h2>
-<p>rules final dari policy, avoid, stopConditions, missing context dan saran review.</p>
+<p>Recorded policy restrictions and manual review limits.</p>
 <h2 id="cara-menggunakan-50">Cara Menggunakan</h2>
-<ol>
-<li>Pilih Restrictions.</li>
-<li>Isi tujuan pengujian.</li>
-<li>Preview → Send.</li>
-<li>Cocokkan dengan ketentuan asli dan perbarui Scope sendiri.</li>
-</ol>
+<p>Use Scope and its recorded restrictions. The identify_restrictions operation remains compatible.</p>
 <h2 id="contoh-50">Contoh</h2>
 <p>Example SaaS: manual only, no third-party testing, stop jika data bukan milik peneliti.</p>
 <h2 id="hubungan-dengan-feature-lain-50">Hubungan dengan Feature Lain</h2>
 <p>Rules Engine mempertahankan prioritas program rules; tidak mengubah flags.</p>
 <h2 id="tips-50">Tips</h2>
-<p>Tidak menafsirkan izin hukum absolut atau mengambil ketentuan terbaru dari Program URL. Output rules yang authoritative berasal dari catatan policy, bukan izin yang diciptakan AI.</p>
+<p>No legal guarantee, policy fetching or model-generated permission.</p>
 <a id="ai-review" class="section-anchor"></a>
 <h1 id="ai-suggestions-preview-accept-edit-reject">AI Suggestions — Preview, Accept, Edit, Reject</h1>
 <p>Status: Active</p>

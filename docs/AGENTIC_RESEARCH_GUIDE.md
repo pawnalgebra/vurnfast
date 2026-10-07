@@ -2,6 +2,10 @@
 
 Agents research. Policy controls. Researcher reviews. Researcher decides. Evidence proves.
 
+Dashboard mengutamakan **Next Manual Work**; estimasi stage/progress berada dalam detail opsional. History, Review Queue, Manual Analysis dan pengaturan tetap tersedia melalui navigasi konteks. Seluruh 13 specialist dan General dipertahankan karena konteks target, pengetahuan domain, hypothesis, FP review dan duplicate review memiliki tujuan berbeda. Core manual tidak membutuhkan agent.
+
+Empat operasi advisor sederhana (scope, restrictions, helper selection, recorded gaps) memakai layanan lokal. Reasoning advisor identik dapat memakai cache terbatas; evidence/policy/model baru membatalkannya. Cache specialist terpisah per instance provider. Angka budget tetap estimasi dan tidak menunjukkan tagihan aktual.
+
 Orchestrator memilih pekerjaan berikutnya berdasarkan progress, proposal, scope, hypotheses, test dan evidence yang tersedia. Specialist bekerja di backend; frontend berfokus pada progress, review dan manual analysis. Engine tidak menjalankan testing target atau membuat vulnerability confirmed dari inference.
 
 ## Feature Flags dan Setup
@@ -150,3 +154,47 @@ Rilis aplikasi v2.0.0 tetap memakai schema workspace 2.0.0 dengan extension yang
 Context agent hanya target aktif: hingga tiga selected domain excerpts, 20 enabled techniques, capped hypotheses/tests/evidence/findings/lessons/manual analysis dan prior proposals terbatas. Tidak ada target lain, API key, full database, filesystem evidence atau automatic company lookup. Output history tetap lokal; transient run di backend berhenti/lost jika server restart. Jika tab/server terputus, lihat budget ledger/provider usage dan Continue/Replan setelah mereview state tersimpan.
 
 Live smoke test OpenAI gpt-5.4-mini berhasil untuk koneksi structured JSON dan satu tahap Target Intelligence Agent pada dummy context: output valid, run berhenti WAITING_REVIEW, dan canonical research tidak berubah. Tes ini tidak membuktikan seluruh specialist atau provider lain; alur lengkap tetap diuji dengan mock. JSON/policy validation mengurangi risiko malformed output dan perubahan otomatis, tetapi tidak membuktikan semua inference benar. Seluruh fakta, testing, finding dan report tetap perlu review peneliti.
+
+## Advanced Research Signals
+
+Dashboard sekarang memiliki **Research Signals** untuk normalized observation, event timeline, contradiction, hypothesis terurut dan next discriminating test. Ini reasoning layer di atas raw evidence; tidak menjalankan target request atau mengonfirmasi vulnerability. Scope/checklist tetap mengikat perencanaan.
+
+1. Catat actor/object dan raw evidence pada target dummy atau target yang telah diotorisasi.
+2. Pilih **Record Observation** untuk memasangkan actor, object, tenant, surface, effective authority, logical operation, dan observed outcome dengan evidence. **Normalize Test Observations** menyalin observation dari test tanpa menebak apakah backend mengizinkan/menolak: outcome tetap `unknown` sampai dipetakan researcher.
+3. Pilih **Record Event** untuk grant, queue, revoke, execute; gunakan logical order bila tidak ada timestamp. Unknown ordering tidak dianggap “setelah revoke”.
+4. **Review Model** mengedit JSON `researchModel.version=1`: events, observations, invariants, relations, signalDecisions, rejectedExplanations, unresolvedQuestions. Untuk approval chain, gunakan `version`, `approvedVersion`, `approvalEventId`; untuk refund aggregate, tambahkan invariant `rule=aggregate-limit`, `objectId`, `operation=refund`, `maximum`, serta event berbeda dengan `operationId`, `amount` dan `concurrentWith`.
+5. Setiap event/observation/invariant menyimpan `evidenceRefs` dan provenance `{status,source,confidence,evidenceRefs}`. Status: OBSERVED, RESEARCHER_CONFIRMED, AI_INFERRED, UNKNOWN. Semua referensi harus menunjuk record target aktif. AI_INFERRED tidak menjadi fakta atau sumber temporal observed. Raw evidence yang berubah membuat snapshot normalized lama tidak dipakai untuk contradiction sampai direview ulang.
+6. **Investigate/Edit** membuka hypothesis dengan actor/object/boundary ID, invariant candidate, evidence, alternatif dan confirm/reject criteria. **Reject/Mark Explained** menyimpan keputusan researcher. **Ask Agent** menyiapkan draft dengan explicit evidence references; kirim setelah mereview konteks.
+7. Continue Research dapat berhenti di **HYPOTHESIS_REANALYSIS** untuk mereview hypothesis lokal tanpa call model tambahan. Setelah diterima, next discriminating test menjadi proposal **TEST_PLANNED** dan tetap perlu review/manual execution.
+8. Untuk kontrol pembantah, Record Observation dengan **Discriminating control for**, raw evidence baru, actor/object yang sesuai, dan **Researcher control interpretation** primary/alternative. Ini penilaian researcher terhadap hasil kontrol, bukan keputusan AI. Alternative yang didukung membuat signal explained; konflik atau kontrol kosong tetap NEEDS_TESTING.
+
+Rules lokal saat ini mengenali cross-tenant authority, execution setelah ordered revoke, insufficient role, stale approval version, aggregate concurrent execution, dan matched cross-surface allow/deny. Candidate invariant adalah pertanyaan riset sampai business policy target diketahui. Job dengan independent authority tidak otomatis stale: exemption memerlukan invariant `independent-job-authority` untuk object/operation yang sama dengan provenance RESEARCHER_CONFIRMED dan event `independentAuthority=confirmed`.
+
+Finding menyimpan beberapa `testIds` serta evidence relationship SUPPORTS, CONTRADICTS, CONTROL, CONTEXT, PREREQUISITE, OUTCOME; test utama tetap dipertahankan untuk compatibility. Finding agent dapat mempertahankan evidence dari tests yang berbagi hypothesis atau terhubung signal. Finding yang terhubung normalized contradiction tetap NEEDS_TESTING sampai ada observed discriminating control. Jalur finding manual/legacy tetap memakai review peneliti; rule engine tidak membaca bebas semua jenis evidence atau membuktikan semantic validity dari deklarasi kontrol.
+
+Context sequential memilih explicit references, dependencies, research relevance lalu recency. Stable IDs dan knowledgeLinks tetap dikirim; `contextManifest` mencatat included/omitted records, dependencies yang tidak muat, serta field truncation. Chat tetap memiliki budget lebih kecil, sehingga source dependencies yang terpotong dicatat. Relevant graph dibatasi node/edge dan signal summary mencatat signal yang tidak dikirim. `COMPLETED` berarti current research path selesai, bukan seluruh ruang riset sudah diuji.
+
+Benchmark dummy: `npm run test:advanced`. Tests menguji relationship yang diharapkan, benign variants, provenance, replanning, multi-test grounding, stale controls dan scope gates. Ini benchmark deterministic engine/integration, belum evaluasi reasoning model live.
+
+## Discovery Intelligence V3
+
+**Discovery Intelligence** mencari chain umum 2–8 hop, mengevaluasi target constraints, menyimpan UNKNOWN dan competing explanations, lalu memilih manual test berdasarkan information gain. `VIOLATED` berarti observed data bertentangan dengan reviewed rule target, bukan vulnerability confirmed.
+
+**Review Constraints** menerima array JSON dengan `id`, `targetId`, `category`, `subject` (actor ID), `object` (object ID), `operation`, `condition`, `expected`, `sourceType`, `sourceRef`, `confidence`, `verified`, dan `notes`. Kosongkan subject/object untuk rule lebih luas. Contoh predicates target khusus:
+
+```json
+{
+  "condition": {"all": [{"field": "outcome", "operator": "eq", "value": "allowed"}]},
+  "expected": {"all": [{"field": "tenant", "operator": "eqField", "other": "authorityTenant"}]}
+}
+```
+
+Operators: `eq`, `neq`, `in`, `exists`, `lte`, `gte`, `eqField`, `neqField`. `condition.prior` memiliki `same` identity fields dan `all` predicates untuk memilih latest matching ordered predecessor; `other: "prior.version"` membandingkan field dengan versi predecessor. `expected.aggregate` memiliki `field`, `groupBy`, `distinctBy`, dan `all`; predicate `field: "total"` membandingkan total execution yang berbeda. Source AI_INFERRED/DOMAIN_KNOWLEDGE/UNKNOWN tidak dapat verified. Source verified wajib PROGRAM_RULE, TARGET_DOCUMENTATION, atau RESEARCHER_CONFIRMED dengan sourceRef. Applicability predicates dapat menyatakan exception policy target; generic templates tidak menjadi universal policy.
+
+**Extract Observation** menampilkan PROPOSED extraction dari JSON raw evidence sebelum researcher menerima. Actor/object/tenant tidak ditebak. Preview harus cocok dengan extraction: untuk koreksi, perbaiki raw dan extract ulang. Prose/HTTP payload ambigu masih memerlukan normalisasi manual. Raw fingerprint yang berubah membatalkan proposal lama.
+
+**Investigate**, **Create Test**, **Ask Agent**, **Mark Explained**, dan **Reject** tetap tindakan researcher. Ask Agent menyiapkan draft `#signal:ID`; chat juga menerima `#chain:ID`, `#constraint:ID`, dan `#unknown:ID`. Context mengikuti explicit references dan dependencies sebelum recency. `contextManifest.omittedCriticalDependencies` mencatat bukti penting yang tidak muat; confidence hasil local/provider dibatasi. Failed-path memory menekan relationship yang telah dijelaskan/ditolak; perubahan dependency terkait membuka ulang dengan alasan.
+
+Server model tiers memakai `AI_CHEAP_MODEL`/`AI_REASONING_MODEL`, atau configured default bila kosong. Graph, constraint, extraction dan ranking deterministic. Cache transient dibatasi dan memakai revision, operation, tier serta fingerprint context, evidence dan constraints.
+
+`npm run test:discovery` menjalankan 22 skenario sintetis × suspicious/benign/missing-evidence (66 inputs) plus integration checks. `npm run benchmark:discovery:live` opsional, membutuhkan `AI_ENABLED=true` dan provider configured; default tiga case, `DISCOVERY_LIVE_CASES=66` untuk lengkap. Tokens, latency, dan cost estimate jika tersedia disimpan tanpa key. Benchmark terstruktur belum membuktikan discovery pada target nyata atau Level 4.

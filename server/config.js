@@ -11,7 +11,8 @@ export function resolveConfig(env={}) {
   const modelNames={openai:'OPENAI_MODEL',anthropic:'ANTHROPIC_MODEL',gemini:'GEMINI_MODEL',ollama:'OLLAMA_MODEL'};
   const model=env[modelNames[provider]]||'',key=env[keyNames[provider]]||'';
   const modelAllowlist=[...new Set(String(env.AI_ALLOWED_MODELS||'').split(',').map(id=>id.trim()).filter(id=>/^[A-Za-z0-9._:/-]{1,180}$/.test(id)))].slice(0,100);
-  const models=[...new Set([model,...modelAllowlist].filter(Boolean))];
+  const modelTiers={CHEAP:env.AI_CHEAP_MODEL||model,REASONING:env.AI_REASONING_MODEL||model};
+  const models=[...new Set([model,...Object.values(modelTiers),...modelAllowlist].filter(Boolean))];
   const privacyMode=env.AI_PRIVACY_MODE||'REDACTED_CLOUD';
   let configured=!!model && (provider==='ollama'||!!key) && Object.hasOwn(modelNames,provider);
   const baseURL=env.OLLAMA_BASE_URL||'http://127.0.0.1:11434';
@@ -23,7 +24,7 @@ export function resolveConfig(env={}) {
   const agentic={enabled:enabled&&env.AGENTIC_AI_ENABLED==='true',executionMode:'Supervised',humanApproval:true,
     maxSteps:Math.floor(bounded(env.AGENT_MAX_STEPS,8,1,32)),runBudgetUSD:bounded(env.AGENT_RUN_BUDGET_USD,.25,0,100),dailyBudgetUSD:bounded(env.AGENT_DAILY_BUDGET_USD,2,0,1000),callBudgetUSD:bounded(env.AGENT_CALL_BUDGET_USD,.03,.000001,100),
     localToolAccess:env.AGENT_ALLOW_LOCAL_TOOLS!=='false',allowTargetRequests:env.AGENT_ALLOW_TARGET_REQUESTS==='true',externalAdaptersAvailable:false,costAccounting:'Conservative configured estimate; actual provider billing unknown'};
-  return {enabled,provider,model,models,modelAllowlist,key,baseURL,privacyMode,redactSecrets:env.AI_REDACT_SECRETS!=='false',configured,host,port,agentic};
+  return {enabled,provider,model,models,modelTiers,modelAllowlist,key,baseURL,privacyMode,redactSecrets:env.AI_REDACT_SECRETS!=='false',configured,host,port,agentic};
 }
 export function safeConfig(config,status) {
   return {enabled:config.enabled,provider:config.provider,model:config.model,models:config.models,configured:config.enabled&&config.configured,privacyMode:config.privacyMode,redactSecrets:config.redactSecrets,status:status||(!config.enabled?'Disabled':!config.configured?'Misconfigured':'Connected'),agentic:{...config.agentic,configured:config.agentic.enabled&&config.configured}};

@@ -15,7 +15,7 @@ export const agentStages=[
   ['duplicate','Duplicate Agent','Duplicate Review','FINDING_REVIEW'],
   ['report','Report Agent','Report','REPORT_READY']
 ];
-export const researchStates=['TARGET_CREATED','INTELLIGENCE_READY','SCOPE_VALIDATED','SURFACE_MAPPED','BOUNDARIES_MAPPED','TECHNIQUES_SELECTED','HYPOTHESES_READY','TEST_PLANNED','WAITING_REVIEW','WAITING_APPROVAL','TESTING','EVIDENCE_READY','FINDING_REVIEW','REPORT_READY','COMPLETED','PAUSED','RUNNING'];
+export const researchStates=['TARGET_CREATED','INTELLIGENCE_READY','SCOPE_VALIDATED','SURFACE_MAPPED','BOUNDARIES_MAPPED','TECHNIQUES_SELECTED','HYPOTHESES_READY','TEST_PLANNED','WAITING_REVIEW','WAITING_APPROVAL','TESTING','EVIDENCE_READY','FINDING_REVIEW','REPORT_READY','COMPLETED','PAUSED','RUNNING','OBSERVATION_READY','CONTRADICTION_DETECTED','HYPOTHESIS_REANALYSIS','HYPOTHESIS_READY','ADVERSARIAL_REVIEW','NEEDS_MORE_TESTING','FINDING_CANDIDATE','CONFIRMED','REJECTED'];
 export const proposalKinds=['knowledge','actor','object','boundary','technique','tool-recommendation','question','hypothesis','test-plan','evidence-analysis','potential-finding','false-positive','duplicate','report','scope-question','uncertain-analysis'];
 export const manualAnalysisTypes=['Observation','Assessment','Correction','Research Idea','Potential Root Cause','Next Test Suggestion','Notes'];
 export const capabilityPermissions=['SAFE_AUTO','APPROVAL_REQUIRED','DENIED'];

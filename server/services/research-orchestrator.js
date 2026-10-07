@@ -7,8 +7,14 @@ import {agentScopePolicy,evaluateAgentAction} from './agent-tools.js';
 import {validateEnvironmentMetadata} from '../../client/js/services/environment.js';
 import {planMessageAgents} from '../../client/js/services/agent-messages.js';
 import {validateMessageAttachments} from '../../client/js/services/message-attachments.js';
+import {validateResearchModel} from '../../client/js/services/research-model.js';
+import {analyzeAdvancedResearch,compactAdvancedContext} from '../../client/js/services/advanced-research.js';
+import {findingEvidenceGraph} from '../../client/js/services/research-grounding.js';
+import {ResearchPriorityService} from '../../client/js/services/research-priority.js';
 const iso=()=>new Date().toISOString();
 const digest=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
+function contextResearchTarget(context){return {id:context.targetId,name:'Selected research',asset:context.knowledge.target.asset,scope:{inScope:context.knowledge.scope.inScope.join('\n'),outOfScope:context.knowledge.scope.outOfScope.join('\n'),guard:{inScope:context.knowledge.authorization.authorized,account:context.knowledge.authorization.ownedAccountsOnly,data:context.knowledge.authorization.ownedDataOnly}},programRules:context.knowledge.programRules,actors:context.knowledge.actors,objects:context.knowledge.objects,boundaries:context.knowledge.boundaries,hypotheses:context.hypotheses,testCases:context.tests,evidence:context.evidence,findings:context.findings,techniques:context.knowledge.techniques,researchEnvironment:context.environment?{profiles:context.environment.profiles}:undefined,researchModel:context.researchModel,researchRevision:context.revision};}
+function prepareAdvancedContext(input){const {advancedResearch:untrustedAnalysis,...context}=input;if(context.researchModel){context.advancedResearch=analyzeAdvancedResearch(contextResearchTarget(context));context.advancedResearch=compactAdvancedContext(context.advancedResearch);if(context.contextManifest?.omittedCriticalDependencies?.length){context.advancedResearch.conclusionLimit='Critical dependencies omitted: no high-confidence conclusion';for(const r of context.advancedResearch.discovery.relationships)r.confidence=Math.min(.35,r.confidence);}}return {...context,hypotheses:ResearchPriorityService.rank(context.hypotheses,{scopeConfidence:agentScopePolicy(context).canRecommend?100:0})};}
 export function validateAgentContext(context){
   agentSafeTree(context);if(!context||typeof context.targetId!=='string'||!context.targetId||!Number.isInteger(context.revision)||context.revision<0)throw new Error('Agent context tidak valid.');
   validateKnowledgeContext(context.knowledge);
@@ -16,6 +22,7 @@ export function validateAgentContext(context){
   for(const key of ['inScope','outOfScope','testingRules','automationRules'])if(!Array.isArray(context.knowledge.scope?.[key])||context.knowledge.scope[key].some(v=>typeof v!=='string'))throw new Error('Agent scope list tidak valid.');
   for(const name of ['hypotheses','tests','evidence','findings','lessons','manualAnalysis'])if(!Array.isArray(context[name])||context[name].length>30||context[name].some(r=>!r||typeof r.id!=='string'||!r.id))throw new Error('Agent context collection tidak valid.');
   if(!Array.isArray(context.sensitiveEvidenceIds)||context.sensitiveEvidenceIds.some(id=>typeof id!=='string'||!context.evidence.some(e=>e.id===id)))throw new Error('Sensitive evidence context tidak valid.');
+  if(context.researchModel)validateResearchModel(context.researchModel,contextResearchTarget(context));
   return context;
 }
 function proposalRecord(proposal,agentId,revision){return {...proposal,id:randomUUID(),status:'PROPOSED',sourceType:'ai',source:'AI GENERATED · '+agentStages.find(s=>s[0]===agentId)?.[1],verified:false,agentId,contextRevision:revision,createdAt:iso(),recommendedDecision:'Review content and evidence before accepting.',decision:'',canonicalId:'',stale:false,falsePositiveAnalysis:'',duplicateRisk:'',analysisCompleted:false};}
@@ -31,10 +38,11 @@ function constrainProposals(output,context,agentId,inventory){
     if(p.kind==='tool-recommendation'){const tool=inventory.find(t=>t.id===p.relatedToolId);if(!tool?.installed||tool.agentAccess==='DENIED'||!tool.capabilities.includes(p.content.type)){p.kind='uncertain-analysis';p.title='Tool unavailable: '+p.title;p.reason='Tidak ada installed/allowed inventory tool dengan required capability yang diberikan.';p.relatedToolId='';}else{p.content.name=tool.name;p.notes+=' Recommendation is manual; external tool execution unavailable.';}}
     if(p.kind==='potential-finding'){
       const test=context.tests.find(t=>t.id===p.relatedTestId);
-      const observed=p.evidenceIds.filter(id=>test&&((test.evidenceIds||[]).includes(id)||context.evidence.some(e=>e.id===id&&e.testCaseId===test.id)));
-      if(!test?.actualResult?.trim()||!observed.length||!['failed','interesting','vulnerability'].includes(test.result)){
+      const grounding=findingEvidenceGraph(p,context),observed=grounding.evidence.map(e=>e.id);
+      const primaryObserved=observed.some(id=>(test?.evidenceIds||[]).includes(id)||context.evidence.some(e=>e.id===id&&e.testCaseId===test?.id));
+      if(!test?.actualResult?.trim()||!primaryObserved||!['failed','interesting','vulnerability'].includes(test.result)){
         p.kind='uncertain-analysis';p.title='Evidence needed: '+p.title;p.analysis='Tidak ada observation/test dan evidence terkait yang cukup. '+p.analysis;p.reason='Finding harus ditopang pengujian manual dan evidence supplied.';p.evidenceIds=[];
-      }else{p.evidenceIds=observed;p.observationSnapshot={testId:test.id,actualResult:test.actualResult,testResult:test.result,...(test.sourceFingerprint?{testFingerprint:test.sourceFingerprint}:{}),evidence:observed.map(id=>{const e=context.evidence.find(e=>e.id===id);return {id,content:e.content,...(e.sourceFingerprint?{sourceFingerprint:e.sourceFingerprint}:{})};})};p.content.actualResult=test.actualResult;p.content.expectedResult=test.expectedResult;for(const key of ['who','what','object','state','authority','context','steps'])p.content[key]=test[key]||'';}
+      }else{p.evidenceIds=observed;p.testIds=grounding.tests.map(t=>t.id);p.signalIds=grounding.signalIds;p.adversarialValidation=grounding.validation;p.validationStatus=grounding.validation.some(v=>v.status!=='READY_FOR_RESEARCHER_REVIEW')?'NEEDS_TESTING':'READY_FOR_RESEARCHER_REVIEW';p.evidenceLinks=grounding.evidence.map(e=>({evidenceId:e.id,role:e.evidenceRole||'SUPPORTS',provenance:{status:'UNKNOWN',source:'test-link:'+e.testCaseId,confidence:0,evidenceRefs:[e.id]}}));p.observationSnapshot={testId:test.id,actualResult:test.actualResult,testResult:test.result,...(test.sourceFingerprint?{testFingerprint:test.sourceFingerprint}:{}),tests:grounding.tests.map(t=>({id:t.id,sourceFingerprint:t.sourceFingerprint,actualResult:t.actualResult,result:t.result})),evidence:observed.map(id=>{const e=context.evidence.find(e=>e.id===id);return {id,content:e.content,...(e.sourceFingerprint?{sourceFingerprint:e.sourceFingerprint}:{})};})};p.content.actualResult=test.actualResult;p.content.expectedResult=test.expectedResult;for(const key of ['who','what','object','state','authority','context','steps'])p.content[key]=test[key]||'';}
     }
     if(p.kind==='report'&&!context.findings.some(f=>f.id===p.relatedFindingId&&f.status==='confirmed'&&f.evidenceIds?.length)){p.kind='uncertain-analysis';p.content.reportMarkdown='';p.reason='Report memerlukan confirmed finding dengan evidence terlampir.';}
     if(p.kind==='report')p.findingFingerprint=context.findings.find(f=>f.id===p.relatedFindingId)?.sourceFingerprint||'';
@@ -50,6 +58,7 @@ export class ResearchOrchestrator{
   status(runId){const run=this.active.get(runId);return run?structuredClone(run.research):null;}
   async message({runId,context,message,inventory,privacyMode,memory,researchState}){
     validateAgentContext(context);validateToolInventory(inventory);validateMessageAttachments(message.attachments||[]);
+    context=prepareAdvancedContext(context);
     if(this.active.size)throw new Error('Run already active.');
     const team=planMessageAgents(message),model=message.model||this.config.model;
     if(!this.config.models.includes(model))throw new Error('Model unavailable.');
@@ -101,6 +110,7 @@ export class ResearchOrchestrator{
   }
   async run({runId,context,research,inventory,privacyMode}){
     validateAgentContext(context);validateAgentResearch(research);validateToolInventory(inventory);
+    context=prepareAdvancedContext(context);
     if(this.active.has(runId))throw new Error('Run already active.');
     const state=structuredClone(research),controller=new AbortController(),run={id:runId,startedAt:iso(),completedAt:'',status:'RUNNING',steps:0,estimatedCostUSD:0,actualCostUSD:null,reason:''};
     state.runs.push(run);this.active.set(runId,{controller,research:state});
@@ -127,17 +137,38 @@ export class ResearchOrchestrator{
       state.contextFingerprints=fingerprints;
       if(restart<agentStages.length){state.completedStages=state.completedStages.filter(id=>agentStages.findIndex(s=>s[0]===id)<restart);for(const p of state.reviewQueue)if(p.status==='PROPOSED'&&p.contextRevision!==context.revision)p.stale=true;log('Orchestrator','Context changed','COMPLETED','Re-analysis from '+agentStages[restart][2]+'.');}
       for(const p of state.reviewQueue)if(p.status==='PROPOSED'&&p.contextRevision!==context.revision)p.stale=true;
+      const advanced=context.advancedResearch;
+      if(advanced){
+        const signalKey=digest([advanced.signals,context.researchModel.observations]);
+        if(state.advancedSignalFingerprint!==signalKey&&advanced.signals.length){
+          state.completedStages=state.completedStages.filter(id=>agentStages.findIndex(s=>s[0]===id)<6);
+          log('Contradiction Analyzer','Targeted hypothesis re-analysis','HYPOTHESIS_REANALYSIS',advanced.signals.length+' grounded research signals; upstream stages preserved.');
+        }
+        state.advancedSignalFingerprint=signalKey;
+        for(const hypothesis of advanced.hypotheses.slice(0,3)){
+          if(context.hypotheses.some(h=>h.signalId===hypothesis.signalId)||state.reviewQueue.some(p=>p.signalId===hypothesis.signalId&&!p.stale))continue;
+          const actor=context.knowledge.actors.find(a=>a.id===hypothesis.actorId),object=context.knowledge.objects.find(o=>o.id===hypothesis.objectId);
+          const p=systemReview('hypothesis',hypothesis.title,hypothesis.reason,context.revision,{invariant:hypothesis.invariant,expectedBehavior:hypothesis.invariant,potentialFailure:hypothesis.reason,who:actor.name,what:advanced.signals.find(s=>s.id===hypothesis.signalId).operation,object:object.name,state:hypothesis.state,authority:hypothesis.authority,context:hypothesis.context,preconditions:'Owned dummy objects and valid recorded scope only.',steps:hypothesis.discriminatingTest});
+          Object.assign(p,{agentId:'hypothesis',source:'Deterministic research signals; unverified',signalId:hypothesis.signalId,actorId:hypothesis.actorId,objectId:hypothesis.objectId,boundaryId:hypothesis.boundaryId,invariantId:hypothesis.invariantId,evidenceIds:hypothesis.evidenceRefs,researchRanking:hypothesis.researchRanking,confirmEvidence:hypothesis.confirmEvidence,rejectEvidence:hypothesis.rejectEvidence,alternativeExplanation:hypothesis.alternativeExplanation,discriminatingTest:hypothesis.discriminatingTest,validationStatus:hypothesis.validation.status});state.reviewQueue.push(p);
+        }
+        if(state.reviewQueue.some(p=>p.status==='PROPOSED'&&!p.stale&&p.signalId&&p.kind==='hypothesis'))return stop('HYPOTHESIS_REANALYSIS','Unexpected evidence generated ranked hypotheses and discriminating tests. Review before further model calls.');
+      }
       const unfinishedFinding=state.reviewQueue.some(p=>p.status==='PROPOSED'&&!p.stale&&p.kind==='potential-finding'&&!p.analysisCompleted);
       if(unfinishedFinding)state.completedStages=state.completedStages.filter(id=>agentStages.findIndex(s=>s[0]===id)<10);
       if(state.pendingActions.some(a=>a.status==='PROPOSED'))return stop('WAITING_APPROVAL','Local tool action needs approval.');
       const pending=()=>state.reviewQueue.filter(p=>p.status==='PROPOSED'&&!p.stale);
-      if(pending().some(p=>p.kind!=='potential-finding'||p.analysisCompleted))return stop(pending().some(p=>p.kind==='potential-finding')?'FINDING_REVIEW':'WAITING_REVIEW','Needs your review before canonical data changes.');
+      if(pending().some(p=>p.kind!=='potential-finding'||p.analysisCompleted))return stop(pending().some(p=>p.kind==='potential-finding'&&p.validationStatus==='NEEDS_TESTING')?'NEEDS_MORE_TESTING':pending().some(p=>p.kind==='potential-finding')?'FINDING_REVIEW':'WAITING_REVIEW','Needs your review before canonical data changes.');
       const safeContext=SecretRedactor.context(context); // Agentic always redacts both LOCAL and cloud context.
       for(;;){
         if(controller.signal.aborted)return stop('PAUSED','Paused by researcher.');
         const stage=agentStages.find(s=>!state.completedStages.includes(s[0]));
-        if(!stage)return stop('COMPLETED','Research stages reviewed. Researcher remains responsible for conclusions.');
+        if(!stage)return stop('COMPLETED','Current research path reviewed; research space is not exhausted. Researcher remains responsible for conclusions.');
         const [id,name,label,nextState]=stage;state.currentStage=id;state.currentTask=label;state.state='RUNNING';
+        if(id==='hypothesis'&&advanced?.signals.length&&advanced.signals.every(s=>context.hypotheses.some(h=>h.signalId===s.id))){state.completedStages.push(id);continue;}
+        if(id==='test-planner'&&advanced?.hypotheses.length){
+          const candidate=advanced.hypotheses.find(h=>context.hypotheses.some(row=>row.signalId===h.signalId)&&!context.tests.some(t=>t.hypothesisId===context.hypotheses.find(row=>row.signalId===h.signalId).id));
+          if(candidate){const h=context.hypotheses.find(row=>row.signalId===candidate.signalId),p=systemReview('test-plan','Discriminate: '+h.title,candidate.reason,context.revision,{steps:candidate.discriminatingTest,preconditions:'Recorded scope, owned dummy resources; stop on unclear authority or unexpected sensitive data.',expectedResult:h.expectedBehavior,who:h.who,what:h.what,object:h.object,state:h.state,authority:h.authority,context:h.context});p.relatedHypothesisId=h.id;p.agentId='test-planner';p.source='Deterministic discriminating test; manual review';state.reviewQueue.push(p);state.completedStages.push(id);return stop('TEST_PLANNED','Review the highest-ranked discriminating test before manual execution.');}
+        }
         if(id==='finding'&&pending().some(p=>p.kind==='potential-finding')){state.completedStages.push(id);continue;}
         if(id==='test-planner'&&!context.hypotheses.length){state.reviewQueue.push(systemReview('uncertain-analysis','Reviewed hypothesis required','Buat atau terima hypothesis sebelum menyusun test plan.',context.revision));return stop('WAITING_REVIEW','No reviewed hypothesis available.');}
         if(id==='evidence'&&!context.evidence.length)return stop('TESTING','Jalankan test terotorisasi secara manual, lalu tambahkan observation dan evidence.');
@@ -169,7 +200,7 @@ export class ResearchOrchestrator{
         if(output.confidence<.35&&!proposals.length){state.reviewQueue.push(systemReview('uncertain-analysis','Uncertain '+label,output.summary+'\n'+output.unknownInformation.join('\n'),context.revision));return stop('WAITING_REVIEW','Uncertain analysis needs researcher input.');}
         if(state.pendingActions.some(a=>a.status==='PROPOSED'))return stop('WAITING_APPROVAL','Review local action before execution.');
         if(pending().some(p=>p.kind!=='potential-finding'))return stop('WAITING_REVIEW','Needs your review. Accept/Edit/Reject proposals.');
-        if(pending().some(p=>p.kind==='potential-finding'&&p.analysisCompleted))return stop('FINDING_REVIEW','Potential finding, false positive and duplicate analyses need researcher decision.');
+        if(pending().some(p=>p.kind==='potential-finding'&&p.analysisCompleted))return stop(pending().some(p=>p.kind==='potential-finding'&&p.validationStatus==='NEEDS_TESTING')?'NEEDS_MORE_TESTING':'FINDING_REVIEW','Potential finding, alternatives and duplicate analyses need discriminating evidence and researcher decision.');
       }
     }catch{log('Orchestrator','Run','FAILED','Context/policy/budget service unavailable.');return stop('PAUSED','Policy or budget ledger unavailable; no further calls.');}
     finally{this.active.delete(runId);}

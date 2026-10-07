@@ -10001,7 +10001,7 @@ const featureRegistry=[
   {
     "id": "dashboard",
     "name": "Dashboard",
-    "description": "Ringkasan jumlah catatan, progress teknik, coverage, dan antrean target aktif.",
+    "description": "Next manual work for the selected target, followed by optional relationship analysis and recorded coverage.",
     "purpose": "Membantu memilih pekerjaan berikutnya berdasarkan riset yang sudah dicatat.",
     "status": "Active",
     "routes": [
@@ -10153,7 +10153,7 @@ const featureRegistry=[
   {
     "id": "queue",
     "name": "Research Queue",
-    "description": "Antrean hypothesis dalam lima tahap pekerjaan yang dipilih manual.",
+    "description": "Optional planning view of the same hypotheses, available inside the Hypotheses page.",
     "purpose": "Memisahkan rencana prioritas berikutnya dari status kebenaran dugaan.",
     "status": "Active",
     "routes": [
@@ -10452,7 +10452,7 @@ const featureRegistry=[
   {
     "id": "ai-analyze-scope",
     "name": "AI Analyze Scope",
-    "description": "Saran review scope dan konteks izin berdasarkan catatan yang supplied.",
+    "description": "Compatibility operation using the local scope/policy checker, without a provider call.",
     "purpose": "Mengidentifikasi informasi scope/rules yang masih kurang sebelum menyusun test.",
     "status": "Active",
     "routes": [],
@@ -10489,7 +10489,7 @@ const featureRegistry=[
   {
     "id": "ai-helper-advisor",
     "name": "AI Helper Advisor",
-    "description": "Merekomendasikan helper internal dari katalog yang sudah tersedia.",
+    "description": "Compatibility operation selecting relevant existing helpers from supplied records locally.",
     "purpose": "Mengarahkan peneliti ke fitur pencatatan atau review yang sesuai kebutuhan.",
     "status": "Active",
     "routes": [],
@@ -10557,7 +10557,7 @@ const featureRegistry=[
   {
     "id": "ai-gaps",
     "name": "AI Gap Analyzer",
-    "description": "Saran gap riset dari mapping dan test yang supplied ke model.",
+    "description": "Merged with deterministic recorded research coverage; the #ai-gaps link remains supported.",
     "purpose": "Membantu menanyakan actor/object/state/boundary atau lifecycle yang belum jelas.",
     "status": "Active",
     "routes": [
@@ -10603,7 +10603,7 @@ const featureRegistry=[
   {
     "id": "ai-restrictions",
     "name": "AI Restrictions",
-    "description": "Saran review pembatasan dari program rules dan scope yang dicatat.",
+    "description": "Compatibility operation that returns recorded hard rules locally, without a provider call.",
     "purpose": "Membantu memeriksa batas yang mungkin terlupakan ketika menyusun test.",
     "status": "Active",
     "routes": [],
@@ -11506,7 +11506,7 @@ function attachmentMetadata(file){return {id:file.id,name:SecretRedactor.redact(
 
 // SOURCE: services/message-contract
 
-const validatorContextKinds=['target','scope','actor','object','boundary','technique','hypothesis','test','evidence','finding','report'];
+const validatorContextKinds=['target','scope','actor','object','boundary','technique','hypothesis','test','evidence','finding','report','chain','constraint','signal','unknown'];
 function validateMessageRecord(row){
   const fields=['id','message','agent','targetId','researchSessionId','timestamp','status','sender','contextRefs','tags','answer','proposalIds','runId','model','attachments','members'];
   if(!row||Object.keys(row).some(k=>!fields.includes(k)))throw new Error('Unknown message field.');
@@ -11540,7 +11540,7 @@ const agentStages=[
   ['duplicate','Duplicate Agent','Duplicate Review','FINDING_REVIEW'],
   ['report','Report Agent','Report','REPORT_READY']
 ];
-const researchStates=['TARGET_CREATED','INTELLIGENCE_READY','SCOPE_VALIDATED','SURFACE_MAPPED','BOUNDARIES_MAPPED','TECHNIQUES_SELECTED','HYPOTHESES_READY','TEST_PLANNED','WAITING_REVIEW','WAITING_APPROVAL','TESTING','EVIDENCE_READY','FINDING_REVIEW','REPORT_READY','COMPLETED','PAUSED','RUNNING'];
+const researchStates=['TARGET_CREATED','INTELLIGENCE_READY','SCOPE_VALIDATED','SURFACE_MAPPED','BOUNDARIES_MAPPED','TECHNIQUES_SELECTED','HYPOTHESES_READY','TEST_PLANNED','WAITING_REVIEW','WAITING_APPROVAL','TESTING','EVIDENCE_READY','FINDING_REVIEW','REPORT_READY','COMPLETED','PAUSED','RUNNING','OBSERVATION_READY','CONTRADICTION_DETECTED','HYPOTHESIS_REANALYSIS','HYPOTHESIS_READY','ADVERSARIAL_REVIEW','NEEDS_MORE_TESTING','FINDING_CANDIDATE','CONFIRMED','REJECTED'];
 const proposalKinds=['knowledge','actor','object','boundary','technique','tool-recommendation','question','hypothesis','test-plan','evidence-analysis','potential-finding','false-positive','duplicate','report','scope-question','uncertain-analysis'];
 const manualAnalysisTypes=['Observation','Assessment','Correction','Research Idea','Potential Root Cause','Next Test Suggestion','Notes'];
 const capabilityPermissions=['SAFE_AUTO','APPROVAL_REQUIRED','DENIED'];
@@ -11785,15 +11785,17 @@ function buildResearchContext(target,options={}) {
 // MODULE: Deterministic manual helpers; recommendations never certify a vulnerability.
 function coverageAnalysis(target) {
   const tested=target.testCases.filter(t=>t.result && t.result!=='not-tested');
-  const dimensions=[['Technique',target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name]),'techniqueId'],['Actor',target.actors.map(a=>[a.name,a.name]),'who'],['Object',target.objects.map(o=>[o.name,o.name]),'object'],['State',[...new Set([...target.objects.map(o=>o.state),...target.hypotheses.map(h=>h.state),...target.testCases.map(t=>t.state)].filter(Boolean))].map(s=>[s,s]),'state'],['Boundary',target.boundaries.map(b=>[b.id,b.from+' → '+b.to]),'boundaryId']];
-  const coverage=dimensions.map(([label,items,key])=>({label,total:items.length,covered:items.filter(([value])=>tested.some(t=>t[key]===value)).length,untested:items.filter(([value])=>!tested.some(t=>t[key]===value)).map(([,name])=>name)}));
+  const dimensions=[['Technique',target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name]),'techniqueId'],['Actor',target.actors.map(a=>[a.id,a.name]),'actorId'],['Object',target.objects.map(o=>[o.id,o.name]),'objectId'],['State',[...new Set([...target.objects.map(o=>o.state),...target.hypotheses.map(h=>h.state),...target.testCases.map(t=>t.state)].filter(Boolean))].map(s=>[s,s]),'state'],['Boundary',target.boundaries.map(b=>[b.id,b.from+' → '+b.to]),'boundaryId']];
+  const recordedMatch=(test,key,value,name)=>test[key]?test[key]===value:(key==='actorId'?test.who===name:key==='objectId'?test.object===name:false);
+  const coverage=dimensions.map(([label,items,key])=>({label,total:items.length,covered:items.filter(([value,name])=>tested.some(t=>recordedMatch(t,key,value,name))).length,untested:items.filter(([value,name])=>!tested.some(t=>recordedMatch(t,key,value,name))).map(([,name])=>name)}));
   const names=tested.map(t=>(target.techniques.find(v=>v.id===t.techniqueId)?.name||'')+' '+t.state).join(' ').toLowerCase();
   const gaps=[];if(!/revok|revoke|revocation|dicabut/.test(names))gaps.push('Belum ada revocation test yang dicatat.');if(!/async|queue|worker/.test(names))gaps.push('Belum ada async/queue test yang dicatat.');if(!/multi-surface|cross.surface|differential/.test(names))gaps.push('Belum ada differential multi-surface test yang dicatat.');
   return {coverage,gaps};
 }
 function compareText(left,right) {
   const a=String(left).split('\n'),b=String(right).split('\n');
-  return [...new Set([...a,...b])].map(line=>({line,status:a.includes(line)&&b.includes(line)?'same':a.includes(line)?'left-only':'right-only'}));
+  const leftLines=new Set(a),rightLines=new Set(b);
+  return [...new Set([...a,...b])].map(line=>({line,status:leftLines.has(line)&&rightLines.has(line)?'same':leftLines.has(line)?'left-only':'right-only'}));
 }
 function duplicateComparison(finding,candidate) {
   const fields=['rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'];
@@ -11804,6 +11806,36 @@ function duplicateComparison(finding,candidate) {
 }
 function findingChecklist(finding) {
   return [['Expected result',!!finding.expectedResult],['Actual observation',!!finding.actualResult],['Starting authority',!!finding.startingAuthority],['Protected resource',!!finding.protectedResource],['Security restriction',!!finding.securityRestriction],['Reproduction steps',!!finding.steps],['Evidence attached',(finding.evidenceIds||[]).length>0],['Impact documented',!!finding.impact]].map(([label,present])=>({label,present}));
+}
+
+// SOURCE: services/local-advice
+
+
+
+
+// Compatibility for former advisor operations that only inspect supplied records/rules.
+const localAdviceOperations=['analyze_scope','identify_restrictions','recommend_helpers','gap_analysis'];
+function localAdvice(context){
+  if(!localAdviceOperations.includes(context.operation))return null;
+  const defaults=schema=>schema.type==='object'?Object.fromEntries(Object.entries(schema.properties).map(([key,value])=>[key,defaults(value)])):schema.type==='array'?[]:schema.type==='number'?0:schema.enum?(schema.enum.includes('Unknown')?'Unknown':schema.enum[0]):'';
+  const output=defaults(AI_RESPONSE_SCHEMA),policy=policyFor(context);
+  output.scopeAssessment=policy.assessment;output.rules=policy.restrictions;output.researchPriority.scopeConfidence=policy.canRecommend?100:0;
+  output.researchPriority.reason='Local checks on supplied records, not vulnerability severity or verified authorization.';
+  output.missingContext=['Target rules and observations remain researcher supplied; local checks do not verify external policy.'];
+  output.stopConditions=['Stop manual testing if scope, effective authority or data ownership becomes unclear.'];
+  output.safeNextSteps=[policy.canRecommend?'Choose a matched manual control; record actual results and evidence.':'Review scope, testing accounts and owned data before testing.'];
+  if(context.operation==='recommend_helpers'){
+    const relevant=new Set(['authorization-matrix','state-transition','scope-checker']);
+    if(context.evidence?.length)relevant.add('evidence-comparator');
+    if(context.finding||context.findings?.length){relevant.add('finding-checklist');relevant.add('duplicate-comparator');}
+    output.helperSuggestions=HELPER_KB.filter(h=>relevant.has(h.id)).map(({id,name,purpose})=>({id,name,purpose}));
+  }
+  if(context.operation==='gap_analysis'){
+    const result=coverageAnalysis({actors:context.actors,objects:context.objects,boundaries:context.boundaries,techniques:context.techniques.map(t=>({...t,enabled:true})),hypotheses:context.hypotheses,testCases:context.tests});
+    output.gapAnalysis=result.coverage.map(g=>g.label+': '+g.covered+'/'+g.total+' recorded; untested: '+(g.untested.join(', ')||'none mapped')).slice(0,10);
+    output.missingContext.push('Recorded coverage is not evidence that every state/context combination is secure.');
+  }
+  return validateAIOutput(output);
 }
 
 // SOURCE: services/domain-knowledge
@@ -11910,6 +11942,556 @@ function knowledgeSearch(workspace,query,targetId=''){
   }return results.slice(0,200);
 }
 
+// SOURCE: services/research-priority
+// Research interest, never severity. Missing factors remain uncertain rather than certain.
+class ResearchPriorityService {
+  static score(row,{scopeConfidence=50}={}){
+    const supplied=row.priorityFactors||{},f={potentialImpact:50,likelihood:50,novelty:50,businessCriticality:50,boundaryImportance:row.boundaryId?75:40,stateSensitivity:row.state?65:40,authoritySensitivity:row.authority||row.authorityProfileId?70:40,evidenceStrength:Math.min(100,(row.evidenceRefs||row.evidenceIds||[]).length*25),uncertainty:50,testingCost:row.testingCost??30,duplicateRisk:row.duplicateRisk??30,scopeConfidence,...supplied};
+    for(const key of Object.keys(f))f[key]=Number.isFinite(f[key])?Math.max(0,Math.min(100,f[key])):50;
+    const benefit=(f.potentialImpact*2+f.likelihood+f.novelty+f.businessCriticality+f.boundaryImportance+f.stateSensitivity+f.authoritySensitivity+f.evidenceStrength*2+f.uncertainty)/11;
+    const manualAdjustment=row.priority==='high'?20:row.priority==='low'?-20:0;
+    const score=Math.round(benefit*(.4+.6*f.scopeConfidence/100)-f.testingCost*.15-f.duplicateRisk*.15+manualAdjustment);
+    return {score:Math.max(0,Math.min(100,score)),factors:f,reason:'Impact, boundary, state/authority, evidence and information gain, discounted by scope uncertainty, cost and duplicate risk.'};
+  }
+  static rank(rows,options){return rows.map(row=>({row,priority:this.score(row,options)})).sort((a,b)=>b.priority.score-a.priority.score||String(a.row.id).localeCompare(String(b.row.id))).map(({row,priority})=>({...row,researchRanking:priority}));}
+}
+
+// SOURCE: services/research-workflow
+
+
+
+// One manual workflow for both dashboards. Suggestions never execute tests or set finding status.
+function nextResearchWork(target,{limit=5}={}){
+  if(!target)return [{kind:'Target',route:'targets',title:'Create Target',reason:'Separate program scope and research records.'}];
+  if(!policyFor(buildResearchContext(target)).canRecommend)return [{kind:'Scope',route:'scope',title:'Review Scope & Authorization',reason:'Scope, owned testing accounts and data must be clear before planning tests.'}];
+  const tasks=[],add=(kind,route,row,reason)=>tasks.push({kind,route,id:row.id,title:row.title||row.label,reason});
+  const tests=target.testCases,rawIds=new Set(target.evidence.map(e=>e.id));
+  for(const finding of target.findings.filter(f=>!['rejected','duplicate','out-of-scope','reported','resolved'].includes(f.status))){
+    if(finding.status==='confirmed')add('Report','reports',finding,'Review the factual draft and evidence before sharing.');
+    else add('Review','findings',finding,'Check supporting evidence, alternative explanations and duplicate risk.');
+  }
+  for(const row of tests.filter(t=>t.result&&t.result!=='not-tested')){
+    const linked=(row.evidenceIds||[]).filter(id=>rawIds.has(id));
+    if(!linked.length&&!target.evidence.some(e=>e.testCaseId===row.id))add('Evidence','tests',row,'Attach the observed result and a matched control to this test.');
+    else if(['failed','interesting','vulnerability'].includes(row.result)&&!target.findings.some(f=>f.testCaseId===row.id||f.testIds?.includes(row.id)))add('Analyze','tests',row,'Review the observed result; promote to an editable finding only when appropriate.');
+  }
+  for(const row of ResearchPriorityService.rank(tests.filter(t=>!t.result||t.result==='not-tested')))add('Test','tests',row,'Run the authorized manual plan and record the actual result.');
+  for(const row of ResearchPriorityService.rank(target.hypotheses.filter(h=>!['rejected','duplicate','out-of-scope','confirmed'].includes(h.status)&&!tests.some(t=>t.hypothesisId===h.id))))add('Hypothesis','hypotheses',row,'Refine the invariant and create a discriminating manual test.');
+  if(!tasks.length)tasks.push({kind:'Hypothesis',route:'hypotheses',title:'Build the next hypothesis',reason:'Use target understanding, actors/objects and business flows; AI is optional.'});
+  return tasks.slice(0,Math.max(1,Math.min(10,limit)));
+}
+
+// SOURCE: services/research-context-selection
+
+const stableResearchFields=['actorId','objectId','boundaryId','flowId','transitionId','invariantId','hypothesisId','testId','testCaseId','findingId','authorityProfileId','authProfileId','tenantId','surfaceId'];
+function stableResearchReferences(target,row){
+  const result=Object.fromEntries(stableResearchFields.map(key=>[key,row[key]||row.knowledgeLinks?.[key]||'']));
+  // Only unique exact names can resolve legacy free-text mappings; ambiguity stays Unknown.
+  const unique=(rows,name)=>{const hits=rows.filter(r=>r.name===name);return hits.length===1?hits[0].id:'';};
+  result.actorId||=unique(target.actors,row.who);result.objectId||=unique(target.objects,row.object);
+  result.authorityProfileId||=result.authProfileId;result.testId||=result.testCaseId;
+  return result;
+}
+function selectResearchContext(target,{limits={},focusIds=[],criticalIds=[],chainIds=[],constraintIds=[],contradictionIds=[],query=''}={}){
+  const priorityIds={focus:new Set(focusIds),critical:new Set(criticalIds),chain:new Set(chainIds),constraint:new Set(constraintIds),contradiction:new Set(contradictionIds)};
+  const caps={actors:8,objects:8,boundaries:8,techniques:20,hypotheses:20,testCases:20,evidence:12,findings:12,...limits};
+  const all=Object.keys(caps).flatMap(kind=>(target[kind]||[]).map((row,index)=>({kind,row,index}))),byId=new Map(all.map(item=>[item.row.id,item]));
+  const links=row=>[...Object.values(stableResearchReferences(target,row)),...(row.testIds||[]),...(row.evidenceIds||[]),...(row.evidenceLinks||[]).map(e=>e.evidenceId)].filter(id=>byId.has(id));
+  const tokens=query.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(t=>t.length>3),scores=new Map(),reasons=new Map();
+  for(const item of all){const {row,kind,index}=item;let score=index/Math.max(1,target[kind].length);
+    if(['Next','Testing','Interesting'].includes(row.queue)||['interesting','vulnerability','failed'].includes(row.result)||row.status==='confirmed')score+=40;
+    if(kind==='findings')score+=30;
+    if(kind==='hypotheses')score+=ResearchPriorityService.score(row).score/10;
+    if(tokens.some(t=>[row.title,row.label,row.content,row.name,row.invariant].filter(Boolean).join(' ').toLowerCase().includes(t)))score+=60;
+    if(priorityIds.contradiction.has(row.id))score+=6000;
+    if(priorityIds.constraint.has(row.id))score+=7000;
+    if(priorityIds.chain.has(row.id))score+=8000;
+    if(priorityIds.critical.has(row.id))score+=9000;
+    if(priorityIds.focus.has(row.id))score+=10000;
+    scores.set(row.id,score);reasons.set(row.id,priorityIds.focus.has(row.id)?'explicit reference':score>10?'research relevance':'recency');
+  }
+  // Propagate dependency priority to a fixed point; older linked evidence beats unrelated new data.
+  const roots=all.filter(item=>scores.get(item.row.id)>10).sort((a,b)=>scores.get(b.row.id)-scores.get(a.row.id));
+  for(const root of roots){const visited=new Set(),queue=[root.row.id];while(queue.length){const id=queue.shift();if(visited.has(id))continue;visited.add(id);const item=byId.get(id);if(!item)continue;for(const linked of links(item.row)){const score=Math.min(9900,Math.max(9000,scores.get(root.row.id)-100));if(scores.get(linked)<score){scores.set(linked,score);reasons.set(linked,'dependency of '+root.row.id);}queue.push(linked);}}}
+  const selected={...target},included=[],omitted=[];
+  for(const kind of Object.keys(caps)){
+    const ranked=all.filter(item=>item.kind===kind).sort((a,b)=>scores.get(b.row.id)-scores.get(a.row.id)||b.index-a.index);
+    selected[kind]=ranked.slice(0,caps[kind]).map(item=>item.row);
+    for(const [index,item] of ranked.entries())(index<caps[kind]?included:omitted).push({kind,id:item.row.id,reason:index<caps[kind]?reasons.get(item.row.id):'collection budget; '+reasons.get(item.row.id)});
+  }
+  // Capture missing dependencies explicitly instead of inventing or silently forgetting a link.
+  const selectedIds=new Set(included.map(item=>item.id));
+  const missingDependencies=included.flatMap(item=>links(byId.get(item.id).row).filter(id=>!selectedIds.has(id)).map(id=>({from:item.id,id,reason:'linked record exceeds context budget'})));
+  return {selected,manifest:{included,omitted,missingDependencies,strategy:'explicit references > critical dependencies > chain dependencies > constraint dependencies > contradiction dependencies > current research > relevance > recency'}};
+}
+
+// SOURCE: services/research-model
+
+const researchTruth=['OBSERVED','RESEARCHER_CONFIRMED','AI_INFERRED','UNKNOWN'];
+const causalRelationTypes=['OWNS','CAN_ACCESS','GRANTED','REVOKED','TRANSITIONS_TO','EXECUTES','CREATES','MODIFIES','DEPENDS_ON','CROSSES_BOUNDARY','AUTHORIZED_BY','INVALIDATES','SUPPORTS','CONTRADICTS','OBSERVED_IN','PRECEDES','FOLLOWS','CONCURRENT','CONTROL','CONTEXT','PREREQUISITE','OUTCOME','PRODUCES'];
+const emptyResearchModel=()=>({version:1,events:[],observations:[],invariants:[],relations:[],signalDecisions:[],rejectedExplanations:[],unresolvedQuestions:[]});
+function supportedResearchObservation(row,target){return ['OBSERVED','RESEARCHER_CONFIRMED'].includes(row.provenance?.status)&&row.evidenceRefs?.length&&row.evidenceRefs.every(id=>target.evidence.some(e=>e.id===id&&(!row.provenance.evidenceFingerprints?.[id]||row.provenance.evidenceFingerprints[id]===(e.sourceFingerprint||observationFingerprint(e)))));}
+function snapshotResearchEvidence(model,target){
+  const copy=structuredClone(model);
+  for(const row of [...copy.events,...copy.observations,...copy.invariants,...copy.relations])if(!row.provenance.evidenceFingerprints)row.provenance.evidenceFingerprints=Object.fromEntries(row.provenance.evidenceRefs.map(id=>[id,observationFingerprint(target.evidence.find(e=>e.id===id))]));
+  return copy;
+}
+function repairResearchReferences(target){
+  const refs={actorId:target.actors,objectId:target.objects,boundaryId:target.boundaries,hypothesisId:target.hypotheses,testId:target.testCases,testCaseId:target.testCases,findingId:target.findings,authorityProfileId:target.researchEnvironment?.profiles||[]};
+  const evidenceIds=new Set(target.evidence.map(e=>e.id));
+  for(const row of [...target.hypotheses,...target.testCases,...target.findings]){for(const [field,rows] of Object.entries(refs))if(row[field]&&!rows.some(r=>r.id===row[field]))row[field]='';if(row.testIds)row.testIds=row.testIds.filter(id=>target.testCases.some(t=>t.id===id));if(row.evidenceLinks)row.evidenceLinks=row.evidenceLinks.filter(l=>evidenceIds.has(l.evidenceId));}
+  if(!target.researchModel)return;
+  const model=target.researchModel;
+  for(const row of [...model.events,...model.observations,...model.invariants]){
+    for(const [field,rows] of Object.entries(refs))if(row[field]&&!rows.some(r=>r.id===row[field]))row[field]='';
+    row.evidenceRefs=row.evidenceRefs.filter(id=>evidenceIds.has(id));row.provenance.evidenceRefs=row.provenance.evidenceRefs.filter(id=>evidenceIds.has(id));
+    if(!row.evidenceRefs.length&&row.provenance.status==='OBSERVED'){row.provenance.status='UNKNOWN';row.provenance.confidence=0;}
+  }
+  model.relations=model.relations.filter(edge=>edge.provenance.evidenceRefs.every(id=>evidenceIds.has(id))&&!Object.entries(refs).some(([field,rows])=>{const type=({actorId:'actor',objectId:'object',boundaryId:'boundary',hypothesisId:'hypothesis',testId:'test',findingId:'finding',authorityProfileId:'authority'})[field];return type&&[edge.from,edge.to].some(endpoint=>endpoint.startsWith(type+':')&&!rows.some(r=>endpoint===type+':'+r.id));}));
+  model.rejectedExplanations=model.rejectedExplanations.filter(r=>r.evidenceRefs.every(id=>evidenceIds.has(id)));
+}
+function validateResearchProvenance(provenance,evidenceIds){
+  if(!provenance||!researchTruth.includes(provenance.status)||typeof provenance.source!=='string'||!provenance.source||!Number.isFinite(provenance.confidence)||provenance.confidence<0||provenance.confidence>1)throw new Error('Research provenance tidak valid.');
+  if(!Array.isArray(provenance.evidenceRefs)||provenance.evidenceRefs.some(id=>typeof id!=='string'||!evidenceIds.has(id)))throw new Error('Research provenance evidence tidak tersedia.');
+  if(provenance.status==='OBSERVED'&&!provenance.evidenceRefs.length)throw new Error('Observed relation memerlukan raw evidence.');
+  if(provenance.evidenceFingerprints!==undefined&&(!provenance.evidenceFingerprints||typeof provenance.evidenceFingerprints!=='object'||Array.isArray(provenance.evidenceFingerprints)||Object.entries(provenance.evidenceFingerprints).some(([id,value])=>typeof value!=='string'||value.length>120)))throw new Error('Evidence fingerprint tidak valid.');
+}
+function validateResearchModel(model,target){
+  if(!model||model.version!==1)throw new Error('Research model version tidak valid.');
+  for(const key of ['events','observations','invariants','relations','signalDecisions','rejectedExplanations','unresolvedQuestions'])if(!Array.isArray(model[key])||model[key].length>2000)throw new Error('Research model collection tidak valid.');
+  const raw=new Set((target.evidence||[]).map(e=>e.id)),ids=new Set(),fields=['actorId','objectId','boundaryId','authorityProfileId','tenant','authorityTenant','surface','operation','operationId','role','ownerId','state','stateBefore','stateAfter','authorityBefore','authorityAfter','effectiveAuthority','expectedOutcome','actualOutcome','outcome','timestamp','eventTime','version','approvedVersion','approvalEventId','independentAuthority','requiredRole','expectedAuthority','rule','content','discriminatesSignalId','explanationOutcome','operationIntent','expectedState'];
+  const refs={actorId:target.actors||[],objectId:target.objects||[],boundaryId:target.boundaries||[],testId:target.testCases||[],hypothesisId:target.hypotheses||[],findingId:target.findings||[],authorityProfileId:target.researchEnvironment?.profiles||[]};
+  for(const row of [...model.events,...model.observations,...model.invariants]){
+    if(!row||typeof row.id!=='string'||!row.id||row.id.length>120||ids.has(row.id))throw new Error('Research record ID tidak valid/duplikat.');ids.add(row.id);
+    for(const field of fields)if(row[field]!==undefined&&(typeof row[field]!=='string'||row[field].length>8000))throw new Error('Research '+field+' harus teks terbatas.');
+    for(const [field,rows] of Object.entries(refs))if(row[field]!==undefined&&(typeof row[field]!=='string'||row[field]&&!rows.some(r=>r.id===row[field])))throw new Error('Research reference '+field+' tidak tersedia.');
+    for(const field of ['order','amount','maximum','businessCriticality'])if(row[field]!==undefined&&!Number.isFinite(row[field]))throw new Error('Research numeric field tidak valid.');
+    if(!Array.isArray(row.evidenceRefs)||row.evidenceRefs.some(id=>!raw.has(id)))throw new Error('Research evidence reference tidak tersedia.');
+    validateResearchProvenance(row.provenance,raw);
+    if(row.evidenceRefs.some(id=>!row.provenance.evidenceRefs.includes(id)))throw new Error('Evidence refs harus masuk provenance.');
+    for(const key of ['before','after','concurrentWith'])if(row[key]!==undefined&&(!Array.isArray(row[key])||row[key].some(id=>typeof id!=='string')))throw new Error('Logical ordering tidak valid.');
+  }
+  const events=new Set(model.events.map(e=>e.id));
+  for(const event of model.events)for(const key of ['before','after','concurrentWith'])for(const id of event[key]||[])if(!events.has(id)||id===event.id)throw new Error('Logical event reference tidak valid.');
+  for(const edge of model.relations){if(!causalRelationTypes.includes(edge.type)||typeof edge.from!=='string'||typeof edge.to!=='string')throw new Error('Causal relation tidak valid.');validateResearchProvenance(edge.provenance,raw);}
+  for(const row of model.signalDecisions)if(typeof row.signalId!=='string'||!['REJECTED','EXPLAINED','INVESTIGATE'].includes(row.status)||typeof row.reason!=='string')throw new Error('Signal decision tidak valid.');
+  for(const row of model.rejectedExplanations)if(typeof row.signalId!=='string'||typeof row.explanation!=='string'||!Array.isArray(row.evidenceRefs)||row.evidenceRefs.some(id=>!raw.has(id)))throw new Error('Rejected explanation tidak valid.');
+  for(const question of model.unresolvedQuestions)if(typeof question!=='string')throw new Error('Unresolved question harus teks.');
+  for(const c of model.constraints||[])TargetConstraintService.validate(c,target);
+  if(model.constraints!==undefined&&(!Array.isArray(model.constraints)||model.constraints.length>200))throw new Error('Constraint budget exceeded.');
+  if(model.failedPaths!==undefined&&(!Array.isArray(model.failedPaths)||model.failedPaths.length>200||model.failedPaths.some(p=>typeof p.relationshipId!=='string'||typeof p.dependencyFingerprint!=='string'||typeof p.reason!=='string')))throw new Error('Invalid failed path memory.');
+  return model;
+}
+function selectResearchModel(model,target,{limit=60}={}){
+  const filtered=emptyResearchModel(),omitted=[],ids=new Set();
+  const refs={actorId:target.actors,objectId:target.objects,boundaryId:target.boundaries,testId:target.testCases,hypothesisId:target.hypotheses,findingId:target.findings,authorityProfileId:target.researchEnvironment?.profiles||[]},evidence=new Set(target.evidence.map(e=>e.id));
+  for(const key of ['events','observations','invariants'])for(const row of model[key]){
+    const missing=Object.entries(refs).some(([field,rows])=>row[field]&&!rows.some(r=>r.id===row[field]))||[...row.evidenceRefs,...row.provenance.evidenceRefs].some(id=>!evidence.has(id));
+    if(missing||filtered[key].length>=limit)omitted.push({kind:key,id:row.id,reason:missing?'dependency omitted from selected context':'normalized model budget'});
+    else{filtered[key].push(structuredClone(row));ids.add(row.id);}
+  }
+  const events=new Set(filtered.events.map(e=>e.id));for(const row of filtered.events)for(const key of ['before','after','concurrentWith'])if(row[key])row[key]=row[key].filter(id=>events.has(id));
+  // Explicit edges are kept only when their provenance evidence and endpoint records are selected.
+  const recordIds=new Set([...ids,...Object.values(refs).flatMap(rows=>rows.map(r=>r.id)),...evidence]);
+  const selectedEndpoint=id=>recordIds.has(id.slice(id.indexOf(':')+1));
+  filtered.relations=model.relations.filter(r=>selectedEndpoint(r.from)&&selectedEndpoint(r.to)&&r.provenance.evidenceRefs.every(id=>evidence.has(id))).slice(0,120);
+  for(const key of ['signalDecisions','rejectedExplanations','unresolvedQuestions'])filtered[key]=structuredClone(model[key].slice(-30));
+  filtered.rejectedExplanations=filtered.rejectedExplanations.filter(r=>r.evidenceRefs.every(id=>evidence.has(id)));
+  filtered.constraints=structuredClone(model.constraints||[]);filtered.failedPaths=structuredClone(model.failedPaths||[]);
+  return {model:filtered,omitted};
+}
+class NormalizedObservationService {
+  static fromTest(test,target){
+    const actor=target.actors.filter(a=>a.name===test.who),object=target.objects.filter(o=>o.name===test.object),evidenceRefs=[...new Set([...(test.evidenceIds||[]),...target.evidence.filter(e=>e.testCaseId===test.id).map(e=>e.id)])];
+    return {id:'observation:'+test.id,testId:test.id,actorId:test.actorId||(actor.length===1?actor[0].id:''),objectId:test.objectId||(object.length===1?object[0].id:''),boundaryId:test.boundaryId||'',authorityProfileId:test.authProfileId||'',operation:test.what||'',role:test.role||'',tenant:test.tenant||'',surface:test.surface||'',state:test.state||'',effectiveAuthority:test.authority||'',eventTime:test.timestamp||'',expectedOutcome:test.expectedResult||'',actualOutcome:test.actualResult||'',outcome:test.observedOutcome||'unknown',evidenceRefs,provenance:{status:evidenceRefs.length?'OBSERVED':'UNKNOWN',source:'test:'+test.id,confidence:evidenceRefs.length?1:0,evidenceRefs}};
+  }
+  static compare(left,right){
+    const fields={actorId:'actor',role:'authorization',effectiveAuthority:'authorization',authorityProfileId:'authorization',state:'state',ownerId:'ownership',objectId:'object',tenant:'tenant',surface:'surface',outcome:'business outcome',actualOutcome:'business outcome'};
+    const changes=Object.entries(fields).filter(([key])=>left[key]!==right[key]).map(([field,dimension])=>({field,dimension,before:left[field]??'Unknown',after:right[field]??'Unknown'}));
+    const sameOperation=!!left.operation&&left.operation===right.operation&&!!left.objectId&&left.objectId===right.objectId;
+    return {sameOperation,changes,evidenceRefs:[...new Set([...left.evidenceRefs,...right.evidenceRefs])],interpretation:'Deterministic comparison; changes are research signals, never vulnerability confirmation.'};
+  }
+}
+
+// SOURCE: services/causal-research-graph
+
+
+class AuthorityTimeline {
+  constructor(events,relations=[]){this.events=structuredClone(events);this.byId=new Map(this.events.map(e=>[e.id,e]));this.edges=new Map(this.events.map(e=>[e.id,new Set(e.before||[])]));for(const event of this.events)for(const id of event.after||[])this.edges.get(id)?.add(event.id);
+    for(const relation of relations){if(!relation.from.startsWith('event:')||!relation.to.startsWith('event:'))continue;const from=relation.from.slice(6),to=relation.to.slice(6);if(!this.byId.has(from)||!this.byId.has(to))continue;if(relation.type==='PRECEDES')this.edges.get(from).add(to);if(relation.type==='FOLLOWS')this.edges.get(to).add(from);if(relation.type==='CONCURRENT'){const row=this.byId.get(from);row.concurrentWith=[...(row.concurrentWith||[]),to];}}
+  }
+  reaches(from,to){const seen=new Set(),queue=[from];while(queue.length){const id=queue.shift();if(seen.has(id))continue;seen.add(id);for(const next of this.edges.get(id)||[]){if(next===to)return true;queue.push(next);}}return false;}
+  compare(left,right){
+    if(!left||!right||left.id===right.id)return 'UNKNOWN';
+    if((this.byId.get(left.id)?.concurrentWith||left.concurrentWith||[]).includes(right.id)||(this.byId.get(right.id)?.concurrentWith||right.concurrentWith||[]).includes(left.id))return 'CONCURRENT';
+    const before=this.reaches(left.id,right.id),after=this.reaches(right.id,left.id);if(before&&after)return 'UNKNOWN';if(before)return 'BEFORE';if(after)return 'AFTER';
+    if(Number.isFinite(left.order)&&Number.isFinite(right.order)&&left.order!==right.order)return left.order<right.order?'BEFORE':'AFTER';
+    const parse=value=>/^\d{4}-\d{2}-\d{2}T/.test(value||'')?Date.parse(value):NaN;
+    const a=parse(left.timestamp||left.eventTime||''),b=parse(right.timestamp||right.eventTime||'');if(Number.isFinite(a)&&Number.isFinite(b)&&a!==b)return a<b?'BEFORE':'AFTER';
+    return 'UNKNOWN';
+  }
+  authorityAt(event){
+    const history=this.events.filter(e=>e.actorId===event.actorId&&e.objectId===event.objectId&&(!event.authorityProfileId||e.authorityProfileId===event.authorityProfileId)&&['granted','revoked'].includes(e.authorityAfter)&&this.compare(e,event)==='BEFORE');
+    const last=history.filter(e=>!history.some(other=>other.id!==e.id&&this.compare(e,other)==='BEFORE'));
+    return {status:last.length===1?last[0].authorityAfter:'unknown',eventIds:last.map(e=>e.id),validFrom:last.length===1&&last[0].authorityAfter==='granted'?last[0].id:null,reason:last.length===1?'Latest ordered authority change':'Missing or ambiguous ordering'};
+  }
+}
+class CausalResearchGraph {
+  constructor(target){
+    this.target=target;this.model=target.researchModel||emptyResearchModel();validateResearchModel(this.model,target);this.nodes=new Map();this.edges=[];this.omissions=[];
+    const add=(type,id,data={})=>{if(id)this.nodes.set(type+':'+id,{...data,id:type+':'+id,type,referenceId:id});};
+    for(const [kind,type] of [['actors','actor'],['objects','object'],['boundaries','boundary'],['hypotheses','hypothesis'],['testCases','test'],['evidence','evidence'],['findings','finding']])for(const row of target[kind]||[])add(type,row.id,{label:row.name||row.title||row.label||row.id});
+    for(const row of this.model.invariants)add('invariant',row.id,{...row});
+    for(const [kind,type] of [['events','event'],['observations','observation']])for(const row of this.model[kind]){add(type,row.id,{...row});for(const [field,nodeType] of [['tenant','tenant'],['authorityTenant','tenant'],['surface','surface'],['stateBefore','state'],['stateAfter','state'],['state','state'],['operation','operation'],['authorityProfileId','authority']])add(nodeType,row[field]);}
+    const edge=(type,from,to,provenance)=>{if(this.nodes.has(from)&&this.nodes.has(to))this.edges.push({type,from,to,provenance});else this.omissions.push({type,from,to,reason:'Missing endpoint; relation withheld'});};
+    const recorded=(source)=>({status:source.knowledgeProvenance?.sourceType==='ai'?'AI_INFERRED':'UNKNOWN',source:'record:'+source.id,confidence:source.knowledgeProvenance?.sourceType==='ai'?source.knowledgeProvenance.confidence||0:0,evidenceRefs:[]});
+    for(const object of target.objects){const owner=target.actors.filter(a=>a.id===object.ownerId||a.name===object.owner);if(owner.length===1)edge('OWNS','actor:'+owner[0].id,'object:'+object.id,recorded(object));}
+    for(const [kind,type] of [['hypotheses','hypothesis'],['testCases','test'],['findings','finding']])for(const row of target[kind]){
+      const refs=stableResearchReferences(target,row),provenance=recorded(row);
+      for(const [field,nodeType] of [['flowId','flow'],['transitionId','transition'],['invariantId','invariant'],['authorityProfileId','authority']])add(nodeType,refs[field]);
+      for(const [field,nodeType,relation] of [['actorId','actor','DEPENDS_ON'],['objectId','object','DEPENDS_ON'],['flowId','flow','DEPENDS_ON'],['transitionId','transition','DEPENDS_ON'],['invariantId','invariant','DEPENDS_ON'],['boundaryId','boundary','CROSSES_BOUNDARY'],['hypothesisId','hypothesis','DEPENDS_ON'],['testId','test','DEPENDS_ON'],['authorityProfileId','authority','AUTHORIZED_BY']])if(refs[field])edge(relation,type+':'+row.id,nodeType+':'+refs[field],provenance);
+      for(const id of row.testIds||[])edge('DEPENDS_ON',type+':'+row.id,'test:'+id,provenance);
+      for(const id of row.evidenceIds||[])edge('SUPPORTS','evidence:'+id,type+':'+row.id,provenance);
+      for(const link of row.evidenceLinks||[])edge(link.role,'evidence:'+link.evidenceId,type+':'+row.id,link.provenance||provenance);
+    }
+    for(const event of this.model.events){const eventId='event:'+event.id,p=event.provenance;
+      if(event.actorId)edge('EXECUTES','actor:'+event.actorId,eventId,p);
+      if(event.objectId)edge(event.operation==='create'?'CREATES':event.operation==='modify'?'MODIFIES':event.authorityAfter==='revoked'?'REVOKED':event.authorityAfter==='granted'?'GRANTED':'DEPENDS_ON',eventId,'object:'+event.objectId,p);
+      if(event.boundaryId)edge('CROSSES_BOUNDARY',eventId,'boundary:'+event.boundaryId,p);
+      if(event.authorityProfileId)edge('AUTHORIZED_BY',eventId,'authority:'+event.authorityProfileId,p);
+      const authorityKey=value=>event.actorId+'@'+event.objectId+':'+value;
+      for(const value of [event.authorityBefore,event.authorityAfter,event.effectiveAuthority].filter(Boolean))add('authority',authorityKey(value),{label:value});
+      if(event.effectiveAuthority)edge('AUTHORIZED_BY',eventId,'authority:'+authorityKey(event.effectiveAuthority),p);
+      if(event.authorityAfter==='revoked'&&event.authorityBefore)edge('INVALIDATES',eventId,'authority:'+authorityKey(event.authorityBefore),p);
+      if(event.stateBefore&&event.stateAfter)edge('TRANSITIONS_TO','state:'+event.stateBefore,'state:'+event.stateAfter,p);
+      for(const id of event.evidenceRefs)edge('OBSERVED_IN',eventId,'evidence:'+id,p);
+      for(const id of event.before||[])edge('PRECEDES',eventId,'event:'+id,p);
+      for(const id of event.after||[])edge('FOLLOWS',eventId,'event:'+id,p);
+      for(const id of event.concurrentWith||[])edge('CONCURRENT',eventId,'event:'+id,p);
+    }
+    for(const observation of this.model.observations){const id='observation:'+observation.id;if(observation.actorId)edge('EXECUTES','actor:'+observation.actorId,id,observation.provenance);if(observation.objectId)edge('DEPENDS_ON',id,'object:'+observation.objectId,observation.provenance);if(observation.boundaryId)edge('CROSSES_BOUNDARY',id,'boundary:'+observation.boundaryId,observation.provenance);}
+    for(const relation of this.model.relations)edge(relation.type,relation.from,relation.to,relation.provenance);
+    this.timeline=new AuthorityTimeline(this.model.events.filter(e=>supportedResearchObservation(e,target)),this.model.relations.filter(r=>supportedResearchObservation({provenance:r.provenance,evidenceRefs:r.provenance.evidenceRefs},target)));
+  }
+  relevantSubgraph(referenceIds,{maxNodes=80,maxEdges=120}={}){
+    const roots=new Set(referenceIds),selected=new Set([...this.nodes.values()].filter(n=>roots.has(n.referenceId)||roots.has(n.id)).slice(0,maxNodes).map(n=>n.id));
+    // Bounded dependency traversal; never send a whole workspace graph to a model.
+    for(let depth=0;depth<8;depth++){const frontier=new Set(selected);for(const edge of this.edges)if(frontier.has(edge.from)||frontier.has(edge.to)){if(selected.size<maxNodes)selected.add(edge.from);if(selected.size<maxNodes)selected.add(edge.to);}}
+    const allEdges=this.edges.filter(e=>selected.has(e.from)&&selected.has(e.to));
+    return {nodes:[...selected].map(id=>Object.fromEntries(Object.entries(this.nodes.get(id)).filter(([key])=>!['actualOutcome','expectedOutcome'].includes(key)).map(([key,value])=>[key,typeof value==='string'?value.slice(0,1000):value]))),edges:allEdges.slice(0,maxEdges),omittedNodes:this.nodes.size-selected.size,omittedEdges:this.edges.length-Math.min(allEdges.length,maxEdges),omissions:this.omissions.slice(0,30)};
+  }
+}
+
+// SOURCE: services/contradiction-analyzer
+
+class ContradictionAnalyzer {
+  static analyze(graph){
+    const {model,timeline}=graph,events=model.events.filter(row=>supportedResearchObservation(row,graph.target)),observations=model.observations.filter(row=>supportedResearchObservation(row,graph.target)),signals=[],explained=[];
+    const emit=(type,rows,expected,observed,alternative,discriminatingTest,rule)=>{
+      const invariant=model.invariants.find(i=>i.rule===rule&&(!i.objectId||rows.every(e=>e.objectId===i.objectId))&&(!i.operation||rows.every(e=>!e.operation||e.operation===i.operation)))||null;
+      const id=type+':'+rows.map(e=>e.id).sort().join('|'),evidenceRefs=[...new Set(rows.flatMap(e=>e.evidenceRefs))];
+      const decision=model.signalDecisions.find(d=>d.signalId===id&&['REJECTED','EXPLAINED'].includes(d.status));
+      const signal={id,type,invariantId:invariant?.id||'candidate:'+rule,events:rows.map(e=>e.id),evidenceRefs,expected:invariant?.content||expected,observed,confidence:Math.min(...rows.map(e=>e.provenance.confidence),.85),requiresValidation:true,status:'RESEARCH_SIGNAL',actorId:rows.at(-1).actorId||'',objectId:rows.at(-1).objectId||'',boundaryId:rows.find(e=>e.boundaryId)?.boundaryId||'',state:rows.at(-1).stateAfter||rows.at(-1).state||'Unknown',authority:rows.at(-1).effectiveAuthority||rows.at(-1).authorityBefore||'Unknown',tenant:rows.at(-1).tenant||'',surface:rows.at(-1).surface||'',operation:rows.at(-1).operation||'',alternativeExplanation:alternative,discriminatingTest,provenance:{status:'AI_INFERRED',source:'deterministic-rule:'+rule,confidence:Math.min(...rows.map(e=>e.provenance.confidence),.85),evidenceRefs},candidateInvariant:!invariant};
+      // Deterministic inference is still inference; never upgrade supplied observations.
+      signal.provenance.status='UNKNOWN';signal.provenance.source='deterministic-rule:'+rule;
+      if(decision)explained.push({...signal,decision});else signals.push(signal);
+    };
+    for(const execution of events.filter(e=>e.outcome==='allowed')){
+      const authority=timeline.authorityAt(execution),revocation=events.find(e=>authority.eventIds.includes(e.id)&&e.authorityAfter==='revoked');
+      if(revocation){
+        const independent=model.invariants.find(i=>i.rule==='independent-job-authority'&&i.objectId===execution.objectId&&i.operation===execution.operation&&i.provenance.status==='RESEARCHER_CONFIRMED'&&supportedResearchObservation(i,graph.target));
+        if(execution.independentAuthority==='confirmed'&&independent)explained.push({id:'independent:'+execution.id,type:'independent_authority',events:[revocation.id,execution.id],evidenceRefs:[...revocation.evidenceRefs,...execution.evidenceRefs],reason:'Researcher-confirmed independent job authority; membership revocation does not invalidate this grant.',provenance:independent.provenance});
+        else emit('authority_state_contradiction',[revocation,execution],'Revocation must stop future protected execution unless an independent grant is valid.','Protected '+execution.operation+' allowed after ordered revocation.','Job may intentionally receive independent, irrevocable authority.','Compare pre-revocation queued job, post-revocation queue attempt, and explicit job-grant cancellation using owned dummy objects.','revocation');
+      }
+      if(execution.authorityTenant&&execution.tenant&&execution.authorityTenant!==execution.tenant)emit('tenant_authority_contradiction',[execution],'Authority must be bound to the object tenant.','Authority tenant '+execution.authorityTenant+' reached object tenant '+execution.tenant+'.','An explicit cross-tenant share or delegated grant may permit this operation.','Compare the same owned object with and without explicit cross-tenant share; verify effective grants.','tenant-isolation');
+      if(execution.requiredRole&&execution.role&&execution.requiredRole!==execution.role&&execution.effectiveAuthority==='insufficient')emit('role_authority_contradiction',[execution],'Protected operation requires an effective authorized role.','Insufficient '+execution.role+' authority performed '+execution.requiredRole+' operation.','A separate capability or inherited permission may grant the operation.','Remove independent capabilities and compare owner/member/viewer on the same owned object.','role-authorization');
+      if(execution.version&&execution.approvedVersion&&execution.version!==execution.approvedVersion){
+        const approval=events.find(e=>e.id===execution.approvalEventId&&e.objectId===execution.objectId&&timeline.compare(e,execution)==='BEFORE');
+        const modification=events.find(e=>e.objectId===execution.objectId&&e.operation==='modify'&&e.version===execution.version&&approval&&timeline.compare(approval,e)==='BEFORE'&&timeline.compare(e,execution)==='BEFORE');
+        if(approval&&modification)emit('approval_version_contradiction',[approval,modification,execution],'Approval must bind the approved object version and destination.','Approval '+execution.approvedVersion+' authorized modified version '+execution.version+'.','Approval may deliberately authorize a class of non-sensitive changes.','Compare sensitive beneficiary/value modification against a cosmetic change, with fresh approval as control.','approval-version');
+      }
+    }
+    for(const invariant of model.invariants.filter(i=>i.rule==='aggregate-limit'&&Number.isFinite(i.maximum))){
+      const executions=events.filter(e=>e.objectId===invariant.objectId&&e.operation===invariant.operation&&e.outcome==='allowed'&&Number.isFinite(e.amount)&&e.amount>=0);
+      // Operation IDs identify real executions; duplicate log observations must not double-count.
+      const distinct=new Map();for(const event of executions)if(event.operationId)distinct.set(event.operationId,event);
+      const rows=[...distinct.values()],total=rows.reduce((n,e)=>n+e.amount,0),concurrent=rows.some((e,i)=>rows.slice(i+1).some(other=>timeline.compare(e,other)==='CONCURRENT'));
+      if(total>invariant.maximum&&rows.length>1&&concurrent)emit('aggregate_execution_contradiction',rows,'Aggregate '+invariant.operation+' must not exceed '+invariant.maximum,'Distinct concurrent executions total '+total+' > '+invariant.maximum+'.','Entries may be reservations, duplicate telemetry, or later reversals rather than settled outcomes.','Compare distinct operation IDs and final ledger deltas after reconciliation against a serial control.','aggregate-limit');
+    }
+    for(let i=0;i<observations.length;i++)for(const right of observations.slice(i+1)){
+      const left=observations[i],same=['actorId','objectId','operation','role','tenant','state','effectiveAuthority'].every(key=>left[key]&&left[key]===right[key])&&['authorityProfileId','version'].every(key=>(left[key]||'')===(right[key]||''));
+      if(same&&left.surface&&right.surface&&left.surface!==right.surface&&new Set([left.outcome,right.outcome]).has('allowed')&&new Set([left.outcome,right.outcome]).has('denied')){
+        const comparison=NormalizedObservationService.compare(left,right);
+        emit('cross_surface_authority_contradiction',[left,right],'Equivalent logical operations must enforce equivalent authority.','Same actor/object/operation: '+left.surface+' '+left.outcome+', '+right.surface+' '+right.outcome+'.','Session freshness, cache, rollout, or differing logical operation semantics may explain the difference.','Repeat with matched sessions, object version, tenant and operation; inspect backend outcome rather than UI alone.','surface-consistency');
+        signals.at(-1)?.id?.startsWith('cross_surface')&&(signals.at(-1).comparison=comparison);
+      }
+    }
+    return {signals,explained,unresolvedQuestions:[...model.unresolvedQuestions,...signals.map(s=>s.alternativeExplanation)]};
+  }
+}
+
+// SOURCE: services/next-hypothesis
+
+
+class AdversarialValidationService {
+  static assess(signal,model,target){
+    const controls=model.observations.filter(o=>o.discriminatesSignalId===signal.id&&o.actorId===signal.actorId&&o.objectId===signal.objectId&&o.actualOutcome?.trim()&&o.expectedOutcome?.trim()&&(!target||supportedResearchObservation(o,target))&&['OBSERVED','RESEARCHER_CONFIRMED'].includes(o.provenance.status)&&o.evidenceRefs.length&&o.evidenceRefs.some(id=>!signal.evidenceRefs.includes(id))&&['primary','alternative'].includes(o.explanationOutcome));
+    const primary=controls.filter(o=>o.explanationOutcome==='primary'),alternative=controls.filter(o=>o.explanationOutcome==='alternative');
+    return {status:primary.length&&!alternative.length?'READY_FOR_RESEARCHER_REVIEW':alternative.length&&!primary.length?'EXPLAINED':'NEEDS_TESTING',primaryExplanation:signal.observed,alternativeExplanation:signal.alternativeExplanation,discriminatingTest:signal.discriminatingTest,controlEvidenceRefs:[...new Set(controls.flatMap(o=>o.evidenceRefs))],reason:controls.length?'Researcher supplied discriminating observations; confirmation remains manual.':'No discriminating control evidence. Model confidence cannot resolve alternative explanations.'};
+  }
+}
+class NextHypothesisService {
+  static generate({contradictions,graph,currentHypotheses=[],rejectedExplanations=[],unresolvedQuestions=[],scopeConfidence=50}){
+    const candidates=[];
+    for(const signal of contradictions){
+      if(!signal.actorId||!signal.objectId||!graph.nodes.has('actor:'+signal.actorId)||!graph.nodes.has('object:'+signal.objectId))continue;
+      if(currentHypotheses.some(h=>h.signalId===signal.id&&['rejected','confirmed'].includes(h.status)))continue;
+      const validation=AdversarialValidationService.assess(signal,graph.model,graph.target);if(validation.status==='EXPLAINED')continue;
+      const rejected=rejectedExplanations.filter(r=>r.signalId===signal.id);
+      candidates.push({id:'next:'+signal.id,signalId:signal.id,title:'Investigate '+signal.type.replaceAll('_',' ')+' on '+signal.objectId,interestingBoundary:signal.boundaryId||'Authority decision for '+signal.operation,actorId:signal.actorId,objectId:signal.objectId,boundaryId:signal.boundaryId,invariantId:signal.invariantId,invariant:signal.expected,state:signal.state,authority:signal.authority,context:[signal.tenant,signal.surface,signal.operation].filter(Boolean).join(' / ')||'Supplied observations',reason:signal.observed+' Compared with '+signal.expected,supportingSignals:[signal.id],contradictingSignals:rejected.map(r=>r.explanation),evidenceRefs:[...signal.evidenceRefs],requiredEvidence:[signal.discriminatingTest],confirmEvidence:'Observed invariant failure persists under the matched discriminating control and independent grants are ruled out.',rejectEvidence:'Observed independent authority, permitted state change, or reconciled outcome explains the result.',alternativeExplanation:signal.alternativeExplanation,discriminatingTest:signal.discriminatingTest,unresolvedQuestions:[...unresolvedQuestions,signal.alternativeExplanation],validation,sourceType:'system',verified:false,priorityFactors:{boundaryImportance:signal.boundaryId?85:60,authoritySensitivity:85,stateSensitivity:80,evidenceStrength:Math.min(100,signal.evidenceRefs.length*30),scopeConfidence},status:'idea'});
+    }
+    return ResearchPriorityService.rank(candidates,{scopeConfidence});
+  }
+}
+class SelectiveStateSpaceService {
+  static select({signals,observations=[],limit=8,scopeConfidence=50}){
+    const plans=signals.map(signal=>({id:'test:'+signal.id,hypothesisId:'next:'+signal.id,signalId:signal.id,title:signal.discriminatingTest,actorId:signal.actorId,objectId:signal.objectId,boundaryId:signal.boundaryId,state:signal.state,authority:signal.authority,tenant:signal.tenant,surface:signal.surface,timing:signal.type==='aggregate_execution_contradiction'?'CONCURRENT':signal.type==='authority_state_contradiction'?'AFTER_REVOCATION':'CONTROLLED',role:observations.find(o=>o.actorId===signal.actorId)?.role||'Unknown',ownership:observations.find(o=>o.objectId===signal.objectId)?.ownerId||'Unknown',evidenceRefs:signal.evidenceRefs,expectedInformation:'Distinguish primary explanation from: '+signal.alternativeExplanation,priorityFactors:{authoritySensitivity:85,stateSensitivity:80,boundaryImportance:signal.boundaryId?85:60,scopeConfidence},manualOnly:true}));
+    return ResearchPriorityService.rank(plans,{scopeConfidence}).slice(0,limit);
+  }
+}
+
+// SOURCE: services/discovery-intelligence
+
+
+const discoveryUnique=values=>[...new Set(values.filter(v=>v!==undefined&&v!==''))];
+const constraintCategories='AUTHORIZATION OWNERSHIP TENANT STATE LIFECYCLE APPROVAL TRANSACTION BUSINESS_RULE ASYNC SESSION IDENTITY VERSION LIMIT CUSTOM'.split(' ');
+class TargetConstraintService {
+  static validate(row,target){
+    if(!row||typeof row.id!=='string'||!row.id||row.id.length>120||row.targetId!==target.id||!constraintCategories.includes(row.category)||!['PROGRAM_RULE','TARGET_DOCUMENTATION','RESEARCHER_CONFIRMED','OBSERVED','DOMAIN_KNOWLEDGE','AI_INFERRED','UNKNOWN'].includes(row.sourceType)||!Number.isFinite(row.confidence)||row.confidence<0||row.confidence>1||typeof row.verified!=='boolean')throw new Error('Invalid target constraint.');
+    if(row.verified&&(!['PROGRAM_RULE','TARGET_DOCUMENTATION','RESEARCHER_CONFIRMED'].includes(row.sourceType)||!row.sourceRef))throw new Error('Verification requires a target-specific reviewed source.');
+    for(const part of ['condition','expected'])if(!row[part]||typeof row[part]!=='object'||Array.isArray(row[part]))throw new Error('Constraint predicates required.');
+    for(const predicates of [row.condition.all||[],row.expected.all||[],row.condition.prior?.all||[],row.expected.aggregate?.all||[]]){if(!Array.isArray(predicates)||predicates.length>32)throw new Error('Invalid constraint predicate budget.');for(const predicate of predicates)if(!predicate||!['eq','neq','in','exists','lte','gte','eqField','neqField'].includes(predicate.operator)||typeof predicate.field!=='string'||!/^\w{1,80}$/.test(predicate.field)||predicate.operator==='in'&&(!Array.isArray(predicate.value)||predicate.value.length>32)||['eqField','neqField'].includes(predicate.operator)&&! /^(prior\.)?\w{1,80}$/.test(predicate.other||''))throw new Error('Invalid constraint predicate.');}
+    if(row.condition.prior&&(!Array.isArray(row.condition.prior.same)||row.condition.prior.same.length>8))throw new Error('Prior identity fields required.');
+    for(const f of ['subject','object','operation','sourceRef','notes'])if(row[f]!==undefined&&(typeof row[f]!=='string'||row[f].length>8000))throw new Error('Invalid constraint text.');
+    if(row.expected.aggregate&&(!Array.isArray(row.expected.aggregate.groupBy)||row.expected.aggregate.groupBy.length>8||typeof row.expected.aggregate.field!=='string'))throw new Error('Invalid aggregate constraint.');
+    return row;
+  }
+  static forTarget(target){return (target.researchModel?.constraints||[]).map(c=>this.validate(c,target));}
+}
+function discoveryPredicate(row,p,prior){
+  const value=row[p.field],other=p.other?.startsWith('prior.')?prior?.[p.other.slice(6)]:row[p.other];
+  if(p.operator==='exists')return value!==undefined&&value!=='';
+  if(value===undefined||value==='unknown'||(['eqField','neqField'].includes(p.operator)&&(other===undefined||other==='unknown')))return null;
+  return ({eq:()=>value===p.value,neq:()=>value!==p.value,in:()=>p.value.includes(value),lte:()=>value<=p.value,gte:()=>value>=p.value,eqField:()=>value===other,neqField:()=>value!==other})[p.operator]();
+}
+class ConstraintEvaluator {
+  static evaluate(constraint,{graph,rows,target}){
+    const matches=[],unknowns=[],evidenceRefs=[];let applicable=0,violations=0,missing=false;
+    for(const row of rows){
+      if(constraint.subject&&constraint.subject!==row.actorId||constraint.object&&constraint.object!==row.objectId||constraint.operation&&constraint.operation!==row.operation)continue;
+      const conditions=(constraint.condition.all||[]).map(p=>discoveryPredicate(row,p));
+      if(conditions.includes(false))continue;if(conditions.includes(null)){missing=true;unknowns.push('Missing condition fields for '+row.id);continue;}
+      let prior;
+      if(constraint.condition.prior){
+        const selection=constraint.condition.prior;
+        const candidates=graph.model.events.filter(e=>e.id!==row.id&&(selection.same||['actorId','objectId']).every(f=>e[f]&&e[f]===row[f])&&(selection.all||[]).every(p=>discoveryPredicate(e,p)===true)&&graph.timeline.compare(e,row)==='BEFORE');
+        prior=candidates.find(e=>candidates.every(other=>other.id===e.id||graph.timeline.compare(other,e)==='BEFORE'));
+        if(!prior){missing=true;unknowns.push('Ordered predecessor unavailable for '+row.id);continue;}
+      }
+      applicable++;matches.push(row.id);evidenceRefs.push(...row.evidenceRefs,...(prior?.evidenceRefs||[]));
+      let expectedRow=row;
+      if(constraint.expected.aggregate){
+        const a=constraint.expected.aggregate,group=rows.filter(r=>(a.groupBy||['objectId']).every(f=>r[f]===row[f])&&(a.all||[]).every(p=>discoveryPredicate(r,p)===true));
+        const distinct=new Map();for(const r of group)distinct.set(r[a.distinctBy||'id'],r);
+        if(group.some(r=>!Number.isFinite(r[a.field])||!supportedResearchObservation(r,target))){missing=true;continue;}
+        expectedRow={...row,total:[...distinct.values()].reduce((n,r)=>n+r[a.field],0)};evidenceRefs.push(...group.flatMap(r=>r.evidenceRefs));
+      }
+      const result=(constraint.expected.all||[]).map(p=>discoveryPredicate(expectedRow,p,prior));
+      if(!result.length||result.includes(null)){missing=true;unknowns.push('Expected fields unavailable for '+row.id);continue;}
+      if(!supportedResearchObservation(row,target)||prior&&!supportedResearchObservation(prior,target)){missing=true;unknowns.push('Raw evidence missing or changed for '+row.id);continue;}
+      if(result.includes(false))violations++;
+    }
+    const status=violations?(constraint.verified?'VIOLATED':'POSSIBLE_VIOLATION'):missing?'INSUFFICIENT_EVIDENCE':applicable?'SATISFIED':'NOT_APPLICABLE';
+    return {constraintId:constraint.id,status,eventIds:matches,evidenceRefs:discoveryUnique(evidenceRefs),unknowns,requiresValidation:true,confirmed:false};
+  }
+}
+class ChainInterestingnessScore {
+  static score(nodes,edges){
+    const changed=f=>discoveryUnique(nodes.map(n=>n[f])).length>1;
+    const factors={authorityTransition:nodes.some(n=>n.authorityBefore!==undefined&&n.authorityBefore!==n.authorityAfter),stateTransition:nodes.some(n=>n.stateBefore&&n.stateBefore!==n.stateAfter),boundaryCrossing:edges.some(e=>e.type==='CROSSES_BOUNDARY'),businessCriticality:nodes.some(n=>n.businessCriticality>50),sensitiveObject:nodes.some(n=>n.sensitive===true),protectedOperation:nodes.some(n=>n.requiredRole||n.expectedAuthority),unexpectedOutcome:nodes.some(n=>n.expectedOutcome&&n.actualOutcome&&n.expectedOutcome!==n.actualOutcome),contradiction:edges.some(e=>e.type==='CONTRADICTS'),crossTenant:changed('tenant'),crossSurface:changed('surface'),concurrency:edges.some(e=>e.type==='CONCURRENT'),temporalOrdering:edges.some(e=>e.type==='PRECEDES'),invariantRelevance:nodes.some(n=>n.type==='invariant'),evidenceStrength:nodes.filter(n=>n.evidenceRefs?.length).length/nodes.length,novelty:true,uncertainty:nodes.some(n=>!n.provenance||n.provenance.status==='UNKNOWN')};
+    return {score:Math.round(Object.values(factors).reduce((n,v)=>n+Number(v),0)/16*100),factors,meaning:'Research priority, not severity'};
+  }
+}
+class GeneralChainDiscoveryService {
+  static discover(graph,{maxHops=8,maxCandidates=64,maxExpansions=4000}={}){
+    maxHops=Math.max(2,Math.min(8,maxHops));maxCandidates=Math.max(1,Math.min(64,maxCandidates));maxExpansions=Math.max(1,Math.min(4000,maxExpansions));const edges=graph.edges.filter(e=>!['SUPPORTS','OBSERVED_IN','CONTEXT'].includes(e.type)),nodes=[...graph.nodes.values()],paths=new Map();
+    const events=graph.model.events.slice(0,120),groups=new Map();
+    for(const event of events)if(event.objectId){if(!groups.has(event.objectId))groups.set(event.objectId,[]);groups.get(event.objectId).push(event);}
+    for(const group of groups.values()){
+      group.sort((a,b)=>{const order=graph.timeline.compare(a,b);return order==='BEFORE'?-1:order==='AFTER'?1:0;});
+      for(let i=0;i<group.length-1;i++){const left=group[i],right=group[i+1];if(graph.timeline.compare(left,right)==='BEFORE')edges.push({from:'event:'+left.id,to:'event:'+right.id,type:'PRECEDES',provenance:{status:'UNKNOWN',source:'Explicit timeline ordering',evidenceRefs:discoveryUnique([...left.evidenceRefs,...right.evidenceRefs])}});}
+    }
+    const adjacency=new Map();for(const edge of edges){if(!adjacency.has(edge.from))adjacency.set(edge.from,[]);adjacency.get(edge.from).push(edge);}
+    let expansions=0;
+    const visit=(ids,path)=>{
+      if(++expansions>maxExpansions)return;
+      if(path.length>=2){
+        const chainNodes=ids.map(id=>graph.nodes.get(id)).filter(Boolean),ranking=ChainInterestingnessScore.score(chainNodes,path);
+        if(ranking.score>=15){
+          const signature=researchFingerprint([chainNodes.map(n=>[n.type,n.actorId,n.objectId,n.operation,n.operationId,n.state,n.stateBefore,n.stateAfter,n.authorityBefore,n.authorityAfter,n.tenant,n.surface,n.version,n.outcome]),path.map(e=>e.type)]),existing=paths.get(signature),refs=discoveryUnique([...chainNodes.flatMap(n=>n.evidenceRefs||[]),...path.flatMap(e=>e.provenance?.evidenceRefs||[])]);
+          if(existing){existing.evidenceRefs=discoveryUnique([...existing.evidenceRefs,...refs]);existing.equivalentNodes=discoveryUnique([...existing.equivalentNodes,...ids]);}
+          else paths.set(signature,{id:'CHAIN-'+signature,nodes:ids,edges:path,startState:chainNodes[0],endState:chainNodes.at(-1),authorityChanges:chainNodes.filter(n=>n.authorityBefore&&n.authorityBefore!==n.authorityAfter).map(n=>n.referenceId),stateChanges:chainNodes.filter(n=>n.stateBefore&&n.stateBefore!==n.stateAfter).map(n=>n.referenceId),boundaries:discoveryUnique(chainNodes.map(n=>n.boundaryId)),evidenceRefs:refs,invariantRefs:chainNodes.filter(n=>n.type==='invariant').map(n=>n.referenceId),constraints:[],interestingSignals:[],confidence:Math.min(.75,chainNodes.filter(n=>supportedResearchObservation(n,graph.target)).length/chainNodes.length),provenance:path.map(e=>e.provenance),ranking,equivalentNodes:ids});
+        }
+      }
+      if(path.length===maxHops)return;for(const edge of adjacency.get(ids.at(-1))||[])if(!ids.includes(edge.to))visit([...ids,edge.to],[...path,edge]);
+    };
+    for(const node of nodes.sort((a,b)=>Number(b.type==='event')-Number(a.type==='event')))if(expansions<=maxExpansions)visit([node.id],[]);
+    return {chains:[...paths.values()].sort((a,b)=>b.ranking.score-a.ranking.score||b.edges.length-a.edges.length||a.id.localeCompare(b.id)).slice(0,maxCandidates),search:{expansions,bounded:expansions>maxExpansions,omittedCandidates:Math.max(0,paths.size-maxCandidates),maxHops,omittedTemporalEvents:Math.max(0,graph.model.events.length-events.length)}};
+  }
+}
+class LogicalOperationMatcher {
+  static compare(a,b){
+    const fields=['actorId','objectId','operationIntent','stateBefore','stateAfter','expectedOutcome','requiredRole'];
+    const missing=fields.filter(f=>a[f]===undefined||b[f]===undefined||a[f]===''||b[f]==='');
+    const equivalent=!missing.length&&fields.every(f=>a[f]===b[f]);
+    return {equivalent,status:missing.length?'UNKNOWN':equivalent?'EQUIVALENT':'DIFFERENT',missing,differential:equivalent&&a.surface!==b.surface&&a.outcome!==b.outcome,dimensions:['surface','role','tenant','effectiveAuthority','version'].filter(f=>a[f]!==b[f])};
+  }
+}
+class ResearchUncertaintyService {
+  static forRelationship(relationship,evaluation){return [
+    {id:'UNKNOWN-'+researchFingerprint(relationship.id),question:'Does the operation have independent authority, an effective policy exception, or delayed state propagation?',relatedChain:relationship.chainId,possibleAnswers:['Target rule applies immediately','Independent reviewed capability','Documented propagation delay','Observation mismatch','UNKNOWN'],evidenceNeeded:['Reviewed target policy','Fresh authority and execution logs','Equivalent controlled operation'],impactOnHypothesis:'Separates a broken target relationship from permitted or misattributed behavior',priority:80,status:'UNKNOWN'},
+    ...evaluation.unknowns.map((question,i)=>({id:'UNKNOWN-'+researchFingerprint([relationship.id,i]),question,relatedChain:relationship.chainId,possibleAnswers:['Supported','Refuted','UNKNOWN'],evidenceNeeded:evaluation.evidenceRefs,impactOnHypothesis:'Blocks a supported conclusion',priority:95,status:'UNKNOWN'}))];}
+}
+class InformationGainService {
+  static rank(tests){return tests.map(t=>({...t,score:Math.round((t.informationGain*.3+t.businessImportance*.15+t.hypothesisSeparation*.25+t.scopeConfidence*.1+t.evidenceQualityPotential*.2-t.testingCost*.1-t.executionRisk*.2))})).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));}
+  static candidates(relationship,scopeConfidence){return this.rank([
+    {id:'TEST-'+relationship.id,relationshipId:relationship.id,title:'Compare equivalent operations before and after the relevant transition; capture authority source, version and effective time',properties:['matched-object','matched-intent','before-after-control','authority-source','fresh-evidence','manual-only'],informationGain:90,businessImportance:70,hypothesisSeparation:90,testingCost:40,scopeConfidence,executionRisk:20,evidenceQualityPotential:95,expectedOutcomes:{relationshipFailure:'Equivalent control violates reviewed rule',independentCapability:'Separate reviewed grant authorizes outcome',propagationDelay:'Behavior changes after documented effective time',observationMismatch:'Actor, object, intent or version differs'}},
+    {id:'REPEAT-'+relationship.id,relationshipId:relationship.id,title:'Repeat the same observation',properties:['repeat','manual-only'],informationGain:10,businessImportance:70,hypothesisSeparation:5,testingCost:20,scopeConfidence,executionRisk:20,evidenceQualityPotential:40}
+  ]);}
+}
+class FailedPathMemory {
+  static fingerprint(relationship,target){return researchFingerprint([relationship.evidenceRefs.map(id=>target.evidence.find(e=>e.id===id)),target.researchModel.events.filter(e=>relationship.evidenceRefs.some(id=>e.evidenceRefs.includes(id))),target.researchModel.observations.filter(e=>relationship.evidenceRefs.some(id=>e.evidenceRefs.includes(id))),target.researchModel.constraints?.filter(c=>relationship.constraintRefs.includes(c.id))]);}
+  static consider(relationship,target){const previous=(target.researchModel.failedPaths||[]).find(p=>p.relationshipId===relationship.id);if(!previous)return {suppressed:false};const changed=previous.dependencyFingerprint!==this.fingerprint(relationship,target);return {suppressed:!changed,reopened:changed,reason:changed?'Evidence, state or target constraint changed since the reviewed path':previous.reason};}
+  static record(relationship,target,status,reason){if(!['REJECTED','EXPLAINED','BENIGN','FAILED_TEST','ALTERNATIVE','DEAD_END'].includes(status)||!reason)throw new Error('Reviewed memory reason required.');return {relationshipId:relationship.id,status,reason,dependencyFingerprint:this.fingerprint(relationship,target)};}
+}
+class ObservationExtractionService {
+  static propose(evidence,input={}){
+    let metadata=input;try{if(!Object.keys(input).length)metadata={...(evidence.metadata||{}),...JSON.parse(evidence.content||'{}')};}catch{metadata=evidence.metadata||{};}
+    const fields=['actorId','objectId','tenant','operation','operationIntent','surface','state','stateBefore','stateAfter','authorityBefore','authorityAfter','requiredRole','outcome','version','order','timestamp'];
+    let raw={};try{raw={...(evidence.metadata||{}),...JSON.parse(evidence.content||'{}')};}catch{raw=evidence.metadata||{};}
+    const facts=Object.fromEntries(fields.filter(f=>Object.hasOwn(metadata,f)&&['string','number'].includes(typeof metadata[f])&&raw[f]===metadata[f]).map(f=>[f,metadata[f]]));
+    return {id:'PROPOSAL-'+researchFingerprint([evidence.id,facts]),status:'PROPOSED',observation:{id:'OBS-'+researchFingerprint([evidence.id,facts]),...facts,evidenceRefs:[evidence.id],provenance:{status:'UNKNOWN',source:'Deterministic extraction awaiting review',confidence:0,evidenceRefs:[evidence.id]}},fieldProvenance:Object.entries(facts).map(([field,value])=>({field,value,source:evidence.id,extraction:'deterministic',confirmed:false})),rawFingerprint:researchFingerprint(evidence)};
+  }
+  static confirm(proposal,target,{reviewed=false}={}){if(!reviewed||proposal.status!=='PROPOSED')throw new Error('Researcher review required.');const raw=target.evidence.find(e=>e.id===proposal.observation.evidenceRefs[0]);if(!raw||researchFingerprint(raw)!==proposal.rawFingerprint)throw new Error('Raw evidence changed; re-extract.');if(researchFingerprint(this.propose(raw).observation)!==researchFingerprint(proposal.observation))throw new Error('Proposed fields differ from raw extraction.');return {...structuredClone(proposal.observation),provenance:{...proposal.observation.provenance,status:'RESEARCHER_CONFIRMED',source:'Researcher reviewed extraction',confidence:1}};}
+}
+class ModelRouting {
+  static select({operation,chainHops=0,competing=0,highValueUnknown=false,cheapConfidence=1},models={}){const deterministic=['graph','constraint','lookup','extraction','ranking'].includes(operation),tier=deterministic?'DETERMINISTIC':chainHops>=5||competing>=3||highValueUnknown||cheapConfidence<.6?'REASONING':'CHEAP';return {tier,model:tier==='DETERMINISTIC'?null:models[tier]||null,reason:deterministic?'Deterministic operation':tier==='REASONING'?'Complexity or unresolved competing explanations':'Simple interpretation'};}
+}
+class ResearchResultCache {
+  constructor(limit=64){this.limit=limit;this.entries=new Map();}
+  key({targetRevision,researchRevision,context,operation,tier}){return researchFingerprint([targetRevision,researchRevision,context,operation,tier]);}
+  get(input){const result=this.entries.get(this.key(input));return result===undefined?undefined:structuredClone(result);}
+  set(input,value){const key=this.key(input);this.entries.delete(key);this.entries.set(key,structuredClone(value));while(this.entries.size>this.limit)this.entries.delete(this.entries.keys().next().value);return value;}
+}
+function discoveryDependencies(discovery,refs){
+  const selected={chain:new Set(),constraint:new Set(),signal:new Set(),unknown:new Set()},evidence=new Set(),records=new Set();
+  for(const ref of refs)selected[ref.kind]?.add(ref.id);
+  for(let depth=0;depth<8;depth++){
+    for(const question of discovery.unknowns)if(selected.unknown.has(question.id))selected.chain.add(question.relatedChain);
+    for(const relationship of discovery.relationships)if(selected.signal.has(relationship.id)||selected.chain.has(relationship.chainId)||relationship.constraintRefs.some(id=>selected.constraint.has(id))){selected.signal.add(relationship.id);selected.chain.add(relationship.chainId);relationship.constraintRefs.forEach(id=>selected.constraint.add(id));relationship.unknowns.forEach(id=>selected.unknown.add(id));relationship.evidenceRefs.forEach(id=>evidence.add(id));}
+    for(const constraint of discovery.constraints)if(selected.constraint.has(constraint.id)&&constraint.sourceType==='OBSERVED')evidence.add(constraint.sourceRef);
+    for(const chain of discovery.chains)if(selected.chain.has(chain.id)){chain.evidenceRefs.forEach(id=>evidence.add(id));chain.equivalentNodes.forEach(id=>records.add(id));chain.constraints.forEach(id=>selected.constraint.add(id));}
+  }
+  return {selected,evidence:[...evidence],records:[...records]};
+}
+function compactDiscoveryContext(discovery,{focusIds=[]}={}){
+  const state=row=>Object.fromEntries(['id','referenceId','type','actorId','objectId','operation','state','version','tenant','surface','authorityBefore','authorityAfter','outcome'].filter(f=>row[f]!==undefined).map(f=>[f,row[f]]));
+  const ranked=rows=>[...rows].sort((a,b)=>Number(focusIds.includes(b.id))-Number(focusIds.includes(a.id)));
+  const chains=ranked(discovery.chains).slice(0,4).map(c=>({...c,startState:state(c.startState),endState:state(c.endState),provenance:c.provenance.map(p=>({status:p.status,source:p.source,evidenceRefs:p.evidenceRefs})),edges:c.edges.map(e=>({from:e.from,to:e.to,type:e.type,provenance:{status:e.provenance.status,source:e.provenance.source,evidenceRefs:e.provenance.evidenceRefs}}))}));
+  return {...discovery,chains,relationships:ranked(discovery.relationships).slice(0,8),constraints:ranked(discovery.constraints).slice(0,12),evaluations:discovery.evaluations.slice(0,12),hypotheses:discovery.hypotheses.slice(0,16),unknowns:ranked(discovery.unknowns).slice(0,16),nextTests:discovery.nextTests.slice(0,8),differential:discovery.differential.slice(0,8),contextOmissions:{chains:discovery.chains.length-chains.length,relationships:Math.max(0,discovery.relationships.length-8),constraints:Math.max(0,discovery.constraints.length-12)}};
+}
+function discoverResearch({graph,target,contradictions=[],scopeConfidence=0}){
+  const found=GeneralChainDiscoveryService.discover(graph),constraints=TargetConstraintService.forTarget(target),evaluations=[],relationships=[],unknowns=[],hypotheses=[],nextTests=[];
+  const rows=[...graph.model.events,...graph.model.observations];
+  for(const constraint of constraints){
+    const evaluation=ConstraintEvaluator.evaluate(constraint,{graph,rows,target});evaluations.push(evaluation);
+    if(!['VIOLATED','POSSIBLE_VIOLATION','INSUFFICIENT_EVIDENCE','UNKNOWN'].includes(evaluation.status))continue;
+    const chain=found.chains.find(c=>evaluation.eventIds.some(id=>c.equivalentNodes.includes('event:'+id)||c.equivalentNodes.includes('observation:'+id)));
+    const terminal=rows.find(r=>evaluation.eventIds.includes(r.id)&&r.operation===constraint.operation);
+    const relationship={actorId:terminal?.actorId||'',objectId:terminal?.objectId||'',boundaryId:terminal?.boundaryId||'',operation:constraint.operation,state:terminal?.state||'Unknown',authority:terminal?.effectiveAuthority||'Unknown',id:'SIGNAL-'+researchFingerprint([constraint.id,evaluation.eventIds]),type:'interesting_relationship',summary:'Observed '+constraint.operation+' relationship requires review against '+constraint.category+' constraint '+constraint.id,chainId:chain?.id||'',whyInteresting:[evaluation.status,'Target-specific expected versus observed relationship'],evidenceRefs:evaluation.evidenceRefs,constraintRefs:[constraint.id],invariantRefs:chain?.invariantRefs||[],unknowns:[],possibleExplanations:['Relationship failure','Independent reviewed capability or policy exception','Delayed state propagation','Observation mismatch'],status:evaluation.status,confidence:evaluation.status==='VIOLATED'?.75:.35,requiresValidation:true,confirmed:false};
+    const memory=FailedPathMemory.consider(relationship,target);if(memory.suppressed)continue;relationship.memory=memory;
+    if(chain){chain.constraints.push(constraint.id);chain.interestingSignals.push(relationship.id);}
+    const questions=ResearchUncertaintyService.forRelationship(relationship,evaluation);relationship.unknowns=questions.map(q=>q.id);unknowns.push(...questions);relationships.push(relationship);
+    for(const [i,family] of ['relationshipFailure','independentCapability','propagationDelay','observationMismatch'].entries())hypotheses.push({id:'H'+(i+1)+'-'+relationship.id,relationshipId:relationship.id,family,supportingEvidence:i===0?evaluation.evidenceRefs:[],contradictingEvidence:[],unknowns:relationship.unknowns,requiredEvidence:questions.flatMap(q=>q.evidenceNeeded),confidence:i===0?relationship.confidence:.25,status:'UNVERIFIED'});
+    if(scopeConfidence===100)nextTests.push(...InformationGainService.candidates(relationship,scopeConfidence));
+  }
+  if(!constraints.length){const chain=found.chains.find(c=>(c.authorityChanges.length||c.stateChanges.length)&&c.nodes.some(id=>graph.nodes.get(id)?.outcome==='allowed'));if(chain){const relationship={id:'SIGNAL-'+researchFingerprint(chain.id),type:'interesting_relationship',summary:'Authority or state changed on a multi-hop path containing a completed operation; target policy is unknown',chainId:chain.id,whyInteresting:['Authority transition','Temporal relationship'],evidenceRefs:chain.evidenceRefs,constraintRefs:[],invariantRefs:chain.invariantRefs,unknowns:[],possibleExplanations:['Relationship failure','Independent capability','Propagation delay','Observation mismatch'],status:'UNKNOWN',confidence:.25,requiresValidation:true,confirmed:false};const memory=FailedPathMemory.consider(relationship,target);if(!memory.suppressed){relationships.push(relationship);const questions=ResearchUncertaintyService.forRelationship(relationship,{unknowns:['Target-specific constraint is unavailable'],evidenceRefs:chain.evidenceRefs});relationship.unknowns=questions.map(q=>q.id);unknowns.push(...questions);}}}
+  const differential=[];for(let i=0;i<Math.min(rows.length,120)&&differential.length<32;i++)for(let j=i+1;j<Math.min(rows.length,120)&&differential.length<32;j++){const comparison=LogicalOperationMatcher.compare(rows[i],rows[j]);if(comparison.differential)differential.push({id:'DIFF-'+researchFingerprint([rows[i].id,rows[j].id]),comparison,eventIds:[rows[i].id,rows[j].id],evidenceRefs:discoveryUnique([...rows[i].evidenceRefs,...rows[j].evidenceRefs]),supported:!!supportedResearchObservation(rows[i],target)&&!!supportedResearchObservation(rows[j],target),requiresValidation:true});}
+  for(const diff of differential){const row=rows.find(r=>r.id===diff.eventIds[0]),chain=found.chains.find(c=>diff.eventIds.some(id=>c.equivalentNodes.includes('event:'+id)||c.equivalentNodes.includes('observation:'+id))),relationship={id:diff.id,type:'interesting_relationship',actorId:row.actorId,objectId:row.objectId,operation:row.operationIntent,chainId:chain?.id||'',summary:'Equivalent business operation has different observed outcomes across surfaces',whyInteresting:['Matched business object, actor, intent, transition and expected authority'],evidenceRefs:diff.evidenceRefs,constraintRefs:[],invariantRefs:[],unknowns:[],possibleExplanations:['Relationship failure','Surface-specific reviewed policy','Observation mismatch'],status:diff.supported?'UNKNOWN':'INSUFFICIENT_EVIDENCE',confidence:.35,requiresValidation:true,confirmed:false};if(!FailedPathMemory.consider(relationship,target).suppressed)relationships.push(relationship);}
+  for(const relationship of relationships){
+    if(!relationship.unknowns.length){const questions=ResearchUncertaintyService.forRelationship(relationship,{unknowns:[],evidenceRefs:relationship.evidenceRefs});relationship.unknowns=questions.map(q=>q.id);unknowns.push(...questions);}
+    if(!hypotheses.some(h=>h.relationshipId===relationship.id))for(const [i,family] of ['relationshipFailure','independentCapability','propagationDelay','observationMismatch'].entries())hypotheses.push({id:'H'+(i+1)+'-'+relationship.id,relationshipId:relationship.id,family,supportingEvidence:i===0?relationship.evidenceRefs:[],contradictingEvidence:[],unknowns:relationship.unknowns,requiredEvidence:['Reviewed target policy','Matched control with fresh authority, object and execution evidence'],confidence:relationship.confidence,status:'UNVERIFIED'});
+    if(scopeConfidence===100&&!nextTests.some(t=>t.relationshipId===relationship.id))nextTests.push(...InformationGainService.candidates(relationship,scopeConfidence));
+    const controls=graph.model.observations.filter(o=>o.discriminatesSignalId===relationship.id&&o.actorId===relationship.actorId&&o.objectId===relationship.objectId&&supportedResearchObservation(o,target));
+    for(const hypothesis of hypotheses.filter(h=>h.relationshipId===relationship.id)){
+      const supporting=controls.filter(o=>o.explanationOutcome===hypothesis.family),contradicting=controls.filter(o=>o.explanationOutcome&&o.explanationOutcome!=='unknown'&&o.explanationOutcome!==hypothesis.family);
+      hypothesis.supportingEvidence=discoveryUnique([...hypothesis.supportingEvidence,...supporting.flatMap(o=>o.evidenceRefs)]);hypothesis.contradictingEvidence=discoveryUnique(contradicting.flatMap(o=>o.evidenceRefs));
+      if(contradicting.length)hypothesis.confidence=Math.min(.25,hypothesis.confidence);
+    }
+  }
+  return {...found,constraints,evaluations,relationships,unknowns,hypotheses,nextTests:InformationGainService.rank(nextTests),differential,contradictionRefs:contradictions.map(s=>s.id),status:relationships.length?'RESEARCH_REQUIRED':'UNKNOWN',confirmed:false};
+}
+
+// SOURCE: services/advanced-research
+
+
+
+
+
+
+
+
+const advancedResearchCache=new WeakMap();
+function compactAdvancedContext(research,{focusIds=[]}={}){
+  const rank=rows=>[...rows].sort((a,b)=>Number(focusIds.includes(b.id)||focusIds.includes(b.signalId))-Number(focusIds.includes(a.id)||focusIds.includes(a.signalId)));
+  const nodes=research.relevantGraph.nodes.slice(0,40),ids=new Set(nodes.map(n=>n.id));
+  return {...research,discovery:compactDiscoveryContext(research.discovery,{focusIds}),signals:rank(research.signals).slice(0,4),hypotheses:rank(research.hypotheses).slice(0,4),nextTests:rank(research.nextTests).slice(0,4),relevantGraph:{...research.relevantGraph,nodes,edges:research.relevantGraph.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)).slice(0,60)}};
+}
+function analyzeAdvancedResearch(target){
+  const key=researchFingerprint([target.researchModel,target.researchRevision,target.actors,target.objects,target.boundaries,target.hypotheses,target.testCases,target.findings,target.evidence,target.scope,target.programRules]);
+  const cached=advancedResearchCache.get(target);if(cached?.key===key)return structuredClone(cached.value);
+  const graph=new CausalResearchGraph(target),fullAnalysis=ContradictionAnalyzer.analyze(graph),scopeConfidence=policyFor(buildResearchContext(target)).canRecommend?100:0;
+  const rankedSignals=ResearchPriorityService.rank(fullAnalysis.signals,{scopeConfidence});
+  const analysis={...fullAnalysis,signals:rankedSignals.slice(0,12),explained:fullAnalysis.explained.slice(0,12),unresolvedQuestions:fullAnalysis.unresolvedQuestions.slice(0,16)},signalSummary={total:fullAnalysis.signals.length,included:analysis.signals.length,omitted:rankedSignals.slice(12).map(s=>({id:s.id,reason:'signal context budget; inspect model or focus a smaller research path'}))};
+  const hypotheses=scopeConfidence?NextHypothesisService.generate({contradictions:analysis.signals,graph,currentHypotheses:target.hypotheses,rejectedExplanations:graph.model.rejectedExplanations,unresolvedQuestions:graph.model.unresolvedQuestions,scopeConfidence}):[];
+  const nextTests=scopeConfidence?SelectiveStateSpaceService.select({signals:analysis.signals,observations:graph.model.observations,scopeConfidence}):[];
+  const graphRoots=[...analysis.signals.flatMap(s=>[...s.events,...s.evidenceRefs,s.actorId,s.objectId,s.boundaryId]),...hypotheses.map(h=>h.invariantId)];
+  const discovery=discoverResearch({graph,target,contradictions:analysis.signals,scopeConfidence});
+  const discoverySignals=discovery.relationships.filter(r=>r.status==='VIOLATED').map(r=>{
+    const evaluation=discovery.evaluations.find(e=>e.constraintId===r.constraintRefs[0]),constraint=discovery.constraints.find(c=>c.id===r.constraintRefs[0]),row=[...graph.model.events,...graph.model.observations].find(e=>evaluation.eventIds.includes(e.id));
+    return {id:r.id,type:'target_constraint_relationship',actorId:row?.actorId||'',objectId:row?.objectId||'',boundaryId:row?.boundaryId||'',state:row?.state||'Unknown',authority:row?.effectiveAuthority||'Unknown',tenant:row?.tenant||'',surface:row?.surface||'',operation:constraint.operation,expected:JSON.stringify(constraint.expected),observed:r.summary,evidenceRefs:r.evidenceRefs,events:evaluation.eventIds,invariantId:constraint.id,confidence:r.confidence,alternativeExplanation:r.possibleExplanations.slice(1).join('; '),discriminatingTest:discovery.nextTests.find(t=>t.relationshipId===r.id)?.title||'Review missing target policy and evidence',requiresValidation:true,status:'RESEARCH_SIGNAL'};
+  });
+  analysis.signals.push(...discoverySignals.slice(0,Math.max(0,12-analysis.signals.length)));
+  if(scopeConfidence)hypotheses.push(...NextHypothesisService.generate({contradictions:discoverySignals,graph,currentHypotheses:target.hypotheses,scopeConfidence}));
+  graphRoots.push(...discoverySignals.flatMap(s=>[...s.events,...s.evidenceRefs,s.actorId,s.objectId]));
+  const value={discovery,...analysis,signalSummary,hypotheses,nextTests,relevantGraph:graph.relevantSubgraph(graphRoots),scopeConfidence,status:analysis.signals.length?'CONTRADICTION_DETECTED':graph.model.observations.length?'OBSERVATION_READY':'UNKNOWN',completedMeaning:'Only the current research path; research space is not exhausted.'};
+  advancedResearchCache.set(target,{key,value});return structuredClone(value);
+}
+
+// SOURCE: services/research-grounding
+
+function findingEvidenceGraph(proposal,context){
+  const primary=context.tests.find(t=>t.id===proposal.relatedTestId);if(!primary)return {tests:[],evidence:[],signalIds:[],validation:[]};
+  const signals=(context.advancedResearch?.signals||[]).filter(s=>s.evidenceRefs.some(id=>proposal.evidenceIds.includes(id))&&(!primary.objectId||s.objectId===primary.objectId));
+  const signalEvidence=new Set(signals.flatMap(s=>s.evidenceRefs)),requested=new Set(proposal.evidenceIds);
+  const testEvidence=t=>context.evidence.filter(e=>e.testCaseId===t.id||(t.evidenceIds||[]).includes(e.id));
+  const tests=context.tests.filter(t=>t.id===primary.id||primary.hypothesisId&&t.hypothesisId===primary.hypothesisId||testEvidence(t).some(e=>signalEvidence.has(e.id))).filter(t=>t.actualResult?.trim());
+  const ids=new Set(tests.flatMap(t=>testEvidence(t).map(e=>e.id))),evidence=context.evidence.filter(e=>requested.has(e.id)&&ids.has(e.id));
+  const linkedTests=tests.filter(t=>evidence.some(e=>e.testCaseId===t.id||(t.evidenceIds||[]).includes(e.id)));
+  const validation=signals.map(s=>({signalId:s.id,...AdversarialValidationService.assess(s,context.researchModel,{evidence:context.evidence})}));
+  return {tests:linkedTests,evidence,signalIds:signals.map(s=>s.id),validation};
+}
+
 // SOURCE: services/agent-context
 
 
@@ -11917,17 +12499,34 @@ function knowledgeSearch(workspace,query,targetId=''){
 
 
 
+
+
+
+
 // Allowlist + per-collection caps. No other target, full DB, filesystem or provider config.
-function buildAgentContext(workspace,target){
+function buildAgentContext(workspace,source,options={}){
+  const modelEvidence=source.researchModel?[...source.researchModel.events,...source.researchModel.observations].flatMap(e=>[...e.evidenceRefs,e.actorId,e.objectId,e.boundaryId,e.testId,e.hypothesisId].filter(Boolean)):[];
+  const discovery=options.discovery||(source.researchModel?analyzeAdvancedResearch(source).discovery:null);
+  const requested=discovery?Object.entries({chain:discovery.chains,constraint:discovery.constraints,signal:discovery.relationships,unknown:discovery.unknowns}).flatMap(([kind,rows])=>rows.filter(r=>(options.focusIds||[]).includes(r.id)).map(r=>({kind,id:r.id}))):[];
+  const dependencies=discovery?discoveryDependencies(discovery,requested):{evidence:[]};
+  const {selected:target,manifest}=selectResearchContext(source,{...options,chainIds:dependencies.evidence,contradictionIds:modelEvidence});
+  let advanced={};
+  if(source.researchModel){const selection=selectResearchModel(source.researchModel,target);target.researchModel=selection.model;manifest.omitted.push(...selection.omitted);advanced={researchModel:selection.model,advancedResearch:analyzeAdvancedResearch(target)};}
+  if(advanced.advancedResearch)advanced.advancedResearch=compactAdvancedContext(advanced.advancedResearch,{focusIds:options.focusIds});
   const knowledge=buildKnowledgeContext(workspace,target,{domainId:target.intelligence.primaryDomainId});
   knowledge.domains=DomainKnowledgeService.selected(workspace,target).slice(0,3).map(pack=>buildKnowledgeContext(workspace,target,{domainId:pack.id}).domains[0]);
   knowledge.techniques=target.techniques.filter(t=>t.enabled).slice(0,20).map(t=>({id:t.id,libraryId:t.libraryId||'',name:t.name,securityInvariant:t.securityInvariant}));
-  const pick=(row,keys)=>({...Object.fromEntries(keys.map(k=>[k,typeof row[k]==='string'?row[k].slice(0,8000):row[k]??''])),sourceFingerprint:observationFingerprint(row)});
-  return {targetId:target.id,revision:target.researchRevision||0,knowledge,...(target.researchEnvironment?{environment:environmentMetadata(target)}:{}),sensitiveEvidenceIds:target.evidence.slice(-12).filter(e=>SecretRedactor.redact(e.content)!==e.content).map(e=>e.id),
-    hypotheses:target.hypotheses.slice(-20).map(r=>pick(r,['id','authProfileId','title','techniqueId','invariant','expectedBehavior','potentialFailure','who','what','object','state','authority','context','notes','status'])),
-    tests:target.testCases.slice(-20).map(r=>({...pick(r,['id','authProfileId','hypothesisId','techniqueId','title','preconditions','steps','expectedResult','actualResult','who','what','object','state','authority','context','result']),evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
-    evidence:target.evidence.slice(-12).map(r=>pick(r,['id','label','type','description','content','testCaseId','findingId'])),
-    findings:target.findings.slice(-12).map(r=>({...pick(r,['id','title','testCaseId','techniqueId','status','severity','startingAuthority','securityRestriction','protectedResource','rootCause','impact','expectedResult','actualResult','steps','who','what','object','state','authority','context']),evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
+  for(const [key,keys] of [['actors',['id','name','authority','notes']],['objects',['id','name','type','owner','tenant','state','sensitivity','notes']]])knowledge[key]=target[key].map(row=>Object.fromEntries(keys.map(k=>[k,row[k]||''])));
+  knowledge.boundaries=target.boundaries.map(row=>({...row}));
+  manifest.omittedCriticalDependencies=manifest.omitted.filter(r=>r.reason?.includes('dependency'));
+  if(manifest.omittedCriticalDependencies.length&&advanced.advancedResearch){advanced.advancedResearch.conclusionLimit='Critical dependencies omitted; no high-confidence conclusion';for(const r of advanced.advancedResearch.discovery.relationships)r.confidence=Math.min(.35,r.confidence);}
+  manifest.fieldTruncations=[];
+  const pick=(row,keys)=>{for(const key of keys)if(typeof row[key]==='string'&&row[key].length>8000)manifest.fieldTruncations.push({id:row.id,field:key,includedCharacters:8000,omittedCharacters:row[key].length-8000,reason:'field context budget; full raw source stays local'});return {...Object.fromEntries(keys.map(k=>[k,typeof row[k]==='string'?row[k].slice(0,8000):row[k]??''])),...stableResearchReferences(source,row),...(row.knowledgeLinks?{knowledgeLinks:{...row.knowledgeLinks}}:{}),sourceFingerprint:observationFingerprint(row)};};
+  return {targetId:target.id,revision:target.researchRevision||0,knowledge,contextManifest:manifest,...advanced,...(target.researchEnvironment?{environment:environmentMetadata(target)}:{}),sensitiveEvidenceIds:target.evidence.filter(e=>SecretRedactor.redact(e.content)!==e.content).map(e=>e.id),
+    hypotheses:target.hypotheses.map(r=>pick(r,['id','authProfileId','title','techniqueId','invariant','expectedBehavior','potentialFailure','who','what','object','state','authority','context','notes','status','signalId','priority','queue','priorityFactors'])),
+    tests:target.testCases.map(r=>({...pick(r,['id','authProfileId','hypothesisId','techniqueId','title','preconditions','steps','expectedResult','actualResult','who','what','object','state','authority','context','result']),evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
+    evidence:target.evidence.map(r=>pick(r,['id','label','type','description','content','testCaseId','findingId','evidenceRole'])),
+    findings:target.findings.map(r=>({...pick(r,['id','title','testCaseId','techniqueId','status','severity','startingAuthority','securityRestriction','protectedResource','rootCause','impact','expectedResult','actualResult','steps','who','what','object','state','authority','context']),testIds:r.testIds||[],evidenceLinks:r.evidenceLinks||[],evidenceIds:(r.evidenceIds||[]).slice(0,12)})),
     lessons:target.knowledgeBase.slice(-12).map(r=>pick(r,['id','category','title','content','source','rootCause','securityRestriction','affectedComponent','impact'])),
     manualAnalysis:(target.agentResearch||emptyAgentResearch()).manualAnalysis.slice(-12).map(r=>pick(r,['id','type','title','content','sourceType','createdAt']))};
 }
@@ -11937,13 +12536,16 @@ function buildAgentContext(workspace,target){
 
 
 
+
 const messageAgents=[['general','General'],['orchestrator','Orchestrator'],...agentStages.map(([id,name])=>[({'target-intelligence':'target','domain-knowledge':'domain','attack-surface':'surface','trust-boundary':'boundary','test-planner':'test'})[id]||id,name])];
 const messageAgentDomains={general:'Coordinate the conversation and relevant specialists',orchestrator:'Automatic routing (legacy alias)',target:'Company context and target intelligence',domain:'Industry concepts and business flows',scope:'Scope, authorization and program rules',surface:'Actors, objects and attack surface',boundary:'Trust transitions and authority',technique:'Techniques and manual tools',hypothesis:'Invariants, hypotheses and variants',test:'Reviewed hypotheses and manual test plans',evidence:'Observations and control comparisons',finding:'Potential findings and evidence gaps','false-positive':'Alternative explanations and controls',duplicate:'Similar findings and duplicate risk',report:'Confirmed findings and reports'};
 const contextCollections={actor:'actors',object:'objects',boundary:'boundaries',technique:'techniques',hypothesis:'hypotheses',test:'testCases',evidence:'evidence',finding:'findings',report:'findings'};
-const messageContextKinds=['target','scope',...Object.keys(contextCollections)];
+const messageContextKinds=['target','scope','chain','constraint','signal','unknown',...Object.keys(contextCollections)];
 function messageReferenceRows(target){
   if(!target)return [];
-  return [{kind:'target',id:target.id,label:target.name},{kind:'scope',id:target.id,label:'Scope & rules'},...Object.entries(contextCollections).flatMap(([kind,key])=>target[key].map(row=>({kind,id:row.id,label:row.title||row.label||row.name||[row.from,row.to].filter(Boolean).join(' → ')})))];
+  const discovery=target.researchModel?analyzeAdvancedResearch(target).discovery:null;
+  const discoveries=discovery?Object.entries({chain:discovery.chains,constraint:discovery.constraints,signal:discovery.relationships,unknown:discovery.unknowns}).flatMap(([kind,rows])=>rows.map(r=>({kind,id:r.id,label:r.summary||r.question||r.category||r.id}))):[];
+  return [...discoveries,{kind:'target',id:target.id,label:target.name},{kind:'scope',id:target.id,label:'Scope & rules'},...Object.entries(contextCollections).flatMap(([kind,key])=>target[key].map(row=>({kind,id:row.id,label:row.title||row.label||row.name||[row.from,row.to].filter(Boolean).join(' → ')})))];
 }
 function parseMessageTags(text,target){
   const agents=[...text.matchAll(/(?:^|\s)@([\w-]+)/g)].map(m=>m[1]);
@@ -11971,7 +12573,7 @@ function planMessageAgents(message,refs=message.contextRefs||[]){
   const add=(id,score)=>scores.set(id,(scores.get(id)||0)+score);
   const domains=[['target-intelligence',/company|perusahaan|target|business model|produk/i],['domain-knowledge',/domain|industry|industri|settlement|ledger|glossary|istilah|business flow|alur bisnis/i],['scope',/scope|izin|rules|allowed|authorization checklist|otorisasi/i],['attack-surface',/surface|permukaan|actor|aktor|object|objek|endpoint|mapping|pemetaan/i],['trust-boundary',/boundary|batas trust|trust|authority|otoritas/i],['technique',/technique|teknik|tool|alat/i],['hypothesis',/hypothes|hipotes|invariant|variant|kemungkinan/i],['test-planner',/test plan|rencana test|rencana uji|generate test|susun.*test|precondition|langkah.*uji/i],['evidence',/evidence|bukti|observation|observasi|compare|pembanding|control|kontrol|hasil test/i],['finding',/finding|temuan|root cause|akar masalah|impact|dampak/i],['false-positive',/false.?positive|alternatif|alternative|penjelasan lain/i],['duplicate',/duplicat|duplikat|similar finding/i],['report',/report|laporan|draft/i]];
   for(const [id,pattern] of domains)if(pattern.test(query))add(id,4);
-  const byKind={target:'target-intelligence',scope:'scope',actor:'attack-surface',object:'attack-surface',boundary:'trust-boundary',technique:'technique',hypothesis:'hypothesis',test:'evidence',evidence:'evidence',finding:'finding',report:'report'};
+  const byKind={chain:'hypothesis',constraint:'hypothesis',signal:'hypothesis',unknown:'false-positive',target:'target-intelligence',scope:'scope',actor:'attack-surface',object:'attack-surface',boundary:'trust-boundary',technique:'technique',hypothesis:'hypothesis',test:'evidence',evidence:'evidence',finding:'finding',report:'report'};
   for(const ref of refs)add(byKind[ref.kind]||'target-intelligence',['target','scope'].includes(ref.kind)?1:2);
   const selected=explicit.filter(alias=>!['general','orchestrator'].includes(alias)).map(alias=>routeMessageAgent(alias,message.text,refs));
   const relevant=[...scores].sort((a,b)=>b[1]-a[1]).filter(([,score])=>score>=2).map(([id])=>id);
@@ -12046,6 +12648,9 @@ class RelatedTermService{
 
 
 
+
+
+
 class ResearchContextBuilder{
   build({workspace,target,page,contextRefs,message,recentMessages=[],summary=''}){
     const ids={};for(const kind of Object.keys(contextCollections))ids[kind]=new Set();
@@ -12058,17 +12663,35 @@ class ResearchContextBuilder{
     for(const row of target.evidence.filter(r=>ids.evidence.has(r.id))){add('test',row.testCaseId);add('finding',row.findingId);}
     for(const row of target.testCases.filter(r=>ids.test.has(r.id))){add('hypothesis',row.hypothesisId);add('technique',row.techniqueId);for(const id of (row.evidenceIds||[]).slice(0,4))add('evidence',id);}
     for(const row of target.hypotheses.filter(r=>ids.hypothesis.has(r.id)))add('technique',row.techniqueId);
+    let previous=-1;
+    while(previous!==Object.values(ids).reduce((n,set)=>n+set.size,0)){
+      previous=Object.values(ids).reduce((n,set)=>n+set.size,0);
+      for(const [kind,key] of Object.entries(contextCollections))for(const row of target[key].filter(r=>ids[kind].has(r.id))){
+        const refs=stableResearchReferences(target,row);
+        for(const [field,linkedKind] of [['actorId','actor'],['objectId','object'],['boundaryId','boundary'],['hypothesisId','hypothesis'],['testId','test'],['findingId','finding']])add(linkedKind,refs[field]);
+        for(const id of row.testIds||[])add('test',id);for(const id of row.evidenceIds||[])add('evidence',id);
+      }
+      for(const row of [...(target.researchModel?.events||[]),...(target.researchModel?.observations||[])])if(row.evidenceRefs.some(id=>ids.evidence.has(id))){add('actor',row.actorId);add('object',row.objectId);add('boundary',row.boundaryId);for(const id of row.evidenceRefs)add('evidence',id);}
+    }
+    const discovery=target.researchModel?analyzeAdvancedResearch(target).discovery:null;
+    const discoveryRefs=contextRefs.filter(r=>['chain','constraint','signal','unknown'].includes(r.kind));
+    const deps=discovery?discoveryDependencies(discovery,discoveryRefs):{evidence:[],records:[]};
+    for(const id of deps.evidence)add('evidence',id);
+    for(const record of [...(target.researchModel?.events||[]),...(target.researchModel?.observations||[])])if(deps.records.some(id=>id.endsWith(':'+record.id))){add('actor',record.actorId);add('object',record.objectId);add('boundary',record.boundaryId);}
     const query=[message,...selectedFindings.map(f=>f.title)].join(' ').toLowerCase(),tokens=query.split(/[^\p{L}\p{N}]+/u).filter(t=>t.length>3&&!['finding','evidence','hypothesis','jelaskan','analisis'].includes(t));
     const rank=rows=>rows.map((row,index)=>({row,index,score:tokens.filter(t=>[row.term,row.title,row.name,row.content,row.securityInvariant].filter(Boolean).join(' ').toLowerCase().includes(t)).length})).filter(r=>r.score>0).sort((a,b)=>b.score-a.score||a.index-b.index).map(r=>r.row);
-    const choose=(kind,limit)=>target[contextCollections[kind]].filter(r=>ids[kind].has(r.id)).slice(0,limit);
+    const choose=(kind,limit)=>target[contextCollections[kind]].filter(r=>ids[kind].has(r.id)).sort((a,b)=>Number(contextRefs.some(r=>r.kind===kind&&r.id===b.id))-Number(contextRefs.some(r=>r.kind===kind&&r.id===a.id))).slice(0,limit);
     const profile={};for(const key of ['company','businessModel'])if(target.intelligence.profile[key]?.value)profile[key]=target.intelligence.profile[key];
     for(const [key,value] of Object.entries(target.intelligence.profile))if(Object.keys(profile).length<3&&value.value&&tokens.some(token=>key.toLowerCase().includes(token)))profile[key]=value;
-    const selected={...target,actors:choose('actor',3),objects:choose('object',3),boundaries:choose('boundary',3),hypotheses:choose('hypothesis',4),testCases:choose('test',4),evidence:choose('evidence',4),findings:choose('finding',4),knowledgeBase:rank(target.knowledgeBase).slice(0,2),techniques:[...choose('technique',4),...rank(target.techniques.filter(t=>t.enabled&&!ids.technique.has(t.id))).slice(0,2)].slice(0,4),intelligence:{...target.intelligence,profile,items:rank(target.intelligence.items.filter(r=>r.status==='accepted')).slice(0,4)},agentResearch:{...target.agentResearch,manualAnalysis:target.agentResearch.manualAnalysis.slice(-3)}};
+    const selected={...target,actors:choose('actor',3),objects:choose('object',3),boundaries:choose('boundary',3),hypotheses:choose('hypothesis',4),testCases:choose('test',4),evidence:choose('evidence',12),findings:choose('finding',4),knowledgeBase:rank(target.knowledgeBase).slice(0,2),techniques:[...choose('technique',4),...rank(target.techniques.filter(t=>t.enabled&&!ids.technique.has(t.id))).slice(0,2)].slice(0,4),intelligence:{...target.intelligence,profile,items:rank(target.intelligence.items.filter(r=>r.status==='accepted')).slice(0,4)},agentResearch:{...target.agentResearch,manualAnalysis:target.agentResearch.manualAnalysis.slice(-3)}};
     // Preserve actor/object mapping only when its name is used by a selected research record.
     for(const key of ['actors','objects'])for(const row of target[key])if(selected[key].length<3&&[...selected.hypotheses,...selected.testCases,...selected.findings].some(r=>(key==='actors'?r.who:r.object)===row.name)&&!selected[key].some(r=>r.id===row.id))selected[key].push(row);
-    const context=buildAgentContext(workspace,selected);
-    context.knowledge.actors=context.knowledge.actors.map((row,index)=>({...row,id:selected.actors[index].id}));
-    context.knowledge.objects=context.knowledge.objects.map((row,index)=>({...row,id:selected.objects[index].id}));
+    const context=buildAgentContext(workspace,selected,{focusIds:contextRefs.map(r=>r.id),query:message,discovery});
+    for(const [kind,key] of Object.entries(contextCollections))for(const id of ids[kind])if(!selected[key].some(r=>r.id===id))context.contextManifest.omitted.push({kind,id,reason:'chat dependency budget; explicit references take priority'});
+    context.contextManifest.omittedCriticalDependencies=[...context.contextManifest.omitted.filter(r=>ids[r.kind]?.has(r.id)),...deps.evidence.filter(id=>!context.evidence.some(e=>e.id===id)).map(id=>({kind:'evidence',id,reason:'critical chain dependency budget'}))];
+    if(discoveryRefs.length&&context.advancedResearch){const d=context.advancedResearch.discovery;for(const [kind,key] of Object.entries({chain:'chains',constraint:'constraints',signal:'relationships',unknown:'unknowns'}))d[key]=discovery[key].filter(r=>deps.selected[kind].has(r.id)||contextRefs.some(ref=>ref.kind===kind&&ref.id===r.id));d.hypotheses=discovery.hypotheses.filter(h=>d.relationships.some(r=>r.id===h.relationshipId));d.nextTests=discovery.nextTests.filter(t=>d.relationships.some(r=>r.id===t.relationshipId));const selectedIds=new Set(d.chains.flatMap(c=>c.nodes));context.advancedResearch.relevantGraph.nodes=context.advancedResearch.relevantGraph.nodes.filter(n=>selectedIds.has(n.id));context.advancedResearch.relevantGraph.edges=context.advancedResearch.relevantGraph.edges.filter(e=>selectedIds.has(e.from)&&selectedIds.has(e.to));}
+    if(context.advancedResearch)context.advancedResearch=compactAdvancedContext(context.advancedResearch,{focusIds:contextRefs.map(r=>r.id)});
+    if(context.contextManifest.omittedCriticalDependencies.length&&context.advancedResearch){context.advancedResearch.conclusionLimit='INSUFFICIENT_EVIDENCE: critical dependencies omitted; no high-confidence conclusion';for(const r of context.advancedResearch.discovery.relationships)r.confidence=Math.min(.35,r.confidence);}
     if(context.environment){const profiles=new Set([...selected.hypotheses,...selected.testCases].map(r=>r.authProfileId).filter(Boolean));context.environment.profiles=context.environment.profiles.filter(p=>profiles.has(p.id));const accounts=new Set(context.environment.profiles.map(p=>p.accountId));context.environment.accounts=context.environment.accounts.filter(a=>accounts.has(a.id));}
     for(const ref of contextRefs){const key=({actor:'actors',object:'objects',boundary:'boundaries',technique:'techniques',hypothesis:'hypotheses',test:'tests',evidence:'evidence',finding:'findings',report:'findings'})[ref.kind];if(key&&!(['actor','object','boundary','technique'].includes(ref.kind)?context.knowledge[key]:context[key]).some(r=>r.id===ref.id))throw new Error('Terlalu banyak #'+ref.kind+' references. Pilih maksimal '+(['actor','object','boundary'].includes(ref.kind)?3:4)+'.');}
     context.knowledge.research={...context.knowledge.research,question:message.slice(0,4000),level:'Advanced',notes:'Current page: '+page+'; selected references only. Missing information is Unknown.'};
@@ -12125,6 +12748,8 @@ async function agentPost(path,payload,timeout=15000,signal){
 
 
 
+
+
 const AgentResearchService={
   get:target=>target.agentResearch||emptyAgentResearch(),
   update(store,target,research,canonical=false){validateAgentResearch(research);store.updateResearch(target.id,research,{canonical});},
@@ -12139,9 +12764,9 @@ const AgentResearchService={
       for(const [field,rows] of [['relatedTechniqueId',target.techniques],['relatedHypothesisId',target.hypotheses]])if(values[field]!==undefined){if(values[field]&&!rows.some(r=>r.id===values[field]||r.libraryId===values[field]))throw new Error('Related record tidak valid.');proposal[field]=values[field];}
       const title=(values.title??proposal.title).trim(),content={...proposal.content,...values};if(!title)throw new Error('Title wajib diisi.');
       const technique=target.techniques.find(t=>t.id===proposal.relatedTechniqueId||t.libraryId===proposal.relatedTechniqueId);
-      const provenance={sourceType:proposal.sourceType==='ai'?'ai':'researcher',source:proposal.source,confidence:proposal.confidence,verified:false,notes:proposal.notes};
+      const provenance={sourceType:proposal.sourceType==='ai'?'ai':'unknown',source:proposal.source,confidence:proposal.confidence,verified:false,notes:proposal.notes};
       if(proposal.kind==='tool-recommendation'&&!store.get().toolInventory.some(t=>t.id===proposal.relatedToolId&&t.installed&&t.agentAccess!=='DENIED'&&t.capabilities.includes(content.type)))throw new Error('Tool unavailable; inventory/capability berubah.');
-      const metadata={agentProposalId:proposal.id,knowledgeProvenance:provenance,notes:values.notes||proposal.notes};
+      const metadata={agentProposalId:proposal.id,knowledgeProvenance:provenance,notes:values.notes||proposal.notes,...Object.fromEntries(['actorId','objectId','boundaryId','invariantId','signalId','confirmEvidence','rejectEvidence','alternativeExplanation','discriminatingTest'].filter(k=>proposal[k]).map(k=>[k,proposal[k]])),...(proposal.researchRanking?{priorityFactors:proposal.researchRanking.factors}:{}),...(proposal.evidenceIds.length?{evidenceIds:[...proposal.evidenceIds]}:{})};
       if(proposal.kind==='actor'){if(!content.name.trim())throw new Error('Actor name wajib diisi.');canonicalId=store.upsert(target.id,'actors',{name:content.name,authority:content.authority,...metadata}).id;}
       else if(proposal.kind==='object'){if(!content.name.trim())throw new Error('Object name wajib diisi.');canonicalId=store.upsert(target.id,'objects',{name:content.name,type:content.type||'Custom',owner:content.owner,tenant:content.tenant,state:content.state,sensitivity:content.sensitivity,...metadata}).id;}
       else if(proposal.kind==='boundary'){if(!content.from.trim()||!content.to.trim())throw new Error('Boundary from/to wajib diisi.');canonicalId=store.upsert(target.id,'boundaries',{from:content.from,to:content.to,channel:content.channel,authority:content.authority,trust:content.trust||'restricted',...metadata}).id;}
@@ -12151,15 +12776,18 @@ const AgentResearchService={
         canonicalId=store.upsert(target.id,'hypotheses',{title,techniqueId:technique?.id||'',invariant:content.invariant,expectedBehavior:content.expectedBehavior,potentialFailure:content.potentialFailure,who:content.who,what:content.what,object:content.object,state:content.state,authority:content.authority,context:content.context,status:'idea',queue:'Next',priority:'medium',confidence:'low',...metadata}).id;
       }else if(proposal.kind==='test-plan'){
         const h=target.hypotheses.find(h=>h.id===proposal.relatedHypothesisId);if(!h||!content.steps.trim())throw new Error('Reviewed hypothesis dan langkah test wajib tersedia.');
-        canonicalId=store.upsert(target.id,'testCases',{title,hypothesisId:h.id,authProfileId:h.authProfileId||'',techniqueId:technique?.id||h.techniqueId||'',preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult||h.expectedBehavior,actualResult:'',result:'not-tested',timestamp:now(),who:content.who||h.who,what:content.what||h.what,object:content.object||h.object,state:content.state||h.state,authority:content.authority||h.authority,context:content.context||h.context,evidenceIds:[],...(h.knowledgeLinks?{knowledgeLinks:{...h.knowledgeLinks}}:{}),...metadata}).id;
+        canonicalId=store.upsert(target.id,'testCases',{title,hypothesisId:h.id,authProfileId:h.authProfileId||'',actorId:h.actorId||'',objectId:h.objectId||'',boundaryId:h.boundaryId||'',signalId:h.signalId||'',authorityProfileId:h.authorityProfileId||'',techniqueId:technique?.id||h.techniqueId||'',preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult||h.expectedBehavior,actualResult:'',result:'not-tested',timestamp:now(),who:content.who||h.who,what:content.what||h.what,object:content.object||h.object,state:content.state||h.state,authority:content.authority||h.authority,context:content.context||h.context,...(h.knowledgeLinks?{knowledgeLinks:{...h.knowledgeLinks}}:{}),...metadata,evidenceIds:[]}).id;
       }else if(proposal.kind==='potential-finding'){
         const snapshot=proposal.observationSnapshot,test=target.testCases.find(t=>t.id===proposal.relatedTestId);
         const validTest=snapshot&&test&&(snapshot.testFingerprint?snapshot.testFingerprint===observationFingerprint(test):test.actualResult===snapshot.actualResult&&test.result===snapshot.testResult);
         const validEvidence=snapshot&&proposal.evidenceIds.length&&proposal.evidenceIds.every(id=>snapshot.evidence.some(e=>e.id===id&&target.evidence.some(live=>live.id===id&&(e.sourceFingerprint?observationFingerprint(live)===e.sourceFingerprint:SecretRedactor.redact((live.content||'').slice(0,8000))===e.content))));
-        if(!proposal.analysisCompleted||!validTest||!validEvidence)throw new Error('Observation/evidence berubah atau analisis false positive/duplicate belum lengkap. Replan diperlukan.');
+        const validTests=(snapshot?.tests||[]).every(row=>target.testCases.some(live=>live.id===row.id&&(row.sourceFingerprint?observationFingerprint(live)===row.sourceFingerprint:live.actualResult===row.actualResult&&live.result===row.result)));
+        if(!proposal.analysisCompleted||!validTest||!validEvidence||!validTests)throw new Error('Observation/evidence berubah atau analisis false positive/duplicate belum lengkap. Replan diperlukan.');
+        const signals=target.researchModel?analyzeAdvancedResearch(target).signals.filter(s=>(proposal.signalIds||[]).includes(s.id)):[];
+        if(decision==='CONFIRM_FINDING'&&(proposal.signalIds?.length&&!signals.length||signals.some(s=>AdversarialValidationService.assess(s,target.researchModel,target).status!=='READY_FOR_RESEARCHER_REVIEW')))throw new Error('NEEDS_TESTING: unresolved alternative explanation requires observed discriminating control evidence.');
         for(const k of ['actualResult','expectedResult','steps','who','what','object','state','authority','context'])content[k]=test[k]||'';
         if(['startingAuthority','securityRestriction','protectedResource','expectedResult','actualResult','steps','impact'].some(k=>!content[k].trim()))throw new Error('Lengkapi authority, restriction, resource, expected/actual, steps dan impact sebelum menerima finding.');
-        canonicalId=store.upsert(target.id,'findings',{title,status:decision==='CONFIRM_FINDING'?'confirmed':'draft',severity:'Unknown',techniqueId:technique?.id||test.techniqueId||'',testCaseId:test.id,startingAuthority:content.startingAuthority,securityRestriction:content.securityRestriction,protectedResource:content.protectedResource,unauthorizedOutcome:content.unauthorizedOutcome||content.actualResult,rootCause:content.rootCause,impact:content.impact,vulnerabilityClass:content.vulnerabilityClass,preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult,actualResult:content.actualResult,who:content.who,what:content.what,object:content.object,state:content.state,authority:content.authority,context:content.context,evidenceIds:[...proposal.evidenceIds],researchNotes:proposal.falsePositiveAnalysis+'\nDuplicate Risk: '+proposal.duplicateRisk,agentProposalId:proposal.id,...(test.knowledgeLinks?{knowledgeLinks:{...test.knowledgeLinks}}:{})}).id;
+        canonicalId=store.upsert(target.id,'findings',{title,status:decision==='CONFIRM_FINDING'?'confirmed':'draft',validationStatus:signals.some(s=>AdversarialValidationService.assess(s,target.researchModel,target).status!=='READY_FOR_RESEARCHER_REVIEW')?'NEEDS_TESTING':'READY_FOR_RESEARCHER_REVIEW',severity:'Unknown',techniqueId:technique?.id||test.techniqueId||'',testCaseId:test.id,testIds:proposal.testIds||[test.id],evidenceLinks:proposal.evidenceLinks||[],signalIds:proposal.signalIds||[],startingAuthority:content.startingAuthority,securityRestriction:content.securityRestriction,protectedResource:content.protectedResource,unauthorizedOutcome:content.unauthorizedOutcome||content.actualResult,rootCause:content.rootCause,impact:content.impact,vulnerabilityClass:content.vulnerabilityClass,preconditions:content.preconditions,steps:content.steps,expectedResult:content.expectedResult,actualResult:content.actualResult,who:content.who,what:content.what,object:content.object,state:content.state,authority:content.authority,context:content.context,evidenceIds:[...proposal.evidenceIds],researchNotes:proposal.falsePositiveAnalysis+'\nDuplicate Risk: '+proposal.duplicateRisk,agentProposalId:proposal.id,...(test.knowledgeLinks?{knowledgeLinks:{...test.knowledgeLinks}}:{})}).id;
       }else if(proposal.kind==='report'){
         const finding=target.findings.find(f=>f.id===proposal.relatedFindingId);if(!finding||finding.status!=='confirmed'||!finding.evidenceIds?.length||!content.reportMarkdown.trim())throw new Error('Confirmed finding/evidence/report tidak tersedia.');
         if(proposal.findingFingerprint&&proposal.findingFingerprint!==observationFingerprint(finding))throw new Error('Finding berubah; replan report sebelum menerima.');
@@ -12195,6 +12823,7 @@ function mergeAgentResearch(original,returned){
 }
 
 // SOURCE: storage
+
 
 
 
@@ -12293,6 +12922,12 @@ function migrateWorkspace(input) {
     for(const f of target.findings) {check(f.testCaseId,target.testCases,'test case');check(f.techniqueId,target.techniques,'technique');}
     for(const row of [...target.testCases,...target.findings]) for(const id of row.evidenceIds||[]) check(id,target.evidence,'evidence');
     for(const e of target.evidence) {check(e.testCaseId,target.testCases,'evidence test');check(e.findingId,target.findings,'evidence finding');}
+    if(target.researchModel!==undefined)validateResearchModel(target.researchModel,target);
+    for(const row of [...target.hypotheses,...target.testCases,...target.findings]){
+      for(const [field,rows] of [['actorId',target.actors],['objectId',target.objects],['authorityProfileId',target.researchEnvironment?.profiles||[]]])if(row[field]!==undefined){if(typeof row[field]!=='string')fail('Stable reference harus teks.');check(row[field],rows,field);}
+      if(row.testIds!==undefined){if(!Array.isArray(row.testIds)||row.testIds.some(id=>typeof id!=='string'))fail('testIds tidak valid.');for(const id of row.testIds)check(id,target.testCases,'multi-test');}
+      if(row.evidenceLinks!==undefined){if(!Array.isArray(row.evidenceLinks))fail('evidenceLinks tidak valid.');for(const link of row.evidenceLinks){if(!['SUPPORTS','CONTRADICTS','CONTROL','CONTEXT','PREREQUISITE','OUTCOME'].includes(link.role))fail('Evidence role tidak valid.');check(link.evidenceId,target.evidence,'evidence link');validateResearchProvenance(link.provenance,new Set(target.evidence.map(e=>e.id)));}}
+    }
   }
   return data;
 }
@@ -12385,6 +13020,7 @@ async function saveConnected(workspace) {
 
 
 
+
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
 const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'2.0.0',updatedAt:now(),domainPacks:[],toolInventory:builtinTools(),targets:[]});
 function newTarget(values) {
@@ -12404,7 +13040,8 @@ function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
     addTarget(values){writable();const target=newTarget(values);target.agentResearch??=emptyAgentResearch();target.researchRevision??=0;state.targets.push(target);touch(target);return target;},
     updateTarget(id,values,{canonical=true}={}){writable();const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target,canonical);},
     updateResearch(id,research,{canonical=false}={}){writable();validateAgentResearch(research);const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');if(research.messages?.some(m=>m.targetId!==id))throw new Error('Conversation target tidak valid.');target.agentResearch=structuredClone(research);touch(target,canonical);},
-    updateEnvironment(id,environment){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchEnvironment(environment,target);target.researchEnvironment=structuredClone(environment);for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId&&!environment.profiles.some(p=>p.id===row.authProfileId))row.authProfileId='';touch(target);},
+    updateEnvironment(id,environment){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchEnvironment(environment,target);target.researchEnvironment=structuredClone(environment);for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId&&!environment.profiles.some(p=>p.id===row.authProfileId))row.authProfileId='';repairResearchReferences(target);touch(target);},
+    updateResearchModel(id,model){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchModel(model,target);target.researchModel=snapshotResearchEvidence(model,target);target.agentResearch.replanFrom='hypothesis';touch(target);},
     saveTool(tool){writable();const tools=state.toolInventory.filter(t=>t.id!==tool.id);tools.push(tool);validateToolInventory(tools);state.toolInventory=tools;for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
     removeTool(id){writable();state.toolInventory=state.toolInventory.filter(t=>t.id!==id);for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
     deleteTarget(id){writable();state.targets=state.targets.filter(t=>t.id!==id);touch();},
@@ -12429,7 +13066,7 @@ function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
       if(collection==='testCases') {for(const f of target.findings) if(f.testCaseId===id) f.testCaseId='';for(const e of target.evidence) if(e.testCaseId===id) e.testCaseId='';}
       if(collection==='findings') for(const e of target.evidence) if(e.findingId===id) e.findingId='';
       if(collection==='evidence') for(const row of [...target.testCases,...target.findings]) row.evidenceIds=(row.evidenceIds||[]).filter(v=>v!==id);
-      touch(target);
+      repairResearchReferences(target);touch(target);
     },
     replace(input,{recover=false}={}){if(!recover)writable();const validated=migrateWorkspace(input);state=validated;if(recover)readOnly=false;notify();},
     reset(){writable();state=freshWorkspace();notify();}
@@ -12439,8 +13076,14 @@ function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
 // SOURCE: router
 // MODULE: Hash navigation works on HTTP and file:// without a server router.
 const routes=[['dashboard','Dashboard'],['research-details','Research Details'],['review-queue','Review Queue'],['manual-analysis','Manual Analysis'],['agent-history','Agent History'],['tool-inventory','Tool Inventory'],['agentic-settings','Agentic AI'],['targets','Target'],['research-environment','Research Environment'],['scope','Scope'],['attack-surface','Attack Surface'],['boundaries','Trust Boundaries'],['actors','Actors'],['objects','Objects'],['target-intelligence','Target Intelligence'],['domain-knowledge','Domain Knowledge'],['terminology','Terminology'],['business-flows','Business Flows'],['critical-assets','Critical Assets'],['research-questions','Research Questions'],['techniques','Techniques'],['hypotheses','Hypotheses'],['tests','Test Cases'],['queue','Research Queue'],['findings','Findings'],['evidence','Evidence'],['reports','Reports'],['ai','Research Assistant'],['ai-techniques','Technique Advisor'],['ai-tools','Tool Advisor'],['ai-gaps','AI Gap Analyzer'],['ai-findings','Finding Analyzer'],['notes','Research Notes'],['knowledge','Knowledge Base'],['tools','Tool Knowledge'],['helpers','Internal Helpers'],['coverage','Research Gaps'],['settings','Settings'],['ai-provider','AI Provider'],['backup','Backup']];
-const navigationGroups=[['Workspace',['dashboard','review-queue','manual-analysis']],['Research Progress',['research-details','agent-history']],['Research',['targets','research-environment','scope','attack-surface','boundaries','actors','objects']],['Intelligence',['target-intelligence','domain-knowledge','terminology','business-flows','critical-assets','research-questions']],['Testing',['techniques','hypotheses','tests','queue']],['Results',['findings','evidence','reports']],['AI',['ai','ai-techniques','ai-tools','ai-gaps','ai-findings']],['Knowledge',['notes','knowledge','tools','helpers','coverage']],['System',['settings','agentic-settings','tool-inventory','ai-provider','backup']]];
+// Keep deep links/imported bookmarks; only primary workflow destinations belong in the sidebar.
+const navigationGroups=[['Workspace',['dashboard','targets','scope']],['Research',['target-intelligence','attack-surface','business-flows','techniques','hypotheses','tests']],['Results',['evidence','findings','reports']],['Reference',['domain-knowledge','knowledge','helpers']],['AI',['ai','review-queue']],['System',['settings']]];
+const routeSections={surface:[['attack-surface','All'],['actors','Actors'],['objects','Objects'],['boundaries','Trust Boundaries']],intelligence:[['target-intelligence','Target Understanding'],['domain-knowledge','Domain Knowledge'],['terminology','Terminology'],['business-flows','Business Flows'],['critical-assets','Critical Assets'],['research-questions','Research Questions']],settings:[['settings','Settings'],['research-environment','Research Environment'],['tool-inventory','Tool Inventory'],['ai-provider','AI Provider'],['agentic-settings','Agentic AI'],['backup','Backup']],assistant:[['ai','Research Assistant'],['review-queue','Review Queue'],['research-details','Research Details'],['manual-analysis','Manual Analysis'],['agent-history','Agent History']]};
 const currentRoute=()=>{const key=location.hash.slice(1).split('?')[0];return routes.some(r=>r[0]===key)?key:'dashboard';};
+function routeSectionFor(route){
+  const key=['ai-techniques','ai-tools','ai-gaps','ai-findings'].includes(route)?'ai':route;
+  return Object.keys(routeSections).find(section=>routeSections[section].some(([candidate])=>candidate===key))||null;
+}
 function routeTo(key) {if(currentRoute()===key) window.dispatchEvent(new Event('hashchange'));else location.hash=key;}
 
 // SOURCE: forms
@@ -12475,6 +13118,26 @@ function formulaSuggestions(form,target) {
     const id='suggest-'+key;const list=el('datalist',{id},target[collection].map(row=>el('option',{value:row.name})));
     form.append(list);form.elements[key]?.setAttribute('list',id);
   }
+}
+function optionalFormFields(form,names,summary='Optional details'){
+  const details=el('details',{class:'wide'},el('summary',{},summary)),body=el('div',{class:'form-grid'});
+  for(const name of names){const input=form.elements[name];if(input&&!input.required){const wrapper=input.closest('label.field');if(wrapper)body.append(wrapper);}}
+  if(body.children.length){details.append(body);form.append(details);}return details;
+}
+
+// SOURCE: modules/research-navigation
+
+
+
+function researchSectionLinks(section,current){return el('nav',{class:'actions research-tabs','aria-label':'Related research pages'},(routeSections[section]||[]).map(([route,label])=>el('a',{href:'#'+route,'aria-current':route===current?'page':null},label)));}
+function researchRouteLinks(current){
+  const section=routeSectionFor(current);if(!section)return null;
+  return researchSectionLinks(section,['ai-techniques','ai-tools','ai-gaps','ai-findings'].includes(current)?'ai':current);
+}
+function renderNextResearchWork(ctx,target){
+  const root=panel('Next Manual Work',el('p',{class:'muted'},'Follow the evidence; optional AI does not replace manual testing or review.'));
+  for(const task of nextResearchWork(target))root.append(el('div',{class:'record'},button(task.kind+': '+task.title,()=>{if(task.kind==='Report')ctx.reportFindingId=task.id;else if(task.id&&['tests','hypotheses','findings'].includes(task.route))ctx.filterState[task.route]={query:task.title};routeTo(task.route);}),el('p',{class:'muted'},task.reason)));
+  root.append(el('div',{class:'actions'},el('a',{href:'#notes'},'Research Notes'),el('a',{href:'#coverage'},'Research Gaps')));return root;
 }
 
 // SOURCE: modules/targets
@@ -12814,6 +13477,7 @@ function renderAttackSurface(ctx,target) {
 
 
 
+
 const techniqueFields=[['name','Technique Name','required'],['rarity','Rarity','select',['very-rare','rare','uncommon','common']],['difficulty','Difficulty','select',['advanced','intermediate','easy']],['domain','Domain','select',['state','auth','api','browser','business','infra']],['description','Description','textarea'],['hypothesisTemplate','Hypothesis Template','textarea'],['testTemplate','Test Template','textarea'],['signalsText','Signals (satu per baris)','textarea'],['stopCondition','Stop Condition','textarea'],['notes','Research Notes','textarea']];
 techniqueFields.push(['securityInvariant','Security Invariant','textarea'],['falsePositivesText','False Positive Indicators (satu per baris)','textarea'],['researchPriority','Research Priority 0–100','number'],['duplicateRisk','Duplicate Risk 0–100','number'],['testingCost','Testing Cost 0–100','number']);
 const techniqueCategories=['Authorization','Authentication','Session','State Machine','Business Logic','OAuth / SSO','Tenant Isolation','File Boundary','Browser / Extension','API','Realtime / WebSocket','Async / Queue','Webhook','Cache','Parser Differential','Race Condition','Approval / Capability','Sandbox','Trust Boundary','Custom'];
@@ -12830,7 +13494,7 @@ function renderTechniques(ctx,target) {
     const toggles=el('div',{class:'actions'});
     for(const [key,label] of [['enabled','Enabled'],['tested','Tested'],['interesting','Interesting']]) {const input=el('input',{type:'checkbox','aria-label':label+' '+row.name});input.checked=!!row[key];input.addEventListener('change',()=>{ctx.store.upsert(target.id,'techniques',{id:row.id,[key]:input.checked});ctx.render();});toggles.append(el('label',{class:'actions'},input,label));}
     const detail=el('details',{class:'technique-details'},el('summary',{},'Invariant / hypothesis / test / signals / false positives / stop'),ctx.help(row.libraryId||'technique-library'),el('dl',{class:'details'},['securityInvariant','hypothesisTemplate','testTemplate','signals','falsePositiveIndicators','stopCondition','notes'].map(key=>[el('dt',{},({securityInvariant:'Security Invariant',hypothesisTemplate:'Hypothesis',testTemplate:'Test',signals:'Signal',falsePositiveIndicators:'False Positive Indicators',stopCondition:'Stop Condition',notes:'Notes'})[key]),el('dd',{},Array.isArray(row[key])?row[key].join('\n'):row[key]||'—')])));
-    root.append(el('article',{class:'record','data-agent-kind':'technique','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
+    root.append(el('article',{class:'record','data-agent-kind':'technique','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},el('span',{class:'rank'},row.rank?String(row.rank).padStart(2,'0'):'＋'),row.name),el('div',{class:'actions'},button('Buat hypothesis',()=>editHypothesis(ctx,target,null,{techniqueId:row.id,potentialFailure:row.hypothesisTemplate,notes:row.testTemplate}),'primary'),button('Manual Tools',()=>{ctx.toolTechniqueId=row.id;routeTo('tools');}),button('Edit',()=>editTechnique(row)))),el('div',{class:'badges'},badge(row.rarity),badge(row.difficulty),badge(row.domain)),el('p',{class:'muted'},row.description||''),toggles,detail));
   }
   return root;
 }
@@ -12840,12 +13504,13 @@ function renderTechniques(ctx,target) {
 
 
 
+
 const hypothesisStatuses=['idea','planned','testing','interesting','confirmed','rejected','duplicate','out-of-scope'];
 const queueStages=['Backlog','Next','Testing','Interesting','Done'];
 const techniqueOptions=target=>[['','— Pilih technique —'],...target.techniques.map(t=>[t.id,t.name])];
 function editHypothesis(ctx,target,row,defaults={}) {
   const fields=[['authProfileId','Authentication Context','select',authenticationOptions(target)],['title','Title','required'],['techniqueId','Technique','select',techniqueOptions(target)],['invariant','Security Invariant','textarea'],['expectedBehavior','Expected Behavior','textarea'],['potentialFailure','Potential Failure / Hypothesis','textarea'],...formulaFields(target),['priority','Priority','select',['high','medium','low']],['confidence','Confidence','select',['low','medium','high']],['status','Status','select',hypothesisStatuses],['queue','Research Queue','select',queueStages],['notes','Notes','textarea']];
-  editDialog(row?'Edit Hypothesis':'Create Hypothesis',fields,{priority:'medium',confidence:'low',status:'idea',queue:'Backlog',...defaults,...row},values=>{ctx.store.upsert(target.id,'hypotheses',{...(defaults.knowledgeLinks?{knowledgeLinks:defaults.knowledgeLinks}:{}),...row,...values});ctx.render();},form=>formulaSuggestions(form,target));
+  editDialog(row?'Edit Hypothesis':'Create Hypothesis',fields,{priority:'medium',confidence:'low',status:'idea',queue:'Backlog',...defaults,...row},values=>{ctx.store.upsert(target.id,'hypotheses',{...defaults,...row,...values});ctx.render();},form=>{formulaSuggestions(form,target);optionalFormFields(form,['authProfileId','techniqueId','priority','confidence','notes'],'Technique, authentication and planning details');});
 }
 function researchFilters(ctx,target,key,statuses,extra=[]) {
   return ctx.filters(key,[['techniqueId','Technique',target.techniques.map(t=>[t.id,t.name])],['status','Status',statuses],['who','Actor',target.actors.map(a=>a.name)],['object','Object',target.objects.map(o=>o.name)],...extra]);
@@ -12853,7 +13518,7 @@ function researchFilters(ctx,target,key,statuses,extra=[]) {
 function renderHypotheses(ctx,target) {
   const root=el('div',{},ctx.heading(ctx.route==='queue'?'Research Queue':'Hypotheses','Mulai dari invariant. Catat dugaan secara terpisah dari fakta yang teramati.',button('+ Create Hypothesis',()=>editHypothesis(ctx,target),'primary')));
   root.append(researchFilters(ctx,target,'hypotheses',hypothesisStatuses));
-  const rows=ctx.filtered(target.hypotheses,'hypotheses');
+  const rows=ResearchPriorityService.rank(ctx.filtered(target.hypotheses,'hypotheses'));
   const queue=el('div',{class:'queue'});
   for(const stage of queueStages) {
     const group=rows.filter(h=>(h.queue||'Backlog')===stage);
@@ -12861,9 +13526,9 @@ function renderHypotheses(ctx,target) {
     for(const h of group) {const select=el('select',{'aria-label':'Queue '+h.title},queueStages.map(s=>el('option',{value:s},s)));select.value=stage;select.addEventListener('change',()=>{ctx.store.upsert(target.id,'hypotheses',{id:h.id,queue:select.value});ctx.render();});column.append(el('div',{class:'queue-item'},h.title,select));}
     queue.append(column);
   }
-  root.append(queue);
+  if(ctx.route==='queue')root.append(queue);else root.append(el('details',{},el('summary',{},'Research Queue'),queue));
   if(!rows.length)root.append(empty());
-  for(const row of rows)root.append(el('article',{class:'record','data-agent-kind':'hypothesis','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Buat Test Case',()=>editTest(ctx,target,null,row),'primary'),button('Edit',()=>editHypothesis(ctx,target,row)),ctx.deleteButton(target,'hypotheses',row))),el('div',{class:'badges'},badge(row.status),badge('Priority: '+row.priority),badge('Confidence: '+row.confidence),badge(target.techniques.find(t=>t.id===row.techniqueId)?.name||'Tanpa technique')),formulaView(row),el('dl',{class:'details'},el('dt',{},'Invariant'),el('dd',{},row.invariant||'—'),el('dt',{},'Expected Behavior'),el('dd',{},row.expectedBehavior||'—'),el('dt',{},'Potential Failure · dugaan'),el('dd',{},row.potentialFailure||'—'),el('dt',{},'Notes'),el('dd',{},row.notes||'—'))));
+  for(const row of ctx.filtered(target.hypotheses,'hypotheses'))root.append(el('article',{class:'record','data-agent-kind':'hypothesis','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Buat Test Case',()=>editTest(ctx,target,null,row),'primary'),button('Edit',()=>editHypothesis(ctx,target,row)),ctx.deleteButton(target,'hypotheses',row))),el('div',{class:'badges'},badge(row.status),badge('Priority: '+row.priority),badge('Confidence: '+row.confidence),badge(target.techniques.find(t=>t.id===row.techniqueId)?.name||'Tanpa technique')),formulaView(row),el('dl',{class:'details'},el('dt',{},'Invariant'),el('dd',{},row.invariant||'—'),el('dt',{},'Expected Behavior'),el('dd',{},row.expectedBehavior||'—'),el('dt',{},'Potential Failure · dugaan'),el('dd',{},row.potentialFailure||'—'),el('dt',{},'Notes'),el('dd',{},row.notes||'—'))));
   return root;
 }
 
@@ -12880,8 +13545,8 @@ function editTest(ctx,target,row,hypothesis) {
   const fields=[['authProfileId','Authentication Context','select',authenticationOptions(target)],['title','Title','required'],['hypothesisId','Hypothesis','select',[['','— Tanpa hypothesis —'],...target.hypotheses.map(h=>[h.id,h.title])]],['techniqueId','Technique','select',techniqueOptions(target)],['preconditions','Preconditions','textarea'],['steps','Steps (satu langkah per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],...formulaFields(target),['requestNotes','Request Notes','textarea'],['responseNotes','Response Notes','textarea'],['result','Security Control','select',resultOptions],['timestamp','Timestamp (ISO / catatan waktu)']];
   const defaults={result:'not-tested',timestamp:now()};
   fields.push(['boundaryId','Trust Boundary','select',[['','— Tanpa boundary —'],...target.boundaries.map(b=>[b.id,b.from+' → '+b.to])]],['notes','Research Notes','textarea']);
-  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId','authProfileId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
-  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);});
+  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId','authProfileId','boundaryId','actorId','objectId','authorityProfileId','signalId','invariantId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=hypothesis.discriminatingTest||target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
+  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...defaults,...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);optionalFormFields(form,['authProfileId','techniqueId','boundaryId','requestNotes','responseNotes','timestamp','notes'],'Authentication, boundary and request details');});
 }
 function renderTests(ctx,target) {
   const root=el('div',{},ctx.heading('Test Cases','Catat langkah dan hasil pengujian manual. FAIL berarti security invariant gagal.',button('+ Create Test Case',()=>editTest(ctx,target),'primary')));
@@ -12907,7 +13572,7 @@ function extractEvidenceIds(values) {
   return {clean,evidenceIds};
 }
 function editEvidence(ctx,target,row,defaults={}) {
-  const fields=[['label','Label','required'],['type','Type','select',evidenceTypes],['path','Local path / reference (metadata saja)'],['description','Description','textarea'],['content','Text evidence / HTTP request / response','textarea'],['testCaseId','Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['findingId','Finding','select',[['','— Tanpa finding —'],...target.findings.map(f=>[f.id,f.title])]]];
+  const fields=[['label','Label','required'],['type','Type','select',evidenceTypes],['evidenceRole','Research relationship','select',['SUPPORTS','CONTRADICTS','CONTROL','CONTEXT','PREREQUISITE','OUTCOME']],['path','Local path / reference (metadata saja)'],['description','Description','textarea'],['content','Text evidence / HTTP request / response','textarea'],['testCaseId','Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['findingId','Finding','select',[['','— Tanpa finding —'],...target.findings.map(f=>[f.id,f.title])]]];
   editDialog(row?'Edit Evidence':'Attach Evidence',fields,{...defaults,...row},values=>{
     if(sensitiveEvidence(Object.values(values).join('\n')) && !confirm('Evidence mungkin mengandung token, cookie, password, API key, atau data pribadi. Redaksi dahulu jika belum aman. Simpan catatan ini?'))return false;
     const evidence=ctx.store.upsert(target.id,'evidence',{...row,...values});
@@ -13015,12 +13680,17 @@ ${text(finding.researchNotes)}
 
 
 
+
 const findingStatuses=['draft','investigating','confirmed','reported','resolved','duplicate','rejected','out-of-scope'];
 const severities=['Unknown','P1','P2','P3','P4','P5'];
 function editFinding(ctx,target,row,defaults={}) {
   const fields=[['title','Title','required'],['status','Status','select',findingStatuses],['severity','Severity · Researcher Estimate','select',severities],['affectedComponent','Affected Component'],['affectedVersion','Affected Version'],['vulnerabilityClass','Vulnerability Class'],['techniqueId','Technique','select',techniqueOptions(target)],['testCaseId','Source Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['startingAuthority','Starting Authority','textarea'],['securityRestriction','Security Restriction','textarea'],['protectedResource','Protected Resource'],['unauthorizedOutcome','Unauthorized Outcome','textarea'],['rootCause','Root Cause Hypothesis (belum terverifikasi)','textarea'],['impact','Impact (faktual; jangan melebihkan)','textarea'],['preconditions','Preconditions','textarea'],['steps','Steps to Reproduce (satu per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],['mitigation','Mitigation Suggestion','textarea'],['researchNotes','Research Notes','textarea']];
   fields.splice(8,0,...formulaFields(target));
-  editDialog(row?'Edit Finding':'Create Finding',fields,{status:'draft',severity:'Unknown',affectedComponent:target.asset,affectedVersion:target.version,...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'findings',{...(defaults.knowledgeLinks?{knowledgeLinks:defaults.knowledgeLinks}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||defaults.evidenceIds||[]);});
+  editDialog(row?'Edit Finding':'Create Finding',fields,{status:'draft',severity:'Unknown',affectedComponent:target.asset,affectedVersion:target.version,...defaults,...row},values=>{
+    const {clean,evidenceIds}=extractEvidenceIds(values),testIds=[];for(const key of Object.keys(clean))if(key.startsWith('sourceTest:')){testIds.push(clean[key]);delete clean[key];}if(clean.testCaseId&&!testIds.includes(clean.testCaseId))testIds.unshift(clean.testCaseId);
+    const evidenceLinks=evidenceIds.map(id=>{const evidence=target.evidence.find(e=>e.id===id);return {evidenceId:id,role:evidence.evidenceRole||'SUPPORTS',provenance:{status:'RESEARCHER_CONFIRMED',source:'Researcher finding evidence relationship',confidence:1,evidenceRefs:[id]}};});
+    ctx.store.upsert(target.id,'findings',{...defaults,...row,...clean,testIds,evidenceIds,evidenceLinks});ctx.render();
+  },form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||defaults.evidenceIds||[]);const selected=row?.testIds||defaults.testIds||[row?.testCaseId||defaults.testCaseId],group=el('fieldset',{class:'wide'},el('legend',{},'Source and control tests'));for(const test of target.testCases){const input=el('input',{type:'checkbox',name:'sourceTest:'+test.id,value:test.id});input.checked=selected.includes(test.id);group.append(el('label',{class:'actions'},input,test.title));}form.append(group);optionalFormFields(form,['affectedVersion','vulnerabilityClass','techniqueId','rootCause','mitigation','researchNotes'],'Classification, root-cause hypothesis and notes');});
 }
 function promoteTest(ctx,target,test) {
   const hypothesis=target.hypotheses.find(h=>h.id===test.hypothesisId);
@@ -13031,7 +13701,10 @@ function renderFindings(ctx,target) {
   const root=el('div',{},ctx.heading('Findings','Temuan yang dapat ditinjau, dilengkapi evidence, lalu disusun menjadi laporan.',button('+ Create Finding',()=>editFinding(ctx,target),'primary')));
   root.append(researchFilters(ctx,target,'findings',findingStatuses,[['severity','Severity',severities]]));
   const rows=ctx.filtered(target.findings,'findings');if(!rows.length)root.append(empty());
-  for(const row of rows)root.append(el('article',{class:'record','data-agent-kind':'finding','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Generate Report',()=>{ctx.reportFindingId=row.id;routeTo('reports');},'primary'),button('Attach Evidence',()=>editEvidence(ctx,target,null,{findingId:row.id})),button('Edit',()=>editFinding(ctx,target,row)),ctx.deleteButton(target,'findings',row))),el('div',{class:'badges'},badge(row.status),badge('Researcher Estimate: '+row.severity),badge(row.vulnerabilityClass||'Belum diklasifikasi')),el('dl',{class:'details'},el('dt',{},'Unauthorized Outcome'),el('dd',{},row.unauthorizedOutcome||'—'),el('dt',{},'Impact'),el('dd',{},row.impact||'Belum dicatat'),el('dt',{},'Root Cause · hipotesis'),el('dd',{},row.rootCause||'Belum dicatat')),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence')))));
+  for(const row of rows){root.append(el('article',{class:'record','data-agent-kind':'finding','data-agent-id':row.id},el('div',{class:'record-header'},el('h3',{},row.title),el('div',{class:'actions'},button('Generate Report',()=>{ctx.reportFindingId=row.id;routeTo('reports');},'primary'),button('Attach Evidence',()=>editEvidence(ctx,target,null,{findingId:row.id})),button('Edit',()=>editFinding(ctx,target,row)),ctx.deleteButton(target,'findings',row))),el('div',{class:'badges'},badge(row.status),badge('Researcher Estimate: '+row.severity),badge(row.vulnerabilityClass||'Belum diklasifikasi')),el('dl',{class:'details'},el('dt',{},'Unauthorized Outcome'),el('dd',{},row.unauthorizedOutcome||'—'),el('dt',{},'Impact'),el('dd',{},row.impact||'Belum dicatat'),el('dt',{},'Root Cause · hipotesis'),el('dd',{},row.rootCause||'Belum dicatat')),el('div',{class:'badges'},(row.evidenceIds||[]).map(id=>badge(target.evidence.find(e=>e.id===id)?.label||'Evidence')))));
+    const checklist=findingChecklist(row),candidates=[...target.findings.filter(f=>f.id!==row.id),...target.knowledgeBase.filter(k=>['Disclosed Reports','Finding Patterns','False Positives'].includes(k.category))];
+    const comparisons=candidates.map(candidate=>({candidate,result:duplicateComparison(row,candidate)})).filter(c=>c.result.matches.filter(m=>m.present).length>=2).sort((a,b)=>b.result.score-a.result.score).slice(0,3);
+    root.append(el('details',{class:'panel'},el('summary',{},'Review: '+row.title+' / '+checklist.filter(c=>!c.present).length+' completeness gaps'),el('p',{class:'muted'},'Completeness and text similarity do not establish validity, severity or duplicate status.'),el('ul',{},checklist.map(c=>el('li',{},(c.present?'Complete: ':'Missing: ')+c.label))),el('p',{},'Alternative explanations: check effective permission, target-policy exceptions, actor/object attribution, timing, and a matched control.'),comparisons.length?comparisons.map(({candidate,result})=>el('p',{},candidate.title+': '+result.status+' ('+result.score+'% text similarity)')):el('p',{},'Duplicate risk: Unknown; no comparable supplied root cause/boundary records.'),button('Compare Duplicate Details',()=>{ctx.helperFindingId=row.id;ctx.helperId='duplicate-comparator';routeTo('helpers');}),button('Edit Review Notes',()=>editFinding(ctx,target,row))));}
   return root;
 }
 
@@ -13058,7 +13731,67 @@ function renderReports(ctx,target) {
   root.append(controls,el('div',{class:'report-layout'},editor,preview));return root;
 }
 
+// SOURCE: modules/advanced-research
+
+
+
+
+
+
+
+
+function renderDiscoveryIntelligence(ctx,target,discovery){
+  const section=el('section',{style:'overflow-wrap:anywhere'},el('h3',{},'Discovery Intelligence'),el('p',{class:'muted'},'Bounded chains and target constraints. All explanations need researcher validation.'));
+  section.append(el('div',{class:'actions'},button('Review Constraints',()=>editDialog('Target constraints',[['constraints','Target-specific rules with condition/expected predicates (JSON)','textarea']],{constraints:JSON.stringify(target.researchModel.constraints||[],null,2)},v=>{ctx.store.updateResearchModel(target.id,{...structuredClone(target.researchModel),constraints:JSON.parse(v.constraints)});ctx.render();})),button('Extract Observation',()=>editDialog('Propose observation from structured raw evidence',[['evidenceId','Raw evidence','select',target.evidence.map(e=>[e.id,e.label||e.id])]],{},v=>{const raw=target.evidence.find(e=>e.id===v.evidenceId),proposal=ObservationExtractionService.propose(raw);editDialog('Review PROPOSED extracted observation',[['review','Extracted fields (read and correct raw evidence before accepting)','textarea']],{review:JSON.stringify(proposal,null,2)},v=>{if(v.review!==JSON.stringify(proposal,null,2))throw new Error('Update raw evidence and re-extract to change proposed fields.');const model=structuredClone(target.researchModel);model.observations.push(ObservationExtractionService.confirm(proposal,target,{reviewed:true}));ctx.store.updateResearchModel(target.id,model);ctx.render();});}))));
+  section.append(el('p',{},discovery.chains.length+' interesting chains · '+discovery.relationships.length+' relationships · '+discovery.contradictionRefs.length+' contradictions · '+discovery.unknowns.length+' unknowns'));
+  for(const relation of discovery.relationships.slice(0,3)){
+    const chain=discovery.chains.find(c=>c.id===relation.chainId),test=discovery.nextTests.find(t=>t.relationshipId===relation.id),competing=discovery.hypotheses.filter(h=>h.relationshipId===relation.id),questions=discovery.unknowns.filter(q=>relation.unknowns.includes(q.id)),defaults={actorId:relation.actorId,objectId:relation.objectId,boundaryId:relation.boundaryId,who:target.actors.find(a=>a.id===relation.actorId)?.name||'',object:target.objects.find(o=>o.id===relation.objectId)?.name||'',what:relation.operation,state:relation.state,authority:relation.authority,title:relation.summary,signalId:relation.id,evidenceIds:relation.evidenceRefs,potentialFailure:relation.summary,notes:relation.possibleExplanations.join('\n'),discriminatingTest:test?.title||'',queue:'Next'};
+    const remember=status=>editDialog('Review research path',[['reason','Researcher explanation','required']],{},v=>{const model=structuredClone(target.researchModel);model.failedPaths=[...(model.failedPaths||[]).filter(p=>p.relationshipId!==relation.id),FailedPathMemory.record(relation,target,status,v.reason)].slice(-200);ctx.store.updateResearchModel(target.id,model);ctx.render();});
+    section.append(el('article',{class:'record'},el('div',{class:'badges'},badge(relation.status),badge('Interest '+(chain?.ranking.score||0))),el('h4',{},relation.summary),el('p',{},'Chain: '+(chain?.nodes.join(' → ')||'Insufficient connected context')),el('p',{},'Competing explanations: '+(competing.length?competing.map(h=>h.family+' ('+h.confidence+')').join('; '):relation.possibleExplanations.join('; '))),questions.slice(0,2).map(q=>el('p',{},'UNKNOWN: '+q.question)),el('p',{},'Best next test: '+(test?.title||'Review scope and evidence before planning')),el('p',{},'Evidence: '+relation.evidenceRefs.join(', ')),el('div',{class:'actions'},button('Investigate',()=>editHypothesis(ctx,target,target.hypotheses.find(h=>h.signalId===relation.id),defaults)),button('Create Test',()=>{if(!test)return;editTest(ctx,target,null,{...defaults,id:'',expectedBehavior:'Separate relationship failure from permitted capability, propagation delay and observation mismatch'});}),button('Ask Agent',()=>{document.getElementById('agent-message-launcher')?.click();const input=document.getElementById('agent-message-input');if(input){input.value='@hypothesis Review #signal:'+relation.id;input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();}}),button('Mark Explained',()=>remember('EXPLAINED')),button('Reject',()=>remember('REJECTED')))));
+  }
+  return section;
+}
+function editResearchModel(ctx,target){
+  editDialog('Review research model', [['model','Events, observations, invariants and relationships (JSON)','textarea']],{model:JSON.stringify(target.researchModel||emptyResearchModel(),null,2)},values=>{ctx.store.updateResearchModel(target.id,JSON.parse(values.model));ctx.render();});
+}
+function recordResearchObservation(ctx,target,eventMode=false){
+  const choice=(rows,key='name')=>[['','Unknown'],...rows.map(r=>[r.id,r[key]||r.id])],fields=[['actorId','Actor','select',choice(target.actors)],['objectId','Object','select',choice(target.objects)],['boundaryId','Boundary','select',[['','Unknown'],...target.boundaries.map(b=>[b.id,b.from+' → '+b.to])]],['operation','Logical operation','required'],['role','Effective role'],['tenant','Object tenant'],['authorityTenant','Authority tenant'],['surface','Surface'],['state','State'],['effectiveAuthority','Effective authority'],['outcome','Observed outcome','select',['unknown','allowed','denied']],['expectedOutcome','Expected outcome'],['actualOutcome','Raw observation summary','textarea']];
+  if(eventMode)fields.push(['order','Logical order (optional)'],['timestamp','Timestamp (optional)'],['stateBefore','State before'],['stateAfter','State after'],['authorityBefore','Authority before','select',['unknown','granted','revoked']],['authorityAfter','Authority after','select',['unknown','granted','revoked']],['operationId','Distinct execution ID'],['amount','Settled amount (optional)']);
+  else if(target.researchModel)fields.push(['discriminatesSignalId','Discriminating control for','select',[['','No signal selected'],...analyzeAdvancedResearch(target).signals.map(s=>[s.id,s.type])]],['explanationOutcome','Researcher control interpretation','select',['unknown','primary','alternative']],['testId','Manual test','select',[['','No test selected'],...target.testCases.map(t=>[t.id,t.title])]]);
+  editDialog(eventMode?'Record timeline event':'Record normalized observation',fields,{outcome:'unknown',authorityBefore:'unknown',authorityAfter:'unknown'},values=>{
+    const {clean,evidenceIds}=extractEvidenceIds(values);if(!evidenceIds.length)throw new Error('Select raw evidence supporting this observation.');
+    for(const key of ['order','amount'])if(clean[key]!==undefined){if(clean[key].trim())clean[key]=Number(clean[key]);else delete clean[key];}
+    const model=structuredClone(target.researchModel||emptyResearchModel());model[eventMode?'events':'observations'].push({id:uuid(),...clean,evidenceRefs:evidenceIds,provenance:{status:'OBSERVED',source:'Researcher normalized raw evidence',confidence:1,evidenceRefs:evidenceIds}});ctx.store.updateResearchModel(target.id,model);ctx.render();
+  },form=>evidenceSelector(form,target,[]));
+}
+function decideResearchSignal(ctx,target,signal,status){
+  editDialog(status==='EXPLAINED'?'Mark explained':'Review signal',[['reason','Researcher explanation','required']],{reason:''},values=>{const model=structuredClone(target.researchModel);model.signalDecisions=model.signalDecisions.filter(d=>d.signalId!==signal.id);model.signalDecisions.push({signalId:signal.id,status,reason:values.reason});ctx.store.updateResearchModel(target.id,model);ctx.render();});
+}
+function renderAdvancedResearchPanel(ctx,target){
+  const root=panel('Research Signals',el('p',{class:'muted'},'Observed relationships suggest research directions. A contradiction requires validation.'));
+  root.append(el('div',{class:'actions'},button('Record Observation',()=>recordResearchObservation(ctx,target)),button('Record Event',()=>recordResearchObservation(ctx,target,true)),button('Review Model',()=>editResearchModel(ctx,target)),button('Normalize Test Observations',()=>{
+    const model=structuredClone(target.researchModel||emptyResearchModel());for(const test of target.testCases.filter(t=>t.actualResult?.trim()))if(!model.observations.some(o=>o.testId===test.id))model.observations.push(NormalizedObservationService.fromTest(test,target));ctx.store.updateResearchModel(target.id,model);ctx.render();
+  })));
+  if(!target.researchModel){root.append(el('p',{class:'muted'},'Record observations with raw evidence and stable actor/object references to compare authority, state, timing and surfaces.'));return root;}
+  const research=analyzeAdvancedResearch(target);
+  if(!research.signals.length)root.append(el('p',{},'No supported contradiction detected. Unknown ordering and missing evidence remain unresolved.'));
+  if(!research.scopeConfidence)root.append(el('p',{},'Scope or authorization is unclear. Complete Scope before planning tests.'));
+  for(const hypothesis of research.hypotheses.filter(h=>!h.signalId.startsWith('SIGNAL-')).slice(0,4)){
+    const signal=research.signals.find(s=>s.id===hypothesis.signalId),existing=target.hypotheses.find(h=>h.signalId===signal.id);
+    const defaults={title:hypothesis.title,signalId:signal.id,actorId:hypothesis.actorId,objectId:hypothesis.objectId,boundaryId:hypothesis.boundaryId,invariantId:hypothesis.invariantId,invariant:hypothesis.invariant,expectedBehavior:hypothesis.invariant,potentialFailure:hypothesis.reason,who:target.actors.find(a=>a.id===hypothesis.actorId)?.name||'',object:target.objects.find(o=>o.id===hypothesis.objectId)?.name||'',what:signal.operation,state:hypothesis.state,authority:hypothesis.authority,context:hypothesis.context,notes:[hypothesis.reason,'Confirm: '+hypothesis.confirmEvidence,'Reject: '+hypothesis.rejectEvidence,'Alternative: '+hypothesis.alternativeExplanation].join('\n'),evidenceIds:hypothesis.evidenceRefs,priorityFactors:hypothesis.researchRanking.factors,discriminatingTest:hypothesis.discriminatingTest,queue:'Next'};
+    root.append(el('article',{class:'record'},el('div',{class:'badges'},badge('Research interest '+hypothesis.researchRanking.score),badge(hypothesis.validation.status)),el('h3',{},hypothesis.title),el('p',{},signal.observed),el('p',{},'Strongest linked evidence: '+hypothesis.evidenceRefs.map(id=>target.evidence.find(e=>e.id===id)?.label||id).join(', ')),el('p',{},'Alternative: '+hypothesis.alternativeExplanation),el('p',{},'Next best test: '+hypothesis.discriminatingTest),el('div',{class:'actions'},button(existing?'Edit':'Investigate',()=>editHypothesis(ctx,target,existing,defaults)),button('Reject',()=>decideResearchSignal(ctx,target,signal,'REJECTED')),button('Mark Explained',()=>decideResearchSignal(ctx,target,signal,'EXPLAINED')),button('Ask Agent',()=>{
+      document.getElementById('agent-message-launcher')?.click();const input=document.getElementById('agent-message-input');if(input){input.value='@hypothesis Review '+signal.observed+' Alternative: '+hypothesis.alternativeExplanation+' '+hypothesis.evidenceRefs.slice(0,4).map(id=>'#evidence:'+id).join(' ');input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();}
+    }))));
+  }
+  root.append(renderDiscoveryIntelligence(ctx,target,research.discovery));
+  const questions=research.unresolvedQuestions.slice(0,4);if(questions.length)root.append(el('details',{},el('summary',{},'Unresolved Questions ('+research.unresolvedQuestions.length+')'),questions.map(q=>el('p',{},q))));
+  return root;
+}
+
 // SOURCE: modules/agent-research
+
+
+
 
 
 
@@ -13120,15 +13853,11 @@ function renderAgentDashboard(ctx,target){
   const root=el('div',{},ctx.heading('Research Dashboard',target.name+' · Agents research. Researcher reviews and decides.'));
   root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
   root.append(researchControls(ctx,target));
+  root.append(renderNextResearchWork(ctx,target));
+  if(target.researchModel||target.evidence.length)root.append(el('details',{class:'panel',...(target.researchModel?{open:true}:{})},el('summary',{},'Relationship Analysis'),renderAdvancedResearchPanel(ctx,target)));
   const progress=el('progress',{max:100,value:research.progress,'aria-label':'Research stage progress'});
-  root.append(panel('Research Progress',el('strong',{class:'agent-percent'},research.progress+'%'),progress,el('p',{},'Current Phase: '+phase),el('p',{},'Current Task: '+(research.currentTask||'Ready to start supervised research.')),el('p',{class:'muted'},research.reason),el('div',{class:'badges'},badge(ctx.agentBusy?'Running':research.state),badge('Execution: Supervised'),badge('No target requests')),el('details',{},el('summary',{},'Research stages'),stageProgress(research))));
+  root.append(el('details',{class:'panel'},el('summary',{},'Agent Research Progress'),panel('Research Progress',el('strong',{class:'agent-percent'},research.progress+'%'),progress,el('p',{},'Current Phase: '+phase),el('p',{},'Current Task: '+(research.currentTask||'Ready to start supervised research.')),el('p',{class:'muted'},research.reason),el('small',{},'Today estimated reservations: '+(Number.isFinite(research.dailyEstimatedCostUSD)?'$'+research.dailyEstimatedCostUSD.toFixed(4):'Unknown')+' / Actual billing: Unknown'),el('div',{class:'badges'},badge(ctx.agentBusy?'Running':research.state),badge('Execution: Supervised'),badge('No target requests')),el('details',{},el('summary',{},'Research stages'),stageProgress(research)))));
   root.append(el('div',{class:'stats'},[['Needs Your Review',pendingReviews(research).length],['Potential Findings',pendingReviews(research).filter(p=>p.kind==='potential-finding').length],['Manual Analysis',research.manualAnalysis.length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length]].map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
-  const nextWork=panel('Next Manual Work',el('p',{class:'muted'},'Agent progress does not replace manual testing or evidence.'));
-  const tasks=[...target.testCases.filter(t=>!t.result||t.result==='not-tested').slice(0,3).map(row=>({row,route:'tests',kind:'Test'})),...target.hypotheses.filter(h=>['Next','Testing'].includes(h.queue)).slice(0,3).map(row=>({row,route:'hypotheses',kind:'Hypothesis'}))];
-  for(const {row,route,kind} of tasks)nextWork.append(button(kind+': '+row.title,()=>{ctx.filterState[route]={query:row.title};routeTo(route);}));
-  if(!tasks.length)nextWork.append(el('p',{},'No pending manual tasks recorded. Add a hypothesis or review coverage gaps.'));
-  nextWork.append(el('div',{class:'badges'},coverageAnalysis(target).coverage.map(g=>badge(g.label+': '+g.covered+' / '+g.total))),button('Review Coverage Gaps',()=>routeTo('coverage')));root.append(nextWork);
-  root.append(panel('Important Discoveries',research.history.length?research.history.slice(-2).map(h=>el('p',{},h.resultSummary.slice(0,500))):el('p',{class:'muted'},'Observations, uncertainty dan draft analisis akan muncul setelah research berjalan.')),panel('System Status',el('p',{},'Agentic AI: '+(agentAvailable()?ctx.agentBusy?'Running':'Ready':'Disabled / Misconfigured')),el('p',{},'Available tools: '+ctx.store.get().toolInventory.filter(t=>t.installed&&t.agentAccess!=='DENIED').length+' / '+ctx.store.get().toolInventory.length),el('p',{},'Today estimated reservations: '+(Number.isFinite(research.dailyEstimatedCostUSD)?'$'+research.dailyEstimatedCostUSD.toFixed(4):'Unknown until a run')),el('small',{class:'muted'},'Stage progress is workflow completion, bukan security coverage. Actual provider billing: Unknown.')));
   root.append(el('details',{class:'panel'},el('summary',{},'Agent Activity'),historyTable(research,6)),panel('Research Workspace',el('div',{class:'actions'},[['research-details','Research Details'],['evidence','Evidence'],['findings','Findings'],['reports','Reports'],['knowledge','Knowledge'],['tool-inventory','Tool Inventory'],['agent-history','Agent History'],['agentic-settings','Agentic Settings']].map(([route,title])=>button(title,()=>routeTo(route))))));return root;
 }
 function editAgentProposal(ctx,target,proposal,decision){
@@ -13154,6 +13883,7 @@ function reviewProposalCard(ctx,target,proposal){
   card.append(el('p',{},'Target: '+target.name+' · Technique: '+(technique?.name||'Unknown')),el('p',{},'Evidence: '+(proposal.evidenceIds.map(id=>target.evidence.find(e=>e.id===id)?.label||'Missing').join(', ')||'None supplied')),el('small',{class:'muted'},'Recommended Decision: '+(proposal.recommendedDecision||'Researcher review')));
   if(proposal.kind==='tool-recommendation')card.append(el('p',{},'Tool: '+(ctx.store.get().toolInventory.find(t=>t.id===proposal.relatedToolId)?.name||'Tool unavailable')+' · Required capability: '+proposal.content.type+' · Execution mode: Manual'));
   if(proposal.kind==='potential-finding')card.append(el('dl',{class:'details'},['securityRestriction','who','object','state','expectedResult','actualResult','rootCause','impact'].map(k=>[el('dt',{},k),el('dd',{},proposal.content[k]||'Unknown')])),el('p',{},'False Positive Analysis: '+(proposal.falsePositiveAnalysis||'Pending')),el('p',{},'Duplicate Risk: '+(proposal.duplicateRisk||'Pending')));
+  if(proposal.validationStatus)card.append(el('p',{},'Adversarial validation: '+proposal.validationStatus),el('p',{},'Alternative: '+(proposal.alternativeExplanation||proposal.adversarialValidation?.map(v=>v.alternativeExplanation).join('; ')||'Review alternative explanations.')),el('p',{},'Discriminating test: '+(proposal.discriminatingTest||proposal.adversarialValidation?.map(v=>v.discriminatingTest).join('; ')||'Researcher review required.')));
   if(proposal.status==='PROPOSED'){
     const blocked=!!(ctx.agentBusy||ctx.agentMessageBusy)||proposal.stale;
     const controls=el('div',{class:'actions'},agentActionButton('Accept',()=>editAgentProposal(ctx,target,proposal,'ACCEPT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted,'primary'),agentActionButton(proposal.kind==='potential-finding'?'Edit Analysis':'Edit',()=>editAgentProposal(ctx,target,proposal,'EDIT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted),agentActionButton('Reject',()=>{AgentResearchService.decide(ctx.store,target,proposal.id,'REJECT');ctx.render();},!!(ctx.agentBusy||ctx.agentMessageBusy),'danger'));
@@ -13223,27 +13953,18 @@ function renderAgentResearch(ctx,target){
 
 
 
+
 function renderDashboard(ctx,target) {
   if(target&&ctx.aiConnection.agentic.enabled&&ctx.aiConnection.agentic.configured)return renderAgentDashboard(ctx,target);
   const root=el('div',{},ctx.heading('Research Dashboard',target?'Riset terstruktur, dari invariant hingga evidence.':'Buat workspace untuk memulai riset manual lintas program.',button(target?'+ New Hypothesis':'+ Create Target',()=>target?editHypothesis(ctx,target):editTarget(ctx),'primary')));
   if(!target){root.append(panel('Mulai dengan sebuah target',el('p',{class:'muted'},'Tentukan program dan scope, petakan actor serta object, pilih technique, lalu dokumentasikan pengujian. Seluruh data disimpan di browser ini.'),el('div',{class:'workflow'},['Target','Scope','Attack Surface','Technique','Hypothesis','Test','Finding','Report'].map((v,i)=>[i?'→ ':null,badge(v)]))),panel('Universal Formula',formulaView({who:'Actor',what:'Action',object:'Resource',state:'Lifecycle',authority:'Permission',context:'Environment'})));return root;}
   root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
-  const metrics=[['Hypotheses',target.hypotheses.length],['Tested',target.testCases.filter(t=>t.result!=='not-tested').length],['Interesting',target.testCases.filter(t=>t.result==='interesting').length+target.hypotheses.filter(h=>h.status==='interesting').length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length],['Rejected',target.hypotheses.filter(h=>h.status==='rejected').length+target.findings.filter(f=>f.status==='rejected').length],['Out of Scope',target.hypotheses.filter(h=>h.status==='out-of-scope').length+target.findings.filter(f=>f.status==='out-of-scope').length]];
-  root.append(el('div',{class:'stats'},metrics.map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
-  root.append(panel('Research Coverage',el('div',{class:'badges'},coverageAnalysis(target).coverage.map(group=>badge(group.label+': '+group.covered+' / '+group.total))),el('a',{href:'#coverage'},'Review untested actors, objects, states, boundaries, dan techniques →')));
-  root.append(panel('Universal Formula',formulaView({who:'Actor / role',what:'Protected action',object:'Owned resource',state:'Current lifecycle',authority:'Session / capability',context:'Tenant / origin'}),el('p',{class:'muted'},'Mulai dari security invariant lalu ubah satu dimensi setiap kali.')),el('div',{class:'workflow'},[['targets','Target'],['scope','Scope'],['attack-surface','Map Surface'],['techniques','Technique'],['hypotheses','Hypothesis'],['tests','Manual Test'],['evidence','Evidence'],['findings','Finding'],['reports','Report']].map(([route,label],i)=>[i?'→':null,el('a',{href:'#'+route},label)])));
-  const grid=el('div',{class:'grid'});
-  const progress=panel('Technique Progress',el('p',{class:'muted'},'Tested / seluruh test case yang dicatat per technique.'));
-  for(const technique of target.techniques.filter(t=>t.enabled)) {
-    const tests=target.testCases.filter(t=>t.techniqueId===technique.id),count=tests.filter(t=>t.result!=='not-tested').length;
-    const fill=el('div',{class:'progress-fill'});fill.style.width=(tests.length?count/tests.length*100:0)+'%';
-    progress.append(el('div',{class:'progress-row'},el('div',{class:'progress-label'},el('span',{},technique.name),el('span',{class:'mono'},count+' / '+tests.length)),el('div',{class:'progress-track'},fill)));
-  }
-  const queue=panel('Research Queue',el('p',{class:'muted'},'Prioritaskan pertanyaan yang akan diuji berikutnya.'));
-  const rows=target.hypotheses.filter(h=>['Next','Testing','Interesting'].includes(h.queue));
-  if(!rows.length)queue.append(empty('Pindahkan hypothesis ke Next atau Testing untuk mengisi antrean.'));
-  for(const row of rows)queue.append(el('div',{class:'record'},el('h3',{},row.title),badge(row.queue),el('p',{class:'muted'},row.invariant||'Invariant belum dicatat')));
-  queue.append(button('Buka hypotheses',()=>routeTo('hypotheses')));grid.append(progress,queue);root.append(grid);return root;
+  root.append(renderNextResearchWork(ctx,target));
+  root.append(el('div',{class:'stats'},[['Pending Tests',target.testCases.filter(t=>!t.result||t.result==='not-tested').length],['Results to Review',target.testCases.filter(t=>['failed','interesting'].includes(t.result)).length],['Findings',target.findings.length]].map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
+  root.append(el('div',{class:'workflow'},[['scope','Scope'],['target-intelligence','Understand Target'],['attack-surface','Actors / Objects'],['business-flows','Business Flow'],['hypotheses','Hypothesis'],['tests','Manual Test'],['evidence','Evidence'],['findings','Review Finding'],['reports','Report']].map(([route,label],i)=>[i?'?':null,el('a',{href:'#'+route},label)])));
+  if(target.researchModel||target.evidence.length)root.append(el('details',{class:'panel',...(target.researchModel?{open:true}:{})},el('summary',{},'Relationship Analysis'),renderAdvancedResearchPanel(ctx,target)));
+  root.append(el('details',{class:'panel'},el('summary',{},'Recorded Coverage'),el('p',{class:'muted'},'Recorded tests are not security assurance. Review untested dimensions when selecting the next hypothesis.'),el('div',{class:'badges'},coverageAnalysis(target).coverage.map(g=>badge(g.label+': '+g.covered+' / '+g.total))),el('a',{href:'#coverage'},'Review Research Gaps')));
+  return root;
 }
 
 // SOURCE: modules/notes
@@ -13270,7 +13991,7 @@ function renderSettings(ctx) {
   root.append(panel('System Health',el('div',{class:'health-grid'},[['Storage',ctx.storageHealthy?'IndexedDB · OK':'IndexedDB · Error'],['Autosave',ctx.persistence.isDirty()?'Pending':'Active'],['Schema','v2 · 2.0.0'],['AI',ai.status],['Privacy Mode',ai.privacyMode],['Provider',ai.provider||'—'],['Model',ai.model||'—']].map(([label,value])=>el('p',{},el('strong',{},label+': '),value)))));
   const backendForm=el('form',{class:'form-grid'});const backendURL=field(backendForm,['backendURL','Backend localhost origin'],ai.baseURL||'http://127.0.0.1:3001');backendForm.append(el('button',{type:'submit',class:'primary'},'Connect Backend'));backendForm.addEventListener('submit',event=>{event.preventDefault();void ctx.connectBackend(backendURL.value);});
   root.append(panel('Optional AI Provider',el('p',{class:'muted'},'Provider, model, dan API key diatur hanya di .env backend. AI_ENABLED=false tidak menginisialisasi provider. Connected menunjukkan konfigurasi siap; status dapat berubah setelah request provider.'),location.protocol==='file:'?el('p',{class:'notice'},'Untuk AI, jalankan Node backend dan buka http://127.0.0.1:3001. Core file:// tetap offline; backend menolak Origin null.'):backendForm));
-  root.append(panel('Workspace backups',el('p',{class:'muted'},'Export berisi seluruh target, research, evidence teks, serta draft laporan. Import mengganti workspace setelah validasi dan confirmation.'),el('div',{class:'actions'},button('Export Workspace',ctx.exportWorkspace,'primary'),button('Import Workspace',ctx.importWorkspace),button('Export Backup',()=>ctx.exportWorkspace(true)),button('Import Backup',ctx.importWorkspace))));
+  root.append(panel('Workspace backups',el('p',{class:'muted'},'Export berisi seluruh target, research, evidence teks, serta draft laporan. Import mengganti workspace setelah validasi dan confirmation.'),el('div',{class:'actions'},button('Export Workspace',ctx.exportWorkspace,'primary'),button('Import Workspace',ctx.importWorkspace),button('Export Backup',()=>ctx.exportWorkspace(true)))));
   const filePanel=panel('Optional · Connect workspace.json',el('p',{class:'muted'},'File ditulis hanya saat Anda menekan Save to workspace.json. Browser meminta izin native. Hubungan file perlu dibuat kembali setelah reload.'));
   if(window.showSaveFilePicker)filePanel.append(el('p',{},connectedFile.handle?'Terhubung: '+connectedFile.handle.name:'Belum ada file terhubung.'),el('div',{class:'actions'},button('Connect workspace.json',async()=>{try {await connectFile();ctx.render();}catch(error){if(error.name!=='AbortError')ctx.toast(error.message);}}),connectedFile.handle?button('Save to workspace.json',async()=>{try{const text=await reviewForSharing(structuredClone(ctx.store.get()),{allowOriginal:true,label:'connected backup'});if(text===null)return;await saveConnected(JSON.parse(text));ctx.toast('Workspace ditulis ke '+connectedFile.handle.name);}catch(error){ctx.toast('Gagal menulis file: '+error.message);}}):null));
   else filePanel.append(el('p',{class:'notice'},'File System Access API tidak tersedia di browser/context ini. Local persistence dan JSON export tetap tersedia.'));
@@ -13338,7 +14059,7 @@ function coveragePanels(target) {
 // MODULE: Local manual helper tools. Inputs never produce network requests or target actions.
 function renderHelpers(ctx,target) {
   const root=el('div',{},ctx.heading('Internal Research Helpers','Bangun catatan dan bandingkan observasi secara lokal.'));
-  const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
+  const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id,hidden:['trust-boundary','report-builder','gap-analyzer'].includes(h.id)&&ctx.helperId!==h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
   const kind=select.value;
   root.append(ctx.help(helperFeatures[kind]));
   if(kind==='authorization-matrix'||kind==='state-transition') {
@@ -13347,7 +14068,7 @@ function renderHelpers(ctx,target) {
     root.append(panel('Document expected controls',button('+ Add Row',()=>edit(),'primary')));
     const rows=target.helperRecords.filter(row=>row.type===kind);
     if(!rows.length)root.append(empty());
-    for(const row of rows)root.append(panel(kind==='authorization-matrix'?row.who+' → '+row.what+' → '+row.object:row.from+' → '+row.to,el('p',{class:'muted'},'Authority: '+(row.authority||'Unknown')),el('pre',{},row.expectedResult||row.invariant||''),el('p',{},row.notes||''),el('div',{class:'actions'},button('Edit',()=>edit(row)),ctx.deleteButton(target,'helperRecords',row))));
+    for(const row of rows)root.append(panel(kind==='authorization-matrix'?row.who+' → '+row.what+' → '+row.object:row.from+' → '+row.to,el('p',{class:'muted'},'Authority: '+(row.authority||'Unknown')),el('pre',{},row.expectedResult||row.invariant||''),el('p',{},row.notes||''),el('div',{class:'actions'},button('Review Hypothesis',()=>editHypothesis(ctx,target,null,{who:row.who||'',what:row.what||'',object:row.object||'',state:row.from||'',authority:row.authority||'',invariant:row.expectedResult||row.invariant||'',expectedBehavior:row.expectedResult||row.invariant||'',context:row.to?'Expected transition to '+row.to:'',title:'Review '+(row.what||'expected control'),notes:row.notes||''})),button('Edit',()=>edit(row)),ctx.deleteButton(target,'helperRecords',row))));
   }else if(kind==='trust-boundary')root.append(panel('Trust Boundary Mapper',el('p',{},'From → To, channel, authority, trust, dan notes disimpan di target.'),button('Open Trust Boundaries',()=>routeTo('boundaries'),'primary')));
   else if(kind==='evidence-comparator') {
     const form=el('form',{class:'form-grid'});const left=field(form,['left','Evidence A','textarea']),right=field(form,['right','Evidence B','textarea']);
@@ -13389,13 +14110,16 @@ function renderHelpers(ctx,target) {
 
 
 
+
+
 const aiOperations=[['research_advice','Research Assistant'],['analyze_scope','Analyze Scope'],['recommend_techniques','Technique Advisor'],['recommend_tools','Tool Advisor'],['recommend_helpers','Helper Advisor'],['research_questions','Research Questions'],['generate_hypotheses','Hypothesis Generator'],['analyze_finding','Finding Analyzer'],['false_positive_analysis','False Positive Analyzer'],['duplicate_analysis','Duplicate Analyzer'],['gap_analysis','Gap Analyzer'],['improve_report','Report Assistant'],['evidence_summary','Evidence Summarizer'],['safe_next_steps','Safe Next Steps'],['identify_restrictions','Restrictions']];
 const routeOperations={'ai-techniques':'recommend_techniques','ai-tools':'recommend_tools','ai-gaps':'gap_analysis','ai-findings':'analyze_finding'};
 function renderAI(ctx,target) {
+  if(ctx.route==='ai-gaps')return renderCoverage(ctx,target);
   const root=el('div',{},ctx.heading('AI Research Assistant','AI suggests. Rules constrain. Researcher decides. Semua output adalah draft untuk review.'));
   if(!aiConnection.enabled||!aiConnection.configured){root.append(panel('AI: '+aiConnection.status,el('p',{class:'muted'},'Workflow manual tetap tersedia. Konfigurasi provider dan model di .env backend, lalu hubungkan dari AI Provider Settings.'),button('AI Provider Settings',()=>routeTo('ai-provider'))));return root;}
   const form=el('form',{class:'form-grid'});
-  field(form,['operation','Operation','select',aiOperations],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
+  field(form,['operation','Operation','select',aiOperations.filter(([id])=>!localAdviceOperations.includes(id))],ctx.aiOperation||routeOperations[ctx.route]||'research_advice');
   const operationHelp=el('div',{class:'wide operation-help'});
   const updateOperationHelp=()=>operationHelp.replaceChildren(ctx.help(operationFeatures[form.elements.operation.value]));
   updateOperationHelp();form.elements.operation.addEventListener('change',updateOperationHelp);form.append(operationHelp);
@@ -13703,6 +14427,7 @@ function renderIntelligence(ctx,target){
 
 
 
+
 // MODULE: App composition. Research modules share a small context instead of owning persistence.
 let initial,startupError='';
 try {initial=await readLocal();}catch(error){startupError='Data lokal tidak dapat dimuat: '+error.message;}
@@ -13737,6 +14462,10 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     else if(route==='agentic-settings')content=renderAgenticSettings(ctx);
     else if(!target)content=el('div',{},ctx.heading(routes.find(r=>r[0]===route)[1],'Buat atau pilih target terlebih dahulu.',button('+ Create Target',()=>editTarget(ctx),'primary')),empty('Tidak ada target aktif.'));
     else {const renders={'research-environment':renderResearchEnvironment,'research-details':renderAgentResearch,'review-queue':renderAgentResearch,'manual-analysis':renderAgentResearch,'agent-history':renderAgentResearch,'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
+    if(!ctx.search.trim()){
+      const tabs=researchRouteLinks(route);
+      if(tabs){const heading=content.querySelector('.page-heading');if(heading)heading.after(tabs);else content.prepend(tabs);}
+    }
     view.replaceChildren(content);
     if(aiConnection.enabled&&aiConnection.agentic.enabled)for(const record of view.querySelectorAll('[data-agent-kind][data-agent-id]')){
       const action=button('Ask Agent',()=>agentMessages.select({kind:record.dataset.agentKind,id:record.dataset.agentId}),'agent-context-action');
@@ -13760,7 +14489,7 @@ function renderNavigation() {
   const nav=document.getElementById('navigation');nav.replaceChildren();
   for(const [group,keys] of navigationGroups){nav.append(el('div',{class:'nav-group'},group.toUpperCase()));
     if(group==='AI'&&!aiConnection.enabled){nav.append(el('span',{class:'ai-disabled'},'AI Assistant · '+aiConnection.status));continue;}
-    for(const key of keys)nav.append(el('a',{href:'#'+key},routes.find(r=>r[0]===key)[1]));
+    for(const key of keys){if(key==='review-queue'&&!aiConnection.agentic.enabled)continue;nav.append(el('a',{href:'#'+key},routes.find(r=>r[0]===key)[1]));}
   }
 }
 const agentMessages=createAgentMessagePanel(ctx);

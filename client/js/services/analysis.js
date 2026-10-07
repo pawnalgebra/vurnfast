@@ -1,15 +1,17 @@
 // MODULE: Deterministic manual helpers; recommendations never certify a vulnerability.
 export function coverageAnalysis(target) {
   const tested=target.testCases.filter(t=>t.result && t.result!=='not-tested');
-  const dimensions=[['Technique',target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name]),'techniqueId'],['Actor',target.actors.map(a=>[a.name,a.name]),'who'],['Object',target.objects.map(o=>[o.name,o.name]),'object'],['State',[...new Set([...target.objects.map(o=>o.state),...target.hypotheses.map(h=>h.state),...target.testCases.map(t=>t.state)].filter(Boolean))].map(s=>[s,s]),'state'],['Boundary',target.boundaries.map(b=>[b.id,b.from+' → '+b.to]),'boundaryId']];
-  const coverage=dimensions.map(([label,items,key])=>({label,total:items.length,covered:items.filter(([value])=>tested.some(t=>t[key]===value)).length,untested:items.filter(([value])=>!tested.some(t=>t[key]===value)).map(([,name])=>name)}));
+  const dimensions=[['Technique',target.techniques.filter(t=>t.enabled).map(t=>[t.id,t.name]),'techniqueId'],['Actor',target.actors.map(a=>[a.id,a.name]),'actorId'],['Object',target.objects.map(o=>[o.id,o.name]),'objectId'],['State',[...new Set([...target.objects.map(o=>o.state),...target.hypotheses.map(h=>h.state),...target.testCases.map(t=>t.state)].filter(Boolean))].map(s=>[s,s]),'state'],['Boundary',target.boundaries.map(b=>[b.id,b.from+' → '+b.to]),'boundaryId']];
+  const recordedMatch=(test,key,value,name)=>test[key]?test[key]===value:(key==='actorId'?test.who===name:key==='objectId'?test.object===name:false);
+  const coverage=dimensions.map(([label,items,key])=>({label,total:items.length,covered:items.filter(([value,name])=>tested.some(t=>recordedMatch(t,key,value,name))).length,untested:items.filter(([value,name])=>!tested.some(t=>recordedMatch(t,key,value,name))).map(([,name])=>name)}));
   const names=tested.map(t=>(target.techniques.find(v=>v.id===t.techniqueId)?.name||'')+' '+t.state).join(' ').toLowerCase();
   const gaps=[];if(!/revok|revoke|revocation|dicabut/.test(names))gaps.push('Belum ada revocation test yang dicatat.');if(!/async|queue|worker/.test(names))gaps.push('Belum ada async/queue test yang dicatat.');if(!/multi-surface|cross.surface|differential/.test(names))gaps.push('Belum ada differential multi-surface test yang dicatat.');
   return {coverage,gaps};
 }
 export function compareText(left,right) {
   const a=String(left).split('\n'),b=String(right).split('\n');
-  return [...new Set([...a,...b])].map(line=>({line,status:a.includes(line)&&b.includes(line)?'same':a.includes(line)?'left-only':'right-only'}));
+  const leftLines=new Set(a),rightLines=new Set(b);
+  return [...new Set([...a,...b])].map(line=>({line,status:leftLines.has(line)&&rightLines.has(line)?'same':leftLines.has(line)?'left-only':'right-only'}));
 }
 export function duplicateComparison(finding,candidate) {
   const fields=['rootCause','securityRestriction','vulnerabilityClass','affectedComponent','impact'];

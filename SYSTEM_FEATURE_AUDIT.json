@@ -1,0 +1,4437 @@
+{
+  "basis": "Static source and regression workflow audit; 1–5 ordinal judgement, no usage telemetry. Complexity/maintenance/AI cost are burdens; other dimensions are value. AI cost 0 means no model call in that feature path, not no CPU/storage cost.",
+  "primaryNavigation": {
+    "before": 40,
+    "after": 18,
+    "compatibleRoutes": 40
+  },
+  "features": [
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Removed non-decision metrics, repeated formulas, technique progress and repeated agent summaries; shared Next Manual Work now leads both dashboards.",
+      "workflowContribution": "Membantu memilih pekerjaan berikutnya berdasarkan riset yang sudah dicatat.",
+      "routes": [
+        "dashboard"
+      ],
+      "operation": null
+    },
+    {
+      "id": "targets",
+      "name": "Target Management",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Memisahkan riset tiap program dan menyediakan identitas target untuk laporan.",
+      "workflowContribution": "Memisahkan riset tiap program dan menyediakan identitas target untuk laporan.",
+      "routes": [
+        "targets"
+      ],
+      "operation": null
+    },
+    {
+      "id": "scope",
+      "name": "Scope Management",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Menentukan pertanyaan yang boleh diuji sebelum merencanakan tindakan.",
+      "workflowContribution": "Menentukan pertanyaan yang boleh diuji sebelum merencanakan tindakan.",
+      "routes": [
+        "scope"
+      ],
+      "operation": null
+    },
+    {
+      "id": "engagement-guard",
+      "name": "Engagement Guard",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Mengurangi lupa memeriksa izin, data, rate limit dan pembatasan.",
+      "workflowContribution": "Mengurangi lupa memeriksa izin, data, rate limit dan pembatasan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "rules-engine",
+      "name": "Hard Program Rules dan Rules Engine",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Menjaga rekomendasi mengikuti aturan engagement yang dicatat peneliti.",
+      "workflowContribution": "Menjaga rekomendasi mengikuti aturan engagement yang dicatat peneliti.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "actors",
+      "name": "Actors",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Actor CRUD remains inside Attack Surface and its contextual tabs; a standalone sidebar entry adds no capability.",
+      "workflowContribution": "Membuat perbedaan hak antarrole terlihat ketika menilai authorization.",
+      "routes": [
+        "actors"
+      ],
+      "operation": null
+    },
+    {
+      "id": "objects",
+      "name": "Objects",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Object CRUD remains inside Attack Surface and its contextual tabs.",
+      "workflowContribution": "Membantu membedakan object yang memang boleh diakses dari akses tidak sah.",
+      "routes": [
+        "objects"
+      ],
+      "operation": null
+    },
+    {
+      "id": "attack-surface",
+      "name": "Attack Surface Mapping",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menghubungkan pelaku, resource, komponen dan perpindahan authority.",
+      "workflowContribution": "Menghubungkan pelaku, resource, komponen dan perpindahan authority.",
+      "routes": [
+        "attack-surface"
+      ],
+      "operation": null
+    },
+    {
+      "id": "boundaries",
+      "name": "Trust Boundaries",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Boundary mapping remains inside Attack Surface; existing IDs/deep links survive.",
+      "workflowContribution": "Mengidentifikasi titik ketika izin/context dapat berubah atau hilang.",
+      "routes": [
+        "boundaries"
+      ],
+      "operation": null
+    },
+    {
+      "id": "technique-library",
+      "name": "Technique Library",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Memberi kerangka memilih pertanyaan keamanan yang sesuai arsitektur dan scope.",
+      "workflowContribution": "Memberi kerangka memilih pertanyaan keamanan yang sesuai arsitektur dan scope.",
+      "routes": [
+        "techniques"
+      ],
+      "operation": null
+    },
+    {
+      "id": "hypotheses",
+      "name": "Hypotheses",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Planning/metadata fields are optional details; queue is collapsed. All values and existing records survive.",
+      "workflowContribution": "Mencegah asumsi root cause atau impact dianggap sebagai fakta terlalu dini.",
+      "routes": [
+        "hypotheses"
+      ],
+      "operation": null
+    },
+    {
+      "id": "tests",
+      "name": "Test Cases",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Actual result and manual plan remain visible; authentication/request metadata is optional.",
+      "workflowContribution": "Memungkinkan review dan reproduksi dengan kondisi pengujian yang jelas.",
+      "routes": [
+        "tests"
+      ],
+      "operation": null
+    },
+    {
+      "id": "queue",
+      "name": "Research Queue",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "The same hypothesis planning board is optional within Hypotheses; no separate sidebar detour.",
+      "workflowContribution": "Memisahkan rencana prioritas berikutnya dari status kebenaran dugaan.",
+      "routes": [
+        "queue"
+      ],
+      "operation": null
+    },
+    {
+      "id": "evidence",
+      "name": "Evidence",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Mendukung reproduksi serta membatasi laporan pada bukti yang tersedia.",
+      "workflowContribution": "Mendukung reproduksi serta membatasi laporan pada bukti yang tersedia.",
+      "routes": [
+        "evidence"
+      ],
+      "operation": null
+    },
+    {
+      "id": "findings",
+      "name": "Findings dan Promotion",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Inline completeness, alternative explanations and local duplicate checks sit before report preparation.",
+      "workflowContribution": "Menyusun hasil test menjadi materi review dan laporan tanpa mencampur dugaan dengan fakta.",
+      "routes": [
+        "findings"
+      ],
+      "operation": null
+    },
+    {
+      "id": "reports",
+      "name": "Report Generator",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Menyajikan fakta dan evidence dalam struktur review yang konsisten.",
+      "workflowContribution": "Menyajikan fakta dan evidence dalam struktur review yang konsisten.",
+      "routes": [
+        "reports"
+      ],
+      "operation": null
+    },
+    {
+      "id": "notes",
+      "name": "Research Notes",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menyimpan observasi sementara, pertanyaan dan alasan keputusan tanpa memaksanya menjadi finding.",
+      "workflowContribution": "Menyimpan observasi sementara, pertanyaan dan alasan keputusan tanpa memaksanya menjadi finding.",
+      "routes": [
+        "notes"
+      ],
+      "operation": null
+    },
+    {
+      "id": "knowledge",
+      "name": "Knowledge Base",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menghindari pengulangan investigasi serta menyimpan alasan kontrol bekerja atau gagal.",
+      "workflowContribution": "Menghindari pengulangan investigasi serta menyimpan alasan kontrol bekerja atau gagal.",
+      "routes": [
+        "knowledge"
+      ],
+      "operation": null
+    },
+    {
+      "id": "tools",
+      "name": "Tool Knowledge dan Offline Tool Recommendation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menghubungkan kebutuhan observasi dengan alat yang relevan dalam batas izin.",
+      "workflowContribution": "Menghubungkan kebutuhan observasi dengan alat yang relevan dalam batas izin.",
+      "routes": [
+        "tools"
+      ],
+      "operation": null
+    },
+    {
+      "id": "helpers",
+      "name": "Internal Helpers",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menyediakan dukungan praktis riset tanpa membutuhkan provider AI.",
+      "workflowContribution": "Menyediakan dukungan praktis riset tanpa membutuhkan provider AI.",
+      "routes": [
+        "helpers"
+      ],
+      "operation": null
+    },
+    {
+      "id": "helper-authorization-matrix",
+      "name": "Authorization Matrix Builder",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Expected controls can open editable hypotheses instead of remaining isolated helper rows.",
+      "workflowContribution": "Membuat kontrol permission yang diharapkan eksplisit sebelum membandingkan role.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-state-transition",
+      "name": "State Transition Builder",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Transition notes can open editable hypotheses with state/authority context.",
+      "workflowContribution": "Mengidentifikasi kapan hak harus berubah sepanjang lifecycle.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-trust-boundary",
+      "name": "Trust Boundary Mapper",
+      "classification": "REMOVE",
+      "scores": {
+        "researchValue": 1,
+        "usageValue": 1,
+        "workflowImportance": 1,
+        "complexity": 1,
+        "maintenanceCost": 1,
+        "aiCost": 0,
+        "dataValue": 0,
+        "growthPotential": 1
+      },
+      "rationale": "Removed from normal helper picker: it only forwarded to canonical boundary CRUD. Compatibility mode remains.",
+      "workflowContribution": "Menggunakan satu tempat penyimpanan boundary agar mapping tetap konsisten.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-evidence-comparator",
+      "name": "Evidence Comparator",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Set lookup removes quadratic line membership scans without changing output ordering.",
+      "workflowContribution": "Membantu melihat perbedaan respons kontrol dan percobaan tanpa mengirim data ke AI.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-secret-redactor",
+      "name": "Secret Redactor",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Mengurangi data sensitif pada evidence, note, report, atau context AI yang Anda review.",
+      "workflowContribution": "Mengurangi data sensitif pada evidence, note, report, atau context AI yang Anda review.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-hypothesis-generator",
+      "name": "Hypothesis Generator — Offline Template",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Mempercepat penulisan dugaan sambil mempertahankan review peneliti.",
+      "workflowContribution": "Mempercepat penulisan dugaan sambil mempertahankan review peneliti.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-scope-checker",
+      "name": "Scope Checker",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu melihat data izin yang masih kurang sebelum meminta rekomendasi.",
+      "workflowContribution": "Membantu melihat data izin yang masih kurang sebelum meminta rekomendasi.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-finding-checklist",
+      "name": "Finding Checklist",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menunjukkan informasi dasar yang belum disediakan sebelum review/report.",
+      "workflowContribution": "Menunjukkan informasi dasar yang belum disediakan sebelum review/report.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-duplicate-comparator",
+      "name": "Duplicate Comparator",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Memberi petunjuk risiko issue sama sambil menampilkan ketidakpastian.",
+      "workflowContribution": "Memberi petunjuk risiko issue sama sambil menampilkan ketidakpastian.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-report-builder",
+      "name": "Report Builder",
+      "classification": "REMOVE",
+      "scores": {
+        "researchValue": 1,
+        "usageValue": 1,
+        "workflowImportance": 1,
+        "complexity": 1,
+        "maintenanceCost": 1,
+        "aiCost": 0,
+        "dataValue": 0,
+        "growthPotential": 1
+      },
+      "rationale": "Removed from normal helper picker: it only forwarded to Reports. Findings already provide the action.",
+      "workflowContribution": "Memberi akses langsung dari helper workflow ke generator deterministik.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "helper-gap-analyzer",
+      "name": "Research Gap Analyzer — Helper",
+      "classification": "REMOVE",
+      "scores": {
+        "researchValue": 1,
+        "usageValue": 1,
+        "workflowImportance": 1,
+        "complexity": 1,
+        "maintenanceCost": 1,
+        "aiCost": 0,
+        "dataValue": 0,
+        "growthPotential": 1
+      },
+      "rationale": "Removed from normal helper picker: the same coverage view is available from Next Manual Work. Compatibility mode remains.",
+      "workflowContribution": "Membantu mencari catatan pengujian berikutnya dari entri yang belum tercakup.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "coverage",
+      "name": "Research Gaps dan Research Coverage",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Stable actor/object IDs survive renames; legacy text snapshots still match when IDs are unavailable.",
+      "workflowContribution": "Mengubah backlog riset menjadi prioritas berbasis catatan yang tersedia.",
+      "routes": [
+        "coverage"
+      ],
+      "operation": null
+    },
+    {
+      "id": "research-priority",
+      "name": "Research Priority",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Prioritization remains a research heuristic; it never claims severity or exhaustiveness.",
+      "workflowContribution": "Mempertimbangkan nilai pembelajaran, biaya, scope, bukti dan duplicate risk.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "settings",
+      "name": "Settings dan System Health",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu melihat apakah catatan tersimpan dan backend opsional siap.",
+      "workflowContribution": "Membantu melihat apakah catatan tersimpan dan backend opsional siap.",
+      "routes": [
+        "settings"
+      ],
+      "operation": null
+    },
+    {
+      "id": "ai-provider",
+      "name": "AI Configuration dan Connection",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Provider settings remain contextual in Settings.",
+      "workflowContribution": "Mempertahankan workflow manual sekaligus memberi opsi AI tanpa menaruh key di browser.",
+      "routes": [
+        "ai-provider"
+      ],
+      "operation": null
+    },
+    {
+      "id": "ai-privacy",
+      "name": "AI Privacy Modes dan Context Preview",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membuat peneliti melihat data yang akan meninggalkan browser.",
+      "workflowContribution": "Membuat peneliti melihat data yang akan meninggalkan browser.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "ai",
+      "name": "Research Assistant",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Reasoning/refinement operations remain; four simple record/policy operations use local replacements. Identical valid requests reuse cache.",
+      "workflowContribution": "Membantu merumuskan pertanyaan, missing context dan langkah aman tanpa eksekusi pengujian.",
+      "routes": [
+        "ai"
+      ],
+      "operation": "research_advice"
+    },
+    {
+      "id": "ai-analyze-scope",
+      "name": "AI Analyze Scope",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Local policy checker replaces a provider call for exact supplied scope/rule assessment.",
+      "workflowContribution": "Mengidentifikasi informasi scope/rules yang masih kurang sebelum menyusun test.",
+      "routes": [],
+      "operation": "analyze_scope"
+    },
+    {
+      "id": "ai-techniques",
+      "name": "AI Technique Advisor",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Optional reasoning operation remains in one Research Assistant selector.",
+      "workflowContribution": "Membantu memilih invariant relevan tanpa menciptakan teknik di luar katalog target.",
+      "routes": [
+        "ai-techniques"
+      ],
+      "operation": "recommend_techniques"
+    },
+    {
+      "id": "ai-tools",
+      "name": "AI Tool Advisor",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Optional reasoning remains in the shared assistant; manual tool selection is contextual to Techniques.",
+      "workflowContribution": "Menghubungkan pertanyaan pengujian dengan alat observasi yang sesuai.",
+      "routes": [
+        "ai-tools"
+      ],
+      "operation": "recommend_tools"
+    },
+    {
+      "id": "ai-helper-advisor",
+      "name": "AI Helper Advisor",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Existing helper catalog is selected locally from records; no model ranking needed.",
+      "workflowContribution": "Mengarahkan peneliti ke fitur pencatatan atau review yang sesuai kebutuhan.",
+      "routes": [],
+      "operation": "recommend_helpers"
+    },
+    {
+      "id": "ai-questions",
+      "name": "AI Research Questions",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu mengurai ketidakjelasan sebelum mengubahnya menjadi hypothesis.",
+      "workflowContribution": "Membantu mengurai ketidakjelasan sebelum mengubahnya menjadi hypothesis.",
+      "routes": [],
+      "operation": "research_questions"
+    },
+    {
+      "id": "ai-hypothesis-generator",
+      "name": "AI Hypothesis Generator",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Mempercepat ide pengujian yang tetap harus disesuaikan dengan scope dan fakta.",
+      "workflowContribution": "Mempercepat ide pengujian yang tetap harus disesuaikan dengan scope dan fakta.",
+      "routes": [],
+      "operation": "generate_hypotheses"
+    },
+    {
+      "id": "ai-findings",
+      "name": "AI Finding Analyzer",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Finding reasoning stays optional in the shared assistant and selected message context.",
+      "workflowContribution": "Membantu mereview kelemahan argumen finding sebelum menyimpulkan atau melapor.",
+      "routes": [
+        "ai-findings"
+      ],
+      "operation": "analyze_finding"
+    },
+    {
+      "id": "ai-false-positive",
+      "name": "AI False Positive Analyzer",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji penjelasan alternatif sebelum menganggap observasi sebagai vulnerability.",
+      "workflowContribution": "Menguji penjelasan alternatif sebelum menganggap observasi sebagai vulnerability.",
+      "routes": [],
+      "operation": "false_positive_analysis"
+    },
+    {
+      "id": "ai-duplicate",
+      "name": "AI Duplicate Analyzer",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu meninjau kesamaan akar masalah dengan issue yang diketahui.",
+      "workflowContribution": "Membantu meninjau kesamaan akar masalah dengan issue yang diketahui.",
+      "routes": [],
+      "operation": "duplicate_analysis"
+    },
+    {
+      "id": "ai-gaps",
+      "name": "AI Gap Analyzer",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "One deterministic coverage analyzer replaces a duplicate gap page/model call; legacy route remains.",
+      "workflowContribution": "Membantu menanyakan actor/object/state/boundary atau lifecycle yang belum jelas.",
+      "routes": [
+        "ai-gaps"
+      ],
+      "operation": "gap_analysis"
+    },
+    {
+      "id": "ai-report-assistant",
+      "name": "AI Report Assistant",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu kejelasan tulisan tanpa mengubah keputusan faktual peneliti secara otomatis.",
+      "workflowContribution": "Membantu kejelasan tulisan tanpa mengubah keputusan faktual peneliti secara otomatis.",
+      "routes": [],
+      "operation": "improve_report"
+    },
+    {
+      "id": "ai-evidence-summary",
+      "name": "AI Evidence Summarizer",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu merangkum observasi panjang menjadi note yang bisa direview.",
+      "workflowContribution": "Membantu merangkum observasi panjang menjadi note yang bisa direview.",
+      "routes": [],
+      "operation": "evidence_summary"
+    },
+    {
+      "id": "ai-safe-next-steps",
+      "name": "AI Safe Next Steps",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu memperjelas langkah review berikutnya tanpa eksekusi target.",
+      "workflowContribution": "Membantu memperjelas langkah review berikutnya tanpa eksekusi target.",
+      "routes": [],
+      "operation": "safe_next_steps"
+    },
+    {
+      "id": "ai-restrictions",
+      "name": "AI Restrictions",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Existing rules engine supplies exact restrictions locally.",
+      "workflowContribution": "Membantu memeriksa batas yang mungkin terlupakan ketika menyusun test.",
+      "routes": [],
+      "operation": "identify_restrictions"
+    },
+    {
+      "id": "ai-review",
+      "name": "AI Suggestions — Preview, Accept, Edit, Reject",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Memisahkan draft model dari keputusan dan fakta yang disimpan peneliti.",
+      "workflowContribution": "Memisahkan draft model dari keputusan dan fakta yang disimpan peneliti.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "search",
+      "name": "Global Search dan List Filters",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menemukan catatan lama dan menyempitkan review tanpa mengganti data.",
+      "workflowContribution": "Menemukan catatan lama dan menyempitkan review tanpa mengganti data.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "workspace-storage",
+      "name": "Workspace Storage dan Autosave",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Mempertahankan catatan lokal serta mendukung recovery/migrasi dan perpindahan origin.",
+      "workflowContribution": "Mempertahankan catatan lokal serta mendukung recovery/migrasi dan perpindahan origin.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "backup",
+      "name": "Backup / Restore",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Backups are contextual under Settings; duplicate Import Backup/Import Workspace controls are reduced to one normal import action. Recovery retains its explicit Import Backup.",
+      "workflowContribution": "Menghindari kehilangan data browser dan membuat riset dapat dipindahkan.",
+      "routes": [
+        "backup"
+      ],
+      "operation": null
+    },
+    {
+      "id": "connected-file",
+      "name": "Connect workspace.json — Optional File Save",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menyediakan backup ke file yang sama tanpa menganggap autosave browser sebagai filesystem save.",
+      "workflowContribution": "Menyediakan backup ke file yang sama tanpa menganggap autosave browser sebagai filesystem save.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "reset",
+      "name": "Reset Workspace",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Memulai workspace baru ketika peneliti sudah menyimpan backup yang diperlukan.",
+      "workflowContribution": "Memulai workspace baru ketika peneliti sudah menyimpan backup yang diperlukan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "in-app-help",
+      "name": "Contextual Help dan Documentation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu pengguna belajar fitur dari tempat mereka sedang bekerja.",
+      "workflowContribution": "Membantu pengguna belajar fitur dari tempat mereka sedang bekerja.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "target-intelligence",
+      "name": "Target Intelligence",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu memahami bisnis sebelum menyusun pengujian teknologi.",
+      "workflowContribution": "Membantu memahami bisnis sebelum menyusun pengujian teknologi.",
+      "routes": [
+        "target-intelligence"
+      ],
+      "operation": null
+    },
+    {
+      "id": "domain-knowledge",
+      "name": "Domain Knowledge Packs dan Learning Mode",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menghubungkan istilah, pelaku, resource, flow, invariant, dan teknik secara terstruktur.",
+      "workflowContribution": "Menghubungkan istilah, pelaku, resource, flow, invariant, dan teknik secara terstruktur.",
+      "routes": [
+        "domain-knowledge"
+      ],
+      "operation": null
+    },
+    {
+      "id": "terminology",
+      "name": "Domain Terminology",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Terminology remains in contextual Target Understanding/Domain navigation.",
+      "workflowContribution": "Mencegah salah menafsirkan proses bisnis sebelum merancang test.",
+      "routes": [
+        "terminology"
+      ],
+      "operation": null
+    },
+    {
+      "id": "business-flows",
+      "name": "Business Flows dan Critical Transitions",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Mengubah proses bisnis menjadi pertanyaan keamanan yang mempunyai konteks.",
+      "workflowContribution": "Mengubah proses bisnis menjadi pertanyaan keamanan yang mempunyai konteks.",
+      "routes": [
+        "business-flows"
+      ],
+      "operation": null
+    },
+    {
+      "id": "critical-assets",
+      "name": "Critical Assets dan Sensitive Data",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Assets remain contextual to target/domain understanding.",
+      "workflowContribution": "Membantu menjelaskan resource terlindungi serta dampak yang perlu dibuktikan.",
+      "routes": [
+        "critical-assets"
+      ],
+      "operation": null
+    },
+    {
+      "id": "research-questions",
+      "name": "Domain Research Questions dan Invariant Conversion",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Questions stay connected to domain knowledge and hypothesis conversion.",
+      "workflowContribution": "Mengubah pemahaman bisnis menjadi rencana investigasi yang terarah.",
+      "routes": [
+        "research-questions"
+      ],
+      "operation": null
+    },
+    {
+      "id": "knowledge-provenance",
+      "name": "Knowledge Provenance dan Verification",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 5,
+        "usageValue": 5,
+        "workflowImportance": 5,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 5,
+        "growthPotential": 5
+      },
+      "rationale": "Mencegah inferensi perusahaan menjadi fakta hanya karena diterima ke workspace.",
+      "workflowContribution": "Mencegah inferensi perusahaan menjadi fakta hanya karena diterima ke workspace.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "knowledge-ai",
+      "name": "AI Knowledge Assistant",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu memahami bisnis tanpa mengarang fakta atau menjalankan pengujian.",
+      "workflowContribution": "Membantu memahami bisnis tanpa mengarang fakta atau menjalankan pengujian.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "knowledge-op-generate_target_knowledge",
+      "name": "Generate Target Knowledge",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "generate_target_knowledge"
+    },
+    {
+      "id": "knowledge-op-analyze_target",
+      "name": "Analyze Target",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "analyze_target"
+    },
+    {
+      "id": "knowledge-op-suggest_domains",
+      "name": "Suggest Domain",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "suggest_domains"
+    },
+    {
+      "id": "knowledge-op-explain_domain",
+      "name": "Explain Domain",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "explain_domain"
+    },
+    {
+      "id": "knowledge-op-explain_terminology",
+      "name": "Explain Terminology",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "explain_terminology"
+    },
+    {
+      "id": "knowledge-op-ask_about_target",
+      "name": "Ask About Target",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "ask_about_target"
+    },
+    {
+      "id": "knowledge-op-analyze_business_flow",
+      "name": "Analyze Business Flow",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "analyze_business_flow"
+    },
+    {
+      "id": "knowledge-op-identify_critical_assets",
+      "name": "Identify Critical Assets",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "identify_critical_assets"
+    },
+    {
+      "id": "knowledge-op-generate_security_invariants",
+      "name": "Generate Security Invariants",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "generate_security_invariants"
+    },
+    {
+      "id": "knowledge-op-generate_domain_questions",
+      "name": "Generate Research Questions",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "generate_domain_questions"
+    },
+    {
+      "id": "knowledge-op-recommend_domain_techniques",
+      "name": "Recommend Techniques — Domain",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 2,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "workflowContribution": "Membantu peneliti memahami context bisnis sambil menjaga provenance.",
+      "routes": [],
+      "operation": "recommend_domain_techniques"
+    },
+    {
+      "id": "agentic-research",
+      "name": "Agentic Research Orchestrator",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 5,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Supervised pipeline is optional; local contradictions/tests and shared manual work precede agent progress display.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "dashboard",
+        "research-details"
+      ],
+      "operation": null
+    },
+    {
+      "id": "agent-review",
+      "name": "Review Queue",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "review-queue"
+      ],
+      "operation": null
+    },
+    {
+      "id": "manual-analysis",
+      "name": "Manual Analysis",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Researcher corrections/replanning remain optional agent controls; manual notes are directly accessible from Next Manual Work.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "manual-analysis"
+      ],
+      "operation": null
+    },
+    {
+      "id": "agent-history",
+      "name": "Agent History",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "History remains contextual to agent workflow; repeated dashboard history summaries removed.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "agent-history"
+      ],
+      "operation": null
+    },
+    {
+      "id": "tool-inventory",
+      "name": "Tool Inventory",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Executable-capability inventory remains contextual in Settings and distinct from curated manual tool knowledge.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "tool-inventory"
+      ],
+      "operation": null
+    },
+    {
+      "id": "agentic-settings",
+      "name": "Agentic AI Settings",
+      "classification": "MERGE",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Optional agent settings remain contextual in Settings.",
+      "workflowContribution": "Mengurangi pekerjaan operasional dengan tetap mempertahankan keputusan peneliti.",
+      "routes": [
+        "agentic-settings"
+      ],
+      "operation": null
+    },
+    {
+      "id": "research-environment",
+      "name": "Target Research Environment",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Optional account/auth metadata stays linked from target dashboard/settings; never required for manual research.",
+      "workflowContribution": "Separate target metadata from secrets and enforce explicit program rules.",
+      "routes": [
+        "research-environment"
+      ],
+      "operation": null
+    },
+    {
+      "id": "agent-message",
+      "name": "Agent Message",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 5,
+        "maintenanceCost": 4,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Analyze selected research without leaving the workspace.",
+      "workflowContribution": "Analyze selected research without leaving the workspace.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_01",
+      "name": "State-Machine & Context Confusion",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Actor, object, state, authority, dan context harus konsisten pada setiap keputusan authorization.",
+      "workflowContribution": "Menguji invariant berikut: Actor, object, state, authority, dan context harus konsisten pada setiap keputusan authorization.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_02",
+      "name": "Async Authorization / Queue Revalidation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Worker harus memvalidasi kembali authority dan state saat job benar-benar dijalankan.",
+      "workflowContribution": "Menguji invariant berikut: Worker harus memvalidasi kembali authority dan state saat job benar-benar dijalankan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_03",
+      "name": "Approval / Capability Context Confusion",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Approval harus terikat pada actor, action, object, destination, context, dan lifecycle penggunaan yang diizinkan.",
+      "workflowContribution": "Menguji invariant berikut: Approval harus terikat pada actor, action, object, destination, context, dan lifecycle penggunaan yang diizinkan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_04",
+      "name": "Restart / Resume Persistence",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Restart/resume tidak boleh mengembalikan permission atau capability yang sudah tidak valid.",
+      "workflowContribution": "Menguji invariant berikut: Restart/resume tidak boleh mengembalikan permission atau capability yang sudah tidak valid.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_05",
+      "name": "Differential Multi-Surface Testing",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Semua surface harus menegakkan invariant authorization yang sama.",
+      "workflowContribution": "Menguji invariant berikut: Semua surface harus menegakkan invariant authorization yang sama.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_06",
+      "name": "Cross-Context / App-Extension-Browser Trust",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Pesan lintas browser/extension/app harus memvalidasi asal, destination, dan authority sebelum aksi terlindungi.",
+      "workflowContribution": "Menguji invariant berikut: Pesan lintas browser/extension/app harus memvalidasi asal, destination, dan authority sebelum aksi terlindungi.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_07",
+      "name": "Object Lifecycle & Revocation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Object yang revoked/deleted/expired tidak boleh tetap dapat diakses melalui authority lama.",
+      "workflowContribution": "Menguji invariant berikut: Object yang revoked/deleted/expired tidak boleh tetap dapat diakses melalui authority lama.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_08",
+      "name": "Race Condition / TOCTOU",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Pemeriksaan authority dan perubahan state harus konsisten terhadap interleaving transaksi.",
+      "workflowContribution": "Menguji invariant berikut: Pemeriksaan authority dan perubahan state harus konsisten terhadap interleaving transaksi.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_09",
+      "name": "Webhook / Callback Ownership",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Callback destination dan webhook harus tetap terikat pada owner dan tenant yang diotorisasi.",
+      "workflowContribution": "Menguji invariant berikut: Callback destination dan webhook harus tetap terikat pada owner dan tenant yang diotorisasi.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_10",
+      "name": "WebSocket / Realtime Stale Authorization",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Channel realtime harus memvalidasi authority terbaru setelah role/session/resource berubah.",
+      "workflowContribution": "Menguji invariant berikut: Channel realtime harus memvalidasi authority terbaru setelah role/session/resource berubah.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_11",
+      "name": "Parser Differential",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Parser di setiap surface harus menafsirkan object/action/context secara konsisten.",
+      "workflowContribution": "Menguji invariant berikut: Parser di setiap surface harus menafsirkan object/action/context secara konsisten.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_12",
+      "name": "Cache Authorization & Variant Confusion",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Cache harus memisahkan protected content berdasarkan authority, tenant, dan variant yang relevan.",
+      "workflowContribution": "Menguji invariant berikut: Cache harus memisahkan protected content berdasarkan authority, tenant, dan variant yang relevan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_13",
+      "name": "OAuth / SSO / Account Linking",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Identitas, issuer, session, dan account linking harus terikat pada akun yang benar.",
+      "workflowContribution": "Menguji invariant berikut: Identitas, issuer, session, dan account linking harus terikat pada akun yang benar.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_14",
+      "name": "Cross-Tenant / Workspace Isolation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Authority suatu tenant tidak boleh digunakan untuk resource tenant lain.",
+      "workflowContribution": "Menguji invariant berikut: Authority suatu tenant tidak boleh digunakan untuk resource tenant lain.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_15",
+      "name": "File / Share / Export Boundary",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: File, share, dan export harus menegakkan owner, ACL, expiry, dan revocation secara konsisten.",
+      "workflowContribution": "Menguji invariant berikut: File, share, dan export harus menegakkan owner, ACL, expiry, dan revocation secara konsisten.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_16",
+      "name": "BFLA / Vertical Privilege Escalation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Role rendah tidak boleh menjalankan fungsi yang membutuhkan role lebih tinggi.",
+      "workflowContribution": "Menguji invariant berikut: Role rendah tidak boleh menjalankan fungsi yang membutuhkan role lebih tinggi.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_17",
+      "name": "IDOR / BOLA / Object Ownership",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Identifier object tidak boleh menggantikan pemeriksaan kepemilikan dan authorization.",
+      "workflowContribution": "Menguji invariant berikut: Identifier object tidak boleh menggantikan pemeriksaan kepemilikan dan authorization.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_18",
+      "name": "Business Logic State Transition",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Transisi business state harus memenuhi prasyarat dan authority yang berlaku.",
+      "workflowContribution": "Menguji invariant berikut: Transisi business state harus memenuhi prasyarat dan authority yang berlaku.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_19",
+      "name": "Authentication & Session Lifecycle",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Session yang expired/revoked/logout tidak boleh tetap memberikan authority aktif.",
+      "workflowContribution": "Menguji invariant berikut: Session yang expired/revoked/logout tidak boleh tetap memberikan authority aktif.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "tech_20",
+      "name": "Basic Validation & Misconfiguration With Impact",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 2,
+        "maintenanceCost": 2,
+        "aiCost": 0,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Menguji invariant berikut: Validasi dan konfigurasi harus menjaga protected outcome sesuai batas authority yang ditentukan.",
+      "workflowContribution": "Menguji invariant berikut: Validasi dan konfigurasi harus menjaga protected outcome sesuai batas authority yang ditentukan.",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "relationship-analysis",
+      "name": "Normalized observations / causal graph / contradictions",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Evidence-derived state/authority reasoning helps identify what requires a matched control. Scope and raw provenance remain authoritative.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "chain-discovery",
+      "name": "Bounded multi-hop discovery",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Retain bounded candidates and explicit omissions; templates are research aids, not novelty or vulnerability proof.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "target-constraints",
+      "name": "Reviewed target constraint evaluation",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Distinguishes target policy from generic security assumptions.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "uncertainty-competing",
+      "name": "Uncertainty / competing explanations",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Keeps UNKNOWN and required evidence visible; does not settle explanations through model confidence.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "next-test-ranking",
+      "name": "Information-gain manual test selection",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Retain useful matched controls, describe fixed scoring/template limits honestly.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "observation-extraction",
+      "name": "Reviewed structured observation extraction",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Proposed fields require unchanged raw input and researcher review.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "logical-operation",
+      "name": "Logical operation matching",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Explicit business intent/object/context compare replaces misleading URL-only comparisons.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "failed-path-memory",
+      "name": "Reviewed rejected/explained path memory",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Avoids repeated hypotheses until related dependencies change.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "context-retrieval",
+      "name": "Dependency-aware context selection",
+      "classification": "STRENGTHEN",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Set lookups improve selection; evidence omissions cap conclusions.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    },
+    {
+      "id": "result-cache",
+      "name": "Research and model result caches",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 4,
+        "maintenanceCost": 3,
+        "aiCost": 0,
+        "dataValue": 4,
+        "growthPotential": 4
+      },
+      "rationale": "Removed nested discovery cache; one graph analysis cache tracks all mapping dependencies. Advisor and provider-scoped specialist caches stay bounded.",
+      "workflowContribution": "Observation -> hypothesis -> discriminating test -> evidence review",
+      "routes": [],
+      "operation": null
+    }
+  ],
+  "files": [
+    {
+      "path": "client/js/app.js",
+      "lines": 115,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/storage.js",
+        "client/js/store.js",
+        "client/js/router.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/targets.js",
+        "client/js/modules/scope.js",
+        "client/js/modules/attack-surface.js",
+        "client/js/modules/techniques.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/tests.js",
+        "client/js/modules/evidence.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/reports.js",
+        "client/js/modules/notes.js",
+        "client/js/modules/settings.js",
+        "client/js/modules/knowledge.js",
+        "client/js/modules/tools.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/coverage.js",
+        "client/js/modules/research-navigation.js",
+        "client/js/modules/ai.js",
+        "client/js/services/ai-client.js",
+        "client/js/help.js",
+        "client/js/modules/intelligence.js",
+        "client/js/services/knowledge-search.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/research-environment.js",
+        "client/js/modules/agent-message-panel.js",
+        "client/js/services/share-review.js"
+      ],
+      "incoming": [],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": []
+    },
+    {
+      "path": "client/js/forms.js",
+      "lines": 38,
+      "imports": [
+        "client/js/utils.js"
+      ],
+      "incoming": [
+        "client/js/modules/advanced-research.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/attack-surface.js",
+        "client/js/modules/evidence.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/intelligence.js",
+        "client/js/modules/knowledge.js",
+        "client/js/modules/research-environment.js",
+        "client/js/modules/scope.js",
+        "client/js/modules/settings.js",
+        "client/js/modules/targets.js",
+        "client/js/modules/techniques.js",
+        "client/js/modules/tests.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "field",
+        "editDialog",
+        "formulaFields",
+        "formulaSuggestions",
+        "optionalFormFields"
+      ]
+    },
+    {
+      "path": "client/js/help.js",
+      "lines": 23,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/feature-registry.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "documentationURL",
+        "featureHelp",
+        "routeHelp"
+      ]
+    },
+    {
+      "path": "client/js/icons.js",
+      "lines": 8,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "companionIcon"
+      ]
+    },
+    {
+      "path": "client/js/loader.js",
+      "lines": 7,
+      "imports": [],
+      "incoming": [],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": []
+    },
+    {
+      "path": "client/js/modules/advanced-research.js",
+      "lines": 56,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/services/research-model.js",
+        "client/js/services/advanced-research.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/evidence.js",
+        "client/js/modules/tests.js",
+        "client/js/services/discovery-intelligence.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-research.js",
+        "client/js/modules/dashboard.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderAdvancedResearchPanel"
+      ]
+    },
+    {
+      "path": "client/js/modules/agent-message-panel.js",
+      "lines": 206,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/icons.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/ai-client.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/message-attachments.js",
+        "client/js/services/related-terms.js",
+        "client/js/services/research-context-builder.js",
+        "client/js/services/redactor.js",
+        "client/js/router.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "createAgentMessagePanel"
+      ]
+    },
+    {
+      "path": "client/js/modules/agent-research.js",
+      "lines": 156,
+      "imports": [
+        "client/js/modules/research-navigation.js",
+        "client/js/services/environment.js",
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/router.js",
+        "client/js/modules/attack-surface.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/ai-client.js",
+        "client/js/services/redactor.js",
+        "client/js/services/analysis.js",
+        "client/js/modules/advanced-research.js",
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/dashboard.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderAgentDashboard",
+        "renderToolInventory",
+        "renderAgenticSettings",
+        "renderAgentResearch"
+      ]
+    },
+    {
+      "path": "client/js/modules/ai.js",
+      "lines": 68,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/services/ai-client.js",
+        "client/js/services/context.js",
+        "client/js/services/redactor.js",
+        "client/js/services/ai-schema.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/router.js",
+        "client/js/templates/report-id.js",
+        "client/js/feature-registry.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/local-advice.js",
+        "client/js/modules/coverage.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "aiOperations",
+        "renderAI"
+      ]
+    },
+    {
+      "path": "client/js/modules/attack-surface.js",
+      "lines": 20,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/agent-research.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "actorFields",
+        "objectFields",
+        "boundaryFields",
+        "renderAttackSurface"
+      ]
+    },
+    {
+      "path": "client/js/modules/coverage.js",
+      "lines": 11,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/services/analysis.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/helpers.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderCoverage",
+        "coveragePanels"
+      ]
+    },
+    {
+      "path": "client/js/modules/dashboard.js",
+      "lines": 21,
+      "imports": [
+        "client/js/services/environment.js",
+        "client/js/utils.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/targets.js",
+        "client/js/services/analysis.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/research-navigation.js",
+        "client/js/modules/advanced-research.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderDashboard"
+      ]
+    },
+    {
+      "path": "client/js/modules/evidence.js",
+      "lines": 39,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/advanced-research.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/tests.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "evidenceTypes",
+        "sensitiveEvidence",
+        "evidenceSelector",
+        "extractEvidenceIds",
+        "editEvidence",
+        "renderEvidence"
+      ]
+    },
+    {
+      "path": "client/js/modules/findings.js",
+      "lines": 33,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/evidence.js",
+        "client/js/services/analysis.js",
+        "client/js/router.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/tests.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "findingStatuses",
+        "severities",
+        "editFinding",
+        "promoteTest",
+        "renderFindings"
+      ]
+    },
+    {
+      "path": "client/js/modules/helpers.js",
+      "lines": 53,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/knowledge-data.js",
+        "client/js/services/redactor.js",
+        "client/js/services/context.js",
+        "client/js/services/rules.js",
+        "client/js/services/analysis.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/coverage.js",
+        "client/js/router.js",
+        "client/js/feature-registry.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderHelpers"
+      ]
+    },
+    {
+      "path": "client/js/modules/hypotheses.js",
+      "lines": 32,
+      "imports": [
+        "client/js/services/environment.js",
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/modules/tests.js",
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/advanced-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/intelligence.js",
+        "client/js/modules/techniques.js",
+        "client/js/modules/tests.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "hypothesisStatuses",
+        "queueStages",
+        "techniqueOptions",
+        "editHypothesis",
+        "researchFilters",
+        "renderHypotheses"
+      ]
+    },
+    {
+      "path": "client/js/modules/intelligence.js",
+      "lines": 229,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/domain-schema.js",
+        "client/js/services/knowledge-schema.js",
+        "client/js/services/knowledge-context.js",
+        "client/js/services/ai-client.js",
+        "client/js/services/redactor.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/router.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "knowledgeBadges",
+        "renderIntelligence"
+      ]
+    },
+    {
+      "path": "client/js/modules/knowledge.js",
+      "lines": 11,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "knowledgeCategories",
+        "renderKnowledge"
+      ]
+    },
+    {
+      "path": "client/js/modules/notes.js",
+      "lines": 12,
+      "imports": [
+        "client/js/utils.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderNotes"
+      ]
+    },
+    {
+      "path": "client/js/modules/reports.js",
+      "lines": 22,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/templates/report-id.js",
+        "client/js/services/research-integrity.js",
+        "client/js/services/share-review.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderReports"
+      ]
+    },
+    {
+      "path": "client/js/modules/research-environment.js",
+      "lines": 66,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/modules/targets.js",
+        "client/js/router.js",
+        "client/js/services/environment.js",
+        "client/js/services/secret-store.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderResearchEnvironment"
+      ]
+    },
+    {
+      "path": "client/js/modules/research-navigation.js",
+      "lines": 14,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/router.js",
+        "client/js/services/research-workflow.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/dashboard.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "researchSectionLinks",
+        "researchRouteLinks",
+        "renderNextResearchWork"
+      ]
+    },
+    {
+      "path": "client/js/modules/scope.js",
+      "lines": 18,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "scopeFields",
+        "guards",
+        "renderScope"
+      ]
+    },
+    {
+      "path": "client/js/modules/settings.js",
+      "lines": 18,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/storage.js",
+        "client/js/forms.js",
+        "client/js/services/share-review.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "renderSettings"
+      ]
+    },
+    {
+      "path": "client/js/modules/targets.js",
+      "lines": 18,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/router.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/research-environment.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "targetFields",
+        "editTarget",
+        "renderTargets"
+      ]
+    },
+    {
+      "path": "client/js/modules/techniques.js",
+      "lines": 25,
+      "imports": [
+        "client/js/router.js",
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/modules/hypotheses.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "techniqueCategories",
+        "renderTechniques"
+      ]
+    },
+    {
+      "path": "client/js/modules/tests.js",
+      "lines": 23,
+      "imports": [
+        "client/js/services/environment.js",
+        "client/js/utils.js",
+        "client/js/forms.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/evidence.js",
+        "client/js/modules/findings.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/advanced-research.js",
+        "client/js/modules/hypotheses.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "UI/review actions",
+      "exports": [
+        "resultOptions",
+        "resultLabel",
+        "editTest",
+        "renderTests"
+      ]
+    },
+    {
+      "path": "client/js/modules/tools.js",
+      "lines": 20,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/knowledge-data.js",
+        "client/js/services/context.js",
+        "client/js/services/rules.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "UI/review actions",
+      "exports": [
+        "recommendLocalTools",
+        "renderTools"
+      ]
+    },
+    {
+      "path": "client/js/router.js",
+      "lines": 12,
+      "imports": [],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/agent-message-panel.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/intelligence.js",
+        "client/js/modules/research-environment.js",
+        "client/js/modules/research-navigation.js",
+        "client/js/modules/targets.js",
+        "client/js/modules/techniques.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "routes",
+        "navigationGroups",
+        "routeSections",
+        "currentRoute",
+        "routeSectionFor",
+        "routeTo"
+      ]
+    },
+    {
+      "path": "client/js/services/advanced-research.js",
+      "lines": 35,
+      "imports": [
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/causal-research-graph.js",
+        "client/js/services/contradiction-analyzer.js",
+        "client/js/services/next-hypothesis.js",
+        "client/js/services/rules.js",
+        "client/js/services/context.js",
+        "client/js/services/research-integrity.js",
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "client/js/modules/advanced-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/research-context-builder.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "compactAdvancedContext",
+        "analyzeAdvancedResearch"
+      ]
+    },
+    {
+      "path": "client/js/services/agent-context.js",
+      "lines": 38,
+      "imports": [
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/knowledge-context.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/redactor.js",
+        "client/js/services/environment.js",
+        "client/js/services/research-integrity.js",
+        "client/js/services/research-context-selection.js",
+        "client/js/services/research-model.js",
+        "client/js/services/advanced-research.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-research.js",
+        "client/js/services/research-context-builder.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "buildAgentContext"
+      ]
+    },
+    {
+      "path": "client/js/services/agent-messages.js",
+      "lines": 82,
+      "imports": [
+        "client/js/services/advanced-research.js",
+        "client/js/services/message-contract.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/redactor.js",
+        "client/js/utils.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js",
+        "client/js/services/related-terms.js",
+        "client/js/services/research-context-builder.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "messageAgents",
+        "messageAgentDomains",
+        "contextCollections",
+        "messageContextKinds",
+        "messageReferenceRows",
+        "parseMessageTags",
+        "planMessageAgents",
+        "routeMessageAgent",
+        "summarizeMessageMemory",
+        "AgentMessageService"
+      ]
+    },
+    {
+      "path": "client/js/services/agent-research.js",
+      "lines": 79,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/redactor.js",
+        "client/js/services/research-integrity.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/next-hypothesis.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-research.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "AgentResearchService",
+        "compactAgentResearch",
+        "mergeAgentResearch"
+      ]
+    },
+    {
+      "path": "client/js/services/agent-schema.js",
+      "lines": 80,
+      "imports": [
+        "client/js/services/message-contract.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js",
+        "client/js/modules/agent-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/agent-research.js",
+        "client/js/storage.js",
+        "client/js/store.js",
+        "server/agents/specialists.js",
+        "server/services/agent-api.js",
+        "server/services/agent-tools.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "agentStages",
+        "researchStates",
+        "proposalKinds",
+        "manualAnalysisTypes",
+        "capabilityPermissions",
+        "adapterIds",
+        "agentContentFields",
+        "AGENT_PROPOSAL_SCHEMA",
+        "AGENT_ACTION_SCHEMA",
+        "AGENT_RESPONSE_SCHEMA",
+        "emptyAgentContent",
+        "emptyAgentResearch",
+        "builtinTools",
+        "agentSafeTree",
+        "validateAgentResponse",
+        "validateStructuredAgentAction",
+        "validateToolInventory",
+        "validateAgentResearch"
+      ]
+    },
+    {
+      "path": "client/js/services/ai-client.js",
+      "lines": 33,
+      "imports": [
+        "client/js/services/ai-schema.js",
+        "client/js/services/knowledge-schema.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/agent-message-panel.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/intelligence.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "aiConnection",
+        "connectBackend",
+        "requestAdvice",
+        "requestKnowledge",
+        "agentPost"
+      ]
+    },
+    {
+      "path": "client/js/services/ai-schema.js",
+      "lines": 35,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/ai.js",
+        "client/js/services/ai-client.js",
+        "client/js/services/local-advice.js",
+        "client/js/storage.js",
+        "server/services/advisor.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "AI_RESPONSE_SCHEMA",
+        "validateAIOutput"
+      ]
+    },
+    {
+      "path": "client/js/services/analysis.js",
+      "lines": 26,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/agent-research.js",
+        "client/js/modules/coverage.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/helpers.js",
+        "client/js/services/local-advice.js",
+        "server/services/agent-tools.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "coverageAnalysis",
+        "compareText",
+        "duplicateComparison",
+        "findingChecklist"
+      ]
+    },
+    {
+      "path": "client/js/services/causal-research-graph.js",
+      "lines": 68,
+      "imports": [
+        "client/js/services/research-model.js",
+        "client/js/services/research-context-selection.js"
+      ],
+      "incoming": [
+        "client/js/services/advanced-research.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "AuthorityTimeline",
+        "CausalResearchGraph"
+      ]
+    },
+    {
+      "path": "client/js/services/context.js",
+      "lines": 31,
+      "imports": [
+        "client/js/services/environment.js"
+      ],
+      "incoming": [
+        "client/js/modules/ai.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/tools.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/knowledge-context.js",
+        "client/js/services/research-workflow.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "lines",
+        "buildResearchContext"
+      ]
+    },
+    {
+      "path": "client/js/services/contradiction-analyzer.js",
+      "lines": 47,
+      "imports": [
+        "client/js/services/research-model.js"
+      ],
+      "incoming": [
+        "client/js/services/advanced-research.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "ContradictionAnalyzer"
+      ]
+    },
+    {
+      "path": "client/js/services/discovery-intelligence.js",
+      "lines": 181,
+      "imports": [
+        "client/js/services/research-model.js",
+        "client/js/services/research-integrity.js"
+      ],
+      "incoming": [
+        "client/js/modules/advanced-research.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/research-context-builder.js",
+        "client/js/services/research-model.js",
+        "server/agents/specialists.js",
+        "server/services/advisor.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "constraintCategories",
+        "TargetConstraintService",
+        "ConstraintEvaluator",
+        "ChainInterestingnessScore",
+        "GeneralChainDiscoveryService",
+        "LogicalOperationMatcher",
+        "ResearchUncertaintyService",
+        "InformationGainService",
+        "FailedPathMemory",
+        "ObservationExtractionService",
+        "ModelRouting",
+        "ResearchResultCache",
+        "discoveryDependencies",
+        "compactDiscoveryContext",
+        "discoverResearch"
+      ]
+    },
+    {
+      "path": "client/js/services/domain-knowledge.js",
+      "lines": 49,
+      "imports": [
+        "client/js/domain-data.js",
+        "client/js/utils.js",
+        "client/js/services/domain-schema.js"
+      ],
+      "incoming": [
+        "client/js/modules/ai.js",
+        "client/js/modules/intelligence.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/knowledge-context.js",
+        "client/js/services/knowledge-search.js",
+        "client/js/services/related-terms.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "profileFields",
+        "researcherProvenance",
+        "DomainPackRepository",
+        "TargetIntelligenceService",
+        "TerminologyService",
+        "DomainKnowledgeService",
+        "BusinessFlowService",
+        "KnowledgeGraphService",
+        "createManualPack"
+      ]
+    },
+    {
+      "path": "client/js/services/domain-schema.js",
+      "lines": 55,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/intelligence.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/knowledge-schema.js",
+        "client/js/storage.js",
+        "client/js/store.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "provenanceTypes",
+        "domainCollections",
+        "intelligenceKinds",
+        "checkProvenance",
+        "validateKnowledgeItem",
+        "validateDomainPack",
+        "emptyIntelligence",
+        "validateIntelligence"
+      ]
+    },
+    {
+      "path": "client/js/services/environment.js",
+      "lines": 72,
+      "imports": [
+        "client/js/services/redactor.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-research.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/research-environment.js",
+        "client/js/modules/tests.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/context.js",
+        "client/js/storage.js",
+        "client/js/store.js",
+        "server/services/agent-api.js",
+        "server/services/agent-tools.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "environmentRuleNames",
+        "ruleChoices",
+        "authMethods",
+        "environmentTextFields",
+        "emptyResearchEnvironment",
+        "environmentSecretRef",
+        "sensitiveHeader",
+        "validateResearchEnvironment",
+        "environmentMetadata",
+        "effectiveProgramRules",
+        "environmentReadiness",
+        "checkEnvironmentAction",
+        "authenticationOptions",
+        "ENVIRONMENT_METADATA_SCHEMA",
+        "validateEnvironmentMetadata"
+      ]
+    },
+    {
+      "path": "client/js/services/knowledge-context.js",
+      "lines": 31,
+      "imports": [
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/context.js"
+      ],
+      "incoming": [
+        "client/js/modules/intelligence.js",
+        "client/js/services/agent-context.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "buildKnowledgeContext"
+      ]
+    },
+    {
+      "path": "client/js/services/knowledge-schema.js",
+      "lines": 49,
+      "imports": [
+        "client/js/services/domain-schema.js"
+      ],
+      "incoming": [
+        "client/js/modules/intelligence.js",
+        "client/js/services/ai-client.js",
+        "client/js/storage.js",
+        "server/app.js",
+        "server/services/agent-api.js",
+        "server/services/research-orchestrator.js",
+        "server/services/target-knowledge.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "knowledgeOperations",
+        "KNOWLEDGE_ITEM_SCHEMA",
+        "KNOWLEDGE_RESPONSE_SCHEMA",
+        "validateKnowledgeResponse",
+        "KNOWLEDGE_REQUEST_SCHEMA",
+        "validateKnowledgeContext"
+      ]
+    },
+    {
+      "path": "client/js/services/knowledge-search.js",
+      "lines": 21,
+      "imports": [
+        "client/js/services/domain-knowledge.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "knowledgeSearch"
+      ]
+    },
+    {
+      "path": "client/js/services/local-advice.js",
+      "lines": 29,
+      "imports": [
+        "client/js/services/ai-schema.js",
+        "client/js/services/rules.js",
+        "client/js/services/analysis.js",
+        "client/js/knowledge-data.js"
+      ],
+      "incoming": [
+        "client/js/modules/ai.js",
+        "server/services/advisor.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "localAdviceOperations",
+        "localAdvice"
+      ]
+    },
+    {
+      "path": "client/js/services/message-attachments.js",
+      "lines": 41,
+      "imports": [
+        "client/js/services/redactor.js",
+        "client/js/utils.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js",
+        "server/services/agent-api.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "attachmentLimits",
+        "attachmentAccept",
+        "validateMessageAttachments",
+        "readMessageAttachment",
+        "attachmentMetadata"
+      ]
+    },
+    {
+      "path": "client/js/services/message-contract.js",
+      "lines": 17,
+      "imports": [
+        "client/js/services/redactor.js"
+      ],
+      "incoming": [
+        "client/js/services/agent-messages.js",
+        "client/js/services/agent-schema.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "validateMessageRecord",
+        "validateMessageMemory"
+      ]
+    },
+    {
+      "path": "client/js/services/next-hypothesis.js",
+      "lines": 29,
+      "imports": [
+        "client/js/services/research-priority.js",
+        "client/js/services/research-model.js"
+      ],
+      "incoming": [
+        "client/js/services/advanced-research.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/research-grounding.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "AdversarialValidationService",
+        "NextHypothesisService",
+        "SelectiveStateSpaceService"
+      ]
+    },
+    {
+      "path": "client/js/services/redactor.js",
+      "lines": 25,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/intelligence.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/environment.js",
+        "client/js/services/message-attachments.js",
+        "client/js/services/message-contract.js",
+        "client/js/services/research-context-builder.js",
+        "client/js/services/share-review.js",
+        "server/agents/specialists.js",
+        "server/services/advisor.js",
+        "server/services/agent-tools.js",
+        "server/services/research-orchestrator.js",
+        "server/services/target-knowledge.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "SecretRedactor"
+      ]
+    },
+    {
+      "path": "client/js/services/related-terms.js",
+      "lines": 29,
+      "imports": [
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/agent-messages.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "RelatedTermService"
+      ]
+    },
+    {
+      "path": "client/js/services/research-context-builder.js",
+      "lines": 63,
+      "imports": [
+        "client/js/services/advanced-research.js",
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/redactor.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/research-context-selection.js"
+      ],
+      "incoming": [
+        "client/js/modules/agent-message-panel.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "ResearchContextBuilder"
+      ]
+    },
+    {
+      "path": "client/js/services/research-context-selection.js",
+      "lines": 43,
+      "imports": [
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "client/js/services/agent-context.js",
+        "client/js/services/causal-research-graph.js",
+        "client/js/services/research-context-builder.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "stableResearchFields",
+        "stableResearchReferences",
+        "selectResearchContext"
+      ]
+    },
+    {
+      "path": "client/js/services/research-grounding.js",
+      "lines": 13,
+      "imports": [
+        "client/js/services/next-hypothesis.js"
+      ],
+      "incoming": [
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "findingEvidenceGraph"
+      ]
+    },
+    {
+      "path": "client/js/services/research-integrity.js",
+      "lines": 14,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/reports.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/research-model.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "researchFingerprint",
+        "observationFingerprint",
+        "reportSourceFingerprint"
+      ]
+    },
+    {
+      "path": "client/js/services/research-model.js",
+      "lines": 88,
+      "imports": [
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/research-integrity.js"
+      ],
+      "incoming": [
+        "client/js/modules/advanced-research.js",
+        "client/js/services/agent-context.js",
+        "client/js/services/causal-research-graph.js",
+        "client/js/services/contradiction-analyzer.js",
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/next-hypothesis.js",
+        "client/js/storage.js",
+        "client/js/store.js",
+        "server/services/agent-tools.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "researchTruth",
+        "causalRelationTypes",
+        "emptyResearchModel",
+        "supportedResearchObservation",
+        "snapshotResearchEvidence",
+        "repairResearchReferences",
+        "validateResearchProvenance",
+        "validateResearchModel",
+        "selectResearchModel",
+        "NormalizedObservationService"
+      ]
+    },
+    {
+      "path": "client/js/services/research-priority.js",
+      "lines": 13,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/agent-research.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/next-hypothesis.js",
+        "client/js/services/research-context-selection.js",
+        "client/js/services/research-workflow.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "ResearchPriorityService"
+      ]
+    },
+    {
+      "path": "client/js/services/research-workflow.js",
+      "lines": 24,
+      "imports": [
+        "client/js/services/rules.js",
+        "client/js/services/context.js",
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "client/js/modules/research-navigation.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "nextResearchWork"
+      ]
+    },
+    {
+      "path": "client/js/services/rules.js",
+      "lines": 33,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/helpers.js",
+        "client/js/modules/tools.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/local-advice.js",
+        "client/js/services/research-workflow.js",
+        "server/services/advisor.js",
+        "server/services/agent-tools.js",
+        "server/services/target-knowledge.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "defaultProgramRules",
+        "scopeStatuses",
+        "assessScope",
+        "filterCandidates",
+        "policyFor"
+      ]
+    },
+    {
+      "path": "client/js/services/secret-store.js",
+      "lines": 38,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/research-environment.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "IndexedSecretStorage",
+        "SecretStore",
+        "secretStore"
+      ]
+    },
+    {
+      "path": "client/js/services/share-review.js",
+      "lines": 15,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/services/redactor.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/reports.js",
+        "client/js/modules/settings.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "prepareShare",
+        "reviewForSharing"
+      ]
+    },
+    {
+      "path": "client/js/storage.js",
+      "lines": 190,
+      "imports": [
+        "client/js/services/ai-schema.js",
+        "client/js/technique-data.js",
+        "client/js/services/domain-schema.js",
+        "client/js/services/knowledge-schema.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/environment.js",
+        "client/js/services/research-model.js"
+      ],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/modules/settings.js",
+        "client/js/store.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "SCHEMA_VERSION",
+        "STORAGE_KEY",
+        "JOURNAL_KEY",
+        "DATABASE_NAME",
+        "collections",
+        "migrateWorkspace",
+        "parseWorkspace",
+        "openDatabase",
+        "createStorageSession",
+        "storageRecovery",
+        "readLocal",
+        "writeLocal",
+        "makePersistence",
+        "connectedFile",
+        "connectFile",
+        "saveConnected"
+      ]
+    },
+    {
+      "path": "client/js/store.js",
+      "lines": 59,
+      "imports": [
+        "client/js/utils.js",
+        "client/js/technique-data.js",
+        "client/js/storage.js",
+        "client/js/services/domain-schema.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/environment.js",
+        "client/js/services/research-model.js"
+      ],
+      "incoming": [
+        "client/js/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "freshWorkspace",
+        "newTarget",
+        "createStore"
+      ]
+    },
+    {
+      "path": "client/js/templates/report-id.js",
+      "lines": 77,
+      "imports": [],
+      "incoming": [
+        "client/js/modules/ai.js",
+        "client/js/modules/reports.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "generateIndonesianReport"
+      ]
+    },
+    {
+      "path": "client/js/utils.js",
+      "lines": 37,
+      "imports": [],
+      "incoming": [
+        "client/js/app.js",
+        "client/js/forms.js",
+        "client/js/help.js",
+        "client/js/modules/advanced-research.js",
+        "client/js/modules/agent-message-panel.js",
+        "client/js/modules/agent-research.js",
+        "client/js/modules/ai.js",
+        "client/js/modules/attack-surface.js",
+        "client/js/modules/coverage.js",
+        "client/js/modules/dashboard.js",
+        "client/js/modules/evidence.js",
+        "client/js/modules/findings.js",
+        "client/js/modules/helpers.js",
+        "client/js/modules/hypotheses.js",
+        "client/js/modules/intelligence.js",
+        "client/js/modules/knowledge.js",
+        "client/js/modules/notes.js",
+        "client/js/modules/reports.js",
+        "client/js/modules/research-environment.js",
+        "client/js/modules/research-navigation.js",
+        "client/js/modules/scope.js",
+        "client/js/modules/settings.js",
+        "client/js/modules/targets.js",
+        "client/js/modules/techniques.js",
+        "client/js/modules/tests.js",
+        "client/js/modules/tools.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/agent-research.js",
+        "client/js/services/domain-knowledge.js",
+        "client/js/services/message-attachments.js",
+        "client/js/services/share-review.js",
+        "client/js/store.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Shared local contracts/reasoning/storage",
+      "exports": [
+        "uuid",
+        "now",
+        "el",
+        "button",
+        "badge",
+        "empty",
+        "dateLabel",
+        "download",
+        "escapeHTML",
+        "markdownPreview",
+        "formulaKeys",
+        "formulaView",
+        "panel"
+      ]
+    },
+    {
+      "path": "server/agents/specialists.js",
+      "lines": 56,
+      "imports": [
+        "client/js/services/discovery-intelligence.js",
+        "client/js/services/agent-schema.js",
+        "client/js/services/redactor.js"
+      ],
+      "incoming": [
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "SpecialistAgent",
+        "createSpecialists"
+      ]
+    },
+    {
+      "path": "server/ai/provider.js",
+      "lines": 57,
+      "imports": [],
+      "incoming": [
+        "server/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "AiProvider",
+        "createProvider"
+      ]
+    },
+    {
+      "path": "server/app.js",
+      "lines": 88,
+      "imports": [
+        "server/config.js",
+        "server/ai/provider.js",
+        "server/services/advisor.js",
+        "server/services/target-knowledge.js",
+        "client/js/services/knowledge-schema.js",
+        "server/services/agent-budget.js",
+        "server/services/agent-tools.js",
+        "server/services/research-orchestrator.js",
+        "server/services/agent-api.js"
+      ],
+      "incoming": [
+        "server/index.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "localOrigin",
+        "createApp"
+      ]
+    },
+    {
+      "path": "server/config.js",
+      "lines": 32,
+      "imports": [],
+      "incoming": [
+        "server/app.js",
+        "server/index.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "loadEnvironment",
+        "resolveConfig",
+        "safeConfig"
+      ]
+    },
+    {
+      "path": "server/index.js",
+      "lines": 11,
+      "imports": [
+        "server/app.js",
+        "server/config.js"
+      ],
+      "incoming": [],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": []
+    },
+    {
+      "path": "server/services/advisor.js",
+      "lines": 59,
+      "imports": [
+        "client/js/services/ai-schema.js",
+        "client/js/services/redactor.js",
+        "client/js/services/rules.js",
+        "client/js/knowledge-data.js",
+        "client/js/services/local-advice.js",
+        "client/js/services/discovery-intelligence.js"
+      ],
+      "incoming": [
+        "server/app.js"
+      ],
+      "classification": "SIMPLIFY",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "advisorOperations",
+        "prepareCandidates",
+        "constrainResponse",
+        "CyberResearchAdvisor"
+      ]
+    },
+    {
+      "path": "server/services/agent-api.js",
+      "lines": 61,
+      "imports": [
+        "client/js/services/knowledge-schema.js",
+        "client/js/services/agent-schema.js",
+        "server/services/research-orchestrator.js",
+        "server/services/agent-tools.js",
+        "client/js/services/environment.js",
+        "client/js/services/message-attachments.js"
+      ],
+      "incoming": [
+        "server/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "AGENT_CONTEXT_SCHEMA",
+        "registerAgentAPI"
+      ]
+    },
+    {
+      "path": "server/services/agent-budget.js",
+      "lines": 31,
+      "imports": [],
+      "incoming": [
+        "server/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "AgentBudgetLedger",
+        "MemoryAgentBudgetLedger"
+      ]
+    },
+    {
+      "path": "server/services/agent-tools.js",
+      "lines": 49,
+      "imports": [
+        "client/js/services/agent-schema.js",
+        "client/js/services/redactor.js",
+        "client/js/services/analysis.js",
+        "client/js/services/rules.js",
+        "client/js/services/environment.js",
+        "client/js/services/research-model.js"
+      ],
+      "incoming": [
+        "server/app.js",
+        "server/services/agent-api.js",
+        "server/services/research-orchestrator.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "agentScopePolicy",
+        "evaluateAgentAction",
+        "AgentToolAdapters",
+        "detectLocalTools"
+      ]
+    },
+    {
+      "path": "server/services/research-orchestrator.js",
+      "lines": 209,
+      "imports": [
+        "client/js/services/agent-schema.js",
+        "client/js/services/knowledge-schema.js",
+        "client/js/services/redactor.js",
+        "server/agents/specialists.js",
+        "server/services/agent-tools.js",
+        "client/js/services/environment.js",
+        "client/js/services/agent-messages.js",
+        "client/js/services/message-attachments.js",
+        "client/js/services/research-model.js",
+        "client/js/services/advanced-research.js",
+        "client/js/services/research-grounding.js",
+        "client/js/services/research-priority.js"
+      ],
+      "incoming": [
+        "server/app.js",
+        "server/services/agent-api.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "validateAgentContext",
+        "ResearchOrchestrator"
+      ]
+    },
+    {
+      "path": "server/services/target-knowledge.js",
+      "lines": 38,
+      "imports": [
+        "client/js/services/knowledge-schema.js",
+        "client/js/services/redactor.js",
+        "client/js/services/rules.js"
+      ],
+      "incoming": [
+        "server/app.js"
+      ],
+      "classification": "KEEP",
+      "boundary": "Server providers/policy/orchestration",
+      "exports": [
+        "constrainKnowledge",
+        "TargetKnowledgeAIService"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "id": "general",
+      "name": "General",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "target-intelligence",
+      "name": "Target Intelligence Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Target-specific sourced context must stay separate from generic domain knowledge"
+    },
+    {
+      "id": "domain-knowledge",
+      "name": "Domain Knowledge Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Generic patterns must stay separate from target facts"
+    },
+    {
+      "id": "scope",
+      "name": "Scope Agent",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "attack-surface",
+      "name": "Attack Surface Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "trust-boundary",
+      "name": "Trust Boundary Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "technique",
+      "name": "Technique Agent",
+      "classification": "SIMPLIFY",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "hypothesis",
+      "name": "Hypothesis Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "test-planner",
+      "name": "Test Planner Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "evidence",
+      "name": "Evidence Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "finding",
+      "name": "Finding Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    },
+    {
+      "id": "false-positive",
+      "name": "False Positive Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "An adversarial review has a different purpose from constructing the primary hypothesis"
+    },
+    {
+      "id": "duplicate",
+      "name": "Duplicate Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Program-specific duplicate uncertainty differs from evidence validity"
+    },
+    {
+      "id": "report",
+      "name": "Report Agent",
+      "classification": "KEEP",
+      "scores": {
+        "researchValue": 4,
+        "usageValue": 3,
+        "workflowImportance": 4,
+        "complexity": 3,
+        "maintenanceCost": 3,
+        "aiCost": 3,
+        "dataValue": 3,
+        "growthPotential": 4
+      },
+      "rationale": "Retained for explicit or supervised reasoning; never needed for manual research. Exact lookup/traversal/comparison uses local processing."
+    }
+  ],
+  "api": [
+    {
+      "method": "GET",
+      "path": "/api/config",
+      "source": "server/app.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/models",
+      "source": "server/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "source": "server/app.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/advice",
+      "source": "server/app.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/knowledge",
+      "source": "server/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/agent/config",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/run",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/message",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/pause",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/status",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tools/detect",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/review-action",
+      "source": "server/services/agent-api.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/action",
+      "source": "server/services/agent-api.js"
+    }
+  ],
+  "dataModels": [
+    {
+      "id": "workspace",
+      "purpose": "Schema 2.0.0, target separation, timestamps, domain overrides and tool inventory",
+      "classification": "KEEP"
+    },
+    {
+      "id": "research-records",
+      "purpose": "Actors/objects/boundaries/techniques/hypotheses/tests/evidence/findings/notes/lessons",
+      "classification": "KEEP"
+    },
+    {
+      "id": "intelligence",
+      "purpose": "Profile, reviewed source provenance, domain links and AI suggestions",
+      "classification": "KEEP"
+    },
+    {
+      "id": "researchModel",
+      "purpose": "Normalized snapshots, events, invariants, relations, constraints, decisions and failed paths",
+      "classification": "KEEP"
+    },
+    {
+      "id": "agentResearch",
+      "purpose": "Optional proposals/history/steps/messages/manual corrections and review state",
+      "classification": "SIMPLIFY"
+    },
+    {
+      "id": "researchEnvironment",
+      "purpose": "Optional metadata/account/auth profiles; separate encrypted vault references",
+      "classification": "KEEP"
+    },
+    {
+      "id": "AI drafts",
+      "purpose": "Advisor and knowledge suggestions use distinct schemas and remain reviewable drafts",
+      "classification": "KEEP"
+    },
+    {
+      "id": "derived analysis",
+      "purpose": "Graph/chain/scoring/context payloads remain transient; repeated discovery cache removed",
+      "classification": "SIMPLIFY"
+    }
+  ],
+  "knowledgeOperations": [
+    [
+      "generate_target_knowledge",
+      "Generate Target Knowledge"
+    ],
+    [
+      "analyze_target",
+      "Analyze Target"
+    ],
+    [
+      "suggest_domains",
+      "Suggest Domain"
+    ],
+    [
+      "explain_domain",
+      "Explain Domain"
+    ],
+    [
+      "explain_terminology",
+      "Explain Terminology"
+    ],
+    [
+      "ask_about_target",
+      "Ask About Target"
+    ],
+    [
+      "analyze_business_flow",
+      "Analyze Business Flow"
+    ],
+    [
+      "identify_critical_assets",
+      "Identify Critical Assets"
+    ],
+    [
+      "generate_security_invariants",
+      "Generate Security Invariants"
+    ],
+    [
+      "generate_domain_questions",
+      "Generate Research Questions"
+    ],
+    [
+      "recommend_domain_techniques",
+      "Recommend Techniques"
+    ]
+  ]
+}

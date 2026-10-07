@@ -6,6 +6,7 @@ import {SecretRedactor} from '../../client/js/services/redactor.js';
 import {compareText} from '../../client/js/services/analysis.js';
 import {policyFor} from '../../client/js/services/rules.js';
 import {checkEnvironmentAction} from '../../client/js/services/environment.js';
+import {NormalizedObservationService} from '../../client/js/services/research-model.js';
 const runFile=promisify(execFile);
 const localAdapters={'knowledge-search':{toolId:'builtin-search',capability:'knowledge-search'},'json-parse':{toolId:'builtin-json',capability:'json-parsing'},'evidence-compare':{toolId:'builtin-compare',capability:'evidence-comparison'}};
 const approvalPolicyKey=context=>createHash('sha256').update(JSON.stringify([context.knowledge.scope,context.knowledge.authorization,context.knowledge.programRules,context.environment])).digest('hex');
@@ -36,7 +37,7 @@ export class AgentToolAdapters{
   async execute(action,context){
     if(action.adapter==='json-parse'){if(action.input.json.length>12000)throw new Error('JSON terlalu besar.');const parsed=agentSafeTree(JSON.parse(action.input.json));return {summary:'JSON parsed locally.',result:JSON.stringify(SecretRedactor.context(parsed)).slice(0,12000),evidenceIds:[]};}
     if(action.adapter==='knowledge-search'){const q=action.input.query.toLowerCase().trim();if(!q)throw new Error('Query wajib diisi.');const rows=context.knowledge.domains.flatMap(p=>[...p.terminology,...p.businessFlows,...p.securityInvariants]).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,12);return {summary:rows.length+' selected local knowledge matches.',result:JSON.stringify(rows.map(r=>({id:r.id,title:r.title,content:r.content,sourceType:r.sourceType}))).slice(0,12000),evidenceIds:[]};}
-    if(action.adapter==='evidence-compare'){const a=context.evidence.find(e=>e.id===action.input.leftEvidenceId),b=context.evidence.find(e=>e.id===action.input.rightEvidenceId);if(!a||!b)throw new Error('Evidence tidak tersedia.');return {summary:'Existing evidence compared locally; differences are observations, not vulnerability confirmation.',result:JSON.stringify(compareText(SecretRedactor.redact(a.content),SecretRedactor.redact(b.content))).slice(0,12000),evidenceIds:[a.id,b.id]};}
+    if(action.adapter==='evidence-compare'){const a=context.evidence.find(e=>e.id===action.input.leftEvidenceId),b=context.evidence.find(e=>e.id===action.input.rightEvidenceId);if(!a||!b)throw new Error('Evidence tidak tersedia.');const text=compareText(SecretRedactor.redact(a.content),SecretRedactor.redact(b.content)),observations=context.researchModel?.observations||[],left=observations.find(o=>o.evidenceRefs.includes(a.id)),right=observations.find(o=>o.evidenceRefs.includes(b.id)),result=left&&right?{text,semantic:NormalizedObservationService.compare(left,right),sourceType:'local-derived',targetObservation:false}:text;return {summary:'Existing evidence compared locally; differences are observations, not vulnerability confirmation.',result:JSON.stringify(SecretRedactor.context(result)).slice(0,12000),evidenceIds:[a.id,b.id]};}
     throw new Error('Adapter denied/unavailable.');
   }
 }

@@ -18,6 +18,7 @@ import {renderKnowledge} from './modules/knowledge.js';
 import {renderTools} from './modules/tools.js';
 import {renderHelpers} from './modules/helpers.js';
 import {renderCoverage} from './modules/coverage.js';
+import {researchRouteLinks} from './modules/research-navigation.js';
 import {renderAI} from './modules/ai.js';
 import {aiConnection,connectBackend} from './services/ai-client.js';
 import {featureHelp,routeHelp} from './help.js';
@@ -61,6 +62,10 @@ const ctx={store,targetId:store.get().targets[0]?.id||'',reportFindingId:'',filt
     else if(route==='agentic-settings')content=renderAgenticSettings(ctx);
     else if(!target)content=el('div',{},ctx.heading(routes.find(r=>r[0]===route)[1],'Buat atau pilih target terlebih dahulu.',button('+ Create Target',()=>editTarget(ctx),'primary')),empty('Tidak ada target aktif.'));
     else {const renders={'research-environment':renderResearchEnvironment,'research-details':renderAgentResearch,'review-queue':renderAgentResearch,'manual-analysis':renderAgentResearch,'agent-history':renderAgentResearch,'scope':renderScope,'attack-surface':renderAttackSurface,'actors':renderAttackSurface,'objects':renderAttackSurface,'boundaries':renderAttackSurface,'target-intelligence':renderIntelligence,'domain-knowledge':renderIntelligence,'terminology':renderIntelligence,'business-flows':renderIntelligence,'critical-assets':renderIntelligence,'research-questions':renderIntelligence,'techniques':renderTechniques,'hypotheses':renderHypotheses,'queue':renderHypotheses,'tests':renderTests,'evidence':renderEvidence,'findings':renderFindings,'reports':renderReports,'notes':renderNotes,'knowledge':renderKnowledge,'tools':renderTools,'helpers':renderHelpers,'coverage':renderCoverage,'ai':renderAI,'ai-techniques':renderAI,'ai-tools':renderAI,'ai-gaps':renderAI,'ai-findings':renderAI};content=renders[route](ctx,target);}
+    if(!ctx.search.trim()){
+      const tabs=researchRouteLinks(route);
+      if(tabs){const heading=content.querySelector('.page-heading');if(heading)heading.after(tabs);else content.prepend(tabs);}
+    }
     view.replaceChildren(content);
     if(aiConnection.enabled&&aiConnection.agentic.enabled)for(const record of view.querySelectorAll('[data-agent-kind][data-agent-id]')){
       const action=button('Ask Agent',()=>agentMessages.select({kind:record.dataset.agentKind,id:record.dataset.agentId}),'agent-context-action');
@@ -84,7 +89,7 @@ function renderNavigation() {
   const nav=document.getElementById('navigation');nav.replaceChildren();
   for(const [group,keys] of navigationGroups){nav.append(el('div',{class:'nav-group'},group.toUpperCase()));
     if(group==='AI'&&!aiConnection.enabled){nav.append(el('span',{class:'ai-disabled'},'AI Assistant · '+aiConnection.status));continue;}
-    for(const key of keys)nav.append(el('a',{href:'#'+key},routes.find(r=>r[0]===key)[1]));
+    for(const key of keys){if(key==='review-queue'&&!aiConnection.agentic.enabled)continue;nav.append(el('a',{href:'#'+key},routes.find(r=>r[0]===key)[1]));}
   }
 }
 const agentMessages=createAgentMessagePanel(ctx);

@@ -3,7 +3,7 @@ export const featureRegistry=[
   {
     "id": "dashboard",
     "name": "Dashboard",
-    "description": "Ringkasan jumlah catatan, progress teknik, coverage, dan antrean target aktif.",
+    "description": "Next manual work for the selected target, followed by optional relationship analysis and recorded coverage.",
     "purpose": "Membantu memilih pekerjaan berikutnya berdasarkan riset yang sudah dicatat.",
     "status": "Active",
     "routes": [
@@ -155,7 +155,7 @@ export const featureRegistry=[
   {
     "id": "queue",
     "name": "Research Queue",
-    "description": "Antrean hypothesis dalam lima tahap pekerjaan yang dipilih manual.",
+    "description": "Optional planning view of the same hypotheses, available inside the Hypotheses page.",
     "purpose": "Memisahkan rencana prioritas berikutnya dari status kebenaran dugaan.",
     "status": "Active",
     "routes": [
@@ -454,7 +454,7 @@ export const featureRegistry=[
   {
     "id": "ai-analyze-scope",
     "name": "AI Analyze Scope",
-    "description": "Saran review scope dan konteks izin berdasarkan catatan yang supplied.",
+    "description": "Compatibility operation using the local scope/policy checker, without a provider call.",
     "purpose": "Mengidentifikasi informasi scope/rules yang masih kurang sebelum menyusun test.",
     "status": "Active",
     "routes": [],
@@ -491,7 +491,7 @@ export const featureRegistry=[
   {
     "id": "ai-helper-advisor",
     "name": "AI Helper Advisor",
-    "description": "Merekomendasikan helper internal dari katalog yang sudah tersedia.",
+    "description": "Compatibility operation selecting relevant existing helpers from supplied records locally.",
     "purpose": "Mengarahkan peneliti ke fitur pencatatan atau review yang sesuai kebutuhan.",
     "status": "Active",
     "routes": [],
@@ -559,7 +559,7 @@ export const featureRegistry=[
   {
     "id": "ai-gaps",
     "name": "AI Gap Analyzer",
-    "description": "Saran gap riset dari mapping dan test yang supplied ke model.",
+    "description": "Merged with deterministic recorded research coverage; the #ai-gaps link remains supported.",
     "purpose": "Membantu menanyakan actor/object/state/boundary atau lifecycle yang belum jelas.",
     "status": "Active",
     "routes": [
@@ -605,7 +605,7 @@ export const featureRegistry=[
   {
     "id": "ai-restrictions",
     "name": "AI Restrictions",
-    "description": "Saran review pembatasan dari program rules dan scope yang dicatat.",
+    "description": "Compatibility operation that returns recorded hard rules locally, without a provider call.",
     "purpose": "Membantu memeriksa batas yang mungkin terlupakan ketika menyusun test.",
     "status": "Active",
     "routes": [],

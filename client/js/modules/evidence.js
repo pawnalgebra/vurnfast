@@ -13,7 +13,7 @@ export function extractEvidenceIds(values) {
   return {clean,evidenceIds};
 }
 export function editEvidence(ctx,target,row,defaults={}) {
-  const fields=[['label','Label','required'],['type','Type','select',evidenceTypes],['path','Local path / reference (metadata saja)'],['description','Description','textarea'],['content','Text evidence / HTTP request / response','textarea'],['testCaseId','Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['findingId','Finding','select',[['','— Tanpa finding —'],...target.findings.map(f=>[f.id,f.title])]]];
+  const fields=[['label','Label','required'],['type','Type','select',evidenceTypes],['evidenceRole','Research relationship','select',['SUPPORTS','CONTRADICTS','CONTROL','CONTEXT','PREREQUISITE','OUTCOME']],['path','Local path / reference (metadata saja)'],['description','Description','textarea'],['content','Text evidence / HTTP request / response','textarea'],['testCaseId','Test Case','select',[['','— Tanpa test case —'],...target.testCases.map(t=>[t.id,t.title])]],['findingId','Finding','select',[['','— Tanpa finding —'],...target.findings.map(f=>[f.id,f.title])]]];
   editDialog(row?'Edit Evidence':'Attach Evidence',fields,{...defaults,...row},values=>{
     if(sensitiveEvidence(Object.values(values).join('\n')) && !confirm('Evidence mungkin mengandung token, cookie, password, API key, atau data pribadi. Redaksi dahulu jika belum aman. Simpan catatan ini?'))return false;
     const evidence=ctx.store.upsert(target.id,'evidence',{...row,...values});

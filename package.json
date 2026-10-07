@@ -3,14 +3,26 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20.19" },
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "start": "node server/index.js",
     "build": "python scripts/build.py",
     "test": "node tests/run.mjs",
+    "test:advanced": "node tests/advanced-research/engine.test.js",
+    "test:browser:advanced": "python tests/advanced-research/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
     "test:browser": "python tests/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
     "test:browser:reliability": "python tests/reliability-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
-    "test:browser:group-chat": "python tests/group-chat-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\""
+    "test:browser:group-chat": "python tests/group-chat-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
+    "test:discovery": "node tests/discovery-intelligence/engine.test.js",
+    "benchmark:discovery:live": "node tests/discovery-intelligence/live.mjs",
+    "test:browser:discovery": "python tests/discovery-intelligence/browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\"",
+    "test:refinement": "node tests/refinement.test.js",
+    "test:browser:refinement": "python tests/refinement-browser.py --chrome \"C:/Program Files/Google/Chrome/Application/chrome.exe\""
   },
-  "dependencies": { "fastify": "^5.12.5", "@fastify/static": "^10.1.5" }
+  "dependencies": {
+    "fastify": "^5.12.5",
+    "@fastify/static": "^10.1.5"
+  }
 }

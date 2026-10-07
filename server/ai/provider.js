@@ -18,7 +18,7 @@ export class AiProvider {
     // Discovery is advisory; availability alone cannot guarantee structured output or vision support.
     return [...new Set(rows)].filter(id=>typeof id==='string'&&/^[A-Za-z0-9._:/-]{1,180}$/.test(id)&&(provider!=='openai'||(/^(gpt-|o[1-9])/.test(id)&&!/(?:audio|realtime|transcrib|tts|image|search|instruct|codex|deep-research)/.test(id)))).slice(0,200);
   }
-  async complete({system,prompt,schema,signal,maxOutputTokens=6000,model:selectedModel,attachments=[]}) {
+  async complete({system,prompt,schema,signal,maxOutputTokens=6000,model:selectedModel,attachments=[],onUsage}) {
     const {provider,key,baseURL}=this.config,model=selectedModel||this.config.model;
     if(!(this.config.models||[this.config.model]).includes(model))throw new Error('Model unavailable.');
     const images=attachments.filter(file=>file.type.startsWith('image/'));
@@ -35,6 +35,7 @@ export class AiProvider {
     }else if(provider==='ollama') {
       url=baseURL.replace(/\/$/,'')+'/api/chat';body={model,stream:false,format:schema,options:{num_predict:maxOutputTokens},messages:[{role:'system',content:system},{role:'user',content:prompt,...(images.length?{images:images.map(file=>file.data)}:{})}]};
     }else throw new Error('Provider tidak didukung.');
+    const began=Date.now();
     const timeout=AbortSignal.timeout(60000);
     const response=await this.fetch(url,{method:'POST',headers,body:JSON.stringify(body),signal:signal?AbortSignal.any([signal,timeout]):timeout,redirect:'error'});
     if(!response.ok)throw new Error('Provider Error');
@@ -44,6 +45,8 @@ export class AiProvider {
     const json=JSON.parse(Buffer.concat(parts).toString('utf8'));
     const text=provider==='openai'?(json.output||[]).flatMap(item=>item.content||[]).filter(item=>item.type==='output_text').map(item=>item.text).join(''):provider==='anthropic'?(json.content||[]).filter(item=>item.type==='text').map(item=>item.text).join(''):provider==='gemini'?(json.candidates?.[0]?.content?.parts||[]).map(item=>item.text||'').join(''):json.message?.content;
     if(typeof text!=='string'||!text.trim())throw new Error('Provider Error');
+    const usage=json.usage||json.usageMetadata||{};
+    if(onUsage)onUsage({inputTokens:usage.input_tokens??usage.promptTokenCount??json.prompt_eval_count??null,outputTokens:usage.output_tokens??usage.candidatesTokenCount??json.eval_count??null,latencyMs:Date.now()-began});
     return JSON.parse(text);
   }
 }

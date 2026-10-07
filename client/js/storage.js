@@ -4,6 +4,7 @@ import {validateDomainPack,validateIntelligence,emptyIntelligence} from './servi
 import {validateKnowledgeResponse,knowledgeOperations} from './services/knowledge-schema.js';
 import {emptyAgentResearch,builtinTools,validateAgentResearch,validateToolInventory} from './services/agent-schema.js';
 import {validateResearchEnvironment} from './services/environment.js';
+import {validateResearchModel,validateResearchProvenance} from './services/research-model.js';
 // MODULE: Persistence and migration boundary.
 // DATA CONTRACT: v1 -> v2 migration preserves IDs, research content, timestamps and extensions.
 export const SCHEMA_VERSION='2.0.0';
@@ -96,6 +97,12 @@ export function migrateWorkspace(input) {
     for(const f of target.findings) {check(f.testCaseId,target.testCases,'test case');check(f.techniqueId,target.techniques,'technique');}
     for(const row of [...target.testCases,...target.findings]) for(const id of row.evidenceIds||[]) check(id,target.evidence,'evidence');
     for(const e of target.evidence) {check(e.testCaseId,target.testCases,'evidence test');check(e.findingId,target.findings,'evidence finding');}
+    if(target.researchModel!==undefined)validateResearchModel(target.researchModel,target);
+    for(const row of [...target.hypotheses,...target.testCases,...target.findings]){
+      for(const [field,rows] of [['actorId',target.actors],['objectId',target.objects],['authorityProfileId',target.researchEnvironment?.profiles||[]]])if(row[field]!==undefined){if(typeof row[field]!=='string')fail('Stable reference harus teks.');check(row[field],rows,field);}
+      if(row.testIds!==undefined){if(!Array.isArray(row.testIds)||row.testIds.some(id=>typeof id!=='string'))fail('testIds tidak valid.');for(const id of row.testIds)check(id,target.testCases,'multi-test');}
+      if(row.evidenceLinks!==undefined){if(!Array.isArray(row.evidenceLinks))fail('evidenceLinks tidak valid.');for(const link of row.evidenceLinks){if(!['SUPPORTS','CONTRADICTS','CONTROL','CONTEXT','PREREQUISITE','OUTCOME'].includes(link.role))fail('Evidence role tidak valid.');check(link.evidenceId,target.evidence,'evidence link');validateResearchProvenance(link.provenance,new Set(target.evidence.map(e=>e.id)));}}
+    }
   }
   return data;
 }

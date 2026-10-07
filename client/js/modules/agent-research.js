@@ -1,3 +1,4 @@
+import {renderNextResearchWork} from './research-navigation.js';
 import {environmentReadiness} from '../services/environment.js';
 import {el,button,panel,badge,empty,uuid,now,dateLabel} from '../utils.js';
 import {editDialog,field,formulaFields} from '../forms.js';
@@ -9,6 +10,8 @@ import {buildAgentContext} from '../services/agent-context.js';
 import {aiConnection,agentPost} from '../services/ai-client.js';
 import {SecretRedactor} from '../services/redactor.js';
 import {coverageAnalysis} from '../services/analysis.js';
+import {renderAdvancedResearchPanel} from './advanced-research.js';
+import {ResearchPriorityService} from '../services/research-priority.js';
 const pendingReviews=research=>research.reviewQueue.filter(p=>p.status==='PROPOSED'&&!p.stale);
 function agentViewState(ctx,target){return ctx.agentBusy?.targetId===target.id&&ctx.agentPreview||AgentResearchService.get(target);}
 function agentActionButton(label,handler,disabled=false,className=''){const control=button(label,handler,className);control.disabled=disabled;return control;}
@@ -59,15 +62,11 @@ export function renderAgentDashboard(ctx,target){
   const root=el('div',{},ctx.heading('Research Dashboard',target.name+' · Agents research. Researcher reviews and decides.'));
   root.append(el('a',{href:'#research-environment'},'Environment: '+environmentReadiness(target)));
   root.append(researchControls(ctx,target));
+  root.append(renderNextResearchWork(ctx,target));
+  if(target.researchModel||target.evidence.length)root.append(el('details',{class:'panel',...(target.researchModel?{open:true}:{})},el('summary',{},'Relationship Analysis'),renderAdvancedResearchPanel(ctx,target)));
   const progress=el('progress',{max:100,value:research.progress,'aria-label':'Research stage progress'});
-  root.append(panel('Research Progress',el('strong',{class:'agent-percent'},research.progress+'%'),progress,el('p',{},'Current Phase: '+phase),el('p',{},'Current Task: '+(research.currentTask||'Ready to start supervised research.')),el('p',{class:'muted'},research.reason),el('div',{class:'badges'},badge(ctx.agentBusy?'Running':research.state),badge('Execution: Supervised'),badge('No target requests')),el('details',{},el('summary',{},'Research stages'),stageProgress(research))));
+  root.append(el('details',{class:'panel'},el('summary',{},'Agent Research Progress'),panel('Research Progress',el('strong',{class:'agent-percent'},research.progress+'%'),progress,el('p',{},'Current Phase: '+phase),el('p',{},'Current Task: '+(research.currentTask||'Ready to start supervised research.')),el('p',{class:'muted'},research.reason),el('small',{},'Today estimated reservations: '+(Number.isFinite(research.dailyEstimatedCostUSD)?'$'+research.dailyEstimatedCostUSD.toFixed(4):'Unknown')+' / Actual billing: Unknown'),el('div',{class:'badges'},badge(ctx.agentBusy?'Running':research.state),badge('Execution: Supervised'),badge('No target requests')),el('details',{},el('summary',{},'Research stages'),stageProgress(research)))));
   root.append(el('div',{class:'stats'},[['Needs Your Review',pendingReviews(research).length],['Potential Findings',pendingReviews(research).filter(p=>p.kind==='potential-finding').length],['Manual Analysis',research.manualAnalysis.length],['Confirmed Findings',target.findings.filter(f=>f.status==='confirmed').length]].map(([label,value])=>el('div',{class:'stat'},el('strong',{},value),el('small',{},label)))));
-  const nextWork=panel('Next Manual Work',el('p',{class:'muted'},'Agent progress does not replace manual testing or evidence.'));
-  const tasks=[...target.testCases.filter(t=>!t.result||t.result==='not-tested').slice(0,3).map(row=>({row,route:'tests',kind:'Test'})),...target.hypotheses.filter(h=>['Next','Testing'].includes(h.queue)).slice(0,3).map(row=>({row,route:'hypotheses',kind:'Hypothesis'}))];
-  for(const {row,route,kind} of tasks)nextWork.append(button(kind+': '+row.title,()=>{ctx.filterState[route]={query:row.title};routeTo(route);}));
-  if(!tasks.length)nextWork.append(el('p',{},'No pending manual tasks recorded. Add a hypothesis or review coverage gaps.'));
-  nextWork.append(el('div',{class:'badges'},coverageAnalysis(target).coverage.map(g=>badge(g.label+': '+g.covered+' / '+g.total))),button('Review Coverage Gaps',()=>routeTo('coverage')));root.append(nextWork);
-  root.append(panel('Important Discoveries',research.history.length?research.history.slice(-2).map(h=>el('p',{},h.resultSummary.slice(0,500))):el('p',{class:'muted'},'Observations, uncertainty dan draft analisis akan muncul setelah research berjalan.')),panel('System Status',el('p',{},'Agentic AI: '+(agentAvailable()?ctx.agentBusy?'Running':'Ready':'Disabled / Misconfigured')),el('p',{},'Available tools: '+ctx.store.get().toolInventory.filter(t=>t.installed&&t.agentAccess!=='DENIED').length+' / '+ctx.store.get().toolInventory.length),el('p',{},'Today estimated reservations: '+(Number.isFinite(research.dailyEstimatedCostUSD)?'$'+research.dailyEstimatedCostUSD.toFixed(4):'Unknown until a run')),el('small',{class:'muted'},'Stage progress is workflow completion, bukan security coverage. Actual provider billing: Unknown.')));
   root.append(el('details',{class:'panel'},el('summary',{},'Agent Activity'),historyTable(research,6)),panel('Research Workspace',el('div',{class:'actions'},[['research-details','Research Details'],['evidence','Evidence'],['findings','Findings'],['reports','Reports'],['knowledge','Knowledge'],['tool-inventory','Tool Inventory'],['agent-history','Agent History'],['agentic-settings','Agentic Settings']].map(([route,title])=>button(title,()=>routeTo(route))))));return root;
 }
 function editAgentProposal(ctx,target,proposal,decision){
@@ -93,6 +92,7 @@ function reviewProposalCard(ctx,target,proposal){
   card.append(el('p',{},'Target: '+target.name+' · Technique: '+(technique?.name||'Unknown')),el('p',{},'Evidence: '+(proposal.evidenceIds.map(id=>target.evidence.find(e=>e.id===id)?.label||'Missing').join(', ')||'None supplied')),el('small',{class:'muted'},'Recommended Decision: '+(proposal.recommendedDecision||'Researcher review')));
   if(proposal.kind==='tool-recommendation')card.append(el('p',{},'Tool: '+(ctx.store.get().toolInventory.find(t=>t.id===proposal.relatedToolId)?.name||'Tool unavailable')+' · Required capability: '+proposal.content.type+' · Execution mode: Manual'));
   if(proposal.kind==='potential-finding')card.append(el('dl',{class:'details'},['securityRestriction','who','object','state','expectedResult','actualResult','rootCause','impact'].map(k=>[el('dt',{},k),el('dd',{},proposal.content[k]||'Unknown')])),el('p',{},'False Positive Analysis: '+(proposal.falsePositiveAnalysis||'Pending')),el('p',{},'Duplicate Risk: '+(proposal.duplicateRisk||'Pending')));
+  if(proposal.validationStatus)card.append(el('p',{},'Adversarial validation: '+proposal.validationStatus),el('p',{},'Alternative: '+(proposal.alternativeExplanation||proposal.adversarialValidation?.map(v=>v.alternativeExplanation).join('; ')||'Review alternative explanations.')),el('p',{},'Discriminating test: '+(proposal.discriminatingTest||proposal.adversarialValidation?.map(v=>v.discriminatingTest).join('; ')||'Researcher review required.')));
   if(proposal.status==='PROPOSED'){
     const blocked=!!(ctx.agentBusy||ctx.agentMessageBusy)||proposal.stale;
     const controls=el('div',{class:'actions'},agentActionButton('Accept',()=>editAgentProposal(ctx,target,proposal,'ACCEPT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted,'primary'),agentActionButton(proposal.kind==='potential-finding'?'Edit Analysis':'Edit',()=>editAgentProposal(ctx,target,proposal,'EDIT'),blocked||proposal.kind==='potential-finding'&&!proposal.analysisCompleted),agentActionButton('Reject',()=>{AgentResearchService.decide(ctx.store,target,proposal.id,'REJECT');ctx.render();},!!(ctx.agentBusy||ctx.agentMessageBusy),'danger'));

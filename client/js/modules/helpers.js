@@ -12,7 +12,7 @@ import {helperFeatures} from '../feature-registry.js';
 // MODULE: Local manual helper tools. Inputs never produce network requests or target actions.
 export function renderHelpers(ctx,target) {
   const root=el('div',{},ctx.heading('Internal Research Helpers','Bangun catatan dan bandingkan observasi secara lokal.'));
-  const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
+  const select=el('select',{'aria-label':'Internal Helper'},HELPER_KB.map(h=>el('option',{value:h.id,hidden:['trust-boundary','report-builder','gap-analyzer'].includes(h.id)&&ctx.helperId!==h.id},h.name)));select.value=ctx.helperId||'authorization-matrix';select.addEventListener('change',()=>{ctx.helperId=select.value;ctx.render();});root.append(panel('Select helper',select));
   const kind=select.value;
   root.append(ctx.help(helperFeatures[kind]));
   if(kind==='authorization-matrix'||kind==='state-transition') {
@@ -21,7 +21,7 @@ export function renderHelpers(ctx,target) {
     root.append(panel('Document expected controls',button('+ Add Row',()=>edit(),'primary')));
     const rows=target.helperRecords.filter(row=>row.type===kind);
     if(!rows.length)root.append(empty());
-    for(const row of rows)root.append(panel(kind==='authorization-matrix'?row.who+' → '+row.what+' → '+row.object:row.from+' → '+row.to,el('p',{class:'muted'},'Authority: '+(row.authority||'Unknown')),el('pre',{},row.expectedResult||row.invariant||''),el('p',{},row.notes||''),el('div',{class:'actions'},button('Edit',()=>edit(row)),ctx.deleteButton(target,'helperRecords',row))));
+    for(const row of rows)root.append(panel(kind==='authorization-matrix'?row.who+' → '+row.what+' → '+row.object:row.from+' → '+row.to,el('p',{class:'muted'},'Authority: '+(row.authority||'Unknown')),el('pre',{},row.expectedResult||row.invariant||''),el('p',{},row.notes||''),el('div',{class:'actions'},button('Review Hypothesis',()=>editHypothesis(ctx,target,null,{who:row.who||'',what:row.what||'',object:row.object||'',state:row.from||'',authority:row.authority||'',invariant:row.expectedResult||row.invariant||'',expectedBehavior:row.expectedResult||row.invariant||'',context:row.to?'Expected transition to '+row.to:'',title:'Review '+(row.what||'expected control'),notes:row.notes||''})),button('Edit',()=>edit(row)),ctx.deleteButton(target,'helperRecords',row))));
   }else if(kind==='trust-boundary')root.append(panel('Trust Boundary Mapper',el('p',{},'From → To, channel, authority, trust, dan notes disimpan di target.'),button('Open Trust Boundaries',()=>routeTo('boundaries'),'primary')));
   else if(kind==='evidence-comparator') {
     const form=el('form',{class:'form-grid'});const left=field(form,['left','Evidence A','textarea']),right=field(form,['right','Evidence B','textarea']);

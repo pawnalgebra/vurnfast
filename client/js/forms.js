@@ -30,3 +30,8 @@ export function formulaSuggestions(form,target) {
     form.append(list);form.elements[key]?.setAttribute('list',id);
   }
 }
+export function optionalFormFields(form,names,summary='Optional details'){
+  const details=el('details',{class:'wide'},el('summary',{},summary)),body=el('div',{class:'form-grid'});
+  for(const name of names){const input=form.elements[name];if(input&&!input.required){const wrapper=input.closest('label.field');if(wrapper)body.append(wrapper);}}
+  if(body.children.length){details.append(body);form.append(details);}return details;
+}

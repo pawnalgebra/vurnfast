@@ -1,6 +1,6 @@
 import {authenticationOptions} from '../services/environment.js';
 import {el,button,badge,formulaView,empty,now,dateLabel} from '../utils.js';
-import {editDialog,formulaFields,formulaSuggestions} from '../forms.js';
+import {editDialog,formulaFields,formulaSuggestions,optionalFormFields} from '../forms.js';
 import {techniqueOptions,researchFilters} from './hypotheses.js';
 import {editEvidence,evidenceSelector,extractEvidenceIds} from './evidence.js';
 import {promoteTest} from './findings.js';
@@ -10,8 +10,8 @@ export function editTest(ctx,target,row,hypothesis) {
   const fields=[['authProfileId','Authentication Context','select',authenticationOptions(target)],['title','Title','required'],['hypothesisId','Hypothesis','select',[['','— Tanpa hypothesis —'],...target.hypotheses.map(h=>[h.id,h.title])]],['techniqueId','Technique','select',techniqueOptions(target)],['preconditions','Preconditions','textarea'],['steps','Steps (satu langkah per baris)','textarea'],['expectedResult','Expected Result','textarea'],['actualResult','Actual Result','textarea'],...formulaFields(target),['requestNotes','Request Notes','textarea'],['responseNotes','Response Notes','textarea'],['result','Security Control','select',resultOptions],['timestamp','Timestamp (ISO / catatan waktu)']];
   const defaults={result:'not-tested',timestamp:now()};
   fields.push(['boundaryId','Trust Boundary','select',[['','— Tanpa boundary —'],...target.boundaries.map(b=>[b.id,b.from+' → '+b.to])]],['notes','Research Notes','textarea']);
-  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId','authProfileId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
-  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);});
+  if(hypothesis) {for(const key of ['who','what','object','state','authority','context','techniqueId','authProfileId','boundaryId','actorId','objectId','authorityProfileId','signalId','invariantId'])defaults[key]=hypothesis[key]||'';defaults.hypothesisId=hypothesis.id;defaults.title=hypothesis.title;defaults.expectedResult=hypothesis.expectedBehavior;defaults.steps=hypothesis.discriminatingTest||target.techniques.find(t=>t.id===hypothesis.techniqueId)?.testTemplate||'';}
+  editDialog(row?'Edit Test Case':'Create Test Case',fields,{...defaults,...row},values=>{const {clean,evidenceIds}=extractEvidenceIds(values);ctx.store.upsert(target.id,'testCases',{...defaults,...(hypothesis?.knowledgeLinks?{knowledgeLinks:{...hypothesis.knowledgeLinks}}:{}),...row,...clean,evidenceIds});ctx.render();},form=>{formulaSuggestions(form,target);evidenceSelector(form,target,row?.evidenceIds||[]);optionalFormFields(form,['authProfileId','techniqueId','boundaryId','requestNotes','responseNotes','timestamp','notes'],'Authentication, boundary and request details');});
 }
 export function renderTests(ctx,target) {
   const root=el('div',{},ctx.heading('Test Cases','Catat langkah dan hasil pengujian manual. FAIL berarti security invariant gagal.',button('+ Create Test Case',()=>editTest(ctx,target),'primary')));

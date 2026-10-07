@@ -4,6 +4,7 @@ import {collections,migrateWorkspace} from './storage.js';
 import {emptyIntelligence,validateDomainPack} from './services/domain-schema.js';
 import {emptyAgentResearch,builtinTools,validateAgentResearch,validateToolInventory} from './services/agent-schema.js';
 import {validateResearchEnvironment} from './services/environment.js';
+import {validateResearchModel,snapshotResearchEvidence,repairResearchReferences} from './services/research-model.js';
 // MODULE: Central state; all mutations update timestamps and schedule persistence.
 export const freshWorkspace=()=>({schemaVersion:'2.0.0',applicationVersion:'2.0.0',updatedAt:now(),domainPacks:[],toolInventory:builtinTools(),targets:[]});
 export function newTarget(values) {
@@ -23,7 +24,8 @@ export function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
     addTarget(values){writable();const target=newTarget(values);target.agentResearch??=emptyAgentResearch();target.researchRevision??=0;state.targets.push(target);touch(target);return target;},
     updateTarget(id,values,{canonical=true}={}){writable();const target=this.target(id);if(!target) throw new Error('Target tidak ditemukan.');Object.assign(target,values);touch(target,canonical);},
     updateResearch(id,research,{canonical=false}={}){writable();validateAgentResearch(research);const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');if(research.messages?.some(m=>m.targetId!==id))throw new Error('Conversation target tidak valid.');target.agentResearch=structuredClone(research);touch(target,canonical);},
-    updateEnvironment(id,environment){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchEnvironment(environment,target);target.researchEnvironment=structuredClone(environment);for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId&&!environment.profiles.some(p=>p.id===row.authProfileId))row.authProfileId='';touch(target);},
+    updateEnvironment(id,environment){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchEnvironment(environment,target);target.researchEnvironment=structuredClone(environment);for(const row of [...target.hypotheses,...target.testCases])if(row.authProfileId&&!environment.profiles.some(p=>p.id===row.authProfileId))row.authProfileId='';repairResearchReferences(target);touch(target);},
+    updateResearchModel(id,model){writable();const target=this.target(id);if(!target)throw new Error('Target tidak ditemukan.');validateResearchModel(model,target);target.researchModel=snapshotResearchEvidence(model,target);target.agentResearch.replanFrom='hypothesis';touch(target);},
     saveTool(tool){writable();const tools=state.toolInventory.filter(t=>t.id!==tool.id);tools.push(tool);validateToolInventory(tools);state.toolInventory=tools;for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
     removeTool(id){writable();state.toolInventory=state.toolInventory.filter(t=>t.id!==id);for(const target of state.targets){target.researchRevision=(target.researchRevision||0)+1;invalidate(target);}touch();},
     deleteTarget(id){writable();state.targets=state.targets.filter(t=>t.id!==id);touch();},
@@ -48,7 +50,7 @@ export function createStore(initial=freshWorkspace(),{readOnly=false}={}) {
       if(collection==='testCases') {for(const f of target.findings) if(f.testCaseId===id) f.testCaseId='';for(const e of target.evidence) if(e.testCaseId===id) e.testCaseId='';}
       if(collection==='findings') for(const e of target.evidence) if(e.findingId===id) e.findingId='';
       if(collection==='evidence') for(const row of [...target.testCases,...target.findings]) row.evidenceIds=(row.evidenceIds||[]).filter(v=>v!==id);
-      touch(target);
+      repairResearchReferences(target);touch(target);
     },
     replace(input,{recover=false}={}){if(!recover)writable();const validated=migrateWorkspace(input);state=validated;if(recover)readOnly=false;notify();},
     reset(){writable();state=freshWorkspace();notify();}

@@ -1,5 +1,11 @@
 # Advanced Bug Bounty Research Workspace
 
+Navigasi utama sekarang mengikuti alur manual: Target → Scope → Target Understanding → Actors/Objects → Business Flow → Trust Boundaries → Techniques → Hypotheses → Tests → Evidence → Findings → FP/Duplicate Review → Report. Actors/Objects/Boundaries tersedia dari tab Attack Surface; pengaturan provider, inventory, dan backup dari Settings. Semua deep link lama tetap berlaku.
+
+Dashboard menampilkan **Next Manual Work** dari catatan yang sudah ada. Research Queue berada di bagian opsional Hypotheses; metadata tambahan pada form dapat dibuka tanpa kehilangan nilai yang tersimpan. Authorization Matrix dan State Transition dapat diteruskan melalui **Review Hypothesis** untuk diedit sebelum disimpan. Findings menampilkan checklist dan perbandingan lokal; researcher tetap menentukan validity, severity, dan status. **Manual Tools** tersedia dari Techniques.
+
+Scope/restrictions, pemilihan helper, dan recorded coverage diproses lokal tanpa provider. AI tetap opsional untuk reasoning. Identical advisor requests dapat memakai cache; perubahan evidence, policy, operation, atau model memerlukan analisis baru. Coverage dan kemiripan teks hanya membantu review, bukan jaminan keamanan atau keputusan duplicate.
+
 V2 menambahkan [Agentic AI Research](AGENTIC_RESEARCH_GUIDE.md): Start/Continue otomatis memilih specialist berikutnya, dengan review queue, manual analysis, tool inventory, history dan estimated budgets. Kedua flags AI/Agentic harus aktif untuk menjalankan orchestrator; semua core manual tetap tersedia.
 
 Pelajari bisnis sebelum menguji teknologi: buka **Target Intelligence** untuk profil dan klasifikasi sektor, lalu **Domain Knowledge**, **Terminology**, dan **Business Flows**. Panduan [Target Intelligence & Domain Knowledge](TARGET_INTELLIGENCE_GUIDE.md) menyediakan latihan Finance manual, provenance, custom packs, serta 11 operasi AI knowledge yang terpisah dari Research Assistant. Semua pembelajaran domain bekerja tanpa AI.

@@ -122,7 +122,7 @@ Status: Active
 
 ## Fungsi
 
-Ringkasan jumlah catatan, progress teknik, coverage, dan antrean target aktif.
+Next manual work for the selected target, followed by optional relationship analysis and recorded coverage.
 
 ## Kenapa Feature Ini Penting
 
@@ -138,14 +138,14 @@ CURRENT TARGET; hypotheses, test cases, findings, actors, objects, states, bound
 
 ## Output
 
-Hypotheses total; Tested; Interesting; Confirmed Findings; Rejected; Out of Scope; rasio coverage; progress bar per technique; antrean Next/Testing/Interesting.
+Scope review, hypothesis refinement, pending manual tests, missing evidence, result/finding review or report work. Agent progress and coverage remain optional details.
 
 ## Cara Menggunakan
 
-1. Pilih target di header.
-2. Buka Dashboard.
-3. Baca metrik, coverage dan queue.
-4. Buka Research Gaps atau buat hypothesis berikutnya.
+1. Select target.
+2. Follow Next Manual Work.
+3. Record actual results/evidence.
+4. Review findings and prepare reports.
 
 ## Contoh
 
@@ -157,7 +157,7 @@ Membaca data modul riset; tautan menuju Scope, mapping, Techniques, Hypotheses, 
 
 ## Tips
 
-Interesting menjumlah hypothesis status interesting dan test result interesting, sehingga bukan jumlah kasus unik. Confirmed Findings hanya menghitung status confirmed, bukan reported/resolved. Tested menghitung test selain not-tested. Progress bar adalah hasil tercatat / seluruh test yang dibuat per technique; bukan quota semua kemungkinan. AI status dan System Health berada di Settings, bukan panel Dashboard.
+Recorded coverage and agent progress are not security assurance. Technique progress bars and duplicate formula/summary widgets were removed.
 <a id="targets"></a>
 
 # Target Management
@@ -654,7 +654,7 @@ Status: Active
 
 ## Fungsi
 
-Antrean hypothesis dalam lima tahap pekerjaan yang dipilih manual.
+Optional planning view of the same hypotheses, available inside the Hypotheses page.
 
 ## Kenapa Feature Ini Penting
 
@@ -690,7 +690,7 @@ Queue milik Hypotheses; Dashboard menampilkan Next/Testing/Interesting.
 
 ## Tips
 
-Tidak ada drag-and-drop atau transisi otomatis. Done dapat berisi dugaan rejected maupun confirmed; Queue Done tidak sama dengan finding reported.
+The queue is collapsed on Hypotheses and available through the existing #queue deep link. Queue/status data remain distinct and preserved.
 <a id="evidence"></a>
 
 # Evidence
@@ -775,11 +775,11 @@ Example SaaS: Component Export Worker; Resource Export Demo; outcome akun B memp
 
 ## Hubungan dengan Feature Lain
 
-Affected Target berasal dari current target, bukan field independen. Source test/hypothesis menyediakan draft; checklist/analyzers/Reports memakai finding.
+Evidence -> Finding -> inline completeness/alternative/duplicate review -> Report. Manual duplicate details remain available from each finding.
 
 ## Tips
 
-Root cause tidak otomatis terbukti. P1–P5 bukan CVSS atau keputusan program. Menyimpan/mempromosikan tidak otomatis confirmed. Request/response notes test tidak langsung menjadi field finding; lampirkan bukti yang relevan.
+Inline completeness and text similarity do not establish validity, severity or duplicate status. Root cause remains a hypothesis and confirmation remains a researcher decision.
 <a id="reports"></a>
 
 # Report Generator
@@ -1058,11 +1058,11 @@ Owner → export → Project Demo diizinkan; Member revoked → export → Proje
 
 ## Hubungan dengan Feature Lain
 
-Menggunakan nama mapping sebagai teks; hasil menjadi referensi manual untuk hypothesis/test.
+Saved expected-control rows can open a reviewed Hypothesis, then a manual Test and Evidence.
 
 ## Tips
 
-Partial: belum menghasilkan matriks seluruh kombinasi atau test otomatis. Row tidak menambah coverage dan tidak memverifikasi permission aktual.
+Review Hypothesis copies expected controls into an editable draft. It does not infer permissions or confirm a vulnerability.
 <a id="helper-state-transition"></a>
 
 # State Transition Builder
@@ -1102,11 +1102,11 @@ active → revoked; action Owner mencabut Member; invariant Member tidak menerim
 
 ## Hubungan dengan Feature Lain
 
-Memberi bahan untuk Hypotheses/Tests dan mapping lifecycle manual.
+Saved transitions can open a reviewed Hypothesis with state/authority context.
 
 ## Tips
 
-Partial: row manual, bukan graph/state machine yang dieksekusi. Tidak mengubah object state target atau coverage secara otomatis.
+Expected transitions are researcher notes, not observations. Review the hypothesis before manual tests.
 <a id="helper-trust-boundary"></a>
 
 # Trust Boundary Mapper
@@ -1149,7 +1149,7 @@ Memakai Boundaries yang sama dengan Attack Surface/Tests/Coverage.
 
 ## Tips
 
-Ini shortcut modul, bukan generator graph atau mapping otomatis.
+Compatibility launcher retained but hidden in the normal helper picker. Map boundaries directly under Attack Surface.
 <a id="helper-evidence-comparator"></a>
 
 # Evidence Comparator
@@ -1457,7 +1457,7 @@ Shortcut ke Report Generator yang sama; tidak membuat template atau penyimpanan 
 
 ## Tips
 
-Membuka helper tidak langsung menyimpan draft. Periksa redaksi evidence dan field kosong sebelum export.
+Compatibility launcher retained but hidden in the normal helper picker. Findings -> Generate Report opens the canonical report workspace.
 <a id="helper-gap-analyzer"></a>
 
 # Research Gap Analyzer — Helper
@@ -1501,7 +1501,7 @@ Memakai Coverage service yang sama, berbeda dari AI Gap Analyzer.
 
 ## Tips
 
-Partial: menghitung catatan, bukan seluruh kombinasi atau inspeksi evidence. Missing revocation/async/cross-surface memakai kata technique/state.
+Compatibility view retained but hidden in the normal helper picker. Dashboard -> Research Gaps uses the same analysis.
 <a id="coverage"></a>
 
 # Research Gaps dan Research Coverage
@@ -1542,11 +1542,11 @@ Actor 1 / 2: Member mempunyai hasil test, Owner belum. Boundary 0 / 1 tetap nol 
 
 ## Hubungan dengan Feature Lain
 
-Dashboard dan helper Gap Analyzer memakai perhitungan sama; AI Gap Analyzer memberi saran draft tambahan.
+One deterministic analyzer powers recorded coverage, the legacy gap helper and #ai-gaps compatibility view.
 
 ## Tips
 
-Partial: PASS/FAIL/INCONCLUSIVE/VULNERABILITY semua dihitung sebagai tercatat, bukan aman. Actor/object/state teks harus cocok persis; teknik/boundary lewat ID. 0 / 0 berarti belum dipetakan, bukan complete. Pesan lifecycle membaca kata nama technique + test.state, bukan langkah/evidence; tidak mengukur setiap kombinasi.
+Partial recorded coverage only. Actor/object IDs take precedence; legacy WHO/OBJECT snapshots fall back to names. Lifecycle messages are heuristic, not proof of untested vulnerability classes.
 <a id="research-priority"></a>
 
 # Research Priority
@@ -1778,20 +1778,20 @@ Semua operasi memakai context preview, schema output, policy filter dan provider
 | Operation | Label UI / referensi | Kapan | Output utama |
 | --- | --- | --- | --- |
 | `research_advice` | [Research Assistant](#ai) | Sesudah target/scope/mapping terisi atau ketika arah riset belum jelas. | Structured JSON scope assessment/rules, recommendations, safe next steps/avoid/stop/missing context, confidence 0–1, questions/hypotheses/finding analysis/research priority/gaps/report draft; field tidak relevan dapat kosong. |
-| `analyze_scope` | [AI Analyze Scope](#ai-analyze-scope) | Sesudah mengisi Scope dan ketika ketentuan belum jelas. | Scope assessment dari hard policy, rules, missingContext, pertanyaan dan saran review. |
+| `analyze_scope` | [AI Analyze Scope](#ai-analyze-scope) | Sesudah mengisi Scope dan ketika ketentuan belum jelas. | Supplied-scope assessment, recorded restrictions, missing external verification and stop conditions. |
 | `recommend_techniques` | [AI Technique Advisor](#ai-techniques) | Sesudah mapping atau saat memilih prioritas baru. | recommendedTechniques: name, priority 0–100, reason, securityInvariant; researchPriority umum dan missing context. |
 | `recommend_tools` | [AI Tool Advisor](#ai-tools) | Sesudah memilih technique dan sebelum menyiapkan test manual. | toolSuggestions dengan id/name/category/purpose/usageMode manual/whyUseful/scopeWarning; tool di luar kandidat dihapus. |
-| `recommend_helpers` | [AI Helper Advisor](#ai-helper-advisor) | Saat mapping, evidence preparation, atau review finding. | helperSuggestions id/name/purpose yang harus cocok katalog internal. |
+| `recommend_helpers` | [AI Helper Advisor](#ai-helper-advisor) | Saat mapping, evidence preparation, atau review finding. | Existing helper IDs/names matching mapped context, evidence and findings. |
 | `research_questions` | [AI Research Questions](#ai-questions) | Saat mapping awal atau hasil test masih inconclusive. | researchQuestions dan missingContext serta struktur umum AI. |
 | `generate_hypotheses` | [AI Hypothesis Generator](#ai-hypothesis-generator) | Sesudah mapping/technique selection dan sebelum test. | Draft title/technique/invariant/expectedBehavior/potentialFailure/enam dimensi; tombol Review Hypothesis membuka editor. |
 | `analyze_finding` | [AI Finding Analyzer](#ai-findings) | Sesudah finding draft dan evidence disiapkan. | findingAnalysis: assessment, potentialClass, brokenInvariant, potentialRootCause, falsePositiveChecks, missingEvidence, potentialImpact, duplicateRisk, safeValidation; priority/confidence umum. |
 | `false_positive_analysis` | [AI False Positive Analyzer](#ai-false-positive) | Sesudah finding draft dan sebelum confirmation/report. | falsePositiveChecks, missingEvidence, safeValidation dan assessment Hypothesis pada finding analysis. |
 | `duplicate_analysis` | [AI Duplicate Analyzer](#ai-duplicate) | Sesudah finding dan known issues/KB pembanding tersedia. | duplicateRisk Likely Unique/Possible Variant/Likely Duplicate/Unknown dalam findingAnalysis, confidence/missing context dan saran review. |
-| `gap_analysis` | [AI Gap Analyzer](#ai-gaps) | Saat merencanakan sesi baru setelah mencatat hasil test. | gapAnalysis, researchQuestions, safeNextSteps dan priority draft. |
+| `gap_analysis` | [AI Gap Analyzer](#ai-gaps) | Saat merencanakan sesi baru setelah mencatat hasil test. | Recorded dimensions and untested mapped entries, without a model call. |
 | `improve_report` | [AI Report Assistant](#ai-report-assistant) | Sesudah report awal dan finding/evidence direview. | reportDraft, tombol Preview / Edit Report Draft; Save memperbarui reportMarkdown sumber dan menandai suggestion accepted. |
 | `evidence_summary` | [AI Evidence Summarizer](#ai-evidence-summary) | Sesudah evidence redacted dan sebelum analisis/report. | Saran naratif dalam structured result, terutama findingAnalysis/safeNextSteps/missingContext bila relevan. Tidak ada field terpisah evidenceSummary atau artifact ringkasan otomatis. |
 | `safe_next_steps` | [AI Safe Next Steps](#ai-safe-next-steps) | Ketika hasil inconclusive atau missing evidence masih ada. | safeNextSteps, avoid, stopConditions dan missingContext. |
-| `identify_restrictions` | [AI Restrictions](#ai-restrictions) | Sebelum test dan setiap rules/arsitektur berubah. | rules final dari policy, avoid, stopConditions, missing context dan saran review. |
+| `identify_restrictions` | [AI Restrictions](#ai-restrictions) | Sebelum test dan setiap rules/arsitektur berubah. | Recorded policy restrictions and manual review limits. |
 | `generate_target_knowledge` | [Generate Target Knowledge](#knowledge-op-generate_target_knowledge) | Sebelum mapping riset target. | items berjenis overview/model/actor/object/asset/data/flow/term/boundary/invariant/question dan unknownInformation. |
 | `analyze_target` | [Analyze Target](#knowledge-op-analyze_target) | Saat profil target mulai lengkap. | Penjelasan, missing/unknown informasi dan pertanyaan review. |
 | `suggest_domains` | [Suggest Domain](#knowledge-op-suggest_domains) | Sebelum menentukan sektor utama. | suggestedDomains dengan reason/confidence; klasifikasi akhir harus disetujui peneliti. |
@@ -1811,7 +1811,7 @@ Status: Active
 
 ## Fungsi
 
-Saran review scope dan konteks izin berdasarkan catatan yang supplied.
+Compatibility operation using the local scope/policy checker, without a provider call.
 
 ## Kenapa Feature Ini Penting
 
@@ -1827,14 +1827,11 @@ Operation analyze_scope; profil target, scope/guard/rules, research goal/notes.
 
 ## Output
 
-Scope assessment dari hard policy, rules, missingContext, pertanyaan dan saran review.
+Supplied-scope assessment, recorded restrictions, missing external verification and stop conditions.
 
 ## Cara Menggunakan
 
-1. Research Assistant → Analyze Scope.
-2. Isi pertanyaan batas izin.
-3. Preview → Send.
-4. Perbaiki Scope/Guard sendiri dari hasil review.
+Use Scope or Scope Checker. The existing analyze_scope API operation delegates to local processing.
 
 ## Contoh
 
@@ -1846,7 +1843,7 @@ Rules Engine menetapkan assessment final; AI tidak mengubah scope atau flags.
 
 ## Tips
 
-Tidak mengambil halaman program atau memastikan izin secara independen. Assessment supplied scope memakai batasan Scope Checker yang sama.
+Supplied rules are not independently verified. Use optional Research Assistant for interpretation requiring reasoning.
 <a id="ai-techniques"></a>
 
 # AI Technique Advisor
@@ -1944,7 +1941,7 @@ Status: Active
 
 ## Fungsi
 
-Merekomendasikan helper internal dari katalog yang sudah tersedia.
+Compatibility operation selecting relevant existing helpers from supplied records locally.
 
 ## Kenapa Feature Ini Penting
 
@@ -1960,14 +1957,11 @@ Operation recommend_helpers; target/mapping/research goal dan context.
 
 ## Output
 
-helperSuggestions id/name/purpose yang harus cocok katalog internal.
+Existing helper IDs/names matching mapped context, evidence and findings.
 
 ## Cara Menggunakan
 
-1. Research Assistant → Helper Advisor.
-2. Isi kebutuhan.
-3. Preview → Send.
-4. Buka Internal Helpers dan pilih nama yang disarankan sendiri.
+Use Internal Helpers; recommend_helpers requires no model call.
 
 ## Contoh
 
@@ -1979,7 +1973,7 @@ HELPER_KB membatasi nama; helper lokal menyediakan action sebenarnya.
 
 ## Tips
 
-Rekomendasi tidak menjalankan helper atau otomatis menyimpan row. Helper tetap dapat dipilih manual saat AI disabled.
+Selection does not execute a helper or create canonical records.
 <a id="ai-questions"></a>
 
 # AI Research Questions
@@ -2211,7 +2205,7 @@ Status: Active
 
 ## Fungsi
 
-Saran gap riset dari mapping dan test yang supplied ke model.
+Merged with deterministic recorded research coverage; the #ai-gaps link remains supported.
 
 ## Kenapa Feature Ini Penting
 
@@ -2227,14 +2221,11 @@ Operation gap_analysis; actor/object/boundary/technique/hypothesis/test context,
 
 ## Output
 
-gapAnalysis, researchQuestions, safeNextSteps dan priority draft.
+Recorded dimensions and untested mapped entries, without a model call.
 
 ## Cara Menggunakan
 
-1. AI Gap Analyzer → pilih Operation yang benar.
-2. Preview → Send.
-3. Bandingkan saran dengan Research Gaps lokal.
-4. Buat hypothesis/test yang relevan.
+Dashboard -> Research Gaps. The gap_analysis operation uses the same local analyzer.
 
 ## Contoh
 
@@ -2246,7 +2237,7 @@ Membaca context riset; tidak mengubah coverage lokal atau otomatis membuat test.
 
 ## Tips
 
-AI suggestions bukan score coverage atau bukti semua kombinasi sudah diuji. Gunakan rasio lokal untuk catatan tercatat dan review semantic manual.
+Semantic research questions still belong in optional Research Assistant. Recorded counts are not security conclusions.
 <a id="ai-report-assistant"></a>
 
 # AI Report Assistant
@@ -2388,7 +2379,7 @@ Status: Active
 
 ## Fungsi
 
-Saran review pembatasan dari program rules dan scope yang dicatat.
+Compatibility operation that returns recorded hard rules locally, without a provider call.
 
 ## Kenapa Feature Ini Penting
 
@@ -2404,14 +2395,11 @@ Operation identify_restrictions; scope testing/automation rules, flags, rate lim
 
 ## Output
 
-rules final dari policy, avoid, stopConditions, missing context dan saran review.
+Recorded policy restrictions and manual review limits.
 
 ## Cara Menggunakan
 
-1. Pilih Restrictions.
-2. Isi tujuan pengujian.
-3. Preview → Send.
-4. Cocokkan dengan ketentuan asli dan perbarui Scope sendiri.
+Use Scope and its recorded restrictions. The identify_restrictions operation remains compatible.
 
 ## Contoh
 
@@ -2423,7 +2411,7 @@ Rules Engine mempertahankan prioritas program rules; tidak mengubah flags.
 
 ## Tips
 
-Tidak menafsirkan izin hukum absolut atau mengambil ketentuan terbaru dari Program URL. Output rules yang authoritative berasal dari catatan policy, bukan izin yang diciptakan AI.
+No legal guarantee, policy fetching or model-generated permission.
 <a id="ai-review"></a>
 
 # AI Suggestions — Preview, Accept, Edit, Reject
